@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://cixgyllywifb2"]
+
+[ext_resource type="PackedScene" uid="uid://je4kc6eqa6ml" path="res://Escenas/Suelo.tscn" id="1_qbrn0"]
+[ext_resource type="PackedScene" uid="uid://6igeb67om02i" path="res://Escenas/Unidad.tscn" id="2_e8t1n"]
+[ext_resource type="Script" uid="uid://bvdlol81y4g7f" path="res://Scripts/camera_3d.gd" id="4_s3uta"]
+
+[sub_resource type="GDScript" id="GDScript_e8t1n"]
+
+[node name="Level" type="Node3D" unique_id=963361166]
+script = SubResource("GDScript_e8t1n")
+
+[node name="Suelo" parent="." unique_id=721908082 instance=ExtResource("1_qbrn0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+
+[node name="Unidad" parent="." unique_id=1803103505 instance=ExtResource("2_e8t1n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0500001, -1)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1152476122]
+transform = Transform3D(-0.7104337, 0.46202737, -0.53086215, 0, 0.7543183, 0.65650886, 0.7037641, 0.46640605, -0.53589314, -7.7714233, 7.657217, -8.794382)
+fov = 66.0
+script = ExtResource("4_s3uta")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=947510717]
+transform = Transform3D(-0.70710677, -0.61237246, 0.35355338, 0, 0.49999997, 0.86602545, -0.70710677, 0.61237246, -0.35355338, 24, 27.865215, -25.969547)

@@ -2,11 +2,21 @@
 
 [ext_resource type="PackedScene" uid="uid://je4kc6eqa6ml" path="res://Escenas/Suelo.tscn" id="1_qbrn0"]
 [ext_resource type="PackedScene" uid="uid://6igeb67om02i" path="res://Escenas/Unidad.tscn" id="2_e8t1n"]
+[ext_resource type="Script" uid="uid://bvdlol81y4g7f" path="res://Scripts/camera_3d.gd" id="4_s3uta"]
 
-[node name="Node3D" type="Node3D" unique_id=963361166]
+[node name="Level" type="Node3D" unique_id=1295018767]
 
-[node name="Node3D" parent="." unique_id=721908082 instance=ExtResource("1_qbrn0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+[node name="Suelo" parent="." unique_id=721908082 instance=ExtResource("1_qbrn0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 1)
 
-[node name="Node3D2" parent="." unique_id=1803103505 instance=ExtResource("2_e8t1n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09093082, -1)
+[node name="Unidad" parent="." unique_id=1688446011 instance=ExtResource("2_e8t1n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.125, 1)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1951622980 node_paths=PackedStringArray("unidad")]
+transform = Transform3D(0.70710677, 0.45451948, -0.5416752, 0, 0.76604444, 0.64278764, 0.70710677, -0.45451948, 0.5416752, -7.501831, 8.874756, 9.58374)
+fov = 60.0
+script = ExtResource("4_s3uta")
+unidad = NodePath("../Unidad")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=970184165]
+transform = Transform3D(-0.70710677, 0.5416752, -0.45451948, 0, 0.64278764, 0.76604444, 0.70710677, 0.5416752, -0.45451948, -24, 20, -24)
