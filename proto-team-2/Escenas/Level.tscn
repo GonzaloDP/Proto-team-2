@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cixgyllywifb2"]
+
+[ext_resource type="PackedScene" uid="uid://je4kc6eqa6ml" path="res://Escenas/Suelo.tscn" id="1_qbrn0"]
+[ext_resource type="PackedScene" uid="uid://6igeb67om02i" path="res://Escenas/Unidad.tscn" id="2_e8t1n"]
+
+[node name="Node3D" type="Node3D" unique_id=963361166]
+
+[node name="Node3D" parent="." unique_id=721908082 instance=ExtResource("1_qbrn0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+
+[node name="Node3D2" parent="." unique_id=1803103505 instance=ExtResource("2_e8t1n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09093082, -1)
