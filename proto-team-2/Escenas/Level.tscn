@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://je4kc6eqa6ml" path="res://Escenas/Suelo.tscn" id="1_qbrn0"]
 [ext_resource type="PackedScene" uid="uid://6igeb67om02i" path="res://Escenas/Unidad.tscn" id="2_e8t1n"]
+[ext_resource type="PackedScene" uid="uid://bn6d2v3lbapoo" path="res://Escenas/Recurso.tscn" id="3_e8t1n"]
 
 [node name="Node3D" type="Node3D" unique_id=963361166]
 
@@ -10,3 +11,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
 
 [node name="Node3D2" parent="." unique_id=1803103505 instance=ExtResource("2_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09093082, -1)
+
+[node name="Recurso" parent="." unique_id=1863188596 instance=ExtResource("3_e8t1n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5757017, 0)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=547854777]
+transform = Transform3D(0.6378723, -0.40603963, 0.6544087, 0, 0.8497246, 0.52722687, -0.77014214, -0.3363034, 0.54201573, 6.3499217, 6.9178953, 6.3000135)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=48548983]
+transform = Transform3D(1, 0, 0, 0, -0.0041241967, 0.9999915, 0, -0.9999915, -0.0041241967, 0, 12.879479, 0)
