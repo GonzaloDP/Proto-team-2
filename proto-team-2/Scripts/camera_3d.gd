@@ -50,7 +50,7 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 				unidad.set_move_target(click_world_position)
 
 func seleccionar_unidad(mouse_pos: Vector2) -> void:
-	selected_units.clear()
+	deseleccionar_todas()
 	
 	var space_state = get_world_3d().direct_space_state
 	var ray_origin = project_ray_origin(mouse_pos) 
@@ -64,11 +64,10 @@ func seleccionar_unidad(mouse_pos: Vector2) -> void:
 		
 		if objeto is CharacterBody3D:
 			selected_units.append(objeto)
-			print(selected_units)
+			mostrar_indicador(objeto)
 
 func seleccionar_unidades_en_rectangulo() -> void:
-	selected_units.clear()
-	
+	deseleccionar_todas()
 	var rectangulo = Rect2(posicion_inicio_seleccion, posicion_actual_mouse - posicion_inicio_seleccion).abs()
 	var unidades = get_tree().get_nodes_in_group("unidades")
 	
@@ -77,4 +76,17 @@ func seleccionar_unidades_en_rectangulo() -> void:
 		
 		if rectangulo.has_point(posicion_pantalla):
 			selected_units.append(unidad)
-			print(selected_units)
+			mostrar_indicador(unidad)
+
+func mostrar_indicador(unidad: CharacterBody3D) -> void:
+	var indicador = unidad.get_node("SelectionMesh")
+	indicador.visible = true
+func ocultar_indicador(unidad: CharacterBody3D) -> void:
+	var indicador = unidad.get_node("SelectionMesh")
+	indicador.visible = false
+
+func deseleccionar_todas() -> void:
+	for unidad in selected_units:
+		ocultar_indicador(unidad)
+	
+	selected_units.clear()

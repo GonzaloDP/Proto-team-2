@@ -6,6 +6,15 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_g4v7s"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1icel"]
+shading_mode = 0
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_austa"]
+material = SubResource("StandardMaterial3D_1icel")
+radius = 0.25
+height = 0.5
+
 [node name="Unidad" type="CharacterBody3D" unique_id=1688446011 groups=["unidades"]]
 script = ExtResource("1_s5656")
 
@@ -14,3 +23,8 @@ shape = SubResource("CapsuleShape3D_yf5fn")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=355409072]
 mesh = SubResource("CapsuleMesh_g4v7s")
+
+[node name="SelectionMesh" type="MeshInstance3D" parent="." unique_id=1883805817]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8009903, 0)
+visible = false
+mesh = SubResource("SphereMesh_austa")
