@@ -1,21 +1,33 @@
 extends CharacterBody3D
+class_name Unidad
 
-@export var speed: float = 6.0
+@export var moveSpeed: float = 6.0	#Esta variable controla la velocidad de desplazamiento de la unidad.
+@export var constructionSpeed : int = 5	#La cantidad de puntos de construcción que la unidad aporta mientras construye. Mientras más, más rápido se crea el edificio.
+@export var collectionSpeed: int = 10 #Igual que la constructionSpeed, pero afecta la recolección.
+@export var breedingSpeed: int = 5 #Mientras más alta sea esta variable, menos tiempo tardará la unidad en salir del edificio de reproducción.
+@export var initialSatiety: int = 10 #El valor inicial de saciedad de la unidad. Disminuye con el tiempo (debería), y al quedarse sin, la unidad no podrá trabajar.
+var satiety	#Este es el valor de saciedad "real" de la unidad, es decir el que se modifica y se chequea para ver si tiene hambre o no.
+var traitList: Array[Rasgo]	#Un array que contiene todos los rasgos de la unidad.
+
 var target_position: Vector3
 
 func _ready() -> void:
+#	traitList.append(Rasgo.new("Movement Speed", 10)) Esta línea de código es puramente de Debug. Es simplemente un rasgo de prueba para mostrar que el sistema funciona. Luego lo borramos, okay?
+	satiety = initialSatiety
 	target_position = global_position
+	applyTraits()	#Al inicializar a la unidad, esta recorre su lista de rasgos y aplica las modificaciones correspondientes. Ya preveo que esto puede resultar en un bug, quizás sería prudente que la unidad aplique las modificaciones en un paso posterior a ser creada, para dar tiempo a cargarle sus rasgos.
+	
 
-func set_move_target(new_target: Vector3) -> void:
+func set_move_target(new_target: Vector3):
 	target_position = Vector3(new_target.x, global_position.y, new_target.z)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(delta: float):
 	var distance_to_target = global_position.distance_to(target_position)
 	
 
 	if distance_to_target > 0.1:
 		var direction = (target_position - global_position).normalized()
-		velocity = direction * speed
+		velocity = direction * moveSpeed
 		
 		
 		var look_target = Vector3(target_position.x, global_position.y, target_position.z)
@@ -25,3 +37,21 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 	else:
 		velocity = Vector3.ZERO
+
+func modifyAttribute(attribute: String, value: int):	#Función que mejora los atributos de la unidad. Recibe un String (en inglés común), que se compara con un switch, y un value por el cual aumentar el valor de atributo.
+	match(attribute):
+		"Movement Speed":
+			moveSpeed += value
+		"Construction Speed":
+			constructionSpeed += value
+		"Collection Speed":
+			collectionSpeed += value
+		"Breeding Speed":
+			breedingSpeed += value
+		"Satiety":
+			initialSatiety += value
+
+func applyTraits():	#Recorre todos los rasgos en el array traitList, y pide a cada uno que aplique su efecto.
+	for each in traitList:
+		each.host = self
+		each.applyTrait()
