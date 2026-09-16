@@ -46,15 +46,13 @@ script = ExtResource("6_o7ik0")
 script = ExtResource("7_418oe")
 
 [node name="CameraPosition" type="Node3D" parent="." unique_id=1062928163]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
 script = ExtResource("8_hc14g")
 
 [node name="CameraRotationX" type="Node3D" parent="CameraPosition" unique_id=1610048915]
 
 [node name="CameraZoomPivot" type="Node3D" parent="CameraPosition/CameraRotationX" unique_id=2091394290]
-transform = Transform3D(1, 0, 0, 0, 0.76604444, 0.6427876, 0, -0.6427876, 0.76604444, 0, 6.809006, 6.0984364)
 
 [node name="Camera3D2" type="Camera3D" parent="CameraPosition/CameraRotationX/CameraZoomPivot" unique_id=1951622980]
-transform = Transform3D(1.0000001, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+transform = Transform3D(0.7071068, 0.45451948, -0.5416752, 0, 0.76604444, 0.64278764, 0.7071068, -0.45451948, 0.5416752, -7.501831, 8.874756, 9.58374)
 fov = 60.0
 script = ExtResource("4_s3uta")
