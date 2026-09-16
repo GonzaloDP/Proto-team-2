@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b6phliso32eq2"]
+
+[ext_resource type="Script" uid="uid://1pybyvquq00k" path="res://Scripts/tooltip.gd" id="1_8f4ox"]
+
+[node name="Tooltip" type="Panel" unique_id=329360181]
+offset_right = 233.0
+offset_bottom = 69.0
+mouse_filter = 2
+script = ExtResource("1_8f4ox")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=42690611]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MarginContainer" unique_id=331930441]
+layout_mode = 2
