@@ -6,14 +6,21 @@ extends Node3D
 
 var move_target : Vector3
 var edge_size = 5.0
-var scroll_speed = 200
+var scroll_speed = 20
+var zoom_speed = 3.0
+var zoom_target : float
+var min_zoom = -5
+var max_zoom = 20
 
 func _ready() -> void:
 	move_target = position
+	zoom_target = camara.position.z
 	
 func _process(delta: float) -> void:
 	var mouse_pos = get_viewport().get_mouse_position()
 	var viewport_size = get_viewport().get_visible_rect().size
+	var zoom_dir = (int(Input.is_action_just_released("camara_zoom_out")) -
+					int(Input.is_action_just_released("camara_zoom_in")))
 	
 	#edge scroll
 	var scroll_direction = Vector3.ZERO
@@ -28,5 +35,8 @@ func _process(delta: float) -> void:
 		scroll_direction.z = 1
 	move_target += transform.basis * scroll_direction * scroll_speed * delta
 	
+	zoom_target += zoom_dir * zoom_speed
+	zoom_target = clamp(zoom_target,min_zoom,max_zoom)
 	
-	position = lerp(position, move_target, 1.0 * delta)
+	position = move_target
+	camara.position.z = lerp(camara.position.z, zoom_target, 0.10)
