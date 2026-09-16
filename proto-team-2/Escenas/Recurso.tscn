@@ -9,13 +9,11 @@ material = SubResource("StandardMaterial3D_e8t1n")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_austa"]
 
-[node name="Recurso" type="Node3D" unique_id=1863188596]
+[node name="Recurso" type="StaticBody3D" unique_id=1250565611]
 script = ExtResource("1_rkgit")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1037191597]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1099368702]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1099368702]
 mesh = SubResource("BoxMesh_1icel")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=357680996]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=357680996]
 shape = SubResource("BoxShape3D_austa")
