@@ -28,3 +28,8 @@ mesh = SubResource("CapsuleMesh_g4v7s")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8009903, 0)
 visible = false
 mesh = SubResource("SphereMesh_austa")
+
+[node name="CollectionTimer" type="Timer" parent="." unique_id=632771040]
+one_shot = true
+
+[connection signal="timeout" from="CollectionTimer" to="." method="gatherResource"]

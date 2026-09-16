@@ -3,11 +3,12 @@ class_name Unidad
 
 @export var moveSpeed: float = 6.0	#Esta variable controla la velocidad de desplazamiento de la unidad.
 @export var constructionSpeed : int = 5	#La cantidad de puntos de construcción que la unidad aporta mientras construye. Mientras más, más rápido se crea el edificio.
-@export var collectionSpeed: int = 10 #Igual que la constructionSpeed, pero afecta la recolección.
+@export var collectionSpeed: float = 10 #Igual que la constructionSpeed, pero afecta la recolección.
 @export var breedingSpeed: int = 5 #Mientras más alta sea esta variable, menos tiempo tardará la unidad en salir del edificio de reproducción.
 @export var initialSatiety: int = 10 #El valor inicial de saciedad de la unidad. Disminuye con el tiempo (debería), y al quedarse sin, la unidad no podrá trabajar.
 var satiety	#Este es el valor de saciedad "real" de la unidad, es decir el que se modifica y se chequea para ver si tiene hambre o no.
 var traitList: Array[Rasgo]	#Un array que contiene todos los rasgos de la unidad.
+var target_resource : Recurso
 
 var target_position: Vector3
 
@@ -55,3 +56,25 @@ func applyTraits():	#Recorre todos los rasgos en el array traitList, y pide a ca
 	for each in traitList:
 		each.host = self
 		each.applyTrait()
+		
+func seekResource(resource: Recurso):	#Al detectar un recurso, lo primero que hace es chequear que el recurso no esté vacío. Si lo está, no hace nada.
+	if(resource.cantidad_variable == 0):
+		pass
+	else:		#Si el recurso aún tiene para dar, entonces comprobamos que no hayamos inicializado el timer de recurso todavía. Esto es para evitar una situación en la que un jugador impaciente reinicie el timer una y otra vez.
+		if($CollectionTimer.is_stopped()):
+			set_move_target(resource.position)
+			$CollectionTimer.start(10/collectionSpeed)	#Inicializamos el timer. Por defecto la duración es 10/collectionSpeed. Lo que nos da por defecto 1 segundo entre recolecciones.
+		target_resource = resource
+		
+func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta función.
+	if(target_resource):	#Si hay un recurso objetivo seguimos. Al dar otra orden, se borra el recurso objetivo, lo que podría causar un crash.
+		if(target_resource.cantidad_variable > 0):	#¿Sigue habiendo recursos que recolectar?
+			if(position.distance_to(target_resource.position) < 5):	#Si la unidad está lo suficientemente cerca, se detiene (target de movimiento a su propa posición), recoge 10 recursos.
+				set_move_target(position)
+				target_resource.reduceQuantity(10)
+			else:
+				set_move_target(target_resource.position)
+			$CollectionTimer.start(10/collectionSpeed)	#De todos modos, se reinicia el timer.
+		else:	#Si no hay más recursos, entonces ya no estamos haciendo nada. Acá es adonde mandaría una alerta al jugador de que está inactivo.
+			target_resource = null
+		

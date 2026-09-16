@@ -29,3 +29,8 @@ func get_names() -> String:
 			return "Metal"
 	
 	return "Desconocido"
+	
+func reduceQuantity(quantity: int):	#Recibe un int, y reduce la cantidad de recursos restantes por ese número. Si la cantidad de recursos restantes tras la operación fuese menor a 0, se redondea a 0.
+	cantidad_variable -= quantity
+	if(cantidad_variable < 0):
+		cantidad_inicial = 0 
