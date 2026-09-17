@@ -9,7 +9,7 @@ func _process(delta: float) -> void:
 	pass
 
 func mostrar(nombre: String, cantidad: int):
-	label.text = nombre + "cantidad: " + str(cantidad)
+	label.text = nombre  + "\nCantidad: " + str(cantidad)
 	show()
 
 func ocultar():

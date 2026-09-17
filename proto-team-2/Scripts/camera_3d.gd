@@ -43,11 +43,18 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 	
 	
 	if result:
-		var click_world_position: Vector3 = result.position
 		
-		for unidad in selected_units:
-			if is_instance_valid(unidad):
-				unidad.set_move_target(click_world_position)
+		if (result.collider is Recurso):	#Si hacemos clic derecho sobre un recurso, envía a las unidades la señal de ir a recolectarlo. El resto de la lógica la realiza la unidad misma.
+			for unidad in selected_units:
+				if is_instance_valid(unidad):
+					unidad.seekResource(result.collider)
+		
+		else:
+			var click_world_position: Vector3 = result.position
+			for unidad in selected_units:
+				if is_instance_valid(unidad):
+					unidad.target_resource = null	#Al dar una orden de movimiento, se anulan los objetivos anteriores de la unidad. Esto podría transformarse en un método luego, el cual anule TODOS los objetivos (Como construir, recolectar o reproducirse)
+					unidad.set_move_target(click_world_position)
 
 func seleccionar_unidad(mouse_pos: Vector2) -> void:
 	deseleccionar_todas()
