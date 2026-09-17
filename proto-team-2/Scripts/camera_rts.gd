@@ -11,11 +11,20 @@ var zoom_speed = 3.0
 var zoom_target : float
 var min_zoom = -5
 var max_zoom = 20
+var mouse_sensitivity = 0.2
+var rotate_target : float
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion and Input.is_action_pressed("rotar"):
+		rotate_target -= event.relative.x * mouse_sensitivity
+		rotation_x.rotation_degrees.x -= event.relative.y * mouse_sensitivity
+		rotation_x.rotation_degrees.x = clamp(rotation_x.rotation_degrees.x, -10, 30)
+
 
 func _ready() -> void:
 	move_target = position
 	zoom_target = camara.position.z
-	
+	rotate_target = rotation_degrees.y
 func _process(delta: float) -> void:
 	var mouse_pos = get_viewport().get_mouse_position()
 	var viewport_size = get_viewport().get_visible_rect().size
@@ -40,3 +49,4 @@ func _process(delta: float) -> void:
 	
 	position = move_target
 	camara.position.z = lerp(camara.position.z, zoom_target, 0.10)
+	rotation_degrees.y =lerp(rotation_degrees.y, rotate_target, 0.05)
