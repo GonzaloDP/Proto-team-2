@@ -1,6 +1,8 @@
 extends CharacterBody3D
 class_name Unidad
 
+@onready var inventario: Inventario = get_tree().current_scene.get_node("Inventario")
+
 @export var moveSpeed: float = 6.0	#Esta variable controla la velocidad de desplazamiento de la unidad.
 @export var constructionSpeed : int = 5	#La cantidad de puntos de construcción que la unidad aporta mientras construye. Mientras más, más rápido se crea el edificio.
 @export var collectionSpeed: float = 10 #Igual que la constructionSpeed, pero afecta la recolección.
@@ -9,6 +11,7 @@ class_name Unidad
 var satiety	#Este es el valor de saciedad "real" de la unidad, es decir el que se modifica y se chequea para ver si tiene hambre o no.
 var traitList: Array[Rasgo]	#Un array que contiene todos los rasgos de la unidad.
 var target_resource : Recurso
+
 
 var target_position: Vector3
 
@@ -72,6 +75,7 @@ func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta
 			if(position.distance_to(target_resource.position) < 5):	#Si la unidad está lo suficientemente cerca, se detiene (target de movimiento a su propa posición), recoge 10 recursos.
 				set_move_target(position)
 				target_resource.reduceQuantity(10)
+				inventario.agregar_recurso(target_resource.tipo, 10)
 			else:
 				set_move_target(target_resource.position)
 			$CollectionTimer.start(10/collectionSpeed)	#De todos modos, se reinicia el timer.
