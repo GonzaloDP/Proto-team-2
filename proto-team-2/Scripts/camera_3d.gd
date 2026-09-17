@@ -1,6 +1,7 @@
 extends Camera3D
 
-@onready var selection_box = $"../UI/SelectionBox"
+@onready var selection_box = $"../../../../UI/SelectionBox"
+
 
 #@export var unidad: CharacterBody3D
 
@@ -8,6 +9,7 @@ var selected_units: Array[CharacterBody3D] = []
 var seleccionando: bool = false
 var posicion_inicio_seleccion: Vector2
 var posicion_actual_mouse: Vector2
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:

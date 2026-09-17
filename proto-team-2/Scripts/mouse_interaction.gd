@@ -1,6 +1,6 @@
 extends Node
 
-@onready var camera: Camera3D = $"../Camera3D2"
+@onready var camera: Camera3D = $"../CameraPosition/CameraRotationX/CameraZoomPivot/Camera3D2"
 @onready var tooltip = $"../UI/Tooltip"
 
 func _ready() -> void:
