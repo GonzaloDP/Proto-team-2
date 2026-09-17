@@ -6,10 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://bn6d2v3lbapoo" path="res://Escenas/Recurso.tscn" id="3_e8t1n"]
 [ext_resource type="Script" uid="uid://bvdlol81y4g7f" path="res://Scripts/camera_3d.gd" id="4_s3uta"]
 [ext_resource type="PackedScene" uid="uid://b6phliso32eq2" path="res://Escenas/Tooltip.tscn" id="6_418oe"]
-[ext_resource type="PackedScene" uid="uid://dxwtmug6edfw3" path="res://Escenas/Inventario.tscn" id="6_hc14g"]
 [ext_resource type="Script" uid="uid://bhryiebrp0c5" path="res://Scripts/selection_box.gd" id="6_o7ik0"]
 [ext_resource type="Script" uid="uid://dmcxvn345x7nl" path="res://Scripts/mouse_interaction.gd" id="7_418oe"]
-[ext_resource type="Script" uid="uid://deqso77pqnruo" path="res://Scripts/inventario_ui.gd" id="9_kcfce"]
 [ext_resource type="Script" uid="uid://c8wov27agejcy" path="res://Scripts/camera_rts.gd" id="8_hc14g"]
 
 [node name="Level" type="Node3D" unique_id=1295018767]
@@ -33,8 +31,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.125, 1)
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=970184165]
 transform = Transform3D(-0.70710677, 0.5416752, -0.45451948, 0, 0.64278764, 0.76604444, 0.70710677, 0.5416752, -0.45451948, -24, 20, -24)
 
-[node name="Inventario" parent="." unique_id=368437752 instance=ExtResource("6_hc14g")]
-
 [node name="UI" type="CanvasLayer" parent="." unique_id=1059799018]
 
 [node name="SelectionBox" type="Control" parent="UI" unique_id=745777833]
@@ -46,45 +42,17 @@ script = ExtResource("6_o7ik0")
 
 [node name="Tooltip" parent="UI" unique_id=329360181 instance=ExtResource("6_418oe")]
 
-[node name="InventarioUI" type="Control" parent="UI" unique_id=571587682]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 420.0
-offset_bottom = 70.0
-script = ExtResource("9_kcfce")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/InventarioUI" unique_id=925857572]
-layout_mode = 0
-offset_right = 400.0
-offset_bottom = 50.0
-
-[node name="LabelMadera" type="Label" parent="UI/InventarioUI/HBoxContainer" unique_id=204743402]
-layout_mode = 2
-
-[node name="LabelPiedra" type="Label" parent="UI/InventarioUI/HBoxContainer" unique_id=1861554169]
-layout_mode = 2
-
-[node name="LabelMetal" type="Label" parent="UI/InventarioUI/HBoxContainer" unique_id=2125560515]
-layout_mode = 2
-
-[node name="LabelComida" type="Label" parent="UI/InventarioUI/HBoxContainer" unique_id=874767175]
-layout_mode = 2
-
 [node name="MouseInteraction" type="Node" parent="." unique_id=1411286151]
 script = ExtResource("7_418oe")
 
 [node name="CameraPosition" type="Node3D" parent="." unique_id=1062928163]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
 script = ExtResource("8_hc14g")
 
 [node name="CameraRotationX" type="Node3D" parent="CameraPosition" unique_id=1610048915]
 
 [node name="CameraZoomPivot" type="Node3D" parent="CameraPosition/CameraRotationX" unique_id=2091394290]
-transform = Transform3D(1, 0, 0, 0, 0.76604444, 0.6427876, 0, -0.6427876, 0.76604444, 0, 6.809006, 6.0984364)
 
 [node name="Camera3D2" type="Camera3D" parent="CameraPosition/CameraRotationX/CameraZoomPivot" unique_id=1951622980]
-transform = Transform3D(1.0000001, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+transform = Transform3D(0.7071068, 0.45451948, -0.5416752, 0, 0.76604444, 0.64278764, 0.7071068, -0.45451948, 0.5416752, -7.501831, 8.874756, 9.58374)
 fov = 60.0
 script = ExtResource("4_s3uta")
