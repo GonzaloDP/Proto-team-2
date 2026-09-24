@@ -1,8 +1,15 @@
 [gd_scene format=3 uid="uid://6igeb67om02i"]
 
 [ext_resource type="Script" uid="uid://by3di7jhsbt8g" path="res://Scripts/unidad.gd" id="1_s5656"]
+[ext_resource type="Texture2D" uid="uid://dr0lngtt4bcqu" path="res://Assets/Gráficos 2D/Cronómetros/textura_barra_respawn_under.png" id="2_i4xbc"]
+[ext_resource type="Texture2D" uid="uid://dq731yj8e4coq" path="res://Assets/Gráficos 2D/Cronómetros/textura_barra_respawn_over.png" id="3_i4xbc"]
+[ext_resource type="Texture2D" uid="uid://bjh1tebqadamo" path="res://Assets/Gráficos 2D/Cronómetros/textura_barra_respawn_progress.png" id="4_lpgkf"]
+[ext_resource type="Script" uid="uid://1r1iasxapqq2" path="res://Scripts/barra_progreso.gd" id="5_i4xbc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yf5fn"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_h4t55"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_g4v7s"]
 
@@ -15,11 +22,19 @@ material = SubResource("StandardMaterial3D_1icel")
 radius = 0.25
 height = 0.5
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vmd8f"]
+light_mode = 1
+
 [node name="Unidad" type="CharacterBody3D" unique_id=1688446011 groups=["unidades"]]
 script = ExtResource("1_s5656")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=750490593]
 shape = SubResource("CapsuleShape3D_yf5fn")
+
+[node name="Sprite3D" type="Sprite3D" parent="CollisionShape3D" unique_id=1194924271]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1.7346339, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_h4t55")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=355409072]
 mesh = SubResource("CapsuleMesh_g4v7s")
@@ -32,4 +47,34 @@ mesh = SubResource("SphereMesh_austa")
 [node name="CollectionTimer" type="Timer" parent="." unique_id=632771040]
 one_shot = true
 
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1939248617]
+offset_left = 19.0
+offset_top = -70.0
+offset_right = 69.0
+offset_bottom = -20.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=143928211]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(50, 50)
+render_target_update_mode = 4
+
+[node name="BarraProgreso" type="TextureProgressBar" parent="SubViewportContainer/SubViewport" unique_id=1900590450]
+visible = false
+material = SubResource("CanvasItemMaterial_vmd8f")
+anchors_preset = -1
+offset_right = 159.0
+offset_bottom = 182.0
+scale = Vector2(0.3, 0.3)
+value = 25.0
+fill_mode = 4
+texture_under = ExtResource("2_i4xbc")
+texture_over = ExtResource("3_i4xbc")
+texture_progress = ExtResource("4_lpgkf")
+tint_under = Color(0.2627451, 0.2627451, 0.2627451, 0.59607846)
+tint_over = Color(0.83889675, 0.83889717, 0.83889675, 1)
+script = ExtResource("5_i4xbc")
+metadata/_edit_use_anchors_ = true
+
 [connection signal="timeout" from="CollectionTimer" to="." method="gatherResource"]
+[connection signal="timeout" from="CollectionTimer" to="SubViewportContainer/SubViewport/BarraProgreso" method="_on_collection_timer_timeout"]

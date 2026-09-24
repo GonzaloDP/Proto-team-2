@@ -11,7 +11,7 @@ class_name Unidad
 var satiety	#Este es el valor de saciedad "real" de la unidad, es decir el que se modifica y se chequea para ver si tiene hambre o no.
 var traitList: Array[Rasgo]	#Un array que contiene todos los rasgos de la unidad.
 var target_resource : Recurso
-
+@onready var progressBar = $SubViewportContainer/SubViewport/BarraProgreso
 
 var target_position: Vector3
 
@@ -20,7 +20,7 @@ func _ready() -> void:
 	satiety = initialSatiety
 	target_position = global_position
 	applyTraits()	#Al inicializar a la unidad, esta recorre su lista de rasgos y aplica las modificaciones correspondientes. Ya preveo que esto puede resultar en un bug, quizás sería prudente que la unidad aplique las modificaciones en un paso posterior a ser creada, para dar tiempo a cargarle sus rasgos.
-	
+	progressBar.hide()
 
 func set_move_target(new_target: Vector3):
 	target_position = Vector3(new_target.x, global_position.y, new_target.z)
@@ -67,6 +67,7 @@ func seekResource(resource: Recurso):	#Al detectar un recurso, lo primero que ha
 		if($CollectionTimer.is_stopped()):
 			set_move_target(resource.position)
 			$CollectionTimer.start(10/collectionSpeed)	#Inicializamos el timer. Por defecto la duración es 10/collectionSpeed. Lo que nos da por defecto 1 segundo entre recolecciones.
+			progressBar.targetTimer = $CollectionTimer
 		target_resource = resource
 		
 func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta función.
@@ -78,7 +79,19 @@ func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta
 				inventario.agregar_recurso(target_resource.tipo, 10)
 			else:
 				set_move_target(target_resource.position)
-			$CollectionTimer.start(10/collectionSpeed)	#De todos modos, se reinicia el timer.
+				#NOTA: Esto está MUY SUCIO. Por favor limpiar.
+			if(target_resource.cantidad_variable == 0):
+				target_resource = null
+				progressBar.targetTimer = null
+				progressBar.hide()
+				$CollectionTimer.stop()
+			else:
+				$CollectionTimer.start(10/collectionSpeed)	#De todos modos, se reinicia el timer.
+				progressBar.show()
 		else:	#Si no hay más recursos, entonces ya no estamos haciendo nada. Acá es adonde mandaría una alerta al jugador de que está inactivo.
 			target_resource = null
+			progressBar.targetTimer = null
+			progressBar.hide()
 		
+func hideProgressBar():
+	progressBar.hide()
