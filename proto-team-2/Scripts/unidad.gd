@@ -74,8 +74,14 @@ func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta
 		if(target_resource.cantidad_variable > 0):	#¿Sigue habiendo recursos que recolectar?
 			if(position.distance_to(target_resource.position) < 5):	#Si la unidad está lo suficientemente cerca, se detiene (target de movimiento a su propa posición), recoge 10 recursos.
 				set_move_target(position)
-				target_resource.reduceQuantity(10)
-				inventario.agregar_recurso(target_resource.tipo, 10)
+				if target_resource is RecursoRespawn:
+					var cantidad_recolectaba = target_resource.cantidad_variable
+					var tipo_recurso = target_resource.obtener_tipo_recurso()
+					target_resource.reduceQuantity(cantidad_recolectaba)
+					inventario.agregar_recurso(tipo_recurso, cantidad_recolectaba)
+				else:
+					target_resource.reduceQuantity(10)
+					inventario.agregar_recurso(target_resource.tipo, 10)
 			else:
 				set_move_target(target_resource.position)
 			$CollectionTimer.start(10/collectionSpeed)	#De todos modos, se reinicia el timer.
