@@ -56,6 +56,7 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 			for unidad in selected_units:
 				if is_instance_valid(unidad):
 					unidad.target_resource = null	#Al dar una orden de movimiento, se anulan los objetivos anteriores de la unidad. Esto podría transformarse en un método luego, el cual anule TODOS los objetivos (Como construir, recolectar o reproducirse)
+					unidad.hideProgressBar()
 					unidad.set_move_target(click_world_position)
 
 func seleccionar_unidad(mouse_pos: Vector2) -> void:
