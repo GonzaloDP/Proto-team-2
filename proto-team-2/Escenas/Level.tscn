@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://dyd7d6si64dbe" path="res://Scripts/day_ui.gd" id="9_iqjgs"]
 [ext_resource type="Script" uid="uid://deqso77pqnruo" path="res://Scripts/inventario_ui.gd" id="9_kcfce"]
 [ext_resource type="Script" uid="uid://xyn54yubrflu" path="res://Scripts/day_manager.gd" id="12_6tp1g"]
+[ext_resource type="PackedScene" uid="uid://dkbr30n3bn7y4" path="res://Escenas/Recurso_unidad.tscn" id="12_6tp1g"]
 
 [node name="Level" type="Node3D" unique_id=1295018767]
 script = ExtResource("1_7l8dv")
@@ -123,3 +124,5 @@ wait_time = 60.0
 autostart = true
 
 [connection signal="timeout" from="DayManager/Timer" to="DayManager" method="_on_timer_timeout"]
+[node name="RecursoUnidad" parent="." unique_id=1902933503 instance=ExtResource("12_6tp1g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7576337, 0.7046747, -4.8289022)
