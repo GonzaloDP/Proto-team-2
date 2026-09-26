@@ -9,8 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://dxwtmug6edfw3" path="res://Escenas/Inventario.tscn" id="6_hc14g"]
 [ext_resource type="Script" uid="uid://bhryiebrp0c5" path="res://Scripts/selection_box.gd" id="6_o7ik0"]
 [ext_resource type="Script" uid="uid://dmcxvn345x7nl" path="res://Scripts/mouse_interaction.gd" id="7_418oe"]
-[ext_resource type="Script" uid="uid://deqso77pqnruo" path="res://Scripts/inventario_ui.gd" id="9_kcfce"]
 [ext_resource type="Script" uid="uid://c8wov27agejcy" path="res://Scripts/camera_rts.gd" id="8_hc14g"]
+[ext_resource type="Script" uid="uid://dyd7d6si64dbe" path="res://Scripts/day_ui.gd" id="9_iqjgs"]
+[ext_resource type="Script" uid="uid://deqso77pqnruo" path="res://Scripts/inventario_ui.gd" id="9_kcfce"]
+[ext_resource type="Script" uid="uid://xyn54yubrflu" path="res://Scripts/day_manager.gd" id="12_6tp1g"]
 
 [node name="Level" type="Node3D" unique_id=1295018767]
 script = ExtResource("1_7l8dv")
@@ -72,6 +74,30 @@ layout_mode = 2
 [node name="LabelComida" type="Label" parent="UI/InventarioUI/HBoxContainer" unique_id=874767175]
 layout_mode = 2
 
+[node name="DayUI" type="Control" parent="UI" unique_id=463724722]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -59.0
+offset_top = 20.0
+offset_right = -19.0
+offset_bottom = 60.0
+grow_horizontal = 0
+scale = Vector2(1.225, 1.225)
+script = ExtResource("9_iqjgs")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/DayUI" unique_id=594506068]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 54.0
+
+[node name="Dias" type="Label" parent="UI/DayUI/VBoxContainer" unique_id=1788123509]
+layout_mode = 2
+
+[node name="ProgresoDia" type="ProgressBar" parent="UI/DayUI/VBoxContainer" unique_id=234744608]
+layout_mode = 2
+
 [node name="MouseInteraction" type="Node" parent="." unique_id=1411286151]
 script = ExtResource("7_418oe")
 
@@ -88,3 +114,12 @@ transform = Transform3D(1, 0, 0, 0, 0.76604444, 0.6427876, 0, -0.6427876, 0.7660
 transform = Transform3D(1.0000001, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
 fov = 60.0
 script = ExtResource("4_s3uta")
+
+[node name="DayManager" type="Node" parent="." unique_id=687561421]
+script = ExtResource("12_6tp1g")
+
+[node name="Timer" type="Timer" parent="DayManager" unique_id=811959382]
+wait_time = 60.0
+autostart = true
+
+[connection signal="timeout" from="DayManager/Timer" to="DayManager" method="_on_timer_timeout"]
