@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dkbr30n3bn7y4"]
+
+[ext_resource type="Script" uid="uid://bowd1isfryu7s" path="res://Scripts/recurso_unidad.gd" id="1_imde8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mvknu"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_n4n7x"]
+material = SubResource("StandardMaterial3D_mvknu")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wlkfn"]
+
+[node name="RecursoUnidad" type="StaticBody3D" unique_id=1902933503]
+script = ExtResource("1_imde8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=265307170]
+mesh = SubResource("SphereMesh_n4n7x")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=626426561]
+shape = SubResource("SphereShape3D_wlkfn")
