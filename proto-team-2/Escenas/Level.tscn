@@ -73,6 +73,9 @@ layout_mode = 2
 [node name="LabelComida" type="Label" parent="UI/InventarioUI/HBoxContainer" unique_id=874767175]
 layout_mode = 2
 
+[node name="LabelPoblación" type="Label" parent="UI/InventarioUI/HBoxContainer" unique_id=566696229]
+layout_mode = 2
+
 [node name="MouseInteraction" type="Node" parent="." unique_id=1411286151]
 script = ExtResource("7_418oe")
 
