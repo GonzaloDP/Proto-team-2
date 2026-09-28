@@ -30,6 +30,11 @@ folder_colors={
 "res://UI/": "blue"
 }
 
+[global_group]
+
+Comedores=""
+Unidades=""
+
 [input]
 
 camara_zoom_out={

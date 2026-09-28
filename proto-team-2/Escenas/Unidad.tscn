@@ -11,7 +11,10 @@
 [sub_resource type="ViewportTexture" id="ViewportTexture_h4t55"]
 viewport_path = NodePath("SubViewportContainer/SubViewport")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i4xbc"]
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_g4v7s"]
+material = SubResource("StandardMaterial3D_i4xbc")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1icel"]
 shading_mode = 0
@@ -47,6 +50,9 @@ mesh = SubResource("SphereMesh_austa")
 [node name="CollectionTimer" type="Timer" parent="." unique_id=632771040]
 one_shot = true
 
+[node name="HungerTimer" type="Timer" parent="." unique_id=303947379]
+wait_time = 3.0
+
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1939248617]
 offset_left = 19.0
 offset_top = -70.0
@@ -78,3 +84,4 @@ metadata/_edit_use_anchors_ = true
 
 [connection signal="timeout" from="CollectionTimer" to="." method="gatherResource"]
 [connection signal="timeout" from="CollectionTimer" to="SubViewportContainer/SubViewport/BarraProgreso" method="_on_collection_timer_timeout"]
+[connection signal="timeout" from="HungerTimer" to="." method="_on_hunger_timer_timeout"]
