@@ -1,7 +1,9 @@
 extends Edificio
 
+@export var aumento_vivienda = 5
+
 func _ready() -> void:
 	pass
 
-func _process(delta: float) -> void:
-	pass
+func construir():
+	Level.aumentar_limite(aumento_vivienda)

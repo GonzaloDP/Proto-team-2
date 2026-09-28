@@ -11,6 +11,7 @@ extends Control
 
 func _ready() -> void:
 	inventario.inventario_actualizado.connect(actualizar_ui)
+	Level.poblacion_actualizada.connect(actualizar_ui)
 	actualizar_ui()
 
 func actualizar_ui():
@@ -18,4 +19,4 @@ func actualizar_ui():
 	piedra_label.text = "Piedra: " + str(inventario.get_recurso(Recurso.Tipo_Recurso.PIEDRA))
 	metal_label.text = "Metal: " + str(inventario.get_recurso(Recurso.Tipo_Recurso.METAL))
 	comida_label.text = "Comida: " + str(inventario.get_recurso(Recurso.Tipo_Recurso.COMIDA))
-	poblacion_label.text = "Población: " + str("2/ " )
+	poblacion_label.text = "Población: " + str(Level.unidades_actuales," / ", Level.limite_unidades)
