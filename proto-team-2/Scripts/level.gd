@@ -3,11 +3,12 @@ extends Node3D
 
 signal poblacion_actualizada
 
-var cantidad_maxima_unidades: int = 5
-var unidades_actuales: int = 0
+#var cantidad_maxima_unidades: int = 5
+var unidades_actuales: int
 var limite_unidades: int = 10
 
 func _ready() -> void:
+	#print("Level encontrado: ", Level)
 	pass
 
 func _process(delta: float) -> void:

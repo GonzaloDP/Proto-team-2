@@ -14,6 +14,8 @@ var target_resource : Recurso
 
 
 var target_position: Vector3
+var en_reproduccion: bool = false
+var posicion_anterior: Vector3
 
 func _ready() -> void:
 #	traitList.append(Rasgo.new("Movement Speed", 10)) Esta línea de código es puramente de Debug. Es simplemente un rasgo de prueba para mostrar que el sistema funciona. Luego lo borramos, okay?
@@ -24,12 +26,18 @@ func _ready() -> void:
 	
 
 func set_move_target(new_target: Vector3):
+	if en_reproduccion:
+		return
+	
 	target_position = Vector3(new_target.x, global_position.y, new_target.z)
 
 func _physics_process(delta: float):
+	if en_reproduccion:
+		return
+	
 	var distance_to_target = global_position.distance_to(target_position)
 	
-
+	
 	if distance_to_target > 0.1:
 		var direction = (target_position - global_position).normalized()
 		velocity = direction * moveSpeed
@@ -62,6 +70,9 @@ func applyTraits():	#Recorre todos los rasgos en el array traitList, y pide a ca
 		each.applyTrait()
 		
 func seekResource(resource: Recurso):	#Al detectar un recurso, lo primero que hace es chequear que el recurso no esté vacío. Si lo está, no hace nada.
+	if en_reproduccion:
+		return
+	
 	if(resource.cantidad_variable == 0):
 		pass
 	else:		#Si el recurso aún tiene para dar, entonces comprobamos que no hayamos inicializado el timer de recurso todavía. Esto es para evitar una situación en la que un jugador impaciente reinicie el timer una y otra vez.
@@ -71,6 +82,11 @@ func seekResource(resource: Recurso):	#Al detectar un recurso, lo primero que ha
 		target_resource = resource
 		
 func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta función.
+	if en_reproduccion:
+		$CollectionTimer.stop()
+		target_resource = null
+		return
+	
 	if(target_resource):	#Si hay un recurso objetivo seguimos. Al dar otra orden, se borra el recurso objetivo, lo que podría causar un crash.
 		if(target_resource.cantidad_variable > 0):	#¿Sigue habiendo recursos que recolectar?
 			if(position.distance_to(target_resource.position) < 5):	#Si la unidad está lo suficientemente cerca, se detiene (target de movimiento a su propa posición), recoge 10 recursos.
@@ -89,3 +105,29 @@ func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta
 		else:	#Si no hay más recursos, entonces ya no estamos haciendo nada. Acá es adonde mandaría una alerta al jugador de que está inactivo.
 			target_resource = null
 		
+func entrar_en_reproduccion(Edificio: Node3D):
+	en_reproduccion = true
+	
+	posicion_anterior = global_position
+	
+	velocity = Vector3.ZERO
+	set_move_target(global_position)
+	
+	$CollectionTimer.stop()
+	target_resource = null
+	
+	set_collision_layer_value(1,false)
+	set_collision_mask_value(1,false)
+	
+	hide()
+func salir_de_reproduccion(posicion: Vector3):
+	en_reproduccion = false
+	
+	global_position = posicion
+	target_position = posicion
+	velocity = Vector3.ZERO
+	
+	set_collision_layer_value(1,true)
+	set_collision_mask_value(1,true)
+	
+	show()
