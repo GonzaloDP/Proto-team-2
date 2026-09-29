@@ -9,9 +9,10 @@ class_name Unidad
 @export var breedingSpeed: int = 5 #Mientras más alta sea esta variable, menos tiempo tardará la unidad en salir del edificio de reproducción.
 @export var initialSatiety: int = 10 #El valor inicial de saciedad de la unidad. Disminuye con el tiempo (debería), y al quedarse sin, la unidad no podrá trabajar.
 var satiety	#Este es el valor de saciedad "real" de la unidad, es decir el que se modifica y se chequea para ver si tiene hambre o no.
+var starving = false #Starving es un boolean que controla si la unidad está siendo incapaz de comer. De ser verdadero, la unidad no obedecerá órdenes..
 var traitList: Array[Rasgo]	#Un array que contiene todos los rasgos de la unidad.
 var target_resource : Recurso
-
+@onready var progressBar = $SubViewportContainer/SubViewport/BarraProgreso
 
 var target_position: Vector3
 var en_reproduccion: bool = false
@@ -21,9 +22,10 @@ func _ready() -> void:
 #	traitList.append(Rasgo.new("Movement Speed", 10)) Esta línea de código es puramente de Debug. Es simplemente un rasgo de prueba para mostrar que el sistema funciona. Luego lo borramos, okay?
 	Level.agregar_unidad()
 	satiety = initialSatiety
+	$HungerTimer.start()
 	target_position = global_position
 	applyTraits()	#Al inicializar a la unidad, esta recorre su lista de rasgos y aplica las modificaciones correspondientes. Ya preveo que esto puede resultar en un bug, quizás sería prudente que la unidad aplique las modificaciones en un paso posterior a ser creada, para dar tiempo a cargarle sus rasgos.
-	
+	progressBar.hide()
 
 func set_move_target(new_target: Vector3):
 	if en_reproduccion:
@@ -36,8 +38,7 @@ func _physics_process(delta: float):
 		return
 	
 	var distance_to_target = global_position.distance_to(target_position)
-	
-	
+
 	if distance_to_target > 0.1:
 		var direction = (target_position - global_position).normalized()
 		velocity = direction * moveSpeed
@@ -79,6 +80,7 @@ func seekResource(resource: Recurso):	#Al detectar un recurso, lo primero que ha
 		if($CollectionTimer.is_stopped()):
 			set_move_target(resource.position)
 			$CollectionTimer.start(10/collectionSpeed)	#Inicializamos el timer. Por defecto la duración es 10/collectionSpeed. Lo que nos da por defecto 1 segundo entre recolecciones.
+			progressBar.targetTimer = $CollectionTimer
 		target_resource = resource
 		
 func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta función.
@@ -87,7 +89,7 @@ func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta
 		target_resource = null
 		return
 	
-	if(target_resource):	#Si hay un recurso objetivo seguimos. Al dar otra orden, se borra el recurso objetivo, lo que podría causar un crash.
+	if(target_resource && !starving):	#Si hay un recurso objetivo seguimos. Al dar otra orden, se borra el recurso objetivo, lo que podría causar un crash.
 		if(target_resource.cantidad_variable > 0):	#¿Sigue habiendo recursos que recolectar?
 			if(position.distance_to(target_resource.position) < 5):	#Si la unidad está lo suficientemente cerca, se detiene (target de movimiento a su propa posición), recoge 10 recursos.
 				set_move_target(position)
@@ -101,9 +103,19 @@ func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta
 					inventario.agregar_recurso(target_resource.tipo, 10)
 			else:
 				set_move_target(target_resource.position)
-			$CollectionTimer.start(10/collectionSpeed)	#De todos modos, se reinicia el timer.
+				#NOTA: Esto está MUY SUCIO. Por favor limpiar.
+			if(target_resource.cantidad_variable == 0):
+				target_resource = null
+				progressBar.targetTimer = null
+				progressBar.hide()
+				$CollectionTimer.stop()
+			else:
+				$CollectionTimer.start(10/collectionSpeed)	#De todos modos, se reinicia el timer.
+				progressBar.show()
 		else:	#Si no hay más recursos, entonces ya no estamos haciendo nada. Acá es adonde mandaría una alerta al jugador de que está inactivo.
 			target_resource = null
+			progressBar.targetTimer = null
+			progressBar.hide()
 		
 func entrar_en_reproduccion(Edificio: Node3D):
 	en_reproduccion = true
@@ -131,3 +143,37 @@ func salir_de_reproduccion(posicion: Vector3):
 	set_collision_mask_value(1,true)
 	
 	show()
+func hideProgressBar():
+	progressBar.hide()
+
+
+func _on_hunger_timer_timeout():	#Al acabarse el timer de la comida, la saciedad de la unidad disminuye en 1, y esta chequea si se ha agotado.
+	satiety -= 1
+	if(satiety < 1):	#Si se ha agotado la saciedad, la unidad se declara "hambrienta", por lo que ya no obedecerá al jugador. Luego comprueba si existe algún comedor.
+		starving = true
+		hideProgressBar()
+		if(get_tree().get_nodes_in_group("Comedores").is_empty()):	#Si no hay ningún comedor, la unidad se pondrá en rojo y setteara su propia posición como destino. (Es decir, se quedará quieta en el lugar)
+			$MeshInstance3D.mesh.material.albedo_color = Color("DARK_RED")
+			set_move_target(global_position)
+		else:	#Si existen comedores, empezará a evaluarlos para encontrar el más cercano.
+			goEat()
+
+func goEat():
+	if(get_tree().get_nodes_in_group("Comedores").size() == 1):	#Primero chequeamos si hay un solo comedor. De ser así, obviamos las comparativas y nos dirigimos directamente allí.
+		set_move_target(get_tree().get_first_node_in_group("Comedores").global_transform)
+	else:
+		var bestCandidate = get_tree().get_first_node_in_group("Comedores")
+		var referenceDistance = global_position.distance_to(bestCandidate.global_position)	#Tomamos al iniciar la distancia con el primer comedor para usar de referencia en comparativas.
+		for each in get_tree().get_nodes_in_group("Comedores"):	#Comparamos cada comedor en el array con el valor de referencia, si la distancia es menor, entonces se vuelve la nueva referencia.
+			var distance = global_position.distance_to(each.global_position)
+			if(distance < referenceDistance):
+				bestCandidate =  each
+		set_move_target(bestCandidate.globalPosition)	#Al haber evaluado todos los comedores, nos dirigimos al mejor.
+	
+func _resetSatiety():	#Este método reinicia la saciedad de la unidad y la devuelve a su color normal.
+	satiety = initialSatiety
+	$MeshInstance3D.mesh.material.albedo_color = Color("Gray")
+	starving = false
+
+func _isStarving():
+	return starving

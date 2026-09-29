@@ -10,9 +10,11 @@
 [ext_resource type="Script" uid="uid://bhryiebrp0c5" path="res://Scripts/selection_box.gd" id="6_o7ik0"]
 [ext_resource type="Script" uid="uid://dmcxvn345x7nl" path="res://Scripts/mouse_interaction.gd" id="7_418oe"]
 [ext_resource type="Script" uid="uid://c8wov27agejcy" path="res://Scripts/camera_rts.gd" id="8_hc14g"]
+[ext_resource type="Script" uid="uid://dyd7d6si64dbe" path="res://Scripts/day_ui.gd" id="9_iqjgs"]
 [ext_resource type="Script" uid="uid://deqso77pqnruo" path="res://Scripts/inventario_ui.gd" id="9_kcfce"]
 [ext_resource type="PackedScene" uid="uid://dkbr30n3bn7y4" path="res://Escenas/Recurso_unidad.tscn" id="12_6tp1g"]
 [ext_resource type="PackedScene" uid="uid://c0uoncfpsqxot" path="res://Escenas/Edificio_Reproducción.tscn" id="13_iqjgs"]
+[ext_resource type="Script" uid="uid://xyn54yubrflu" path="res://Scripts/day_manager.gd" id="13_ohlfa"]
 
 [node name="Level" type="Node3D" unique_id=1295018767]
 script = ExtResource("1_7l8dv")
@@ -20,7 +22,7 @@ script = ExtResource("1_7l8dv")
 [node name="Suelo" parent="." unique_id=721908082 instance=ExtResource("1_qbrn0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 1)
 
-[node name="Node3D2" parent="." unique_id=1803103505 instance=ExtResource("2_e8t1n")]
+[node name="Node3D2" parent="." unique_id=1803103505 groups=["Unidades"] instance=ExtResource("2_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3465811, -1)
 
 [node name="Recurso" parent="." unique_id=1863188596 instance=ExtResource("3_e8t1n")]
@@ -29,7 +31,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.083725, 0.6455455, 0)
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=48548983]
 transform = Transform3D(1, 0, 0, 0, -0.0041241967, 0.9999915, 0, -0.9999915, -0.0041241967, 0, 12.879479, 0)
 
-[node name="Unidad" parent="." unique_id=1688446011 instance=ExtResource("2_e8t1n")]
+[node name="Unidad" parent="." unique_id=1688446011 groups=["Unidades"] instance=ExtResource("2_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.125, 1)
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=970184165]
@@ -77,6 +79,35 @@ layout_mode = 2
 [node name="LabelPoblación" type="Label" parent="UI/InventarioUI/HBoxContainer" unique_id=566696229]
 layout_mode = 2
 
+[node name="DayUI" type="Control" parent="UI" unique_id=463724722]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -59.0
+offset_top = 20.0
+offset_right = -19.0
+offset_bottom = 60.0
+grow_horizontal = 0
+scale = Vector2(1.225, 1.225)
+script = ExtResource("9_iqjgs")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/DayUI" unique_id=594506068]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 54.0
+
+[node name="Dias" type="Label" parent="UI/DayUI/VBoxContainer" unique_id=1788123509]
+layout_mode = 2
+
+[node name="ProgresoDia" type="ProgressBar" parent="UI/DayUI/VBoxContainer" unique_id=234744608]
+layout_mode = 2
+
+[node name="AlimentarDebug" type="Button" parent="UI" unique_id=1457718069]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Alimentar esbirros"
+
 [node name="MouseInteraction" type="Node" parent="." unique_id=1411286151]
 script = ExtResource("7_418oe")
 
@@ -94,8 +125,17 @@ transform = Transform3D(1.0000001, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 
 fov = 60.0
 script = ExtResource("4_s3uta")
 
+[node name="DayManager" type="Node" parent="." unique_id=687561421]
+script = ExtResource("13_ohlfa")
+
+[node name="Timer" type="Timer" parent="DayManager" unique_id=811959382]
+wait_time = 60.0
+autostart = true
+
 [node name="RecursoUnidad" parent="." unique_id=1902933503 instance=ExtResource("12_6tp1g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7576337, 0.7046747, -4.8289022)
 
 [node name="EdificioReproducción" parent="." unique_id=49299471 instance=ExtResource("13_iqjgs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3369226, 0.6204834, 4.190024)
+[connection signal="pressed" from="UI/AlimentarDebug" to="." method="_on_alimentar_debug_pressed"]
+[connection signal="timeout" from="DayManager/Timer" to="DayManager" method="_on_timer_timeout"]

@@ -29,3 +29,7 @@ func quitar_unidades():
 
 func aumentar_limite(cantidad: int):
 	limite_unidades += cantidad
+
+func _on_alimentar_debug_pressed():		#Este método (Y el grupo que utiliza) son enteramente para propósitos de Debug. Una vez se haya implementado el edificio comedor, este se encargará de decirle a las unidades que reinicien su hambre.
+	for each in get_tree().get_nodes_in_group("Unidades"):
+		each._resetSatiety()
