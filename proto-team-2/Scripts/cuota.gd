@@ -33,6 +33,7 @@ func checkDeadline(dia_actual: int): #Chequeamos el día en el que se debe entre
 func collectQuota():
 	for each in quota:	#Chequeamos primero que se pueda pagar toda la cuota al mismo tiempo. Si algún elemento de la cuota es mayor a la cantidad de recursos que tiene el jugador, aplicamos la penalización y nos detenemos.
 		if(quota[each] > inventario.recursos[each]):
+			print("Aquí es donde se aplicaría una penalización.")
 			applyPenalty()
 			return
 	
