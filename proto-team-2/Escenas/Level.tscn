@@ -43,6 +43,8 @@ transform = Transform3D(-0.70710677, 0.5416752, -0.45451948, 0, 0.64278764, 0.76
 
 [node name="Cuota" type="Node" parent="." unique_id=479304573]
 script = ExtResource("14_tid47")
+deadline_increase = 3
+difficulty_increase = 5
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1059799018]
 
