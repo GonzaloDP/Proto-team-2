@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://c0uoncfpsqxot"]
+
+[ext_resource type="Script" uid="uid://bcqccf5jj7oy2" path="res://Scripts/edificio_reproducción.gd" id="1_l6kbd"]
+[ext_resource type="PackedScene" uid="uid://6igeb67om02i" path="res://Escenas/Unidad.tscn" id="2_83186"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1icel"]
+size = Vector3(1.6263428, 1.0097656, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n4n7x"]
+albedo_color = Color(0.9527357, 0.3758094, 0.71618944, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1icel"]
+material = SubResource("StandardMaterial3D_n4n7x")
+size = Vector3(1.638916, 1.0262451, 0.98342896)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_austa"]
+size = Vector3(1.7213745, 1.0411072, 1.1268921)
+
+[node name="EdificioReproducción" type="Node3D" unique_id=49299471]
+script = ExtResource("1_l6kbd")
+tiempo_reproduccion = 5.0
+escena_unidad = ExtResource("2_83186")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1305348942]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1582712480]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024353027, 0.016601563, 0)
+shape = SubResource("BoxShape3D_1icel")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=402441590]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.023071289, 0.01763916, -0.0019073486)
+mesh = SubResource("BoxMesh_1icel")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=554658138]
+transform = Transform3D(1.1230551, 0, 0, 0, 1, 0, 0, 0, 1.2049519, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=568805367]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.004425049, 0.020553589, 0.010650635)
+shape = SubResource("BoxShape3D_austa")
+
+[node name="Timer" type="Timer" parent="." unique_id=1473201846]
+wait_time = 30.0
+one_shot = true
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

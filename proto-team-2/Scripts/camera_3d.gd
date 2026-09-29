@@ -41,6 +41,8 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 	var ray_end = ray_origin + project_ray_normal(mouse_pos) * 1000.0
 	
 	var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
+	query.collide_with_areas = true
+	
 	var result = space_state.intersect_ray(query)
 	
 	
@@ -49,6 +51,10 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 		if (result.collider is Recurso):	#Si hacemos clic derecho sobre un recurso, envía a las unidades la señal de ir a recolectarlo. El resto de la lógica la realiza la unidad misma.
 			for unidad in selected_units:
 				if is_instance_valid(unidad):
+					unidad.seekResource(result.collider)
+		elif result.collider is Area3D and result.collider.get_parent() is EdificioReproduccion:
+			var edificio: EdificioReproduccion = result.collider.get_parent()
+			edificio.recibir_unidades(selected_units)
 					if (!unidad._isStarving()):
 						unidad.seekResource(result.collider)
 		
