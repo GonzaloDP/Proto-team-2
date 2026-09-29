@@ -51,12 +51,12 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 		if (result.collider is Recurso):	#Si hacemos clic derecho sobre un recurso, envía a las unidades la señal de ir a recolectarlo. El resto de la lógica la realiza la unidad misma.
 			for unidad in selected_units:
 				if is_instance_valid(unidad):
-					unidad.seekResource(result.collider)
+					if (!unidad._isStarving()):
+						unidad.seekResource(result.collider)
+					
 		elif result.collider is Area3D and result.collider.get_parent() is EdificioReproduccion:
 			var edificio: EdificioReproduccion = result.collider.get_parent()
 			edificio.recibir_unidades(selected_units)
-					if (!unidad._isStarving()):
-						unidad.seekResource(result.collider)
 		
 		else:
 			var click_world_position: Vector3 = result.position
