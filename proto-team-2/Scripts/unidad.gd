@@ -184,6 +184,8 @@ func _isStarving():
 	return starving
 
 func entrar_en_comedor():
+	posicion_anterior = global_position
+	
 	velocity = Vector3.ZERO
 	$CollectionTimer.stop()
 	target_resource = null
@@ -193,8 +195,8 @@ func entrar_en_comedor():
 	hide()
 
 func salir_del_comedor(posicion: Vector3):
-	global_position = posicion
-	target_position = posicion
+	global_position = posicion_anterior
+	target_position = posicion_anterior
 	velocity = Vector3.ZERO
 	
 	set_collision_layer_value(1, true)
