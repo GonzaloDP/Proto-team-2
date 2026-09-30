@@ -18,13 +18,13 @@ var target_position: Vector3
 var en_reproduccion: bool = false
 var posicion_anterior: Vector3
 
-func _ready() -> void:
+func _ready():
 #	traitList.append(Rasgo.new("Movement Speed", 10)) Esta línea de código es puramente de Debug. Es simplemente un rasgo de prueba para mostrar que el sistema funciona. Luego lo borramos, okay?
 	Level.agregar_unidad()
-	satiety = initialSatiety
-	$HungerTimer.start()
 	target_position = global_position
 	applyTraits()	#Al inicializar a la unidad, esta recorre su lista de rasgos y aplica las modificaciones correspondientes. Ya preveo que esto puede resultar en un bug, quizás sería prudente que la unidad aplique las modificaciones en un paso posterior a ser creada, para dar tiempo a cargarle sus rasgos.
+	satiety = initialSatiety
+	$HungerTimer.start()
 	progressBar.hide()
 
 func set_move_target(new_target: Vector3):
@@ -64,6 +64,7 @@ func modifyAttribute(attribute: String, value: int):	#Función que mejora los at
 			breedingSpeed += value
 		"Satiety":
 			initialSatiety += value
+		
 
 func applyTraits():	#Recorre todos los rasgos en el array traitList, y pide a cada uno que aplique su efecto.
 	for each in traitList:
@@ -177,3 +178,37 @@ func _resetSatiety():	#Este método reinicia la saciedad de la unidad y la devue
 
 func _isStarving():
 	return starving
+
+func _setInheritance(parent1: Unidad, parent2: Unidad):	#Este método, llamado para las unidades que creadas a través de la reproducción, toma los mejores atributos de los padres a la hora de spawnear a la unidad, y luego llama a un método para determinar su rasgo.
+	moveSpeed = maxf(parent1.moveSpeed,parent2.moveSpeed)
+	constructionSpeed = maxi(parent1.constructionSpeed, parent2.constructionSpeed)
+	collectionSpeed = maxf(parent1.collectionSpeed, parent2.collectionSpeed)
+	breedingSpeed = maxi(parent1.breedingSpeed,parent2.breedingSpeed)
+	initialSatiety = maxi(parent1.initialSatiety,parent2.initialSatiety)
+	generateTrait()
+	applyTraits()
+	satiety = initialSatiety
+
+
+
+func generateTrait():	#Esta función genera un rasgo aleatorio, y lo añade a la lista de rasgos de la unidad.
+	var newTrait = Rasgo.new("",0)
+	var random = randi_range(1,5)
+	match random:
+		1:
+			newTrait.text = "Movement Speed"
+			newTrait.traitValue = 2
+		2:
+			newTrait.text = "Construction Speed"
+			newTrait.traitValue = 2
+		3:
+			newTrait.text = "Collection Speed"
+			newTrait.traitValue = 4
+		4:
+			newTrait.text = "Breeding Speed"
+			newTrait.traitValue = 2
+		5:
+			newTrait.text = "Satiety"
+			newTrait.traitValue = 4
+	traitList.append(newTrait)
+	
