@@ -69,7 +69,7 @@ func applyTraits():	#Recorre todos los rasgos en el array traitList, y pide a ca
 	for each in traitList:
 		each.host = self
 		each.applyTrait()
-		
+
 func seekResource(resource: Recurso):	#Al detectar un recurso, lo primero que hace es chequear que el recurso no esté vacío. Si lo está, no hace nada.
 	if en_reproduccion:
 		return
@@ -82,7 +82,7 @@ func seekResource(resource: Recurso):	#Al detectar un recurso, lo primero que ha
 			$CollectionTimer.start(10/collectionSpeed)	#Inicializamos el timer. Por defecto la duración es 10/collectionSpeed. Lo que nos da por defecto 1 segundo entre recolecciones.
 			progressBar.targetTimer = $CollectionTimer
 		target_resource = resource
-		
+
 func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta función.
 	if en_reproduccion:
 		$CollectionTimer.stop()
@@ -116,7 +116,7 @@ func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta
 			target_resource = null
 			progressBar.targetTimer = null
 			progressBar.hide()
-		
+
 func entrar_en_reproduccion(Edificio: Node3D):
 	en_reproduccion = true
 	
@@ -132,6 +132,7 @@ func entrar_en_reproduccion(Edificio: Node3D):
 	set_collision_mask_value(1,false)
 	
 	hide()
+
 func salir_de_reproduccion(posicion: Vector3):
 	en_reproduccion = false
 	
@@ -143,9 +144,9 @@ func salir_de_reproduccion(posicion: Vector3):
 	set_collision_mask_value(1,true)
 	
 	show()
+
 func hideProgressBar():
 	progressBar.hide()
-
 
 func _on_hunger_timer_timeout():	#Al acabarse el timer de la comida, la saciedad de la unidad disminuye en 1, y esta chequea si se ha agotado.
 	satiety -= 1
@@ -160,15 +161,19 @@ func _on_hunger_timer_timeout():	#Al acabarse el timer de la comida, la saciedad
 
 func goEat():
 	if(get_tree().get_nodes_in_group("Comedores").size() == 1):	#Primero chequeamos si hay un solo comedor. De ser así, obviamos las comparativas y nos dirigimos directamente allí.
-		set_move_target(get_tree().get_first_node_in_group("Comedores").global_transform)
+		set_move_target(get_tree().get_first_node_in_group("Comedores").global_position)
 	else:
 		var bestCandidate = get_tree().get_first_node_in_group("Comedores")
 		var referenceDistance = global_position.distance_to(bestCandidate.global_position)	#Tomamos al iniciar la distancia con el primer comedor para usar de referencia en comparativas.
+		
 		for each in get_tree().get_nodes_in_group("Comedores"):	#Comparamos cada comedor en el array con el valor de referencia, si la distancia es menor, entonces se vuelve la nueva referencia.
 			var distance = global_position.distance_to(each.global_position)
-			if(distance < referenceDistance):
+			
+			if distance < referenceDistance:
+				referenceDistance = distance
 				bestCandidate =  each
-		set_move_target(bestCandidate.globalPosition)	#Al haber evaluado todos los comedores, nos dirigimos al mejor.
+		
+		set_move_target(bestCandidate.global_position)	#Al haber evaluado todos los comedores, nos dirigimos al mejor.
 	
 func _resetSatiety():	#Este método reinicia la saciedad de la unidad y la devuelve a su color normal.
 	satiety = initialSatiety
@@ -177,3 +182,21 @@ func _resetSatiety():	#Este método reinicia la saciedad de la unidad y la devue
 
 func _isStarving():
 	return starving
+
+func entrar_en_comedor():
+	velocity = Vector3.ZERO
+	$CollectionTimer.stop()
+	target_resource = null
+	
+	set_collision_layer_value(1, false)
+	set_collision_mask_value(1, false)
+	hide()
+
+func salir_del_comedor(posicion: Vector3):
+	global_position = posicion
+	target_position = posicion
+	velocity = Vector3.ZERO
+	
+	set_collision_layer_value(1, true)
+	set_collision_mask_value(1, true)
+	show()
