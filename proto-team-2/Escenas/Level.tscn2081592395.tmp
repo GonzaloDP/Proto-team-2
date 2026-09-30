@@ -12,7 +12,6 @@
 [ext_resource type="Script" uid="uid://c8wov27agejcy" path="res://Scripts/camera_rts.gd" id="8_hc14g"]
 [ext_resource type="Script" uid="uid://dyd7d6si64dbe" path="res://Scripts/day_ui.gd" id="9_iqjgs"]
 [ext_resource type="Script" uid="uid://deqso77pqnruo" path="res://Scripts/inventario_ui.gd" id="9_kcfce"]
-[ext_resource type="Script" uid="uid://xhpoh3cmgxo" path="res://Scripts/cuota_ui.gd" id="10_pke20"]
 [ext_resource type="PackedScene" uid="uid://dkbr30n3bn7y4" path="res://Escenas/Recurso_unidad.tscn" id="12_6tp1g"]
 [ext_resource type="PackedScene" uid="uid://c0uoncfpsqxot" path="res://Escenas/Edificio_Reproducción.tscn" id="13_iqjgs"]
 [ext_resource type="Script" uid="uid://xyn54yubrflu" path="res://Scripts/day_manager.gd" id="13_ohlfa"]
@@ -40,11 +39,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.125, 1)
 transform = Transform3D(-0.70710677, 0.5416752, -0.45451948, 0, 0.64278764, 0.76604444, 0.70710677, 0.5416752, -0.45451948, -24, 20, -24)
 
 [node name="Inventario" parent="." unique_id=368437752 instance=ExtResource("6_hc14g")]
-
-[node name="Cuota" type="Node" parent="." unique_id=479304573]
-script = ExtResource("14_tid47")
-deadline_increase = 3
-difficulty_increase = 5
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1059799018]
 
@@ -110,50 +104,6 @@ layout_mode = 2
 [node name="ProgresoDia" type="ProgressBar" parent="UI/DayUI/VBoxContainer" unique_id=234744608]
 layout_mode = 2
 
-[node name="CuotaUI" type="Control" parent="UI" unique_id=1535982634]
-layout_mode = 3
-anchor_left = 1.0
-anchor_top = 0.069000006
-anchor_right = 1.0
-anchor_bottom = 0.069000006
-offset_left = -84.0
-offset_top = -24.712006
-offset_right = -44.0
-offset_bottom = 15.287994
-grow_horizontal = 0
-scale = Vector2(1.225, 1.225)
-script = ExtResource("10_pke20")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/CuotaUI" unique_id=1041738528]
-layout_mode = 0
-offset_left = -70.20409
-offset_top = 57.142857
-offset_right = 44.795914
-offset_bottom = 111.14285
-
-[node name="Cuota" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=101136191]
-layout_mode = 2
-text = "Cuota"
-horizontal_alignment = 1
-
-[node name="DiasRestantes" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=493693613]
-layout_mode = 2
-text = "Días restantes:"
-
-[node name="Madera" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=196596258]
-layout_mode = 2
-text = "Madera: 1"
-
-[node name="Piedra" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=272617575]
-layout_mode = 2
-text = "Piedra: 1"
-
-[node name="Metal" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=1108684553]
-layout_mode = 2
-
-[node name="Comida" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=216961377]
-layout_mode = 2
-
 [node name="AlimentarDebug" type="Button" parent="UI" unique_id=1457718069]
 offset_right = 8.0
 offset_bottom = 8.0
@@ -182,6 +132,9 @@ script = ExtResource("13_ohlfa")
 [node name="Timer" type="Timer" parent="DayManager" unique_id=811959382]
 wait_time = 60.0
 autostart = true
+
+[node name="Cuota" type="Node" parent="." unique_id=479304573]
+script = ExtResource("14_tid47")
 
 [node name="RecursoUnidad" parent="." unique_id=1902933503 instance=ExtResource("12_6tp1g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7576337, 0.7046747, -4.8289022)
