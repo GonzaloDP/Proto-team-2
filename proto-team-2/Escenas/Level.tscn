@@ -57,7 +57,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3465811, -1)
 [node name="Recurso" parent="." unique_id=1863188596 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.083725, 0.6455455, 0)
 
-[node name="Recurso2" parent="." unique_id=1250565611 instance=ExtResource("3_e8t1n")]
+[node name="Recurso3" parent="." unique_id=1250565611 instance=ExtResource("3_e8t1n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.166275, 0.6455455, 0)
+
+[node name="Recurso4" parent="." unique_id=555355697 instance=ExtResource("3_e8t1n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.166275, 0.6455455, 4)
+
+[node name="Recurso2" parent="." unique_id=1301207889 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.083725, 0.6455455, 2.75)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=48548983]

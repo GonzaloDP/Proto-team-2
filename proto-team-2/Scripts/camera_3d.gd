@@ -4,15 +4,19 @@ extends Camera3D
 @onready var menu_construccion = $"../../../../UIConstruccion/MenuConstruccion"
 @onready var inventario: Inventario = get_tree().current_scene.get_node("Inventario")
 
+
+var area_fantasma: Area3D = null
+var ubicacion_valida: bool = false
+
 var selected_units: Array[CharacterBody3D] = []
 var seleccionando: bool = false
 var posicion_inicio_seleccion: Vector2
 var posicion_actual_mouse: Vector2
 
-# Agregado supernice para constuccion (estados de unidad)
+
 enum EstadoCamara { NORMAL, CONSTRUYENDO }
 var estado_actual = EstadoCamara.NORMAL
-var edificio_fantasma: MeshInstance3D = null # El edificio fantasma es esa estructura temporal que se mostrará, o no, hasta que se termine la construcción
+var edificio_fantasma: MeshInstance3D = null
 var datos_edificio_pendiente: Dictionary
 var nombre_edificio_pendiente: String
 
@@ -27,13 +31,38 @@ func _process(delta: float) -> void:
 		var ray_origin = project_ray_origin(mouse_pos)
 		var ray_end = ray_origin + project_ray_normal(mouse_pos) * 1000.0
 		var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
+		
+		query.collision_mask = 1 
+		
 		var result = space_state.intersect_ray(query)
 		
 		if result:
-			edificio_fantasma.global_position = result.position
+					var tamano_grilla = 2.0
+					var pos_grid = result.position
+					pos_grid.x = snapped(pos_grid.x, tamano_grilla)
+					pos_grid.z = snapped(pos_grid.z, tamano_grilla)
+					
+					pos_grid.y = result.position.y
+					
+					edificio_fantasma.global_position = pos_grid
+					
+					if is_instance_valid(area_fantasma):
+						ubicacion_valida = area_fantasma.get_overlapping_bodies().is_empty()
+					else:
+						ubicacion_valida = false
+					
+					var mat = edificio_fantasma.material_override as StandardMaterial3D
+					if ubicacion_valida:
+						mat.albedo_color = Color(0, 1, 0, 0.5)
+					else:
+						mat.albedo_color = Color(1, 0, 0, 0.5)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if estado_actual == EstadoCamara.CONSTRUYENDO:
+		if event is InputEventKey and event.pressed and event.keycode == KEY_R:
+			if is_instance_valid(edificio_fantasma):
+				edificio_fantasma.rotate_y(deg_to_rad(90))
+				
 		if event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 				_confirmar_construccion()
@@ -69,10 +98,18 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 	var ray_end = ray_origin + project_ray_normal(mouse_pos) * 1000.0
 	
 	var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
+	
+	query.collision_mask = 1 | 2
+	
 	var result = space_state.intersect_ray(query)
 	
 	if result:
-		if (result.collider is Recurso):
+		if result.collider is Edificio and not result.collider.completado:
+			for unidad in selected_units:
+				if is_instance_valid(unidad) and (!unidad._isStarving()):
+					if unidad.has_method("asignar_edificio"):
+						unidad.asignar_edificio(result.collider)
+		elif (result.collider is Recurso):
 			for unidad in selected_units:
 				if is_instance_valid(unidad) and (!unidad._isStarving()):
 					unidad.seekResource(result.collider)
@@ -131,7 +168,6 @@ func ocultar_indicador(unidad: CharacterBody3D) -> void:
 	indicador.visible = false
 
 
-# A partir de acá empieza el codigo para la UI de construcción
 func _activar_modo_construccion(nombre: String, datos: Dictionary):
 	estado_actual = EstadoCamara.CONSTRUYENDO
 	nombre_edificio_pendiente = nombre
@@ -140,11 +176,23 @@ func _activar_modo_construccion(nombre: String, datos: Dictionary):
 	edificio_fantasma = MeshInstance3D.new()
 	var malla = BoxMesh.new()
 	malla.size = Vector3(2, 2, 2)
-	var material = StandardMaterial3D.new()
-	material.albedo_color = Color(0, 1, 0, 0.5)
-	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	malla.material = material
 	edificio_fantasma.mesh = malla
+	
+	var material = StandardMaterial3D.new()
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	edificio_fantasma.material_override = material
+	
+	area_fantasma = Area3D.new() 
+	area_fantasma.collision_layer = 0 
+	area_fantasma.collision_mask = 2 
+	
+	var colision = CollisionShape3D.new()
+	var forma = BoxShape3D.new()
+	forma.size = Vector3(1.8, 1.8, 1.8) 
+	colision.shape = forma
+	
+	area_fantasma.add_child(colision)
+	edificio_fantasma.add_child(area_fantasma)
 	
 	get_tree().current_scene.add_child(edificio_fantasma)
 
@@ -154,12 +202,36 @@ func _cancelar_construccion():
 		edificio_fantasma.queue_free()
 
 func _confirmar_construccion():
-	var costos = datos_edificio_pendiente["costos"]
-	for tipo_recurso in costos.keys():
-		inventario.agregar_recurso(tipo_recurso, -costos[tipo_recurso])
+	if not ubicacion_valida:
+		print("Ubicación inválida. Hay obstáculos.")
+		return
+		
+	var costo = datos_edificio_pendiente["costo"]
 	
-	var posicion_final = edificio_fantasma.global_position
+	for tipo in costo.keys():
+		if inventario.get_recurso(tipo) < costo[tipo]:
+			print("Recursos insuficientes de último momento.")
+			_cancelar_construccion()
+			return
+			
+	for tipo in costo.keys():
+		inventario.agregar_recurso(tipo, -costo[tipo])
+		
+	var escena_base = load("res://Escenas/Edificio.tscn")
+	var nuevo_edificio = escena_base.instantiate()
+	
+	nuevo_edificio.position = edificio_fantasma.global_position
+	nuevo_edificio.rotation = edificio_fantasma.global_rotation
+	
+	get_tree().current_scene.add_child(nuevo_edificio)
+	
+	var id_del_edificio = datos_edificio_pendiente["tipo_id"]
+	var puntos_req = datos_edificio_pendiente["puntos_construccion_requeridos"]
+	
+	nuevo_edificio.configurar_edificio(id_del_edificio, puntos_req)
+		
+	for unidad in selected_units:
+		if is_instance_valid(unidad) and unidad.has_method("asignar_edificio"):
+			unidad.asignar_edificio(nuevo_edificio)
 	
 	_cancelar_construccion()
-	
-	print("Edificio confirmado en: ", posicion_final)

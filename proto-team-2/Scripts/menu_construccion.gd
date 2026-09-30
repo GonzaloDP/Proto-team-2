@@ -14,16 +14,22 @@ signal iniciar_construccion(nombre_edificio, datos_edificio)
 # Acá para quién quiera se puede modificar los costes de los edificios
 var lista_edificios = {
 	"Edificio de Reproducción": {
-		"costo": {Recurso.Tipo_Recurso.COMIDA: 50, Recurso.Tipo_Recurso.MADERA: 20},
-		"icono": "res://icon.svg" # Placeholder*
+		"tipo_id": "reproduccion",
+		"costo": {Recurso.Tipo_Recurso.COMIDA: 1, Recurso.Tipo_Recurso.MADERA: 1},
+		"icono": "res://icon.svg", # Placeholder*
+		"puntos_construccion_requeridos": 100
 	},
 	"Edificio de Vivienda": {
-		"costo": {Recurso.Tipo_Recurso.MADERA: 50},
-		"icono": "res://icon.svg" # Placeholder*
+		"tipo_id": "vivienda",
+		"costo": {Recurso.Tipo_Recurso.MADERA: 1},
+		"icono": "res://icon.svg", # Placeholder*
+		"puntos_construccion_requeridos": 60
 	},
 	"Edificio Comedor": {
-		"costo": {Recurso.Tipo_Recurso.MADERA: 30, Recurso.Tipo_Recurso.PIEDRA: 20},
-		"icono": "res://icon.svg" # Placeholder*
+		"tipo_id": "comedor",
+		"costo": {Recurso.Tipo_Recurso.MADERA: 1, Recurso.Tipo_Recurso.PIEDRA: 1},
+		"icono": "res://icon.svg", # Placeholder*
+		"puntos_construccion_requeridos": 150
 	}
 }
 
@@ -134,7 +140,6 @@ func _process(delta: float) -> void:
 			if is_instance_valid(unidad):
 				centro_3d += unidad.global_position
 				cantidad_validas += 1
-		
 		if cantidad_validas > 0:
 			centro_3d = centro_3d / cantidad_validas
 			centro_3d.y += 2.6 
