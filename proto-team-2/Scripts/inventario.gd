@@ -17,4 +17,6 @@ func agregar_recurso(tipo: Recurso.Tipo_Recurso, cantidad:int):
 func get_recurso(tipo:Recurso.Tipo_Recurso) -> int:
 	return recursos[tipo]
 
-# Called when the node enters the scene tree for the first time.
+func reducir_recurso(tipo: Recurso.Tipo_Recurso, cantidad:int):
+	recursos[tipo] -= cantidad
+	inventario_actualizado.emit()

@@ -12,43 +12,10 @@
 [ext_resource type="Script" uid="uid://c8wov27agejcy" path="res://Scripts/camera_rts.gd" id="8_hc14g"]
 [ext_resource type="Script" uid="uid://dyd7d6si64dbe" path="res://Scripts/day_ui.gd" id="9_iqjgs"]
 [ext_resource type="Script" uid="uid://deqso77pqnruo" path="res://Scripts/inventario_ui.gd" id="9_kcfce"]
-[ext_resource type="Script" uid="uid://xhpoh3cmgxo" path="res://Scripts/cuota_ui.gd" id="10_pke20"]
 [ext_resource type="PackedScene" uid="uid://dkbr30n3bn7y4" path="res://Escenas/Recurso_unidad.tscn" id="12_6tp1g"]
 [ext_resource type="PackedScene" uid="uid://c0uoncfpsqxot" path="res://Escenas/Edificio_Reproducción.tscn" id="13_iqjgs"]
 [ext_resource type="Script" uid="uid://xyn54yubrflu" path="res://Scripts/day_manager.gd" id="13_ohlfa"]
-[ext_resource type="Texture2D" uid="uid://b18xa68b7nuqd" path="res://Assets/Gráficos 2D/Construcción UI/Martillo Icono.png" id="15_65587"]
-[ext_resource type="Script" uid="uid://c4auf7cjj024c" path="res://Scripts/menu_construccion.gd" id="15_tid47"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xytri"]
-bg_color = Color(0.35800117, 0.15985161, 0, 0.49411765)
-corner_radius_top_left = 75
-corner_radius_top_right = 75
-corner_radius_bottom_right = 75
-corner_radius_bottom_left = 75
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ofqdk"]
-bg_color = Color(0.30680156, 0.5295304, 0, 0.49411765)
-corner_radius_top_left = 75
-corner_radius_top_right = 75
-corner_radius_bottom_right = 75
-corner_radius_bottom_left = 75
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tid47"]
-bg_color = Color(0.70550066, 0.34344372, 0, 0.49411765)
-corner_radius_top_left = 75
-corner_radius_top_right = 75
-corner_radius_bottom_right = 75
-corner_radius_bottom_left = 75
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pke20"]
-content_margin_left = 10.0
-content_margin_top = 10.0
-content_margin_right = 10.0
-content_margin_bottom = 10.0
-bg_color = Color(0.53333336, 0.53333336, 0.53333336, 0.47058824)
 [ext_resource type="Script" uid="uid://cc08vd22bdeu5" path="res://Scripts/cuota.gd" id="14_tid47"]
-[ext_resource type="Script" uid="uid://bm0vvop2w0grr" path="res://Scripts/r.gd" id="18_xytri"]
-[ext_resource type="PackedScene" uid="uid://b4f5ki2p41ee1" path="res://Escenas/Edificio_Copenalties_managemedor.tscn" id="19_ofqdk"]
 
 [node name="Level" type="Node3D" unique_id=1295018767]
 script = ExtResource("1_7l8dv")
@@ -62,15 +29,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3465811, -1)
 [node name="Recurso" parent="." unique_id=1863188596 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.083725, 0.6455455, 0)
 
-[node name="Recurso3" parent="." unique_id=1250565611 instance=ExtResource("3_e8t1n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.166275, 0.6455455, 0)
-
-[node name="Recurso4" parent="." unique_id=555355697 instance=ExtResource("3_e8t1n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.166275, 0.6455455, 4)
-
-[node name="Recurso2" parent="." unique_id=1301207889 instance=ExtResource("3_e8t1n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.083725, 0.6455455, 2.75)
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=48548983]
 transform = Transform3D(1, 0, 0, 0, -0.0041241967, 0.9999915, 0, -0.9999915, -0.0041241967, 0, 12.879479, 0)
 
@@ -81,11 +39,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.125, 1)
 transform = Transform3D(-0.70710677, 0.5416752, -0.45451948, 0, 0.64278764, 0.76604444, 0.70710677, 0.5416752, -0.45451948, -24, 20, -24)
 
 [node name="Inventario" parent="." unique_id=368437752 instance=ExtResource("6_hc14g")]
-
-[node name="Cuota" type="Node" parent="." unique_id=479304573]
-script = ExtResource("14_tid47")
-deadline_increase = 3
-difficulty_increase = 5
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1059799018]
 
@@ -151,50 +104,6 @@ layout_mode = 2
 [node name="ProgresoDia" type="ProgressBar" parent="UI/DayUI/VBoxContainer" unique_id=234744608]
 layout_mode = 2
 
-[node name="CuotaUI" type="Control" parent="UI" unique_id=1535982634]
-layout_mode = 3
-anchor_left = 1.0
-anchor_top = 0.069000006
-anchor_right = 1.0
-anchor_bottom = 0.069000006
-offset_left = -84.0
-offset_top = -24.712006
-offset_right = -44.0
-offset_bottom = 15.287994
-grow_horizontal = 0
-scale = Vector2(1.225, 1.225)
-script = ExtResource("10_pke20")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/CuotaUI" unique_id=1041738528]
-layout_mode = 0
-offset_left = -70.20409
-offset_top = 57.142857
-offset_right = 44.795914
-offset_bottom = 111.14285
-
-[node name="Cuota" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=101136191]
-layout_mode = 2
-text = "Cuota"
-horizontal_alignment = 1
-
-[node name="DiasRestantes" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=493693613]
-layout_mode = 2
-text = "Días restantes:"
-
-[node name="Madera" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=196596258]
-layout_mode = 2
-text = "Madera: 1"
-
-[node name="Piedra" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=272617575]
-layout_mode = 2
-text = "Piedra: 1"
-
-[node name="Metal" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=1108684553]
-layout_mode = 2
-
-[node name="Comida" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=216961377]
-layout_mode = 2
-
 [node name="AlimentarDebug" type="Button" parent="UI" unique_id=1457718069]
 offset_right = 8.0
 offset_bottom = 8.0
@@ -219,80 +128,19 @@ script = ExtResource("4_s3uta")
 
 [node name="DayManager" type="Node" parent="." unique_id=687561421]
 script = ExtResource("13_ohlfa")
-duracion_dia = 10.0
 
 [node name="Timer" type="Timer" parent="DayManager" unique_id=811959382]
 wait_time = 60.0
 autostart = true
 
+[node name="Cuota" type="Node" parent="." unique_id=479304573]
+script = ExtResource("14_tid47")
+
 [node name="RecursoUnidad" parent="." unique_id=1902933503 instance=ExtResource("12_6tp1g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7576337, 0.7046747, -4.8289022)
 
-[node name="UIConstruccion" type="CanvasLayer" parent="." unique_id=225911941]
-
-[node name="MenuConstruccion" type="Control" parent="UIConstruccion" unique_id=896148718]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-script = ExtResource("15_tid47")
-
-[node name="BotonMartillo" type="Button" parent="UIConstruccion/MenuConstruccion" unique_id=1608132591]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 0
-offset_right = 50.0
-offset_bottom = 53.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_xytri")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ofqdk")
-theme_override_styles/hover = SubResource("StyleBoxFlat_tid47")
-icon = ExtResource("15_65587")
-expand_icon = true
-
-[node name="PanelEdificios" type="PanelContainer" parent="UIConstruccion/MenuConstruccion" unique_id=600688783]
-layout_mode = 0
-offset_top = 107.0
-offset_right = 136.0
-offset_bottom = 243.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_pke20")
-
-[node name="GridContainer" type="GridContainer" parent="UIConstruccion/MenuConstruccion/PanelEdificios" unique_id=750995023]
-layout_mode = 2
-mouse_filter = 2
-columns = 3
-
-[node name="TooltipUI" type="PanelContainer" parent="UIConstruccion/MenuConstruccion" unique_id=289204943]
-layout_mode = 0
-offset_top = 108.0
-offset_right = 40.0
-offset_bottom = 148.0
-mouse_filter = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="UIConstruccion/MenuConstruccion/TooltipUI" unique_id=858647989]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="LabelTooltip" type="Label" parent="UIConstruccion/MenuConstruccion/TooltipUI/MarginContainer" unique_id=960763406]
-layout_mode = 2
-
-[node name="BotonCerrar" type="Button" parent="UIConstruccion/MenuConstruccion" unique_id=740940222]
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 0
-offset_top = 75.0
-offset_right = 30.0
-offset_bottom = 106.0
-theme_override_colors/font_color = Color(0.8231065, 0, 0.1754849, 1)
-theme_override_colors/font_outline_color = Color(1, 0, 0.18039216, 1)
-text = "X"
 [node name="EdificioReproducción" parent="." unique_id=49299471 instance=ExtResource("13_iqjgs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3369226, 0.6204834, 4.190024)
-
-[node name="PenaltiesManager" type="Node" parent="." unique_id=2043099679]
-script = ExtResource("18_xytri")
-
-[node name="EdificioComedor" parent="." unique_id=652307072 instance=ExtResource("19_ofqdk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0670872, 0.125, 7.448612)
 
 [connection signal="pressed" from="UI/AlimentarDebug" to="." method="_on_alimentar_debug_pressed"]
 [connection signal="timeout" from="DayManager/Timer" to="DayManager" method="_on_timer_timeout"]

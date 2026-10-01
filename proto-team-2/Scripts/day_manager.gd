@@ -5,7 +5,7 @@ signal progreso_dia_actualizado(progreso_dia)
 
 @onready var timer : Timer = $Timer
 
-@export var duracion_dia : float = 10.0
+@export var duracion_dia : float = 3.0
 
 var dia_actual : int = 1
 
