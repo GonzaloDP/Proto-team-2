@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://b4f5ki2p41ee1"]
+
+[ext_resource type="Script" uid="uid://ckd5ef0jliwpc" path="res://Scripts/edificio_comedor.gd" id="1_7svnd"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_1icel"]
+height = 0.9650879
+radius = 1.2753906
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mvknu"]
+albedo_color = Color(1, 0.84705883, 0.07058824, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_n4n7x"]
+material = SubResource("StandardMaterial3D_mvknu")
+top_radius = 1.2753906
+bottom_radius = 1.2753906
+height = 0.9741211
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_austa"]
+height = 1.0268555
+radius = 1.3837891
+
+[node name="EdificioComedor" type="Node3D" unique_id=652307072]
+script = ExtResource("1_7svnd")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=138625849]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=601883582]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51745605, 0)
+shape = SubResource("CylinderShape3D_1icel")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=382739231]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51293945, 0)
+mesh = SubResource("CylinderMesh_n4n7x")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=2013272636]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1010859182]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48657227, 0)
+shape = SubResource("CylinderShape3D_austa")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
