@@ -8,6 +8,8 @@ var difficulty
 @onready var day_manager = $"../DayManager"
 @onready var inventario = $"../Inventario"
 signal cuota_actualizada
+signal cuota_incumplida
+signal cuota_pagada
 
 var quota = {
 Recurso.Tipo_Recurso.MADERA: 0,
@@ -34,12 +36,13 @@ func collectQuota():
 	for each in quota:	#Chequeamos primero que se pueda pagar toda la cuota al mismo tiempo. Si algún elemento de la cuota es mayor a la cantidad de recursos que tiene el jugador, aplicamos la penalización y nos detenemos.
 		if(quota[each] > inventario.recursos[each]):
 			print("Aquí es donde se aplicaría una penalización.")
-			applyPenalty()
+			cuota_incumplida.emit()
 			return
 	
 	for each in quota: #En este loop cobramos correctamente. No chequeamos nada ya que lo hicimos en el paso anterior, solo reducimos los recursos.
 		inventario.reducir_recurso(each, quota[each])
 	
+	cuota_pagada.emit()
 	difficulty += difficulty_increase #Aumentamos la dificultad con cada cuota pagada. Aquí también se enviaría una señal para indicar que el jugador ha pagado una cuota, para marcar su progreso.
 	setNewQuota()
 	

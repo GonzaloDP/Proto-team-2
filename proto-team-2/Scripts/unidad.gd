@@ -2,6 +2,7 @@ extends CharacterBody3D
 class_name Unidad
 
 @onready var inventario: Inventario = get_tree().current_scene.get_node("Inventario")
+@onready var penaltyManager : PenaltiesManager = get_tree().current_scene.get_node("PenaltiesManager")
 
 @export var moveSpeed: float = 6.0	#Esta variable controla la velocidad de desplazamiento de la unidad.
 @export var constructionSpeed : int = 5	#La cantidad de puntos de construcción que la unidad aporta mientras construye. Mientras más, más rápido se crea el edificio.
@@ -79,7 +80,7 @@ func seekResource(resource: Recurso):	#Al detectar un recurso, lo primero que ha
 	else:		#Si el recurso aún tiene para dar, entonces comprobamos que no hayamos inicializado el timer de recurso todavía. Esto es para evitar una situación en la que un jugador impaciente reinicie el timer una y otra vez.
 		if($CollectionTimer.is_stopped()):
 			set_move_target(resource.position)
-			$CollectionTimer.start(10/collectionSpeed)	#Inicializamos el timer. Por defecto la duración es 10/collectionSpeed. Lo que nos da por defecto 1 segundo entre recolecciones.
+			$CollectionTimer.start(10/get_collection_speed())	#Inicializamos el timer. Por defecto la duración es 10/collectionSpeed. Lo que nos da por defecto 1 segundo entre recolecciones.
 			progressBar.targetTimer = $CollectionTimer
 		target_resource = resource
 		
@@ -110,7 +111,7 @@ func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta
 				progressBar.hide()
 				$CollectionTimer.stop()
 			else:
-				$CollectionTimer.start(10/collectionSpeed)	#De todos modos, se reinicia el timer.
+				$CollectionTimer.start(10/get_collection_speed())	#De todos modos, se reinicia el timer.
 				progressBar.show()
 		else:	#Si no hay más recursos, entonces ya no estamos haciendo nada. Acá es adonde mandaría una alerta al jugador de que está inactivo.
 			target_resource = null
@@ -177,3 +178,12 @@ func _resetSatiety():	#Este método reinicia la saciedad de la unidad y la devue
 
 func _isStarving():
 	return starving
+
+func get_collection_speed() -> float:
+	return collectionSpeed * penaltyManager.recolection_multiplier
+
+func get_construction_speed() -> float:
+	return constructionSpeed * penaltyManager.construction_multiplier
+
+func get_breeding_speed() -> float:
+	return breedingSpeed * penaltyManager.breeding_multiplier

@@ -1,6 +1,8 @@
 extends Edificio
 class_name EdificioReproduccion
 
+@onready var penalty_manager = get_tree().current_scene.get_node("PenaltiesManager")
+
 @export var tiempo_reproduccion: float = 30.0
 @export var escena_unidad: PackedScene
 
@@ -43,7 +45,8 @@ func iniciar_coito():
 	
 	reproduciendo = true
 	
-	$Timer.wait_time = tiempo_reproduccion
+	var velocidad_reproduccion = penalty_manager.breeding_multiplier
+	$Timer.wait_time = tiempo_reproduccion / velocidad_reproduccion
 	$Timer.start()
 	print("reproduciendose")
 func _on_timer_timeout() -> void:
