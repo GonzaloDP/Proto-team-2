@@ -4,6 +4,7 @@ extends Node3D
 @onready var zoom_pivot = $CameraRotationX/CameraZoomPivot
 @onready var camara = $CameraRotationX/CameraZoomPivot/Camera3D2
 
+var move_speed = 0.6
 var move_target : Vector3
 var edge_size = 5.0
 var scroll_speed = 20
@@ -22,15 +23,24 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	move_target = position
 	zoom_target = camara.position.z
 	rotate_target = rotation_degrees.y
 func _process(delta: float) -> void:
+	if Input.is_action_pressed("rotar"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	if Input.is_action_just_released("rotar"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+	
+	var input_direction = Input.get_vector("CamIzq","CamDer","CamArriba","CamAbajo")
+	var move_direction = (transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
 	var mouse_pos = get_viewport().get_mouse_position()
 	var viewport_size = get_viewport().get_visible_rect().size
 	var zoom_dir = (int(Input.is_action_just_released("camara_zoom_out")) -
 					int(Input.is_action_just_released("camara_zoom_in")))
 	
+	move_target += move_speed * move_direction
 	#edge scroll
 	var scroll_direction = Vector3.ZERO
 	if mouse_pos.x < edge_size:

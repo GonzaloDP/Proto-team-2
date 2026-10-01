@@ -6,6 +6,9 @@ class_name Edificio
 
 @onready var barra_progreso = get_node_or_null("BarraProgreso")
 
+@export var nombre_edificio: String = "Edificio"
+@export var tipo_edificio: String = "General"
+
 var puntos_totales: float = 100.0
 var puntos_actuales: float = 0.0
 var completado: bool = false
