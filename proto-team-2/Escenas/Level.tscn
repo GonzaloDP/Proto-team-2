@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://deqso77pqnruo" path="res://Scripts/inventario_ui.gd" id="9_kcfce"]
 [ext_resource type="Script" uid="uid://xhpoh3cmgxo" path="res://Scripts/cuota_ui.gd" id="10_pke20"]
 [ext_resource type="PackedScene" uid="uid://dkbr30n3bn7y4" path="res://Escenas/Recurso_unidad.tscn" id="12_6tp1g"]
+[ext_resource type="Script" uid="uid://dxptnbkd0tpec" path="res://Scripts/pause_menu.gd" id="12_a2mc0"]
 [ext_resource type="PackedScene" uid="uid://c0uoncfpsqxot" path="res://Escenas/Edificio_Reproducción.tscn" id="13_iqjgs"]
 [ext_resource type="Script" uid="uid://xyn54yubrflu" path="res://Scripts/day_manager.gd" id="13_ohlfa"]
 [ext_resource type="Script" uid="uid://cc08vd22bdeu5" path="res://Scripts/cuota.gd" id="14_tid47"]
@@ -200,6 +201,57 @@ offset_right = 8.0
 offset_bottom = 8.0
 text = "Alimentar esbirros"
 
+[node name="PauseMenu" type="Control" parent="UI" unique_id=311185493]
+process_mode = 2
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+script = ExtResource("12_a2mc0")
+
+[node name="Panel" type="Panel" parent="UI/PauseMenu" unique_id=471368754]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -240.0
+offset_right = 250.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResumeButton" type="Button" parent="UI/PauseMenu/Panel" unique_id=813799659]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 80.0
+offset_right = 400.0
+offset_bottom = 150.0
+text = "Reanudar"
+
+[node name="RestartButton" type="Button" parent="UI/PauseMenu/Panel" unique_id=2014958026]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 190.0
+offset_right = 400.0
+offset_bottom = 260.0
+text = "Reiniciar"
+
+[node name="QuitButton" type="Button" parent="UI/PauseMenu/Panel" unique_id=1030064431]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 300.0
+offset_right = 400.0
+offset_bottom = 370.0
+text = "Abandonar"
+
 [node name="MouseInteraction" type="Node" parent="." unique_id=1411286151]
 script = ExtResource("7_418oe")
 
@@ -296,4 +348,7 @@ script = ExtResource("18_xytri")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0670872, 0.125, 7.448612)
 
 [connection signal="pressed" from="UI/AlimentarDebug" to="." method="_on_alimentar_debug_pressed"]
+[connection signal="pressed" from="UI/PauseMenu/Panel/ResumeButton" to="UI/PauseMenu" method="_on_resume_button_pressed"]
+[connection signal="pressed" from="UI/PauseMenu/Panel/RestartButton" to="UI/PauseMenu" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="UI/PauseMenu/Panel/QuitButton" to="UI/PauseMenu" method="_on_quit_button_pressed"]
 [connection signal="timeout" from="DayManager/Timer" to="DayManager" method="_on_timer_timeout"]

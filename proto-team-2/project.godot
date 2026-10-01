@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Proto Team 2"
-run/main_scene="uid://cixgyllywifb2"
+run/main_scene="uid://d05w17gtf1lnj"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 

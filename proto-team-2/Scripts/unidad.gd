@@ -68,7 +68,6 @@ func _physics_process(delta: float):
 		move_and_slide()
 	else:
 		velocity = Vector3.ZERO
-	print(get_collection_speed())
 
 func asignar_edificio(edificio_a_construir: Edificio):
 	target_resource = null
