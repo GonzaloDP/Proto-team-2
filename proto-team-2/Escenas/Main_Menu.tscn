@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://d05w17gtf1lnj"]
+
+[ext_resource type="Script" uid="uid://1gm2mnki8lui" path="res://Scripts/main_menu.gd" id="1_5ckub"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ckub"]
+bg_color = Color(0.11372549, 0.27450982, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i8jda"]
+bg_color = Color(0.07086598, 0.1924138, 7.219613e-08, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5kxe0"]
+bg_color = Color(0.17508343, 0.39433798, 3.85046e-07, 1)
+
+[node name="MainMenu" type="Control" unique_id=1760668253]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5ckub")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=632397287]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CenterContainer" unique_id=1194326300]
+custom_minimum_size = Vector2(450, 400)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel" unique_id=66192015]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Jugar" type="Button" parent="CenterContainer/Panel/VBoxContainer" unique_id=1142267723]
+custom_minimum_size = Vector2(300, 70)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5ckub")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i8jda")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5kxe0")
+text = "Jugar"
+
+[node name="Salir" type="Button" parent="CenterContainer/Panel/VBoxContainer" unique_id=560348384]
+custom_minimum_size = Vector2(300, 70)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5ckub")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i8jda")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5kxe0")
+text = "Salir"
+
+[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/Jugar" to="." method="_on_jugar_pressed"]
+[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/Salir" to="." method="_on_salir_pressed"]

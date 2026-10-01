@@ -37,4 +37,5 @@ func _on_restart_button_pressed() -> void:
 
 func _on_quit_button_pressed() -> void:
 	get_tree().paused = false
-	#Agregar acá ir a escena menu principal
+	Level.restart_level()
+	get_tree().change_scene_to_file("res://Escenas/Main_Menu.tscn")
