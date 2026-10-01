@@ -2,7 +2,7 @@ extends CharacterBody3D
 class_name Unidad
 
 @onready var inventario: Inventario = get_tree().current_scene.get_node("Inventario")
-@onready var penaltyManager : PenaltiesManager = get_tree().current_scene.get_node("PenaltiesManager")
+@onready var penaltyManager = get_tree().current_scene.get_node("PenaltiesManager")
 
 @export var moveSpeed: float = 6.0	#Esta variable controla la velocidad de desplazamiento de la unidad.
 @export var constructionSpeed : int = 5	#La cantidad de puntos de construcción que la unidad aporta mientras construye. Mientras más, más rápido se crea el edificio.
@@ -52,6 +52,7 @@ func _physics_process(delta: float):
 		move_and_slide()
 	else:
 		velocity = Vector3.ZERO
+	print(get_collection_speed())
 
 func modifyAttribute(attribute: String, value: int):	#Función que mejora los atributos de la unidad. Recibe un String (en inglés común), que se compara con un switch, y un value por el cual aumentar el valor de atributo.
 	match(attribute):
