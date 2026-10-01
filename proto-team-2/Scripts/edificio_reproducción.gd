@@ -3,7 +3,7 @@ class_name EdificioReproduccion
 
 @onready var penalty_manager = get_tree().current_scene.get_node("PenaltiesManager")
 
-@export var tiempo_reproduccion: float = 30.0
+@export var tiempo_reproduccion: float = 5.0
 @export var escena_unidad: PackedScene
 
 var padre_1: Unidad = null
@@ -39,6 +39,7 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		print("segundo padre llego")
 		
 		iniciar_coito()
+
 func iniciar_coito():
 	if reproduciendo:
 		return
@@ -49,6 +50,7 @@ func iniciar_coito():
 	$Timer.wait_time = tiempo_reproduccion / velocidad_reproduccion
 	$Timer.start()
 	print("reproduciendose")
+
 func _on_timer_timeout() -> void:
 	print("terminó el follaje")
 	
@@ -89,6 +91,7 @@ func recibir_unidades(unidades: Array[CharacterBody3D]):
 	
 	for unidad in unidades_objetivo:
 		unidad.set_move_target(global_position)
+
 func crear_nueva_unidad():
 	if escena_unidad == null:
 		print("ERROR no hay unidad")

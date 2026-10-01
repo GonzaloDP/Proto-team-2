@@ -13,6 +13,8 @@ var satiety	#Este es el valor de saciedad "real" de la unidad, es decir el que s
 var starving = false #Starving es un boolean que controla si la unidad está siendo incapaz de comer. De ser verdadero, la unidad no obedecerá órdenes..
 var traitList: Array[Rasgo]	#Un array que contiene todos los rasgos de la unidad.
 var target_resource : Recurso
+var target_edificio : Edificio
+
 @onready var progressBar = $SubViewportContainer/SubViewport/BarraProgreso
 
 var target_position: Vector3
@@ -28,11 +30,26 @@ func _ready() -> void:
 	applyTraits()	#Al inicializar a la unidad, esta recorre su lista de rasgos y aplica las modificaciones correspondientes. Ya preveo que esto puede resultar en un bug, quizás sería prudente que la unidad aplique las modificaciones en un paso posterior a ser creada, para dar tiempo a cargarle sus rasgos.
 	progressBar.hide()
 
-func set_move_target(new_target: Vector3):
+func set_move_target(new_target: Vector3, es_orden_construccion: bool = false):
 	if en_reproduccion:
 		return
 	
 	target_position = Vector3(new_target.x, global_position.y, new_target.z)
+	
+	# Si le damos una orden de movimiento normal, debe olvidar el edificio para no quedarse atascado
+	if not es_orden_construccion:
+		target_edificio = null
+
+func _process(delta: float):
+	if target_edificio and is_instance_valid(target_edificio) and not starving:
+		if not target_edificio.completado:
+			var distancia = global_position.distance_to(target_edificio.global_position)			# Ampliamos un poco el rango para que no se empujen entre varias unidades y cancelen el trabajo
+			if distancia < 4.0: 
+				set_move_target(global_position, true)
+				target_edificio.recibir_trabajo(constructionSpeed * delta)
+		else:
+			target_edificio = null
+		
 
 func _physics_process(delta: float):
 	if en_reproduccion:
@@ -44,7 +61,6 @@ func _physics_process(delta: float):
 		var direction = (target_position - global_position).normalized()
 		velocity = direction * moveSpeed
 		
-		
 		var look_target = Vector3(target_position.x, global_position.y, target_position.z)
 		if global_position != look_target:
 			look_at(look_target, Vector3.UP)
@@ -53,6 +69,16 @@ func _physics_process(delta: float):
 	else:
 		velocity = Vector3.ZERO
 	print(get_collection_speed())
+
+func asignar_edificio(edificio_a_construir: Edificio):
+	target_resource = null
+	progressBar.targetTimer = null
+	progressBar.hide()
+	if not $CollectionTimer.is_stopped():
+		$CollectionTimer.stop()
+		
+	target_edificio = edificio_a_construir
+	set_move_target(target_edificio.global_position, true)
 
 func modifyAttribute(attribute: String, value: int):	#Función que mejora los atributos de la unidad. Recibe un String (en inglés común), que se compara con un switch, y un value por el cual aumentar el valor de atributo.
 	match(attribute):
@@ -105,7 +131,6 @@ func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta
 					inventario.agregar_recurso(target_resource.tipo, 10)
 			else:
 				set_move_target(target_resource.position)
-				#NOTA: Esto está MUY SUCIO. Por favor limpiar.
 			if(target_resource.cantidad_variable == 0):
 				target_resource = null
 				progressBar.targetTimer = null
@@ -155,6 +180,11 @@ func _on_hunger_timer_timeout():	#Al acabarse el timer de la comida, la saciedad
 	if(satiety < 1):	#Si se ha agotado la saciedad, la unidad se declara "hambrienta", por lo que ya no obedecerá al jugador. Luego comprueba si existe algún comedor.
 		starving = true
 		hideProgressBar()
+		
+		# Si tiene hambre, deja de construir y recolectar
+		target_edificio = null
+		target_resource = null
+		
 		if(get_tree().get_nodes_in_group("Comedores").is_empty()):	#Si no hay ningún comedor, la unidad se pondrá en rojo y setteara su propia posición como destino. (Es decir, se quedará quieta en el lugar)
 			$MeshInstance3D.mesh.material.albedo_color = Color("DARK_RED")
 			set_move_target(global_position)
@@ -174,7 +204,6 @@ func goEat():
 			if distance < referenceDistance:
 				referenceDistance = distance
 				bestCandidate =  each
-		
 		set_move_target(bestCandidate.global_position)	#Al haber evaluado todos los comedores, nos dirigimos al mejor.
 	
 func _resetSatiety():	#Este método reinicia la saciedad de la unidad y la devuelve a su color normal.
