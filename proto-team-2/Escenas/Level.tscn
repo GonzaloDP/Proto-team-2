@@ -180,6 +180,7 @@ script = ExtResource("4_s3uta")
 
 [node name="DayManager" type="Node" parent="." unique_id=687561421]
 script = ExtResource("13_ohlfa")
+duracion_dia = 10.0
 
 [node name="Timer" type="Timer" parent="DayManager" unique_id=811959382]
 wait_time = 60.0
