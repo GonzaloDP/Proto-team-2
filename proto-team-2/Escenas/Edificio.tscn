@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://c5h84wufomsqq"]
 
-[ext_resource type="Script" uid="uid://bo534urxth581" path="res://Scripts/edificio.gd" id="1_wmytc"]
+[ext_resource type="Script" uid="uid://7v0mvwm2hqc2" path="res://Scripts/edificio.gd" id="1_wmytc"]
 
-[node name="Edificio" type="Node3D" unique_id=2011706106]
+[node name="Edificio" type="StaticBody3D" unique_id=2142538707]
 script = ExtResource("1_wmytc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=402039813]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=254236377]

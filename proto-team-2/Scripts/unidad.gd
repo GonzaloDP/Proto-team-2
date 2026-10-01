@@ -2,6 +2,7 @@ extends CharacterBody3D
 class_name Unidad
 
 @onready var inventario: Inventario = get_tree().current_scene.get_node("Inventario")
+@onready var penaltyManager = get_tree().current_scene.get_node("PenaltiesManager")
 
 @export var moveSpeed: float = 6.0	#Esta variable controla la velocidad de desplazamiento de la unidad.
 @export var constructionSpeed : int = 5	#La cantidad de puntos de construcción que la unidad aporta mientras construye. Mientras más, más rápido se crea el edificio.
@@ -12,6 +13,8 @@ var satiety	#Este es el valor de saciedad "real" de la unidad, es decir el que s
 var starving = false #Starving es un boolean que controla si la unidad está siendo incapaz de comer. De ser verdadero, la unidad no obedecerá órdenes..
 var traitList: Array[Rasgo]	#Un array que contiene todos los rasgos de la unidad.
 var target_resource : Recurso
+var target_edificio : Edificio
+
 @onready var progressBar = $SubViewportContainer/SubViewport/BarraProgreso
 
 var target_position: Vector3
@@ -27,11 +30,26 @@ func _ready():
 	$HungerTimer.start()
 	progressBar.hide()
 
-func set_move_target(new_target: Vector3):
+func set_move_target(new_target: Vector3, es_orden_construccion: bool = false):
 	if en_reproduccion:
 		return
 	
 	target_position = Vector3(new_target.x, global_position.y, new_target.z)
+	
+	# Si le damos una orden de movimiento normal, debe olvidar el edificio para no quedarse atascado
+	if not es_orden_construccion:
+		target_edificio = null
+
+func _process(delta: float):
+	if target_edificio and is_instance_valid(target_edificio) and not starving:
+		if not target_edificio.completado:
+			var distancia = global_position.distance_to(target_edificio.global_position)			# Ampliamos un poco el rango para que no se empujen entre varias unidades y cancelen el trabajo
+			if distancia < 4.0: 
+				set_move_target(global_position, true)
+				target_edificio.recibir_trabajo(constructionSpeed * delta)
+		else:
+			target_edificio = null
+		
 
 func _physics_process(delta: float):
 	if en_reproduccion:
@@ -43,7 +61,6 @@ func _physics_process(delta: float):
 		var direction = (target_position - global_position).normalized()
 		velocity = direction * moveSpeed
 		
-		
 		var look_target = Vector3(target_position.x, global_position.y, target_position.z)
 		if global_position != look_target:
 			look_at(look_target, Vector3.UP)
@@ -51,6 +68,17 @@ func _physics_process(delta: float):
 		move_and_slide()
 	else:
 		velocity = Vector3.ZERO
+	print(get_collection_speed())
+
+func asignar_edificio(edificio_a_construir: Edificio):
+	target_resource = null
+	progressBar.targetTimer = null
+	progressBar.hide()
+	if not $CollectionTimer.is_stopped():
+		$CollectionTimer.stop()
+		
+	target_edificio = edificio_a_construir
+	set_move_target(target_edificio.global_position, true)
 
 func modifyAttribute(attribute: String, value: int):	#Función que mejora los atributos de la unidad. Recibe un String (en inglés común), que se compara con un switch, y un value por el cual aumentar el valor de atributo.
 	match(attribute):
@@ -70,7 +98,7 @@ func applyTraits():	#Recorre todos los rasgos en el array traitList, y pide a ca
 	for each in traitList:
 		each.host = self
 		each.applyTrait()
-		
+
 func seekResource(resource: Recurso):	#Al detectar un recurso, lo primero que hace es chequear que el recurso no esté vacío. Si lo está, no hace nada.
 	if en_reproduccion:
 		return
@@ -80,10 +108,10 @@ func seekResource(resource: Recurso):	#Al detectar un recurso, lo primero que ha
 	else:		#Si el recurso aún tiene para dar, entonces comprobamos que no hayamos inicializado el timer de recurso todavía. Esto es para evitar una situación en la que un jugador impaciente reinicie el timer una y otra vez.
 		if($CollectionTimer.is_stopped()):
 			set_move_target(resource.position)
-			$CollectionTimer.start(10/collectionSpeed)	#Inicializamos el timer. Por defecto la duración es 10/collectionSpeed. Lo que nos da por defecto 1 segundo entre recolecciones.
+			$CollectionTimer.start(10/get_collection_speed())	#Inicializamos el timer. Por defecto la duración es 10/collectionSpeed. Lo que nos da por defecto 1 segundo entre recolecciones.
 			progressBar.targetTimer = $CollectionTimer
 		target_resource = resource
-		
+
 func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta función.
 	if en_reproduccion:
 		$CollectionTimer.stop()
@@ -104,20 +132,19 @@ func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta
 					inventario.agregar_recurso(target_resource.tipo, 10)
 			else:
 				set_move_target(target_resource.position)
-				#NOTA: Esto está MUY SUCIO. Por favor limpiar.
 			if(target_resource.cantidad_variable == 0):
 				target_resource = null
 				progressBar.targetTimer = null
 				progressBar.hide()
 				$CollectionTimer.stop()
 			else:
-				$CollectionTimer.start(10/collectionSpeed)	#De todos modos, se reinicia el timer.
+				$CollectionTimer.start(10/get_collection_speed())	#De todos modos, se reinicia el timer.
 				progressBar.show()
 		else:	#Si no hay más recursos, entonces ya no estamos haciendo nada. Acá es adonde mandaría una alerta al jugador de que está inactivo.
 			target_resource = null
 			progressBar.targetTimer = null
 			progressBar.hide()
-		
+
 func entrar_en_reproduccion(Edificio: Node3D):
 	en_reproduccion = true
 	
@@ -133,6 +160,7 @@ func entrar_en_reproduccion(Edificio: Node3D):
 	set_collision_mask_value(1,false)
 	
 	hide()
+
 func salir_de_reproduccion(posicion: Vector3):
 	en_reproduccion = false
 	
@@ -144,15 +172,20 @@ func salir_de_reproduccion(posicion: Vector3):
 	set_collision_mask_value(1,true)
 	
 	show()
+
 func hideProgressBar():
 	progressBar.hide()
-
 
 func _on_hunger_timer_timeout():	#Al acabarse el timer de la comida, la saciedad de la unidad disminuye en 1, y esta chequea si se ha agotado.
 	satiety -= 1
 	if(satiety < 1):	#Si se ha agotado la saciedad, la unidad se declara "hambrienta", por lo que ya no obedecerá al jugador. Luego comprueba si existe algún comedor.
 		starving = true
 		hideProgressBar()
+		
+		# Si tiene hambre, deja de construir y recolectar
+		target_edificio = null
+		target_resource = null
+		
 		if(get_tree().get_nodes_in_group("Comedores").is_empty()):	#Si no hay ningún comedor, la unidad se pondrá en rojo y setteara su propia posición como destino. (Es decir, se quedará quieta en el lugar)
 			$MeshInstance3D.mesh.material.albedo_color = Color("DARK_RED")
 			set_move_target(global_position)
@@ -161,15 +194,18 @@ func _on_hunger_timer_timeout():	#Al acabarse el timer de la comida, la saciedad
 
 func goEat():
 	if(get_tree().get_nodes_in_group("Comedores").size() == 1):	#Primero chequeamos si hay un solo comedor. De ser así, obviamos las comparativas y nos dirigimos directamente allí.
-		set_move_target(get_tree().get_first_node_in_group("Comedores").global_transform)
+		set_move_target(get_tree().get_first_node_in_group("Comedores").global_position)
 	else:
 		var bestCandidate = get_tree().get_first_node_in_group("Comedores")
 		var referenceDistance = global_position.distance_to(bestCandidate.global_position)	#Tomamos al iniciar la distancia con el primer comedor para usar de referencia en comparativas.
+		
 		for each in get_tree().get_nodes_in_group("Comedores"):	#Comparamos cada comedor en el array con el valor de referencia, si la distancia es menor, entonces se vuelve la nueva referencia.
 			var distance = global_position.distance_to(each.global_position)
-			if(distance < referenceDistance):
+			
+			if distance < referenceDistance:
+				referenceDistance = distance
 				bestCandidate =  each
-		set_move_target(bestCandidate.globalPosition)	#Al haber evaluado todos los comedores, nos dirigimos al mejor.
+		set_move_target(bestCandidate.global_position)	#Al haber evaluado todos los comedores, nos dirigimos al mejor.
 	
 func _resetSatiety():	#Este método reinicia la saciedad de la unidad y la devuelve a su color normal.
 	satiety = initialSatiety
@@ -212,3 +248,30 @@ func generateTrait():	#Esta función genera un rasgo aleatorio, y lo añade a la
 			newTrait.traitValue = 4
 	traitList.append(newTrait)
 	
+func get_collection_speed() -> float:
+	return collectionSpeed * penaltyManager.recolection_multiplier
+
+func get_construction_speed() -> float:
+	return constructionSpeed * penaltyManager.construction_multiplier
+
+func get_breeding_speed() -> float:
+	return breedingSpeed * penaltyManager.breeding_multiplier
+func entrar_en_comedor():
+	posicion_anterior = global_position
+	
+	velocity = Vector3.ZERO
+	$CollectionTimer.stop()
+	target_resource = null
+	
+	set_collision_layer_value(1, false)
+	set_collision_mask_value(1, false)
+	hide()
+
+func salir_del_comedor(posicion: Vector3):
+	global_position = posicion_anterior
+	target_position = posicion_anterior
+	velocity = Vector3.ZERO
+	
+	set_collision_layer_value(1, true)
+	set_collision_mask_value(1, true)
+	show()

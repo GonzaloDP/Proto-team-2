@@ -2,7 +2,11 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yf5fn"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6metl"]
+albedo_color = Color(5.4147097e-07, 0.45311397, 0.05412537, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_57qmd"]
+material = SubResource("StandardMaterial3D_6metl")
 
 [node name="Node3D" type="Node3D" unique_id=721908082]
 
