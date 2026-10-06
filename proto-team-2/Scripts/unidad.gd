@@ -14,7 +14,6 @@ var starving = false #Starving es un boolean que controla si la unidad está sie
 var traitList: Array[Rasgo]	#Un array que contiene todos los rasgos de la unidad.
 var target_resource : Recurso
 var target_edificio : Edificio
-var selected
 
 @onready var progressBar = $SubViewportContainer/SubViewport/BarraProgreso
 
@@ -30,7 +29,6 @@ func _ready():
 	satiety = initialSatiety
 	$HungerTimer.start()
 	progressBar.hide()
-	selected = false
 
 func set_move_target(new_target: Vector3, es_orden_construccion: bool = false):
 	if en_reproduccion:
@@ -140,8 +138,6 @@ func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta
 				$CollectionTimer.stop()
 			else:
 				$CollectionTimer.start(10/get_collection_speed())	#De todos modos, se reinicia el timer.
-				if(selected):
-					progressBar.show()
 		else:	#Si no hay más recursos, entonces ya no estamos haciendo nada. Acá es adonde mandaría una alerta al jugador de que está inactivo.
 			target_resource = null
 			progressBar.targetTimer = null
