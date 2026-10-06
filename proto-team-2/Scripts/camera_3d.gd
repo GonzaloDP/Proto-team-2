@@ -142,6 +142,7 @@ func seleccionar_unidad(mouse_pos: Vector2) -> void:
 		if objeto is CharacterBody3D:
 			selected_units.append(objeto)
 			mostrar_indicador(objeto)
+			objeto._getProgressBar()
 			menu_construccion.toggle_hud_construccion(true, selected_units)
 
 func seleccionar_unidades_en_rectangulo() -> void:
@@ -154,7 +155,8 @@ func seleccionar_unidades_en_rectangulo() -> void:
 		if rectangulo.has_point(posicion_pantalla):
 			selected_units.append(unidad)
 			mostrar_indicador(unidad)
-	
+			unidad._getProgressBar()
+
 	if selected_units.size() > 0:
 		menu_construccion.toggle_hud_construccion(true, selected_units)
 
@@ -172,6 +174,7 @@ func mostrar_indicador(unidad: CharacterBody3D) -> void:
 func ocultar_indicador(unidad: CharacterBody3D) -> void:
 	var indicador = unidad.get_node("SelectionMesh")
 	indicador.visible = false
+	unidad.progressBar.hide()
 
 
 func _activar_modo_construccion(nombre: String, datos: Dictionary):
