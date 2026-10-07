@@ -17,6 +17,7 @@ size = Vector3(1.638916, 1.0262451, 0.98342896)
 size = Vector3(1.7212887, 1.0411072, 1.0544701)
 
 [node name="EdificioReproducción" type="StaticBody3D" unique_id=1753884300]
+collision_layer = 2
 script = ExtResource("1_l6kbd")
 escena_unidad = ExtResource("2_83186")
 

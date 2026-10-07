@@ -29,6 +29,10 @@ func _ready():
 	satiety = initialSatiety
 	$HungerTimer.start()
 	progressBar.hide()
+	
+	set_collision_mask_value(1, true)
+	set_collision_mask_value(2,true)
+	set_collision_mask_value(3,true)
 
 func set_move_target(new_target: Vector3, es_orden_construccion: bool = false):
 	if en_reproduccion:
@@ -168,7 +172,10 @@ func salir_de_reproduccion(posicion: Vector3):
 	velocity = Vector3.ZERO
 	
 	set_collision_layer_value(1,true)
+	
 	set_collision_mask_value(1,true)
+	set_collision_mask_value(2,true)
+	set_collision_mask_value(3,true)
 	
 	show()
 
@@ -205,7 +212,7 @@ func goEat():
 				referenceDistance = distance
 				bestCandidate =  each
 		set_move_target(bestCandidate.global_position)	#Al haber evaluado todos los comedores, nos dirigimos al mejor.
-	
+
 func _resetSatiety():	#Este método reinicia la saciedad de la unidad y la devuelve a su color normal.
 	satiety = initialSatiety
 	$MeshInstance3D.mesh.material.albedo_color = Color("Gray")
@@ -223,8 +230,6 @@ func _setInheritance(parent1: Unidad, parent2: Unidad):	#Este método, llamado p
 	generateTrait()
 	applyTraits()
 	satiety = initialSatiety
-
-
 
 func generateTrait():	#Esta función genera un rasgo aleatorio, y lo añade a la lista de rasgos de la unidad.
 	var newTrait = Rasgo.new("",0)
@@ -246,7 +251,7 @@ func generateTrait():	#Esta función genera un rasgo aleatorio, y lo añade a la
 			newTrait.text = "Satiety"
 			newTrait.traitValue = 4
 	traitList.append(newTrait)
-	
+
 func get_collection_speed() -> float:
 	return collectionSpeed * penaltyManager.recolection_multiplier
 
@@ -272,5 +277,8 @@ func salir_del_comedor(posicion: Vector3):
 	velocity = Vector3.ZERO
 	
 	set_collision_layer_value(1, true)
+	
 	set_collision_mask_value(1, true)
+	set_collision_mask_value(2,true)
+	set_collision_mask_value(3,true)
 	show()

@@ -11,6 +11,7 @@ albedo_color = Color(0.15294118, 0.7647059, 0.23137255, 1)
 material = SubResource("StandardMaterial3D_n4n7x")
 
 [node name="EdificioVivienda" type="StaticBody3D" unique_id=1453816375]
+collision_layer = 2
 script = ExtResource("1_js4tm")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1930400955]

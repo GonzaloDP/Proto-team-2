@@ -99,7 +99,7 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 	
 	var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
 	
-	query.collision_mask = 1 | 2
+	query.collision_mask = 1 | 2 | 4
 	query.collide_with_areas = true
 	
 	var result = space_state.intersect_ray(query)
@@ -190,7 +190,7 @@ func _activar_modo_construccion(nombre: String, datos: Dictionary):
 	
 	area_fantasma = Area3D.new() 
 	area_fantasma.collision_layer = 0 
-	area_fantasma.collision_mask = 2 
+	area_fantasma.collision_mask = 2 | 4
 	
 	var colision = CollisionShape3D.new()
 	var forma = BoxShape3D.new()
