@@ -3,6 +3,7 @@ class_name Unidad
 
 @onready var inventario: Inventario = get_tree().current_scene.get_node("Inventario")
 @onready var penaltyManager = get_tree().current_scene.get_node("PenaltiesManager")
+@onready var anim_player = $AnimationPlayer
 
 @export var moveSpeed: float = 6.0	#Esta variable controla la velocidad de desplazamiento de la unidad.
 @export var constructionSpeed : int = 5	#La cantidad de puntos de construcción que la unidad aporta mientras construye. Mientras más, más rápido se crea el edificio.
@@ -29,6 +30,10 @@ func _ready():
 	satiety = initialSatiety
 	$HungerTimer.start()
 	progressBar.hide()
+	
+	if anim_player:
+		anim_player.play("idle")
+	
 
 func set_move_target(new_target: Vector3, es_orden_construccion: bool = false):
 	if en_reproduccion:
@@ -66,8 +71,12 @@ func _physics_process(delta: float):
 			look_at(look_target, Vector3.UP)
 		
 		move_and_slide()
+		if anim_player.current_animation != "walk":
+			anim_player.play("walk")
 	else:
 		velocity = Vector3.ZERO
+		if anim_player and anim_player.current_animation != "idle":
+			anim_player.play("idle")
 
 func asignar_edificio(edificio_a_construir: Edificio):
 	target_resource = null
@@ -208,7 +217,6 @@ func goEat():
 	
 func _resetSatiety():	#Este método reinicia la saciedad de la unidad y la devuelve a su color normal.
 	satiety = initialSatiety
-	$MeshInstance3D.mesh.material.albedo_color = Color("Gray")
 	starving = false
 
 func _isStarving():
