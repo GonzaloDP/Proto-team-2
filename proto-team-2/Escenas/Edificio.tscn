@@ -6,6 +6,8 @@
 collision_layer = 2
 script = ExtResource("1_wmytc")
 
+[node name="Modelo" type="Node3D" parent="." unique_id=2033832169]
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=402039813]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=254236377]
