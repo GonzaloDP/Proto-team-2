@@ -16,7 +16,8 @@ var posicion_actual_mouse: Vector2
 
 enum EstadoCamara { NORMAL, CONSTRUYENDO }
 var estado_actual = EstadoCamara.NORMAL
-var edificio_fantasma: MeshInstance3D = null
+var edificio_fantasma: Node3D = null
+var materiales_fantasma: Array[MeshInstance3D] = []
 var datos_edificio_pendiente: Dictionary
 var nombre_edificio_pendiente: String
 
@@ -51,11 +52,15 @@ func _process(delta: float) -> void:
 					else:
 						ubicacion_valida = false
 					
-					var mat = edificio_fantasma.material_override as StandardMaterial3D
+					#var mat = edificio_fantasma.material_override as StandardMaterial3D
 					if ubicacion_valida:
-						mat.albedo_color = Color(0, 1, 0, 0.5)
+						for mesh in materiales_fantasma:
+							mesh.material_override.albedo_color = Color(0,1,0,0.5)
+						#mat.albedo_color = Color(0, 1, 0, 0.5)
 					else:
-						mat.albedo_color = Color(1, 0, 0, 0.5)
+						for mesh in materiales_fantasma:
+							mesh.material_override.albedo_color = Color(1,0,0,0.5)
+						#mat.albedo_color = Color(1, 0, 0, 0.5)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if estado_actual == EstadoCamara.CONSTRUYENDO:
@@ -99,7 +104,7 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 	
 	var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
 	
-	query.collision_mask = 1 | 2
+	query.collision_mask = 1 | 2 | 4
 	query.collide_with_areas = true
 	
 	var result = space_state.intersect_ray(query)
@@ -173,28 +178,82 @@ func ocultar_indicador(unidad: CharacterBody3D) -> void:
 	var indicador = unidad.get_node("SelectionMesh")
 	indicador.visible = false
 
-
 func _activar_modo_construccion(nombre: String, datos: Dictionary):
 	estado_actual = EstadoCamara.CONSTRUYENDO
 	nombre_edificio_pendiente = nombre
 	datos_edificio_pendiente = datos
 	
-	edificio_fantasma = MeshInstance3D.new()
-	var malla = BoxMesh.new()
-	malla.size = Vector3(2, 2, 2)
-	edificio_fantasma.mesh = malla
+	var id_del_edificio = datos["tipo_id"]
+	
+	var escenas_edificios = {
+		"reproduccion": preload("res://Escenas/Edificio_Reproducción.tscn"),
+		"vivienda": preload("res://Escenas/Edificio_Vivienda.tscn"),
+		"comedor": preload("res://Escenas/Edificio_Comedor.tscn")
+	}
+	
+	if not escenas_edificios.has(id_del_edificio):
+		print("No existe una escena del edificio fantasma", id_del_edificio)
+		return
+	
+	edificio_fantasma = Node3D.new()
+	
+	var escena = escenas_edificios[id_del_edificio]
+	var escena_visual = escena.instantiate()
+	
+	edificio_fantasma.add_child(escena_visual)
 	
 	var material = StandardMaterial3D.new()
 	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	edificio_fantasma.material_override = material
+	material.albedo_color = Color(0.2, 1.0, 0.3, 0.5)
 	
-	area_fantasma = Area3D.new() 
-	area_fantasma.collision_layer = 0 
-	area_fantasma.collision_mask = 2 
+	materiales_fantasma.clear()
+	
+	var mallas = escena_visual.find_children("*","MeshInstance3D",true,false)
+	
+	for nodo in mallas:
+		var mesh = nodo as MeshInstance3D
+		if mesh:
+			mesh.material_override = material
+			materiales_fantasma.append(mesh)
+	
+	var colisiones = escena_visual.find_children("*","CollisionShape3D",true,false)
+	
+	for nodo in colisiones:
+		var colision = nodo as CollisionShape3D
+		if colision:
+			colision.disabled = true
+	
+	#for nodo in escena_visual.find_children("*", "MeshInstance3D", true, false):
+		#nodo.material_override = material
+		#nodo.disabled = true
+		#materiales_fantasma.append(nodo)
+	
+	#edificio_fantasma = MeshInstance3D.new()
+	#var malla = BoxMesh.new()
+	#malla.size = Vector3(2, 2, 2)
+	#edificio_fantasma.mesh = malla
+	#
+	#var material = StandardMaterial3D.new()
+	#material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	#edificio_fantasma.material_override = material
+	#
+	#area_fantasma = Area3D.new() 
+	#area_fantasma.collision_layer = 0 
+	#area_fantasma.collision_mask = 2 | 4
+	#
+	#var colision = CollisionShape3D.new()
+	#var forma = BoxShape3D.new()
+	#forma.size = Vector3(1.8, 1.8, 1.8) 
+	#colision.shape = forma
+	#
+	
+	area_fantasma = Area3D.new()
+	area_fantasma.collision_layer = 0
+	area_fantasma.collision_mask = 2 | 4
 	
 	var colision = CollisionShape3D.new()
 	var forma = BoxShape3D.new()
-	forma.size = Vector3(1.8, 1.8, 1.8) 
+	forma.size = Vector3(1.8,1.8,1.8)
 	colision.shape = forma
 	
 	area_fantasma.add_child(colision)
@@ -222,17 +281,31 @@ func _confirmar_construccion():
 			
 	for tipo in costo.keys():
 		inventario.agregar_recurso(tipo, -costo[tipo])
-		
-	var escena_base = load("res://Escenas/Edificio.tscn")
-	var nuevo_edificio = escena_base.instantiate()
+	
+	#var escena_base = load("res://Escenas/Edificio.tscn")
+	#var nuevo_edificio = escena_base.instantiate()
+	
+	var id_del_edificio = datos_edificio_pendiente["tipo_id"]
+	var puntos_req = datos_edificio_pendiente["puntos_construccion_requeridos"]
+	
+	var escenas_edificios = {
+		"reproduccion": preload("res://Escenas/Edificio_Reproducción.tscn"),
+		"vivienda": preload("res://Escenas/Edificio_Vivienda.tscn"),
+		"comedor": preload("res://Escenas/Edificio_Comedor.tscn")
+	}
+	
+	if not escenas_edificios.has(id_del_edificio):
+		print("No existe escena de edificio", id_del_edificio)
+		_cancelar_construccion()
+		return
+	
+	var escena = escenas_edificios[id_del_edificio]
+	var nuevo_edificio = escena.instantiate()
 	
 	nuevo_edificio.position = edificio_fantasma.global_position
 	nuevo_edificio.rotation = edificio_fantasma.global_rotation
 	
 	get_tree().current_scene.add_child(nuevo_edificio)
-	
-	var id_del_edificio = datos_edificio_pendiente["tipo_id"]
-	var puntos_req = datos_edificio_pendiente["puntos_construccion_requeridos"]
 	
 	nuevo_edificio.configurar_edificio(id_del_edificio, puntos_req)
 		

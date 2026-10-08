@@ -20,6 +20,7 @@ height = 1.0268555
 radius = 1.3837891
 
 [node name="EdificioComedor" type="StaticBody3D" unique_id=1371548398]
+collision_layer = 2
 script = ExtResource("1_7svnd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=601883582]

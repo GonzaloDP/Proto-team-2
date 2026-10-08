@@ -10,6 +10,7 @@ material = SubResource("StandardMaterial3D_e8t1n")
 [sub_resource type="BoxShape3D" id="BoxShape3D_austa"]
 
 [node name="Recurso" type="StaticBody3D" unique_id=1250565611]
+collision_layer = 4
 script = ExtResource("1_rkgit")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1099368702]
