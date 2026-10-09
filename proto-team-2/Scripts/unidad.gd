@@ -7,6 +7,7 @@ class_name Unidad
 @onready var casco = $Casco
 @onready var martillo = $Martillo
 @onready var hacha = $Hacha
+@onready var pico = $Pico
 
 @export var moveSpeed: float = 6.0	#Esta variable controla la velocidad de desplazamiento de la unidad.
 @export var constructionSpeed : int = 5	#La cantidad de puntos de construcción que la unidad aporta mientras construye. Mientras más, más rápido se crea el edificio.
@@ -40,6 +41,9 @@ func _ready():
 	
 	if hacha:
 		hacha.hide()
+	
+	if pico:
+		pico.hide()
 
 	if anim_player:
 		anim_player.play("idle")
@@ -94,22 +98,40 @@ func _process(delta: float):
 		var distancia_recurso = global_position.distance_to(target_resource.global_position)
 		
 		if distancia_recurso < 5.0:
-			if target_resource.has_method("get_names") and target_resource.get_names() == "Madera":
+			if target_resource.has_method("get_names"):
+				var nombre_recurso = target_resource.get_names()
 				
-				if hacha and not hacha.visible:
-					hacha.show()
-					
-				if anim_player and anim_player.current_animation != "talar":
-					anim_player.play("talar")
+				if nombre_recurso == "Madera":
+					if pico and pico.visible:
+						pico.hide()
+					if hacha and not hacha.visible:
+						hacha.show()
+					if anim_player and anim_player.current_animation != "talar":
+						anim_player.play("talar")
+				
+				elif nombre_recurso == "Piedra" or nombre_recurso == "Metal":
+					if hacha and hacha.visible:
+						hacha.hide()
+					if pico and not pico.visible:
+						pico.show()
+					if anim_player and anim_player.current_animation != "picar":
+						anim_player.play("picar")
+				
 			else:
 				if hacha and hacha.visible:
 					hacha.hide()
+				if pico and pico.visible:
+					pico.hide()
 		else:
 			if hacha and hacha.visible:
 				hacha.hide()
+			if pico and pico.visible:
+				pico.hide()
 	else:
 		if hacha and hacha.visible:
 			hacha.hide()
+		if pico and pico.visible:
+			pico.hide()
 
 func _physics_process(delta: float):
 	if en_reproduccion:
@@ -130,7 +152,7 @@ func _physics_process(delta: float):
 			anim_player.play("walk")
 	else:
 		velocity = Vector3.ZERO
-		if anim_player and anim_player.current_animation != "idle" and not casco.visible and not hacha.visible:
+		if anim_player and anim_player.current_animation != "idle" and not casco.visible and not hacha.visible and not pico.visible:
 			anim_player.play("idle")
 
 func asignar_edificio(edificio_a_construir: Edificio):

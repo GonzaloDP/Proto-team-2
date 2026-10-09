@@ -295,6 +295,30 @@ tracks/6/keys = {
 "update": 0,
 "values": [Vector3(0.787, 0.254, 0)]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Pico:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -0.22514747)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Pico:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.6595726, 0.20669281, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_b3jut"]
 resource_name = "construir"
@@ -364,6 +388,48 @@ tracks/4/path = NodePath("Armature/Skeleton3D:Bone.004.L")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = PackedFloat32Array(0, 1, -0.539506, 0, 0, 0.841982)
+
+[sub_resource type="Animation" id="Animation_ktyus"]
+resource_name = "picar"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pico:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -0.22514747), Vector3(0.62831855, 0, -0.22514747), Vector3(-1.134464, 0, 0), Vector3(0, 0, -0.22514747)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pico:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.6595726, 0.20669281, 0), Vector3(0.66, 0.207, 0.31), Vector3(0.58, 0.207, -0.37), Vector3(0.6595726, 0.20669281, 0)]
+}
+tracks/2/type = "rotation_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Armature/Skeleton3D:Bone.004.L")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, -0.539506, 0, 0, 0.841982)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Armature/Skeleton3D:Bone.004.R")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, -0.539506, 0, 0, 0.841982)
 
 [sub_resource type="Animation" id="Animation_xpu6h"]
 resource_name = "talar"
@@ -446,6 +512,7 @@ _data = {
 &"RESET": SubResource("Animation_vmd8f"),
 &"construir": SubResource("Animation_b3jut"),
 &"idle": SubResource("Animation_i4xbc"),
+&"picar": SubResource("Animation_ktyus"),
 &"talar": SubResource("Animation_xpu6h"),
 &"walk": SubResource("Animation_lpgkf")
 }
@@ -644,6 +711,83 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_1h8p6")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vt706"]
+resource_name = "Madera"
+cull_mode = 2
+albedo_color = Color(0.443029, 0.18657264, 0, 1)
+roughness = 0.5
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_0fyw2"]
+_surfaces = [{
+"aabb": AABB(-1, -6.128863, -1, 2, 12.257726, 2),
+"format": 34896613377,
+"index_count": 84,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAACAAEAAwAEAAEABQAAAAIABQADAAAABQACAAYAAgAHAAYABAAHAAIACAAFAAYACAAGAAcAAwAJAAQACgAFAAgACgAIAAcABQALAAMACwAFAAoAAwALAAkACQAMAAQACQALAAwADQAEAAwABwAEAA0ACwANAAwACgAHAA4ABwANAA4ACwAKAA8ACwAPAA0ADwAKAA4ADwAOAA0A"),
+"name": "Madera",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray("/38AAAAAAACB2v//fSUAAP9///8AAAAAgdoAAH0lAAD//////38AAH0lAAB9JQAAfSX//30lAAAAAP///38AAAAAAAD/fwAA//8AAP9/AAB9JQAAgdoAAIHaAACB2gAAgdr//4HaAAD/f/////8AAH0l//+B2gAA/38AAP//AAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_iver1"]
+resource_name = "Pico_Cube"
+_surfaces = [{
+"aabb": AABB(-1, -6.128863, -1, 2, 12.257726, 2),
+"attribute_data": PackedByteArray("////f//fAAD//wAA/9//f//f/3//vwAA/98AAP+//3//v/9//58AAP+/AAD/n/9//5//f/9/AAD/nwAA/3//f/9//3//XwAA/38AAP9f/3//X/9//z8AAP9fAAD/P/9/cH3/v/8/joJxa42UjwL/v44UjZT/P2/9cWtw644UcOv/P/9//x8AAP8/AAD/H/9//x//fwAAAAD/HwAAAAD/f42UjZRw642U/7+OgnDrcOtv/f+/jZRw646C/7//v2/9"),
+"format": 34896613399,
+"index_count": 84,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUAGAAZABoAGAAbABkAGQAbABwAGwAYAB0AHQAYAB4AGwAdAB8AIAAhACIAIAAjACEAJAAlACYAJAAnACUAKAApACoAKAArACkAKQArACwAKwAoAC0ALQAoAC4AKwAtAC8A"),
+"material": SubResource("StandardMaterial3D_vt706"),
+"name": "Madera",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 48,
+"vertex_data": PackedByteArray("/38AAAAA/u+B2v//fSX+7/9///8AAP7vgdoAAH0l/u+B2gAAfSX/z///////f//Pgdr//30l/8///wAA/3//z///AAD/f/+vgdr//4Ha/6///////3//r4HaAACB2v+vgdoAAIHa/4//f///////j4Ha//+B2v+P/38AAP///4//fwAA////j30l//+B2v+P/3///////499JQAAgdr/j30lAACB2v+vAAD///9//699Jf//gdr/rwAAAAD/f/+v//////9//7//f///AAD/v4Ha//99Jf+/AAD///9//799Jf//fSX/v/9///////+/gdr//4Ha/799Jf//gdr/vwAAAAD/f//PfSX//30l/88AAP///3//z30lAAB9Jf/PfSUAAH0l/u//f///AAD+730l//99Jf7v/38AAAAA/u99JQAAfSX/P4HaAAB9Jf8//38AAAAA/z+B2gAAgdr/P///AAD/f/8/fSUAAIHa/z8AAAAA/3//P/9/AAD///8//38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/////f////3////9/////f////3////9/////f///////f////3////9/////f////3////9/////f////3//f////3////9/////f////3////9/////f////3///wAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_0fyw2")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o845a"]
+resource_name = "Martillo"
+cull_mode = 2
+albedo_color = Color(0.29113397, 0.29113397, 0.29113397, 1)
+metallic = 0.5
+roughness = 0.5
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_pa82h"]
+_surfaces = [{
+"aabb": AABB(-0.8032137, -1.6554056, -5.3046975, 1.6064274, 2.1144938, 10.609395),
+"format": 34359742465,
+"index_count": 204,
+"index_data": PackedByteArray("AAABAAIAAwACAAEAAAACAAQAAAAFAAEAAwAGAAIAAwABAAcACAACAAYACAAEAAIACQAGAAMACAAKAAQAAAAEAAsADAAIAAYACwANAAAADAAGAA0ACQANAAYACwAMAA0ABQAAAA0ABQANAAkABAAOAAsABAAKAA4ACwAPAAwACwAOAA8ADAAQAAgACAAQAAoADAAPABAADgAKABEADwAOABIADgARABIAEAAPABMADwASABMACgAQABQACgAUABEAEAATABQAEgARABUAFAATABYAEwASABcAEgAVABcAEwAXABYAEQAYABUAEQAUABgAFwAVABgAFAAWABgAFwAYABYAAwAHABkACQADABkACQAZABoABQAJABoABQAaABsAAQAFABsAAQAbAAcAGgAcABsAGQAdABoAGgAdABwABwAeABkAGQAeAB0AGwAfAAcAGwAcAB8ABwAfAB4AHgAgAB0AHAAhAB8AHwAiAB4AHgAiACAAHwAhACIAHQAgACMAHQAjABwAIwAgACIAHAAjACEAIwAiACEA"),
+"name": "Martillo",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 36,
+"vertex_data": PackedByteArray("Juf/vnkLvL8AAACAap9Nv5gN6z4AAIC/ap9Nv5gN6z4AAACAap9NP5gN6z4AAIC/ap9Nv5gN6z4AAIA/Juf/vnkLvL8oVDK/ap9NP5gN6z4AAACAaMIJvwd9oD4OEG6/ap9NP5gN6z4AAIA/JOf/PnkLvL8oVDK/aMIJvwd9oD4OEG4/Juf/vnkLvL8oVDI/JOf/PnkLvL8oVDI/JOf/PnkLvL8AAACA6+y/vp2lpL8aREQ/6+y/Pp2lpL8aREQ/aMIJPwd9oD4OEG4/yAKQvgT0i718TSBAjqJIvjaOZ79M1xpAjKJIPjaOZ79M1xpAyAKQPgT0i718TSBARkOUvEcBzb8VwKlA/I5OPFXk078Zk6lADI9OvFXk078Zk6lAPkOUPEcBzb8VwKlAaMIJPwd9oD4OEG6/6+y/Pp2lpL8aRES/6+y/vp2lpL8aRES/jqJIvjaOZ79M1xrAjKJIPjaOZ79M1xrAyAKQPgT0i718TSDAyAKQvgT0i718TSDA/I5OPFXk078Zk6nARkOUvEcBzb8VwKnAPkOUPEcBzb8VwKnADI9OvFXk078Zk6nA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_5lbtq"]
+resource_name = "Pico_Cube_002"
+_surfaces = [{
+"aabb": AABB(-0.8032137, -1.6554056, -5.3046975, 1.6064274, 2.1144938, 10.609395),
+"attribute_data": PackedByteArray("AADAPgAAYD8AACA/AABAPwAAID8AAGA/AADAPgAAQD8AACA/AABAPwAAwD4AAEA/AAAgPwAAAD8AAGA/AAAAPwAAID8AAAA/AABgPwAAAD8AAMA+AABAPwAAID8AAEA/AAAgPwAAQD8AAMA+AABAPwAAwD4AAAA/AAAgPwAAAD8AAMA+AAAAPwAAID8AAAA/AAAAPgAAAD8AAMA+AAAAPwAAAD4AAAA/AADAPgAAAD8AAMA+AABAPwAAID8AAEA/AAAgPwAAQD8AAMA+AABAPwAAwD4AAAA/AAAAPgAAAD8AAAA+AAAAPwAAwD4AAAA/AAAgPwAAAD8AAMA+AAAAPwAAwD4AAAA/AAAgPwAAAD8AAAA+AAAAPwAAID8AAAA/AABgPwAAAD8AAMA+AAAAPwAAYD8AAAA/AAAgPwAAAD8AACA/AAAAPwAAYD8AAAA/AADAPgAAAD8AAAA+AAAAPwAAAD4AAAA/AADAPgAAAD8AACA/AAAAPwAAwD4AAAA/AADAPgAAAD8AACA/AAAAPwAAYD8AAAA/AAAgPwAAAD8AACA/AAAAPwAAYD8AAAA/AAAgPwAAQD8AAMA+AABAPwAAID8AAEA/AADAPgAAQD8AACA/AAAAPwAAYD8AAMA+AABgPwAAAD8AACA/AADAPgAAID8AAAA/AABgPwAAAD8AAAA+AAAAPwAAwD4AAMA+AADAPgAAAD8AAAA+AADAPgAAAD4AAAA/AADAPgAAAD8AAMA+AAAAPwAAID8AAMA+AAAgPwAAAD8AAMA+AADAPgAAwD4AAAA/AAAgPwAAAD8AACA/AAAAPwAAYD8AAAA/AABgPwAAAD8AACA/AAAAPwAAwD4AAEA/AAAgPwAAQD8AAMA+AABAPwAAID8AAEA/AADAPgAAAD8AACA/AAAAPwAAID8AAAA/AADAPgAAAD8AAAA+AAAAPwAAwD4AAAA/AADAPgAAAD8AAAA+AAAAPwAAwD4AAEA/AAAgPwAAQD8AAMA+AABAPwAAID8AAEA/AADAPgAAAD8AAAA+AAAAPwAAwD4AAAA/AAAAPgAAAD8AACA/AAAAPwAAwD4AAAA/AAAgPwAAAD8AAMA+AAAAPwAAAD4AAAA/AAAgPwAAAD8AAMA+AAAAPwAAYD8AAAA/AABgPwAAAD8AACA/AAAAPwAAYD8AAAA/AAAgPwAAAD8AAMA+AAAAPwAAAD4AAAA/AADAPgAAAD8AAAA+AAAAPwAAID8AAAA/AADAPgAAAD8AACA/AAAAPwAAwD4AAAA/AABgPwAAAD8AACA/AAAAPwAAYD8AAAA/AAAgPwAAAD8AACA/AABAPwAAwD4AAEA/AADAPgAAQD8AACA/AABAPw=="),
+"format": 34359742487,
+"index_count": 204,
+"index_data": PackedByteArray("AAABAAIAAAADAAEAAAACAAQAAAAEAAUABgAHAAgABgAJAAcACgALAAwACgANAAsADgAPABAADgARAA8AEgATABQAEgAVABMAFgAXABgAFgAZABcAGgAbABwAGgAdABsAHgAfACAAHgAhAB8AIgAjACQAIgAlACMAJgAnACgAJgApACcAKgArACwAKgAtACsALgAvADAALgAxAC8AMgAzADQAMgA1ADMANgA3ADgANgA5ADcAOgA7ADwAOgA9ADsAPgA7AD0APgA/ADsAQABBAEIAQABDAEEARABBAEMARABFAEEARgBHAEgARgBJAEcASgBHAEkASgBLAEcATABNAE4ATABPAE0AUABRAFIAUABTAFEAVABVAFYAVABXAFUAWABZAFoAWABbAFkAXABdAF4AXABfAF0AYABhAGIAYABjAGEAZABlAGYAZABnAGUAaABpAGoAaABrAGkAbABtAG4AbABvAG0AcABxAHIAcABzAHEAdAB1AHYAdAB3AHUAeAB5AHoAeAB7AHkAfAB9AH4AfAB/AH0A"),
+"material": SubResource("StandardMaterial3D_o845a"),
+"name": "Martillo",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 128,
+"vertex_data": PackedByteArray("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JfRVZv///78l9AAA////vyX0AAD///+/JfQAAP///78l9AAA////v/mY//////+/+Zj//////7/5mP//////v/mY//////+//394Gv///z//f3ga////P/9/eBr///8//394Gv///z8k9Bhw////vyT0GHD///+/JPQYcP///78k9Bhw////v0mt//////+/Sa3//////79Jrf//////v0mt//////+/XvFjAf///79e8WMB////v17xYwH///+/XvFjAf///7//f///AAD/v/9///8AAP8//3///wAA/7//f///AAD/P/9///8AAP8//3///wAA/z//fwAA////v/9/AAD///8//38AAP///7//fwAA////P/9/AAD///8//38AAP///z+Y7pluiJWf95jumW66jwAOmO6ZbqKeVviY7pluZZGzCJjumW6/kMQKmO6ZblCPUQ//f2pW////P/9/alb///8//39qVv///z//f2pW////P6kZJXT///8/qRkldP///z+pGSV0////P6kZJXT///8/m35fcf///z+bfl9x////P5t+X3H///8/m35fcf///z//f4hc////P/9/iFz///8//3+IXP///z//f4hc////P+cPJHT///8/5w8kdP///z/nDyR0////P+cPJHT///8//38FGP///z//fwUY////P/9/BRj///8//38FGP///z9V5iV0////P1XmJXT///8/VeYldP///z9V5iV0////P/9/JXT///8//38ldP///z//fyV0////P/9/JXT///8//38F5////z//fwXn////P/9/Bef///8//38F5////z94mgAA////v3iaAAD///+/eJoAAP///794mgAA////vxfwJHT///8/F/AkdP///z8X8CR0////PxfwJHT///8//3+00v///z//f7TS////P/9/tNL///8//3+00v///z9jgV9x////P2OBX3H///8/Y4Ffcf///z9jgV9x////Pw==")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_pa82h")
 
 [node name="Unidad" type="CharacterBody3D" unique_id=1688446011 groups=["unidades"]]
 script = ExtResource("1_s5656")
@@ -846,6 +990,7 @@ mesh = SubResource("ArrayMesh_p443n")
 
 [node name="Hacha" type="Node3D" parent="." unique_id=1564513985]
 transform = Transform3D(-8.52372e-09, 0.05046971, 0.18835552, 0, 0.18835552, -0.05046971, -0.195, -2.206101e-09, -8.233282e-09, 0.787, 0.254, 0)
+visible = false
 
 [node name="Cube" type="MeshInstance3D" parent="Hacha" unique_id=2063367918]
 transform = Transform3D(0.256201, 0, 0, 0, 0.36305517, 0, 0, 0, 0.256201, 0, 0, 0)
@@ -854,6 +999,17 @@ mesh = SubResource("ArrayMesh_g7jxs")
 [node name="Cube_001" type="MeshInstance3D" parent="Hacha" unique_id=775972986]
 transform = Transform3D(0.31231213, 0, 0, 0, 0.31231213, 0, 0, 0, 0.31231213, 0, 2.495947, 0)
 mesh = SubResource("ArrayMesh_se4p3")
+
+[node name="Pico" type="Node3D" parent="." unique_id=1972141765]
+transform = Transform3D(0.21444745, 0.049115025, 0, -0.049115025, 0.21444745, 0, 0, 0, 0.22, 0.6595726, 0.20669281, 0)
+
+[node name="Cube" type="MeshInstance3D" parent="Pico" unique_id=2077238777]
+transform = Transform3D(0.256201, 0, 0, 0, 0.36305517, 0, 0, 0, 0.256201, 0, 0, 0)
+mesh = SubResource("ArrayMesh_iver1")
+
+[node name="Cube_001" type="MeshInstance3D" parent="Pico" unique_id=978910517]
+transform = Transform3D(0.5191848, 0, 0, 0, 0.5191848, 0, 0, 0, 0.5191848, 0, 2.4564023, 0)
+mesh = SubResource("ArrayMesh_5lbtq")
 
 [connection signal="timeout" from="CollectionTimer" to="." method="gatherResource"]
 [connection signal="timeout" from="CollectionTimer" to="SubViewportContainer/SubViewport/BarraProgreso" method="_on_collection_timer_timeout"]
