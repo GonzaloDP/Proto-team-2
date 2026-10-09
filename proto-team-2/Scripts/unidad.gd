@@ -8,6 +8,7 @@ class_name Unidad
 @onready var martillo = $Martillo
 @onready var hacha = $Hacha
 @onready var pico = $Pico
+@onready var canasto = $Canasto
 
 @export var moveSpeed: float = 6.0	#Esta variable controla la velocidad de desplazamiento de la unidad.
 @export var constructionSpeed : int = 5	#La cantidad de puntos de construcción que la unidad aporta mientras construye. Mientras más, más rápido se crea el edificio.
@@ -44,6 +45,9 @@ func _ready():
 	
 	if pico:
 		pico.hide()
+	
+	if canasto:
+		canasto.hide()
 
 	if anim_player:
 		anim_player.play("idle")
@@ -104,6 +108,8 @@ func _process(delta: float):
 				if nombre_recurso == "Madera":
 					if pico and pico.visible:
 						pico.hide()
+					if canasto and canasto.visible:
+						canasto.hide()
 					if hacha and not hacha.visible:
 						hacha.show()
 					if anim_player and anim_player.current_animation != "talar":
@@ -112,26 +118,45 @@ func _process(delta: float):
 				elif nombre_recurso == "Piedra" or nombre_recurso == "Metal":
 					if hacha and hacha.visible:
 						hacha.hide()
+					if canasto and canasto.visible:
+						canasto.hide()
 					if pico and not pico.visible:
 						pico.show()
 					if anim_player and anim_player.current_animation != "picar":
 						anim_player.play("picar")
+				
+				elif nombre_recurso == "Comida":
+					if hacha and hacha.visible:
+						hacha.hide()
+					if pico and pico.visible:
+						pico.hide()
+					if canasto and not canasto.visible:
+						canasto.show()
+					if anim_player and anim_player.current_animation != "recolectar comida":
+						anim_player.play("recolectar comida")
 				
 			else:
 				if hacha and hacha.visible:
 					hacha.hide()
 				if pico and pico.visible:
 					pico.hide()
+				if canasto and canasto.visible:
+					canasto.hide()
 		else:
 			if hacha and hacha.visible:
 				hacha.hide()
 			if pico and pico.visible:
 				pico.hide()
+			if canasto and canasto.visible:
+				canasto.hide()
 	else:
 		if hacha and hacha.visible:
 			hacha.hide()
 		if pico and pico.visible:
 			pico.hide()
+		if canasto and canasto.visible:
+			canasto.hide()
+
 
 func _physics_process(delta: float):
 	if en_reproduccion:
@@ -152,7 +177,7 @@ func _physics_process(delta: float):
 			anim_player.play("walk")
 	else:
 		velocity = Vector3.ZERO
-		if anim_player and anim_player.current_animation != "idle" and not casco.visible and not hacha.visible and not pico.visible:
+		if anim_player and anim_player.current_animation != "idle" and not casco.visible and not hacha.visible and not pico.visible and not canasto.visible:
 			anim_player.play("idle")
 
 func asignar_edificio(edificio_a_construir: Edificio):
