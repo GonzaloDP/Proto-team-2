@@ -3,6 +3,12 @@ class_name Unidad
 
 @onready var inventario: Inventario = get_tree().current_scene.get_node("Inventario")
 @onready var penaltyManager = get_tree().current_scene.get_node("PenaltiesManager")
+@onready var anim_player = $AnimationPlayer
+@onready var casco = $Casco
+@onready var martillo = $Martillo
+@onready var hacha = $Hacha
+@onready var pico = $Pico
+@onready var canasto = $Canasto
 
 @export var moveSpeed: float = 6.0	#Esta variable controla la velocidad de desplazamiento de la unidad.
 @export var constructionSpeed : int = 5	#La cantidad de puntos de construcción que la unidad aporta mientras construye. Mientras más, más rápido se crea el edificio.
@@ -30,9 +36,27 @@ func _ready():
 	$HungerTimer.start()
 	progressBar.hide()
 	
+	if casco:
+		casco.hide()
+		martillo.hide()
+	
+	if hacha:
+		hacha.hide()
+	
+	if pico:
+		pico.hide()
+	
+	if canasto:
+		canasto.hide()
+
+	if anim_player:
+		anim_player.play("idle")
+
 	set_collision_mask_value(1, true)
 	set_collision_mask_value(2,true)
 	set_collision_mask_value(3,true)
+
+
 
 func set_move_target(new_target: Vector3, es_orden_construccion: bool = false):
 	if en_reproduccion:
@@ -51,9 +75,88 @@ func _process(delta: float):
 			if distancia < 4.0: 
 				set_move_target(global_position, true)
 				target_edificio.recibir_trabajo(constructionSpeed * delta)
+				
+				if casco and not casco.visible:
+					casco.show()
+					martillo.show()
+				
+				if anim_player and anim_player.current_animation != "construir":
+					anim_player.play("construir")
+				
+			else:
+				if casco and casco.visible:
+					casco.hide()
+					martillo.hide()
 		else:
 			target_edificio = null
+			if casco and casco.visible:
+				casco.hide()
+				martillo.hide()
+	else:
+		if casco and casco.visible:
+			casco.hide()
+			martillo.hide()
+	
+	# Todo este choclo para animaciones de recolección
+	if target_resource and is_instance_valid(target_resource) and not starving:
+		var distancia_recurso = global_position.distance_to(target_resource.global_position)
 		
+		if distancia_recurso < 5.0:
+			if target_resource.has_method("get_names"):
+				var nombre_recurso = target_resource.get_names()
+				
+				if nombre_recurso == "Madera":
+					if pico and pico.visible:
+						pico.hide()
+					if canasto and canasto.visible:
+						canasto.hide()
+					if hacha and not hacha.visible:
+						hacha.show()
+					if anim_player and anim_player.current_animation != "talar":
+						anim_player.play("talar")
+				
+				elif nombre_recurso == "Piedra" or nombre_recurso == "Metal":
+					if hacha and hacha.visible:
+						hacha.hide()
+					if canasto and canasto.visible:
+						canasto.hide()
+					if pico and not pico.visible:
+						pico.show()
+					if anim_player and anim_player.current_animation != "picar":
+						anim_player.play("picar")
+				
+				elif nombre_recurso == "Comida":
+					if hacha and hacha.visible:
+						hacha.hide()
+					if pico and pico.visible:
+						pico.hide()
+					if canasto and not canasto.visible:
+						canasto.show()
+					if anim_player and anim_player.current_animation != "recolectar comida":
+						anim_player.play("recolectar comida")
+				
+			else:
+				if hacha and hacha.visible:
+					hacha.hide()
+				if pico and pico.visible:
+					pico.hide()
+				if canasto and canasto.visible:
+					canasto.hide()
+		else:
+			if hacha and hacha.visible:
+				hacha.hide()
+			if pico and pico.visible:
+				pico.hide()
+			if canasto and canasto.visible:
+				canasto.hide()
+	else:
+		if hacha and hacha.visible:
+			hacha.hide()
+		if pico and pico.visible:
+			pico.hide()
+		if canasto and canasto.visible:
+			canasto.hide()
+
 
 func _physics_process(delta: float):
 	if en_reproduccion:
@@ -70,8 +173,12 @@ func _physics_process(delta: float):
 			look_at(look_target, Vector3.UP)
 		
 		move_and_slide()
+		if anim_player.current_animation != "walk":
+			anim_player.play("walk")
 	else:
 		velocity = Vector3.ZERO
+		if anim_player and anim_player.current_animation != "idle" and not casco.visible and not hacha.visible and not pico.visible and not canasto.visible:
+			anim_player.play("idle")
 
 func asignar_edificio(edificio_a_construir: Edificio):
 	target_resource = null
@@ -215,7 +322,6 @@ func goEat():
 
 func _resetSatiety():	#Este método reinicia la saciedad de la unidad y la devuelve a su color normal.
 	satiety = initialSatiety
-	$MeshInstance3D.mesh.material.albedo_color = Color("Gray")
 	starving = false
 
 func _isStarving():
