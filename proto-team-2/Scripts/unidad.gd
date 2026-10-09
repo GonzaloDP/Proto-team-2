@@ -4,6 +4,8 @@ class_name Unidad
 @onready var inventario: Inventario = get_tree().current_scene.get_node("Inventario")
 @onready var penaltyManager = get_tree().current_scene.get_node("PenaltiesManager")
 @onready var anim_player = $AnimationPlayer
+@onready var casco = $Casco
+@onready var martillo = $Martillo
 
 @export var moveSpeed: float = 6.0	#Esta variable controla la velocidad de desplazamiento de la unidad.
 @export var constructionSpeed : int = 5	#La cantidad de puntos de construcción que la unidad aporta mientras construye. Mientras más, más rápido se crea el edificio.
@@ -31,6 +33,9 @@ func _ready():
 	$HungerTimer.start()
 	progressBar.hide()
 	
+	if casco:
+		casco.hide()
+		martillo.hide()
 
 	if anim_player:
 		anim_player.play("idle")
@@ -58,9 +63,27 @@ func _process(delta: float):
 			if distancia < 4.0: 
 				set_move_target(global_position, true)
 				target_edificio.recibir_trabajo(constructionSpeed * delta)
+				
+				if casco and not casco.visible:
+					casco.show()
+					martillo.show()
+				
+				if anim_player and anim_player.current_animation != "construir":
+					anim_player.play("construir")
+				
+			else:
+				if casco and casco.visible:
+					casco.hide()
+					martillo.hide()
 		else:
 			target_edificio = null
-		
+			if casco and casco.visible:
+				casco.hide()
+				martillo.hide()
+	else:
+		if casco and casco.visible:
+			casco.hide()
+			martillo.hide()
 
 func _physics_process(delta: float):
 	if en_reproduccion:
@@ -81,7 +104,7 @@ func _physics_process(delta: float):
 			anim_player.play("walk")
 	else:
 		velocity = Vector3.ZERO
-		if anim_player and anim_player.current_animation != "idle":
+		if anim_player and anim_player.current_animation != "idle" and not casco.visible:
 			anim_player.play("idle")
 
 func asignar_edificio(edificio_a_construir: Edificio):

@@ -9,7 +9,7 @@ class_name Edificio
 
 @export var nombre_edificio: String = "Edificio"
 @export var tipo_edificio: String = "General"
-
+@export var completado: bool = false
 #var escenas_edificios = {
 	#"reproduccion": preload("res://Escenas/Edificio_Reproducción.tscn"),
 	#"vivienda": preload("res://Escenas/Edificio_Vivienda.tscn"),
@@ -18,8 +18,13 @@ class_name Edificio
 
 var puntos_totales: float = 100.0
 var puntos_actuales: float = 0.0
-var completado: bool = false
 var tipo_actual: String = ""
+
+func _ready() -> void:
+	if completado:
+		mesh_instance.scale = Vector3(1, 1, 1)
+		if barra_progreso:
+			barra_progreso.hide()
 
 func configurar_edificio(tipo_id: String, puntos_requeridos: float):
 	tipo_actual = tipo_id
