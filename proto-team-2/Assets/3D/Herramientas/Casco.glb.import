@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cv8mw570ta1vv"
-path="res://.godot/imported/Martillo.glb-09b5bc5c75f845dcf7b3ac0212c7d63c.scn"
+uid="uid://dva373d02nii3"
+path="res://.godot/imported/Casco.glb-278abe027ee0c05216bf6e7d4c314248.scn"
 
 [deps]
 
-source_file="res://Assets/3D/Martillo.glb"
-dest_files=["res://.godot/imported/Martillo.glb-09b5bc5c75f845dcf7b3ac0212c7d63c.scn"]
+source_file="res://Assets/3D/Herramientas/Casco.glb"
+dest_files=["res://.godot/imported/Casco.glb-278abe027ee0c05216bf6e7d4c314248.scn"]
 
 [params]
 
@@ -36,8 +36,8 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-materials/extract=0
-materials/extract_format=0
+materials/extract=2
+materials/extract_format=1
 materials/extract_path=""
 _subresources={}
 gltf/naming_version=2

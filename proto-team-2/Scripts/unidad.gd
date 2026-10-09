@@ -6,6 +6,7 @@ class_name Unidad
 @onready var anim_player = $AnimationPlayer
 @onready var casco = $Casco
 @onready var martillo = $Martillo
+@onready var hacha = $Hacha
 
 @export var moveSpeed: float = 6.0	#Esta variable controla la velocidad de desplazamiento de la unidad.
 @export var constructionSpeed : int = 5	#La cantidad de puntos de construcción que la unidad aporta mientras construye. Mientras más, más rápido se crea el edificio.
@@ -36,6 +37,9 @@ func _ready():
 	if casco:
 		casco.hide()
 		martillo.hide()
+	
+	if hacha:
+		hacha.hide()
 
 	if anim_player:
 		anim_player.play("idle")
@@ -84,6 +88,28 @@ func _process(delta: float):
 		if casco and casco.visible:
 			casco.hide()
 			martillo.hide()
+	
+	# Todo este choclo para animaciones de recolección
+	if target_resource and is_instance_valid(target_resource) and not starving:
+		var distancia_recurso = global_position.distance_to(target_resource.global_position)
+		
+		if distancia_recurso < 5.0:
+			if target_resource.has_method("get_names") and target_resource.get_names() == "Madera":
+				
+				if hacha and not hacha.visible:
+					hacha.show()
+					
+				if anim_player and anim_player.current_animation != "talar":
+					anim_player.play("talar")
+			else:
+				if hacha and hacha.visible:
+					hacha.hide()
+		else:
+			if hacha and hacha.visible:
+				hacha.hide()
+	else:
+		if hacha and hacha.visible:
+			hacha.hide()
 
 func _physics_process(delta: float):
 	if en_reproduccion:
@@ -104,7 +130,7 @@ func _physics_process(delta: float):
 			anim_player.play("walk")
 	else:
 		velocity = Vector3.ZERO
-		if anim_player and anim_player.current_animation != "idle" and not casco.visible:
+		if anim_player and anim_player.current_animation != "idle" and not casco.visible and not hacha.visible:
 			anim_player.play("idle")
 
 func asignar_edificio(edificio_a_construir: Edificio):

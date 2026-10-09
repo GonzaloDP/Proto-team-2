@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c8pvvrtrgo6nf"
-path.s3tc="res://.godot/imported/Amarillo.png-ef2c6cb50fc5392487c03d5abc8a81a4.s3tc.ctex"
+path.s3tc="res://.godot/imported/Amarillo.png-03baa529425e7e3e2600f5cd50099a75.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/3D/Amarillo.png"
-dest_files=["res://.godot/imported/Amarillo.png-ef2c6cb50fc5392487c03d5abc8a81a4.s3tc.ctex"]
+source_file="res://Assets/3D/Herramientas/Amarillo.png"
+dest_files=["res://.godot/imported/Amarillo.png-03baa529425e7e3e2600f5cd50099a75.s3tc.ctex"]
 
 [params]
 
