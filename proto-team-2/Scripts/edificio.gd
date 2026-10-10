@@ -18,7 +18,7 @@ class_name Edificio
 
 var puntos_totales: float = 100.0
 var puntos_actuales: float = 0.0
-var completado: bool = false
+@export var completado: bool = false
 var tipo_actual: String = ""
 
 func configurar_edificio(tipo_id: String, puntos_requeridos: float):
