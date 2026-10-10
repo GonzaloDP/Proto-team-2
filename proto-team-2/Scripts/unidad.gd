@@ -260,7 +260,6 @@ func get_construction_speed() -> float:
 
 func get_breeding_speed() -> float:
 	return breedingSpeed * penaltyManager.breeding_multiplier
-	
 func entrar_en_comedor():
 	posicion_anterior = global_position
 	
