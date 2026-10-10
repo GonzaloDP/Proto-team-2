@@ -3,6 +3,7 @@ class_name Unidad
 
 @onready var inventario: Inventario = get_tree().current_scene.get_node("Inventario")
 @onready var penaltyManager = get_tree().current_scene.get_node("PenaltiesManager")
+@onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 
 @export var moveSpeed: float = 6.0	#Esta variable controla la velocidad de desplazamiento de la unidad.
 @export var constructionSpeed : int = 5	#La cantidad de puntos de construcción que la unidad aporta mientras construye. Mientras más, más rápido se crea el edificio.
@@ -21,6 +22,8 @@ var target_position: Vector3
 var en_reproduccion: bool = false
 var posicion_anterior: Vector3
 
+var en_rango_construccion: bool = false
+
 func _ready():
 #	traitList.append(Rasgo.new("Movement Speed", 10)) Esta línea de código es puramente de Debug. Es simplemente un rasgo de prueba para mostrar que el sistema funciona. Luego lo borramos, okay?
 	Level.agregar_unidad()
@@ -29,6 +32,13 @@ func _ready():
 	satiety = initialSatiety
 	$HungerTimer.start()
 	progressBar.hide()
+	
+	navigation_agent.path_desired_distance = 0.8
+	navigation_agent.target_desired_distance = 1.0
+	navigation_agent.radius = 0.5
+	#navigation_agent.avoidance_enabled = true
+	
+	#navigation_agent.velocity_computed.connect(_on_velocity_computed)
 	
 	set_collision_mask_value(1, true)
 	set_collision_mask_value(2,true)
@@ -43,35 +53,101 @@ func set_move_target(new_target: Vector3, es_orden_construccion: bool = false):
 	# Si le damos una orden de movimiento normal, debe olvidar el edificio para no quedarse atascado
 	if not es_orden_construccion:
 		target_edificio = null
+	
+	navigation_agent.target_position = target_position
 
 func _process(delta: float):
 	if target_edificio and is_instance_valid(target_edificio) and not starving:
 		if not target_edificio.completado:
 			var distancia = global_position.distance_to(target_edificio.global_position)			# Ampliamos un poco el rango para que no se empujen entre varias unidades y cancelen el trabajo
-			if distancia < 4.0: 
-				set_move_target(global_position, true)
+			if distancia < 2.5:
+				if not en_rango_construccion:
+					en_rango_construccion = true
+					set_move_target(global_position, true)
+				
 				target_edificio.recibir_trabajo(constructionSpeed * delta)
+			else:
+				en_rango_construccion = false
 		else:
 			target_edificio = null
-		
 
 func _physics_process(delta: float):
 	if en_reproduccion:
+		velocity = Vector3.ZERO
 		return
 	
-	var distance_to_target = global_position.distance_to(target_position)
-
-	if distance_to_target > 0.1:
-		var direction = (target_position - global_position).normalized()
-		velocity = direction * moveSpeed
-		
-		var look_target = Vector3(target_position.x, global_position.y, target_position.z)
-		if global_position != look_target:
-			look_at(look_target, Vector3.UP)
-		
-		move_and_slide()
-	else:
+	if navigation_agent.is_navigation_finished():
 		velocity = Vector3.ZERO
+		#move_and_slide()
+		return
+	
+	var next_position: Vector3 = navigation_agent.get_next_path_position()
+	
+	if Engine.get_physics_frames() % 30 == 0:
+		print(
+			"Posición: ", global_position,
+			" | Siguiente punto: ", next_position,
+			" | Ruta terminada: ", navigation_agent.is_navigation_finished(),
+			" | Ruta alcanzable: ", navigation_agent.is_target_reachable(),
+			" | Longitud: ", navigation_agent.get_path_length()
+		)
+	
+	var direction := next_position - global_position
+	direction.y = 0.0
+	
+	if direction.length_squared() < 0.0001:
+		velocity = Vector3.ZERO
+		move_and_slide()
+		return
+		#direction = direction.normalized()
+		#var look_target := global_position + direction
+		#look_at(look_target, Vector3.UP)
+	
+	direction = direction.normalized()
+	velocity = direction * moveSpeed
+	
+	var look_target := global_position + direction
+	look_at(look_target, Vector3.UP)
+	
+	var posicion_antes := global_position
+	
+	move_and_slide()
+	
+	if global_position.distance_squared_to(posicion_antes) < 0.000001:
+		if get_slide_collision_count() > 0:
+			var colision = get_slide_collision(0)
+			print("UNIDAD BLOQUEADA POR: ",colision.get_collider()," | NORMAL: ",colision.get_normal())
+		else:
+			print("UNIDAD SIN DESPLAZAMIENTO Y SIN COLISIÓN FÍSICA")
+	#var desired_velocity := direction * moveSpeed
+	#
+	#if navigation_agent.avoidance_enabled:
+		#navigation_agent.velocity = desired_velocity
+	#else:
+		#velocity = desired_velocity
+		#move_and_slide()
+	#velocity = direction * moveSpeed
+	#
+	#navigation_agent.velocity = desired_velocity
+	#
+	#if direction.length() > 0.01:
+		#var look_target = Vector3(next_position.x,global_position.y,next_position.z)
+		#look_at(look_target,Vector3.UP)
+	
+	#move_and_slide()
+	#var distance_to_target = global_position.distance_to(target_position)
+	#
+	#if distance_to_target > 0.1:
+		#var direction = (target_position - global_position).normalized()
+		#velocity = direction * moveSpeed
+		#
+		#var look_target = Vector3(target_position.x, global_position.y, target_position.z)
+		#if global_position != look_target:
+			#look_at(look_target, Vector3.UP)
+		#
+		#move_and_slide()
+	#else:
+		#velocity = Vector3.ZERO
 
 func asignar_edificio(edificio_a_construir: Edificio):
 	target_resource = null
@@ -95,7 +171,6 @@ func modifyAttribute(attribute: String, value: int):	#Función que mejora los at
 			breedingSpeed += value
 		"Satiety":
 			initialSatiety += value
-		
 
 func applyTraits():	#Recorre todos los rasgos en el array traitList, y pide a cada uno que aplique su efecto.
 	for each in traitList:
@@ -123,7 +198,7 @@ func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta
 	
 	if(target_resource && !starving):	#Si hay un recurso objetivo seguimos. Al dar otra orden, se borra el recurso objetivo, lo que podría causar un crash.
 		if(target_resource.cantidad_variable > 0):	#¿Sigue habiendo recursos que recolectar?
-			if(position.distance_to(target_resource.position) < 5):	#Si la unidad está lo suficientemente cerca, se detiene (target de movimiento a su propa posición), recoge 10 recursos.
+			if(position.distance_to(target_resource.position) < 1.5):	#Si la unidad está lo suficientemente cerca, se detiene (target de movimiento a su propa posición), recoge 10 recursos.
 				set_move_target(position)
 				if target_resource is RecursoRespawn:
 					var cantidad_recolectaba = target_resource.cantidad_variable
@@ -282,3 +357,7 @@ func salir_del_comedor(posicion: Vector3):
 	set_collision_mask_value(2,true)
 	set_collision_mask_value(3,true)
 	show()
+
+#func _on_velocity_computed(safe_velocity: Vector3):
+	#velocity = safe_velocity
+	#move_and_slide()
