@@ -126,11 +126,12 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 		
 		else:
 			var click_world_position: Vector3 = result.position
-			for unidad in selected_units:
-				if is_instance_valid(unidad) and (!unidad._isStarving()):
-					unidad.target_resource = null
-					unidad.hideProgressBar()
-					unidad.set_move_target(click_world_position)
+			mover_unidades_en_formacion(click_world_position)
+			#for unidad in selected_units:
+				#if is_instance_valid(unidad) and (!unidad._isStarving()):
+					#unidad.target_resource = null
+					#unidad.hideProgressBar()
+					#unidad.set_move_target(click_world_position)
 
 func seleccionar_unidad(mouse_pos: Vector2) -> void:
 	deseleccionar_todas()
@@ -223,30 +224,6 @@ func _activar_modo_construccion(nombre: String, datos: Dictionary):
 		if colision:
 			colision.disabled = true
 	
-	#for nodo in escena_visual.find_children("*", "MeshInstance3D", true, false):
-		#nodo.material_override = material
-		#nodo.disabled = true
-		#materiales_fantasma.append(nodo)
-	
-	#edificio_fantasma = MeshInstance3D.new()
-	#var malla = BoxMesh.new()
-	#malla.size = Vector3(2, 2, 2)
-	#edificio_fantasma.mesh = malla
-	#
-	#var material = StandardMaterial3D.new()
-	#material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	#edificio_fantasma.material_override = material
-	#
-	#area_fantasma = Area3D.new() 
-	#area_fantasma.collision_layer = 0 
-	#area_fantasma.collision_mask = 2 | 4
-	#
-	#var colision = CollisionShape3D.new()
-	#var forma = BoxShape3D.new()
-	#forma.size = Vector3(1.8, 1.8, 1.8) 
-	#colision.shape = forma
-	#
-	
 	area_fantasma = Area3D.new()
 	area_fantasma.collision_layer = 0
 	area_fantasma.collision_mask = 2 | 4
@@ -314,3 +291,31 @@ func _confirmar_construccion():
 			unidad.asignar_edificio(nuevo_edificio)
 	
 	_cancelar_construccion()
+
+func mover_unidades_en_formacion(destino: Vector3):
+	var unidades_validas: Array[CharacterBody3D] = []
+	
+	for unidad in selected_units:
+		if is_instance_valid(unidad) and not unidad._isStarving():
+			unidades_validas.append(unidad)
+	
+	if unidades_validas.is_empty():
+		return
+	
+	var columnas := int(ceil(sqrt(float(unidades_validas.size()))))
+	var filas := int(ceil(float(unidades_validas.size()) / columnas))
+	var separacion := 1.5
+	
+	for i in range(unidades_validas.size()):
+		var columna := i % columnas
+		var fila := int(i / columnas)
+		
+		var desplazamiento_x := (columna - (columnas - 1) / 2.0) * separacion
+		var desplazamiento_y := (fila - (filas - 1) / 2.0) * separacion
+		
+		var posicion_objetivo := destino + Vector3(desplazamiento_x,0.0,desplazamiento_y)
+		var unidad := unidades_validas[i]
+		
+		unidad.target_resource = null
+		unidad.hideProgressBar()
+		unidad.set_move_target(posicion_objetivo)
