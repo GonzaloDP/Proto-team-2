@@ -5,11 +5,14 @@ class_name Cuota
 @export var difficulty_increase : int
 var deadlineDay
 var difficulty
+var paidQuotas
+var QuotasToWin = 10
 @onready var day_manager = $"../DayManager"
 @onready var inventario = $"../Inventario"
 signal cuota_actualizada
 signal cuota_incumplida
 signal cuota_pagada
+signal victoria
 
 var quota = {
 Recurso.Tipo_Recurso.MADERA: 0,
@@ -21,6 +24,7 @@ Recurso.Tipo_Recurso.METAL: 0
 func _ready():
 	deadlineDay = 0
 	difficulty = 0
+	paidQuotas = 0
 	day_manager.dia_cambio.connect(checkDeadline)
 	setNewQuota()
 
@@ -43,6 +47,9 @@ func collectQuota():
 		inventario.reducir_recurso(each, quota[each])
 	
 	cuota_pagada.emit()
+	paidQuotas += 1
+	if (paidQuotas >= QuotasToWin):
+		victoria.emit()
 	difficulty += difficulty_increase #Aumentamos la dificultad con cada cuota pagada. Aquí también se enviaría una señal para indicar que el jugador ha pagado una cuota, para marcar su progreso.
 	setNewQuota()
 	
