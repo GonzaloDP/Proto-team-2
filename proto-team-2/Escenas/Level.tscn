@@ -23,6 +23,12 @@
 [ext_resource type="Script" uid="uid://bm0vvop2w0grr" path="res://Scripts/penalties_manager.gd" id="18_xytri"]
 [ext_resource type="PackedScene" uid="uid://b4f5ki2p41ee1" path="res://Escenas/Edificio_Comedor.tscn" id="19_ofqdk"]
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_austa"]
+vertices = PackedVector3Array(-5.75, 0.5, -5.75, -4.75, 0.5, -6, -4.75, 0.5, -11, -11.5, 0.5, -4.75, -6, 0.5, -4.75, -11.5, 0.5, -11, 0.75, 0.5, 0, 1.75, 0.5, 0.25, 2.25, 0.5, -1, 0.75, 0.5, -2, -3.75, 0.5, -5.75, 3.75, 0.5, -1, 12.5, 0.5, -1.25, 12.5, 0.5, -11, -3.25, 0.5, -1, -3, 0.5, -0.5, -1, 0.5, -0.75, -0.75, 0.5, -2, -3.75, 0.5, -4, -4.5, 0.5, -3.75, -4.25, 0.5, -1, -5.25, 0.5, 2, -4.25, 0.5, 1.75, -4.25, 0.5, 1.25, -5.25, 0.5, 1, -11.5, 0.5, 4.25, -4.75, 0.5, 4.25, -5.25, 0.5, 3.75, -5.5, 0.5, -3.75, -5.25, 0.5, -0.75, 2, 0.5, 1, 2, 0.5, 1.75, 2.5, 0.5, 3, 4.25, 0.5, 3.25, 4.25, 0.5, 1, 4.25, 0.5, -0.75, 12.5, 0.5, 5.5, 4.25, 0.5, 5, 3.75, 0.5, 5.25, -2, 0.5, 5, -2.75, 0.5, 5.25, -2.75, 0.5, 5.5, -1.25, 0.5, 5.5, -2, 0.5, 3.25, -3.25, 0.5, 1.75, -3, 0.5, 1, -0.25, 0.5, 6.75, 2.5, 0.5, 5.25, 2, 0.5, 5, 2, 0.5, 3.25, 0.25, 0.5, 2, -3, 0.5, 3, 0.25, 0.5, 0, -0.75, 0.5, 0, -4, 0.5, 6.5, -4.5, 0.5, 5.25, -2, 0.5, 13, -3.25, 0.5, 9.25, -4, 0.5, 8.25, -11.5, 0.5, 13, -2, 0.5, 9.25, -1, 0.5, 9.25, -0.25, 0.5, 8.5, 12.5, 0.5, 13, -2.5, 0.5, 8, -1.5, 0.5, 7.75, -1.75, 0.5, 7, -2.75, 0.5, 7.25)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(4, 3, 0), PackedInt32Array(0, 3, 5), PackedInt32Array(0, 5, 2), PackedInt32Array(7, 6, 8), PackedInt32Array(8, 6, 9), PackedInt32Array(9, 10, 11), PackedInt32Array(11, 10, 2), PackedInt32Array(11, 2, 12), PackedInt32Array(12, 2, 13), PackedInt32Array(15, 14, 16), PackedInt32Array(16, 14, 17), PackedInt32Array(17, 18, 9), PackedInt32Array(9, 18, 10), PackedInt32Array(19, 18, 20), PackedInt32Array(20, 18, 14), PackedInt32Array(14, 18, 17), PackedInt32Array(2, 10, 1), PackedInt32Array(11, 8, 9), PackedInt32Array(22, 21, 23), PackedInt32Array(23, 21, 24), PackedInt32Array(27, 26, 25), PackedInt32Array(19, 20, 28), PackedInt32Array(28, 20, 29), PackedInt32Array(21, 27, 25), PackedInt32Array(28, 29, 4), PackedInt32Array(4, 29, 24), PackedInt32Array(24, 21, 4), PackedInt32Array(4, 21, 3), PackedInt32Array(3, 21, 25), PackedInt32Array(31, 30, 32), PackedInt32Array(32, 30, 34), PackedInt32Array(32, 34, 33), PackedInt32Array(34, 35, 12), PackedInt32Array(34, 12, 33), PackedInt32Array(33, 12, 36), PackedInt32Array(36, 38, 37), PackedInt32Array(35, 11, 12), PackedInt32Array(36, 37, 33), PackedInt32Array(40, 39, 41), PackedInt32Array(41, 39, 42), PackedInt32Array(43, 42, 39), PackedInt32Array(22, 23, 44), PackedInt32Array(44, 23, 45), PackedInt32Array(48, 47, 46), PackedInt32Array(32, 49, 31), PackedInt32Array(31, 49, 50), PackedInt32Array(43, 51, 44), PackedInt32Array(49, 48, 50), PackedInt32Array(50, 48, 43), PackedInt32Array(43, 48, 42), PackedInt32Array(42, 48, 46), PackedInt32Array(44, 45, 43), PackedInt32Array(43, 45, 53), PackedInt32Array(43, 53, 50), PackedInt32Array(50, 53, 52), PackedInt32Array(16, 53, 15), PackedInt32Array(15, 53, 45), PackedInt32Array(41, 54, 40), PackedInt32Array(40, 54, 55), PackedInt32Array(57, 56, 58), PackedInt32Array(58, 56, 59), PackedInt32Array(58, 59, 25), PackedInt32Array(55, 54, 58), PackedInt32Array(57, 60, 56), PackedInt32Array(55, 58, 26), PackedInt32Array(26, 58, 25), PackedInt32Array(56, 60, 61), PackedInt32Array(62, 46, 47), PackedInt32Array(62, 56, 61), PackedInt32Array(47, 38, 62), PackedInt32Array(62, 38, 56), PackedInt32Array(56, 38, 36), PackedInt32Array(56, 36, 63), PackedInt32Array(67, 66, 64), PackedInt32Array(64, 66, 65)]
+geometry_parsed_geometry_type = 1
+filter_baking_aabb = AABB(-25, 0, -30, 50, 1, 60)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xytri"]
 bg_color = Color(0.35800117, 0.15985161, 0, 0.49411765)
 corner_radius_top_left = 75
@@ -54,29 +60,41 @@ bg_color = Color(0.53333336, 0.53333336, 0.53333336, 0.47058824)
 [node name="Level" type="Node3D" unique_id=1295018767]
 script = ExtResource("1_7l8dv")
 
-[node name="Suelo" parent="." unique_id=721908082 instance=ExtResource("1_qbrn0")]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1519184887]
+navigation_mesh = SubResource("NavigationMesh_austa")
+
+[node name="Node3D2" parent="NavigationRegion3D" unique_id=1803103505 groups=["Unidades"] instance=ExtResource("2_e8t1n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0911914, -1)
+
+[node name="Unidad" parent="NavigationRegion3D" unique_id=1688446011 groups=["Unidades"] instance=ExtResource("2_e8t1n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.125, 1)
+
+[node name="Suelo" parent="NavigationRegion3D" unique_id=721908082 instance=ExtResource("1_qbrn0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 1)
 
-[node name="Node3D2" parent="." unique_id=1803103505 groups=["Unidades"] instance=ExtResource("2_e8t1n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3465811, -1)
-
-[node name="Recurso" parent="." unique_id=1863188596 instance=ExtResource("3_e8t1n")]
+[node name="Recurso" parent="NavigationRegion3D" unique_id=1863188596 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.083725, 0.6455455, 0)
 
-[node name="Recurso3" parent="." unique_id=1250565611 instance=ExtResource("3_e8t1n")]
+[node name="Recurso3" parent="NavigationRegion3D" unique_id=1250565611 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.166275, 0.6455455, 0)
 
-[node name="Recurso4" parent="." unique_id=555355697 instance=ExtResource("3_e8t1n")]
+[node name="Recurso4" parent="NavigationRegion3D" unique_id=555355697 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.166275, 0.6455455, 4)
 
-[node name="Recurso2" parent="." unique_id=1301207889 instance=ExtResource("3_e8t1n")]
+[node name="Recurso2" parent="NavigationRegion3D" unique_id=1301207889 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.083725, 0.6455455, 2.75)
+
+[node name="RecursoUnidad" parent="NavigationRegion3D" unique_id=1902933503 instance=ExtResource("12_6tp1g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7576337, 0.7046747, -4.8289022)
+
+[node name="EdificioReproducción" parent="NavigationRegion3D" unique_id=49299471 instance=ExtResource("13_iqjgs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3369226, 0.6204834, 4.190024)
+
+[node name="EdificioComedor" parent="NavigationRegion3D" unique_id=652307072 instance=ExtResource("19_ofqdk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0670872, 0.125, 7.448612)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=48548983]
 transform = Transform3D(1, 0, 0, 0, -0.0041241967, 0.9999915, 0, -0.9999915, -0.0041241967, 0, 12.879479, 0)
-
-[node name="Unidad" parent="." unique_id=1688446011 groups=["Unidades"] instance=ExtResource("2_e8t1n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.125, 1)
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=970184165]
 transform = Transform3D(-0.70710677, 0.5416752, -0.45451948, 0, 0.64278764, 0.76604444, 0.70710677, 0.5416752, -0.45451948, -24, 20, -24)
@@ -277,9 +295,6 @@ duracion_dia = 10.0
 wait_time = 60.0
 autostart = true
 
-[node name="RecursoUnidad" parent="." unique_id=1902933503 instance=ExtResource("12_6tp1g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7576337, 0.7046747, -4.8289022)
-
 [node name="UIConstruccion" type="CanvasLayer" parent="." unique_id=225911941]
 
 [node name="MenuConstruccion" type="Control" parent="UIConstruccion" unique_id=896148718]
@@ -338,14 +353,8 @@ theme_override_colors/font_color = Color(0.8231065, 0, 0.1754849, 1)
 theme_override_colors/font_outline_color = Color(1, 0, 0.18039216, 1)
 text = "X"
 
-[node name="EdificioReproducción" parent="." unique_id=49299471 instance=ExtResource("13_iqjgs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3369226, 0.6204834, 4.190024)
-
 [node name="PenaltiesManager" type="Node" parent="." unique_id=2043099679]
 script = ExtResource("18_xytri")
-
-[node name="EdificioComedor" parent="." unique_id=652307072 instance=ExtResource("19_ofqdk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0670872, 0.125, 7.448612)
 
 [connection signal="pressed" from="UI/AlimentarDebug" to="." method="_on_alimentar_debug_pressed"]
 [connection signal="pressed" from="UI/PauseMenu/Panel/ResumeButton" to="UI/PauseMenu" method="_on_resume_button_pressed"]
