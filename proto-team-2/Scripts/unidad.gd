@@ -33,12 +33,20 @@ func _ready():
 	$HungerTimer.start()
 	progressBar.hide()
 	
-	navigation_agent.path_desired_distance = 0.8
-	navigation_agent.target_desired_distance = 1.0
-	navigation_agent.radius = 0.5
-	#navigation_agent.avoidance_enabled = true
+	#a partir de acá son configuraciones que se les hace al NavigationAgent de la unidad, que sirve para que no se choque con otra unidad dentro del juego
+	navigation_agent.path_desired_distance = 1.0
+	navigation_agent.target_desired_distance = 0.5
 	
-	#navigation_agent.velocity_computed.connect(_on_velocity_computed)
+	navigation_agent.radius = 0.5
+	navigation_agent.avoidance_enabled = true
+	navigation_agent.max_speed = moveSpeed
+	
+	navigation_agent.neighbor_distance = 6.0
+	navigation_agent.max_neighbors = 10
+	navigation_agent.time_horizon_agents = 2.5
+	
+	if not navigation_agent.velocity_computed.is_connected(_on_velocity_computed):
+		navigation_agent.velocity_computed.connect(_on_velocity_computed)
 	
 	set_collision_mask_value(1, true)
 	set_collision_mask_value(2,true)
@@ -73,81 +81,33 @@ func _process(delta: float):
 
 func _physics_process(delta: float):
 	if en_reproduccion:
+		navigation_agent.velocity = Vector3.ZERO
 		velocity = Vector3.ZERO
 		return
 	
 	if navigation_agent.is_navigation_finished():
-		velocity = Vector3.ZERO
-		#move_and_slide()
+		navigation_agent.velocity = Vector3.ZERO
 		return
 	
 	var next_position: Vector3 = navigation_agent.get_next_path_position()
-	
-	if Engine.get_physics_frames() % 30 == 0:
-		print(
-			"Posición: ", global_position,
-			" | Siguiente punto: ", next_position,
-			" | Ruta terminada: ", navigation_agent.is_navigation_finished(),
-			" | Ruta alcanzable: ", navigation_agent.is_target_reachable(),
-			" | Longitud: ", navigation_agent.get_path_length()
-		)
 	
 	var direction := next_position - global_position
 	direction.y = 0.0
 	
 	if direction.length_squared() < 0.0001:
-		velocity = Vector3.ZERO
-		move_and_slide()
+		navigation_agent.velocity = Vector3.ZERO
 		return
-		#direction = direction.normalized()
-		#var look_target := global_position + direction
-		#look_at(look_target, Vector3.UP)
 	
 	direction = direction.normalized()
-	velocity = direction * moveSpeed
+	
+	var desired_velocity: Vector3 = direction * moveSpeed
+	
+	navigation_agent.velocity = desired_velocity
 	
 	var look_target := global_position + direction
+	look_target.y = global_position.y
+	
 	look_at(look_target, Vector3.UP)
-	
-	var posicion_antes := global_position
-	
-	move_and_slide()
-	
-	if global_position.distance_squared_to(posicion_antes) < 0.000001:
-		if get_slide_collision_count() > 0:
-			var colision = get_slide_collision(0)
-			print("UNIDAD BLOQUEADA POR: ",colision.get_collider()," | NORMAL: ",colision.get_normal())
-		else:
-			print("UNIDAD SIN DESPLAZAMIENTO Y SIN COLISIÓN FÍSICA")
-	#var desired_velocity := direction * moveSpeed
-	#
-	#if navigation_agent.avoidance_enabled:
-		#navigation_agent.velocity = desired_velocity
-	#else:
-		#velocity = desired_velocity
-		#move_and_slide()
-	#velocity = direction * moveSpeed
-	#
-	#navigation_agent.velocity = desired_velocity
-	#
-	#if direction.length() > 0.01:
-		#var look_target = Vector3(next_position.x,global_position.y,next_position.z)
-		#look_at(look_target,Vector3.UP)
-	
-	#move_and_slide()
-	#var distance_to_target = global_position.distance_to(target_position)
-	#
-	#if distance_to_target > 0.1:
-		#var direction = (target_position - global_position).normalized()
-		#velocity = direction * moveSpeed
-		#
-		#var look_target = Vector3(target_position.x, global_position.y, target_position.z)
-		#if global_position != look_target:
-			#look_at(look_target, Vector3.UP)
-		#
-		#move_and_slide()
-	#else:
-		#velocity = Vector3.ZERO
 
 func asignar_edificio(edificio_a_construir: Edificio):
 	target_resource = null
@@ -335,6 +295,7 @@ func get_construction_speed() -> float:
 
 func get_breeding_speed() -> float:
 	return breedingSpeed * penaltyManager.breeding_multiplier
+
 func entrar_en_comedor():
 	posicion_anterior = global_position
 	
@@ -358,6 +319,16 @@ func salir_del_comedor(posicion: Vector3):
 	set_collision_mask_value(3,true)
 	show()
 
-#func _on_velocity_computed(safe_velocity: Vector3):
-	#velocity = safe_velocity
-	#move_and_slide()
+func _on_velocity_computed(safe_velocity: Vector3):#esta funcion nueva es la que calcula el movimiento ahora, dandole un movimiento "safe"
+	if en_reproduccion:
+		velocity = Vector3.ZERO
+		return
+	
+	velocity = safe_velocity
+	velocity.y = 0.0
+	
+	move_and_slide()
+	
+	if get_slide_collision_count() > 0:
+		var colision := get_slide_collision(0)
+		var otro_objeto := colision.get_collider()
