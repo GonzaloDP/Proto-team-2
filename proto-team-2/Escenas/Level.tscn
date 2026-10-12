@@ -484,7 +484,7 @@ grow_vertical = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_uyafw")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_k85as")
 theme_override_styles/hover = SubResource("StyleBoxFlat_stj0u")
-text = "Reiniciar"
+text = "Reintentar"
 
 [node name="QuitButton" type="Button" parent="UI/DefeatScreen/Panel" unique_id=2056819599]
 layout_mode = 1
