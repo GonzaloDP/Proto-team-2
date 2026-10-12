@@ -6,6 +6,7 @@ class_name Cuota
 var deadlineDay
 var difficulty
 var paidQuotas
+var failedQuotas
 var QuotasToWin = 10
 @onready var day_manager = $"../DayManager"
 @onready var inventario = $"../Inventario"
@@ -25,6 +26,7 @@ func _ready():
 	deadlineDay = 0
 	difficulty = 0
 	paidQuotas = 0
+	failedQuotas = 0
 	day_manager.dia_cambio.connect(checkDeadline)
 	setNewQuota()
 
@@ -41,6 +43,9 @@ func collectQuota():
 		if(quota[each] > inventario.recursos[each]):
 			print("Aquí es donde se aplicaría una penalización.")
 			cuota_incumplida.emit()
+			failedQuotas += 1
+			if(failedQuotas >= 3):
+				$"../UI/DefeatScreen"._showDefeatScreen()
 			return
 	
 	for each in quota: #En este loop cobramos correctamente. No chequeamos nada ya que lo hicimos en el paso anterior, solo reducimos los recursos.
