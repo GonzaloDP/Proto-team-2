@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://daacyapsqmknq"]
+
+[ext_resource type="Script" uid="uid://bn3l2dr64wy82" path="res://Scripts/hud_demolicion.gd" id="1_yh6ko"]
+
+[node name="HUDDemolicion" type="CanvasLayer" unique_id=1196322522]
+visible = false
+script = ExtResource("1_yh6ko")
+
+[node name="PanelDemolicion" type="PanelContainer" parent="." unique_id=492101974]
+custom_minimum_size = Vector2(220, 100)
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 20.0
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="PanelDemolicion" unique_id=696469719]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="PanelDemolicion" unique_id=387487894]
+layout_mode = 2
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=2025372352]
+oversampling_override = 1.0

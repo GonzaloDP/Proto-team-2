@@ -2,6 +2,7 @@ extends Camera3D
 
 @onready var selection_box = $"../../../../UI/SelectionBox"
 @onready var menu_construccion = $"../../../../UIConstruccion/MenuConstruccion"
+@onready var hud_demolicion: HudDemolicion = $"../../../../HUDDemolicion"
 @onready var inventario: Inventario = get_tree().current_scene.get_node("Inventario")
 @onready var navigation_region: NavigationRegion3D = get_tree().current_scene.get_node("NavigationRegion3D")
 
@@ -19,6 +20,8 @@ var edificio_fantasma: Node3D = null
 var materiales_fantasma: Array[MeshInstance3D] = []
 var datos_edificio_pendiente: Dictionary
 var nombre_edificio_pendiente: String
+
+var edificio_seleccionado: Edificio = null
 
 func _ready() -> void:
 	if menu_construccion:
@@ -83,8 +86,15 @@ func _unhandled_input(event: InputEvent) -> void:
 			selection_box.actualizar_rectangulo(posicion_inicio_seleccion, posicion_actual_mouse)
 		else:
 			if posicion_inicio_seleccion == posicion_actual_mouse:
-				seleccionar_unidad(posicion_actual_mouse)
+				var edificio: Edificio = obtener_edificio_bajo_mouse(posicion_actual_mouse)
+				if edificio != null and edificio.completado:
+					edificio_seleccionado = edificio
+					hud_demolicion.mostrar_edificio(edificio)
+				else:
+					_ocultar_hud_demolicion()
+					seleccionar_unidad(posicion_actual_mouse)
 			else:
+				_ocultar_hud_demolicion()
 				seleccionar_unidades_en_rectangulo()
 			
 			seleccionando = false
@@ -110,23 +120,50 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 	var result = space_state.intersect_ray(query)
 	
 	if result:
-		if result.collider is Edificio and not result.collider.completado:
+		var collider = result.collider
+		if collider is Edificio:
+			var edificio: Edificio = collider
+			if edificio.completado:
+				return
+			else:
+				_ocultar_hud_demolicion()
+				for unidad in selected_units:
+					if is_instance_valid(unidad) and not unidad._isStarving():
+						if unidad.has_method("asignar_edificio"):
+							unidad.asignar_edificio(edificio)
+		
+		elif collider is Recurso:
+			_ocultar_hud_demolicion()
 			for unidad in selected_units:
-				if is_instance_valid(unidad) and (!unidad._isStarving()):
-					if unidad.has_method("asignar_edificio"):
-						unidad.asignar_edificio(result.collider)
-		elif (result.collider is Recurso):
-			for unidad in selected_units:
-				if is_instance_valid(unidad) and (!unidad._isStarving()):
-					unidad.seekResource(result.collider)
-
-		elif result.collider is Area3D and result.collider.get_parent() is EdificioReproduccion:
-			var edificio: EdificioReproduccion = result.collider.get_parent()
+				if is_instance_valid(unidad) and not unidad._isStarving():
+					unidad.seekResource(collider)
+		
+		elif collider is Area3D and collider.get_parent() is EdificioReproduccion:
+			_ocultar_hud_demolicion()
+			var edificio: EdificioReproduccion = collider.get_parent()
 			edificio.recibir_unidades(selected_units)
 		
 		else:
+			_ocultar_hud_demolicion()
 			var click_world_position: Vector3 = result.position
 			mover_unidades_en_formacion(click_world_position)
+		#if result.collider is Edificio and not result.collider.completado:
+			#for unidad in selected_units:
+				#if is_instance_valid(unidad) and (!unidad._isStarving()):
+					#if unidad.has_method("asignar_edificio"):
+						#unidad.asignar_edificio(result.collider)
+		#elif (result.collider is Recurso):
+			#for unidad in selected_units:
+				#if is_instance_valid(unidad) and (!unidad._isStarving()):
+					#unidad.seekResource(result.collider)
+#
+		#elif result.collider is Area3D and result.collider.get_parent() is EdificioReproduccion:
+			#var edificio: EdificioReproduccion = result.collider.get_parent()
+			#edificio.recibir_unidades(selected_units)
+		#
+		#else:
+			#var click_world_position: Vector3 = result.position
+			#mover_unidades_en_formacion(click_world_position)
 
 func seleccionar_unidad(mouse_pos: Vector2) -> void:
 	deseleccionar_todas()
@@ -282,7 +319,7 @@ func _confirmar_construccion():
 	nuevo_edificio.position = posicion_mundo
 	nuevo_edificio.rotation = rotacion_mundo
 	
-	nuevo_edificio.configurar_edificio(id_del_edificio, puntos_req)
+	nuevo_edificio.configurar_edificio(id_del_edificio, puntos_req, costo, inventario)
 	
 	await get_tree().physics_frame
 	
@@ -331,3 +368,24 @@ func actualizar_navegacion():
 
 func _on_navegacion_horneado():
 	print("navegacion actualizada")
+
+func _ocultar_hud_demolicion():
+	if is_instance_valid(hud_demolicion):
+		hud_demolicion.ocultar_hud()
+	edificio_seleccionado = null
+
+func obtener_edificio_bajo_mouse(mouse_pos: Vector2):
+	var space_state = get_world_3d().direct_space_state
+	var ray_origin = project_ray_origin(mouse_pos)
+	var ray_end = ray_origin + project_ray_normal(mouse_pos) * 1000.0
+	var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
+	
+	query.collision_mask = 1 | 2 | 4
+	query.collide_with_areas = true
+	
+	var result = space_state.intersect_ray(query)
+	
+	if result and result.collider is Edificio:
+		return result.collider as Edificio
+	
+	return null

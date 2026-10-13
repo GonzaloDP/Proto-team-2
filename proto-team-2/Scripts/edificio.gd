@@ -14,11 +14,17 @@ var puntos_actuales: float = 0.0
 var completado: bool = false
 var tipo_actual: String = ""
 
-func configurar_edificio(tipo_id: String, puntos_requeridos: float):
+var costo_original: Dictionary = {}
+var inventario_referencia: Inventario = null
+
+func configurar_edificio(tipo_id: String, puntos_requeridos: float, costo: Dictionary = {}, inventario_ref: Inventario = null):
 	tipo_actual = tipo_id
 	puntos_totales = puntos_requeridos
 	puntos_actuales = 0.0
 	completado = false
+	
+	costo_original = costo.duplicate(true)
+	inventario_referencia = inventario_ref
 	
 	mesh_instance.scale = Vector3(1, 0.1, 1)
 	
@@ -40,3 +46,15 @@ func recibir_trabajo(cantidad: float):
 		
 		if barra_progreso:
 			barra_progreso.hide()
+
+func eliminar_edificio():
+	if not completado:
+		return
+	
+	if is_instance_valid(inventario_referencia):
+		for tipo in costo_original.keys():
+			var cantidad: int = int(floor(float(costo_original[tipo]) * 0.5))
+			
+			if cantidad > 0:
+				inventario_referencia.agregar_recurso(tipo,cantidad)
+	queue_free()
