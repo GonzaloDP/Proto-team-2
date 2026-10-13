@@ -1,28 +1,34 @@
 extends StaticBody3D
 class_name Edificio
 
-@onready var mesh_instance: MeshInstance3D = $MeshInstance3D
+#@onready var mesh_instance: MeshInstance3D = $MeshInstance3D
 @onready var colision: CollisionShape3D = $CollisionShape3D
-#@onready var modelo: Node3D = $Modelo
+@onready var modelo: Node3D = get_node_or_null("Modelo") #Era: #@onready var modelo: Node3D = $Modelo
 
 @onready var barra_progreso = get_node_or_null("BarraProgreso")
 
 @export var nombre_edificio: String = "Edificio"
 @export var tipo_edificio: String = "General"
 @export var completado: bool = false
-#var escenas_edificios = {
-	#"reproduccion": preload("res://Escenas/Edificio_Reproducción.tscn"),
-	#"vivienda": preload("res://Escenas/Edificio_Vivienda.tscn"),
-	#"comedor": preload("res://Escenas/Edificio_Comedor.tscn")
-#}
+
+var escenas_edificios = {
+	"reproduccion": load("res://Escenas/Edificio_Reproducción.tscn"),
+	"vivienda": load("res://Escenas/Edificio_Vivienda.tscn"),
+	"comedor": load("res://Escenas/Edificio_Comedor.tscn")
+}
 
 var puntos_totales: float = 100.0
 var puntos_actuales: float = 0.0
 var tipo_actual: String = ""
 
+#Variables nuevas para memorizar el tamaño en el editor y poder usar el transform 
+var escala_base: Vector3 = Vector3(1, 1, 1)
+var visual_instanciado: Node3D = null
+
 func _ready() -> void:
 	if completado:
-		mesh_instance.scale = Vector3(1, 1, 1)
+		if visual_instanciado:
+			visual_instanciado.scale = escala_base
 		if barra_progreso:
 			barra_progreso.hide()
 
@@ -58,7 +64,18 @@ func configurar_edificio(tipo_id: String, puntos_requeridos: float):
 			#colision.shape = CylinderShape3D.new()
 			#colision.shape.height = 2.0
 #
-	mesh_instance.scale = Vector3(1, 0.1, 1)
+	
+	if modelo and escenas_edificios.has(tipo_id):
+		for hijo in modelo.get_children():
+			hijo.queue_free()
+			
+		var escena = escenas_edificios[tipo_id]
+		visual_instanciado = escena.instantiate()
+		modelo.add_child(visual_instanciado)
+		
+		escala_base = visual_instanciado.scale
+		visual_instanciado.scale = Vector3(escala_base.x, 0.1, escala_base.z)
+
 	#if escenas_edificios.has(tipo_id):
 		#var escena = escenas_edificios[tipo_id]
 		#var edificio_visual = escena.instantiate()
@@ -77,12 +94,16 @@ func recibir_trabajo(cantidad: float):
 	puntos_actuales += cantidad
 	var progreso = puntos_actuales / puntos_totales
 	
-	mesh_instance.scale = Vector3(1, max(0.1,progreso), 1)
+	if visual_instanciado:
+		visual_instanciado.scale = Vector3(escala_base.x, max(0.1, progreso * escala_base.y), escala_base.z)
+		
 	#mesh_instance.scale = Vector3(1, max(0.1, progreso), 1)
 	
 	if puntos_actuales >= puntos_totales:
 		completado = true
-		mesh_instance.scale = Vector3(1, 1, 1)
+		
+		if visual_instanciado:
+			visual_instanciado.scale = escala_base
 		
 		if barra_progreso:
 			barra_progreso.hide()
