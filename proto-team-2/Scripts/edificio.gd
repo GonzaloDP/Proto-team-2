@@ -12,23 +12,23 @@ class_name Edificio
 @export var completado: bool = false
 
 var escenas_edificios = {
-	"reproduccion": load("res://Escenas/Edificio_Reproducción.tscn"),
-	"vivienda": load("res://Escenas/Edificio_Vivienda.tscn"),
-	"comedor": load("res://Escenas/Edificio_Comedor.tscn")
+	#"reproduccion": preload("res://Escenas/Edificio_Reproducción.tscn"),
+	"vivienda": preload("res://Escenas/Edificio_Vivienda.tscn"),
+	#"comedor": preload("res://Escenas/Edificio_Comedor.tscn")
 }
 
 var puntos_totales: float = 100.0
 var puntos_actuales: float = 0.0
 var tipo_actual: String = ""
 
-#Variables nuevas para memorizar el tamaño en el editor y poder usar el transform 
-var escala_base: Vector3 = Vector3(1, 1, 1)
-var visual_instanciado: Node3D = null
+var base_instanciada: Node3D = null
+var modelo_rojo: Node3D = null
+var modelo_terminado: Node3D = null
+var profundidad_inicial: float = -3.0
+var posicion_original_y: float = 0.0
 
 func _ready() -> void:
 	if completado:
-		if visual_instanciado:
-			visual_instanciado.scale = escala_base
 		if barra_progreso:
 			barra_progreso.hide()
 
@@ -70,11 +70,27 @@ func configurar_edificio(tipo_id: String, puntos_requeridos: float):
 			hijo.queue_free()
 			
 		var escena = escenas_edificios[tipo_id]
-		visual_instanciado = escena.instantiate()
-		modelo.add_child(visual_instanciado)
+		base_instanciada = escena.instantiate()
+		modelo.add_child(base_instanciada)
+	else:
+		base_instanciada = self #Por si se ejecuta la escena suelta en debug
+
+	if base_instanciada:
+		#Se buscan ambos modelos
+		modelo_rojo = base_instanciada.get_node_or_null("Modelo_Rojo")
+		modelo_terminado = base_instanciada.get_node_or_null("Modelo_Terminado")
 		
-		escala_base = visual_instanciado.scale
-		visual_instanciado.scale = Vector3(escala_base.x, 0.1, escala_base.z)
+		var nodo_referencia = modelo_rojo if modelo_rojo else modelo_terminado
+		
+		if nodo_referencia:
+			posicion_original_y = nodo_referencia.position.y
+			
+			if modelo_rojo:
+				modelo_rojo.position.y = profundidad_inicial
+				modelo_rojo.show()
+			if modelo_terminado:
+				modelo_terminado.position.y = profundidad_inicial
+				modelo_terminado.hide()
 
 	#if escenas_edificios.has(tipo_id):
 		#var escena = escenas_edificios[tipo_id]
@@ -92,18 +108,35 @@ func recibir_trabajo(cantidad: float):
 	if completado: return
 	
 	puntos_actuales += cantidad
-	var progreso = puntos_actuales / puntos_totales
+	var progreso = clamp(puntos_actuales / puntos_totales, 0.0, 1.0)
+	var nueva_altura = lerp(profundidad_inicial, posicion_original_y, progreso)
 	
-	if visual_instanciado:
-		visual_instanciado.scale = Vector3(escala_base.x, max(0.1, progreso * escala_base.y), escala_base.z)
+	#Ambos modelos suben juntos al mismo tiempo
+	if modelo_rojo: modelo_rojo.position.y = nueva_altura
+	if modelo_terminado: modelo_terminado.position.y = nueva_altura
 		
 	#mesh_instance.scale = Vector3(1, max(0.1, progreso), 1)
 	
 	if puntos_actuales >= puntos_totales:
 		completado = true
 		
-		if visual_instanciado:
-			visual_instanciado.scale = escala_base
+		print("\n--- EDIFICIO TERMINADO ---")
+		
+		#Se acuerda la altura, se apaga el holograma rojo y se muestra la construcción terminada
+		if modelo_rojo:
+			modelo_rojo.position.y = posicion_original_y
+			modelo_rojo.hide()
+			print("Éxito: Holograma rojo apagado.")
+		else:
+			print("Error: No se encontró el Modelo_Rojo para apagarlo.")
+			
+		if modelo_terminado:
+			modelo_terminado.position.y = posicion_original_y
+			modelo_terminado.show()
+			print("Éxito: Modelo_Terminado encendido y mostrado.")
+		else:
+			print("ERROR CRÍTICO: La variable 'modelo_terminado' está vacía (null). Revisa si escribiste exactamente igual el nombre del nodo o si olvidaste guardar la escena.")
+		#mesh_instance.scale = Vector3(1, 1, 1)
 		
 		if barra_progreso:
 			barra_progreso.hide()
