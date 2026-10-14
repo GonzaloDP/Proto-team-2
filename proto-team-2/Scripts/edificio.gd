@@ -17,7 +17,13 @@ var tipo_actual: String = ""
 var costo_original: Dictionary = {}
 var inventario_referencia: Inventario = null
 
-func configurar_edificio(tipo_id: String, puntos_requeridos: float, costo: Dictionary = {}, inventario_ref: Inventario = null):
+var navigation3D: NavigationRegion3D = null
+var camara_referencia: Node = null
+
+func configurar_edificio(tipo_id: String, puntos_requeridos: float, 
+	costo: Dictionary = {}, inventario_ref: Inventario = null, 
+	navigation_ref: NavigationRegion3D = null, camara_ref: Node = null):
+	
 	tipo_actual = tipo_id
 	puntos_totales = puntos_requeridos
 	puntos_actuales = 0.0
@@ -25,6 +31,8 @@ func configurar_edificio(tipo_id: String, puntos_requeridos: float, costo: Dicti
 	
 	costo_original = costo.duplicate(true)
 	inventario_referencia = inventario_ref
+	navigation3D = navigation_ref
+	camara_referencia = camara_ref
 	
 	mesh_instance.scale = Vector3(1, 0.1, 1)
 	
@@ -57,4 +65,14 @@ func eliminar_edificio():
 			
 			if cantidad > 0:
 				inventario_referencia.agregar_recurso(tipo,cantidad)
+	print("1. ANTES DE LIBERAR EL EDIFICIO")
+	
+	var camara := camara_referencia
 	queue_free()
+	
+	print("2. DESPUÉS DE QUEUE FREE")
+	
+	if is_instance_valid(camara):
+		camara.actualizar_navegacion_despues_de_demoler()
+	else:
+		print("ERROR: NO SE ENCONTRÓ LA CAMARA")

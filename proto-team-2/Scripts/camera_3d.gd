@@ -319,7 +319,7 @@ func _confirmar_construccion():
 	nuevo_edificio.position = posicion_mundo
 	nuevo_edificio.rotation = rotacion_mundo
 	
-	nuevo_edificio.configurar_edificio(id_del_edificio, puntos_req, costo, inventario)
+	nuevo_edificio.configurar_edificio(id_del_edificio, puntos_req, costo, inventario, navigation_region, self)
 	
 	await get_tree().physics_frame
 	
@@ -389,3 +389,8 @@ func obtener_edificio_bajo_mouse(mouse_pos: Vector2):
 		return result.collider as Edificio
 	
 	return null
+
+func actualizar_navegacion_despues_de_demoler():
+	await get_tree().process_frame
+	print("EDIFICIO ELIMINADO, ACTUALIZANDO NAVEGACION")
+	actualizar_navegacion()
