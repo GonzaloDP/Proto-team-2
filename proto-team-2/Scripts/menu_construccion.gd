@@ -22,13 +22,13 @@ var lista_edificios = {
 	"Edificio de Vivienda": {
 		"tipo_id": "vivienda",
 		"costo": {Recurso.Tipo_Recurso.MADERA: 1},
-		"icono": "res://icon.svg", # Placeholder*
+		"icono": "res://Assets/3D/Edificios/Vivienda_Miniatura.png",
 		"puntos_construccion_requeridos": 60
 	},
 	"Edificio Comedor": {
 		"tipo_id": "comedor",
 		"costo": {Recurso.Tipo_Recurso.MADERA: 1, Recurso.Tipo_Recurso.PIEDRA: 1},
-		"icono": "res://icon.svg", # Placeholder*
+		"icono": "res://Assets/3D/Edificios/Comedor_Miniatura.png",
 		"puntos_construccion_requeridos": 150
 	}
 }
