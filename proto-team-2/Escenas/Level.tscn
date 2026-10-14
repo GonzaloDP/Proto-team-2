@@ -21,7 +21,6 @@
 [ext_resource type="Texture2D" uid="uid://b18xa68b7nuqd" path="res://Assets/Gráficos 2D/Construcción UI/Martillo Icono.png" id="15_65587"]
 [ext_resource type="Script" uid="uid://c4auf7cjj024c" path="res://Scripts/menu_construccion.gd" id="15_tid47"]
 [ext_resource type="Script" uid="uid://bm0vvop2w0grr" path="res://Scripts/penalties_manager.gd" id="18_xytri"]
-[ext_resource type="PackedScene" uid="uid://b4f5ki2p41ee1" path="res://Escenas/Edificio_Comedor.tscn" id="19_ofqdk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xytri"]
 bg_color = Color(0.35800117, 0.15985161, 0, 0.49411765)
@@ -344,10 +343,6 @@ completado = true
 
 [node name="PenaltiesManager" type="Node" parent="." unique_id=2043099679]
 script = ExtResource("18_xytri")
-
-[node name="EdificioComedor" parent="." unique_id=652307072 instance=ExtResource("19_ofqdk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0670872, 0.125, 7.448612)
-completado = true
 
 [connection signal="pressed" from="UI/AlimentarDebug" to="." method="_on_alimentar_debug_pressed"]
 [connection signal="pressed" from="UI/PauseMenu/Panel/ResumeButton" to="UI/PauseMenu" method="_on_resume_button_pressed"]

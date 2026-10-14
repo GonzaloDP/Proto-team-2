@@ -14,43 +14,36 @@ radius = 1.3837891
 resource_name = "Concreto"
 cull_mode = 2
 albedo_color = Color(0.31011912, 0.31011912, 0.31011912, 1)
-roughness = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n5vwv"]
 resource_name = "Puerta"
 cull_mode = 2
 albedo_color = Color(0.4556854, 0.29757065, 0.1719356, 1)
-roughness = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ojrki"]
 resource_name = "Negro"
 cull_mode = 2
 albedo_color = Color(0, 0, 0, 1)
-roughness = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_imcem"]
 resource_name = "Marcos"
 cull_mode = 2
 albedo_color = Color(0.2531595, 0.16165097, 0.061904892, 1)
-roughness = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qajj7"]
 resource_name = "Tejas"
 cull_mode = 2
 albedo_color = Color(0.49365237, 0.26294178, 0.0317009, 1)
-roughness = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t6xuo"]
 resource_name = "Comedor Material"
 cull_mode = 2
 albedo_color = Color(0.5949369, 0.5896107, 0.57363576, 1)
-roughness = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hs4nv"]
 resource_name = "Ventanas"
 cull_mode = 2
 albedo_color = Color(0.66513747, 0.8953822, 0.90633965, 1)
-roughness = 0.5
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_4t8tu"]
 _surfaces = [{
@@ -451,6 +444,7 @@ shape = SubResource("CylinderShape3D_austa")
 
 [node name="Modelo_Terminado" type="MeshInstance3D" parent="." unique_id=1986485731]
 transform = Transform3D(0.5499261, 0, -0.3175, 0, 0.635, 0, 0.3175, 0, 0.5499261, 0, 3.051722, 0)
+visible = false
 mesh = SubResource("ArrayMesh_7svnd")
 
 [node name="Modelo_Rojo" type="MeshInstance3D" parent="." unique_id=1788444009]

@@ -14,7 +14,7 @@ class_name Edificio
 var escenas_edificios = {
 	#"reproduccion": preload("res://Escenas/Edificio_Reproducción.tscn"),
 	"vivienda": preload("res://Escenas/Edificio_Vivienda.tscn"),
-	#"comedor": preload("res://Escenas/Edificio_Comedor.tscn")
+	"comedor": load("res://Escenas/Edificio_Comedor.tscn")
 }
 
 var puntos_totales: float = 100.0

@@ -13,6 +13,7 @@ albedo_color = Color(0.2531595, 0.16165097, 0.061904892, 1)
 resource_name = "Ventanas"
 cull_mode = 2
 albedo_color = Color(0.66513747, 0.8953822, 0.90633965, 1)
+metallic_specular = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_evu2r"]
 resource_name = "Vivienda Material"
@@ -28,6 +29,7 @@ albedo_color = Color(0.49365237, 0.26294178, 0.0317009, 1)
 resource_name = "Concreto"
 cull_mode = 2
 albedo_color = Color(0.31011912, 0.31011912, 0.31011912, 1)
+metallic_specular = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xvfum"]
 resource_name = "Puerta"
