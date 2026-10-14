@@ -1093,7 +1093,7 @@ transform = Transform3D(0.31231213, 0, 0, 0, 0.31231213, 0, 0, 0, 0.31231213, 0,
 mesh = SubResource("ArrayMesh_se4p3")
 
 [node name="Pico" type="Node3D" parent="." unique_id=1972141765]
-transform = Transform3D(0.21444745, 0.049115025, 0, -0.049115025, 0.21444745, 0, 0, 0, 0.22, 0.6595726, 0.20669281, 0)
+transform = Transform3D(0.21444744, 0.04911502, 0, -0.04911502, 0.21444744, 0, 0, 0, 0.22, 0.6595726, 0.20669281, 0)
 visible = false
 
 [node name="Cube" type="MeshInstance3D" parent="Pico" unique_id=2077238777]

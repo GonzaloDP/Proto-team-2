@@ -3,7 +3,7 @@ class_name Edificio
 
 #@onready var mesh_instance: MeshInstance3D = $MeshInstance3D
 @onready var colision: CollisionShape3D = $CollisionShape3D
-@onready var modelo: Node3D = get_node_or_null("Modelo") #Era: #@onready var modelo: Node3D = $Modelo
+@onready var modelo: Node3D = get_node_or_null("Modelo")
 
 @onready var barra_progreso = get_node_or_null("BarraProgreso")
 
@@ -73,12 +73,30 @@ func configurar_edificio(tipo_id: String, puntos_requeridos: float):
 		base_instanciada = escena.instantiate()
 		modelo.add_child(base_instanciada)
 	else:
-		base_instanciada = self #Por si se ejecuta la escena suelta en debug
+		base_instanciada = self 
 
 	if base_instanciada:
-		#Se buscan ambos modelos
-		modelo_rojo = base_instanciada.get_node_or_null("Modelo_Rojo")
-		modelo_terminado = base_instanciada.get_node_or_null("Modelo_Terminado")
+		#Busqueda de variantes
+		var variantes_encontradas = []
+		for hijo in base_instanciada.get_children():
+			if "Variante" in hijo.name:
+				variantes_encontradas.append(hijo)
+		
+		#Elección al azar de variantes
+		if variantes_encontradas.size() > 0:
+			var variante_elegida = variantes_encontradas.pick_random()
+			
+			#Borrado de edificios que no salieron sorteados
+			for v in variantes_encontradas:
+				if v != variante_elegida:
+					v.queue_free()
+			
+			#Enlazado de modelos del edificio elegido
+			modelo_rojo = variante_elegida.get_node_or_null("Modelo_Rojo")
+			modelo_terminado = variante_elegida.get_node_or_null("Modelo_Terminado")
+		else:
+			modelo_rojo = base_instanciada.get_node_or_null("Modelo_Rojo")
+			modelo_terminado = base_instanciada.get_node_or_null("Modelo_Terminado")
 		
 		var nodo_referencia = modelo_rojo if modelo_rojo else modelo_terminado
 		
@@ -86,11 +104,12 @@ func configurar_edificio(tipo_id: String, puntos_requeridos: float):
 			posicion_original_y = nodo_referencia.position.y
 			
 			if modelo_rojo:
+				modelo_rojo.visible = true
 				modelo_rojo.position.y = profundidad_inicial
-				modelo_rojo.show()
+				
 			if modelo_terminado:
-				modelo_terminado.position.y = profundidad_inicial
-				modelo_terminado.hide()
+				modelo_terminado.visible = true
+				modelo_terminado.position.y = -50.0
 
 	#if escenas_edificios.has(tipo_id):
 		#var escena = escenas_edificios[tipo_id]
@@ -109,33 +128,23 @@ func recibir_trabajo(cantidad: float):
 	
 	puntos_actuales += cantidad
 	var progreso = clamp(puntos_actuales / puntos_totales, 0.0, 1.0)
-	var nueva_altura = lerp(profundidad_inicial, posicion_original_y, progreso)
 	
-	#Ambos modelos suben juntos al mismo tiempo
-	if modelo_rojo: modelo_rojo.position.y = nueva_altura
-	if modelo_terminado: modelo_terminado.position.y = nueva_altura
+	#Edificio emerge
+	if modelo_rojo: 
+		modelo_rojo.position.y = lerp(profundidad_inicial, posicion_original_y, progreso)
 		
 	#mesh_instance.scale = Vector3(1, max(0.1, progreso), 1)
 	
-	if puntos_actuales >= puntos_totales:
+	if puntos_actuales >= (puntos_totales - 0.1):
 		completado = true
 		
-		print("\n--- EDIFICIO TERMINADO ---")
-		
-		#Se acuerda la altura, se apaga el holograma rojo y se muestra la construcción terminada
+		#Edificio construido se teletransporta hacia el edificio rojo desvanecido
 		if modelo_rojo:
-			modelo_rojo.position.y = posicion_original_y
-			modelo_rojo.hide()
-			print("Éxito: Holograma rojo apagado.")
-		else:
-			print("Error: No se encontró el Modelo_Rojo para apagarlo.")
+			modelo_rojo.queue_free()
 			
 		if modelo_terminado:
 			modelo_terminado.position.y = posicion_original_y
-			modelo_terminado.show()
-			print("Éxito: Modelo_Terminado encendido y mostrado.")
-		else:
-			print("ERROR CRÍTICO: La variable 'modelo_terminado' está vacía (null). Revisa si escribiste exactamente igual el nombre del nodo o si olvidaste guardar la escena.")
+		
 		#mesh_instance.scale = Vector3(1, 1, 1)
 		
 		if barra_progreso:
