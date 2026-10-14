@@ -443,12 +443,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48657227, 0)
 shape = SubResource("CylinderShape3D_austa")
 
 [node name="Modelo_Terminado" type="MeshInstance3D" parent="." unique_id=1986485731]
-transform = Transform3D(0.5499261, 0, -0.3175, 0, 0.635, 0, 0.3175, 0, 0.5499261, 0, 3.051722, 0)
-visible = false
+transform = Transform3D(0.7231312, 0, -0.4175, 0, 0.835, 0, 0.4175, 0, 0.7231312, 0, 4.027, 0)
 mesh = SubResource("ArrayMesh_7svnd")
 
 [node name="Modelo_Rojo" type="MeshInstance3D" parent="." unique_id=1788444009]
-transform = Transform3D(0.5499261, 0, -0.3175, 0, 0.635, 0, 0.3175, 0, 0.5499261, 0, 3.052, 0)
+transform = Transform3D(0.7231312, 0, -0.4175, 0, 0.835, 0, 0.4175, 0, 0.7231312, 0, 4.027, 0)
 mesh = SubResource("ArrayMesh_pivxf")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
