@@ -11,12 +11,12 @@ signal iniciar_construccion(nombre_edificio, datos_edificio)
 @onready var label_tooltip: Label = $TooltipUI/MarginContainer/LabelTooltip
 @onready var inventario: Inventario = get_tree().current_scene.get_node("Inventario")
 
-# Acá para quién quiera se puede modificar los costes de los edificios
+#Acá para quién quiera se puede modificar los costes de los edificios
 var lista_edificios = {
 	"Edificio de Reproducción": {
 		"tipo_id": "reproduccion",
 		"costo": {Recurso.Tipo_Recurso.COMIDA: 1, Recurso.Tipo_Recurso.MADERA: 1},
-		"icono": "res://icon.svg", # Placeholder*
+		"icono": "res://Assets/3D/Edificios/Reproduccion_Miniatura.png",
 		"puntos_construccion_requeridos": 100
 	},
 	"Edificio de Vivienda": {

@@ -12,7 +12,7 @@ class_name Edificio
 @export var completado: bool = false
 
 var escenas_edificios = {
-	#"reproduccion": preload("res://Escenas/Edificio_Reproducción.tscn"),
+	"reproduccion": load("res://Escenas/Edificio_Reproducción.tscn"),
 	"vivienda": preload("res://Escenas/Edificio_Vivienda.tscn"),
 	"comedor": load("res://Escenas/Edificio_Comedor.tscn")
 }

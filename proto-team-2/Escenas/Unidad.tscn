@@ -1030,35 +1030,37 @@ bone_idx = 2
 transform = Transform3D(1, 0, 0, 0, 0.9999656, -0.00829413, 0, 0.00829413, 0.9999656, 0, -0.2506821, -0.0020792612)
 mesh = SubResource("ArrayMesh_i4xbc")
 
-[node name="Cube" type="MeshInstance3D" parent="Armature/Skeleton3D" unique_id=1589977341]
+[node name="Skin" type="Node3D" parent="Armature/Skeleton3D" unique_id=1782062487]
+
+[node name="Cube" type="MeshInstance3D" parent="Armature/Skeleton3D/Skin" unique_id=1589977341]
 mesh = SubResource("ArrayMesh_lpgkf")
 skin = SubResource("Skin_vmd8f")
-skeleton = NodePath("..")
+skeleton = NodePath("../..")
 
-[node name="Cube_001" type="MeshInstance3D" parent="Armature/Skeleton3D" unique_id=1002612309]
+[node name="Cube_001" type="MeshInstance3D" parent="Armature/Skeleton3D/Skin" unique_id=1002612309]
 mesh = SubResource("ArrayMesh_b3jut")
 skin = SubResource("Skin_vmd8f")
-skeleton = NodePath("..")
+skeleton = NodePath("../..")
 
-[node name="Cube_002" type="MeshInstance3D" parent="Armature/Skeleton3D" unique_id=873110190]
+[node name="Cube_002" type="MeshInstance3D" parent="Armature/Skeleton3D/Skin" unique_id=873110190]
 mesh = SubResource("ArrayMesh_xpu6h")
 skin = SubResource("Skin_vmd8f")
-skeleton = NodePath("..")
+skeleton = NodePath("../..")
 
-[node name="Cylinder" type="MeshInstance3D" parent="Armature/Skeleton3D" unique_id=92978943]
+[node name="Cylinder" type="MeshInstance3D" parent="Armature/Skeleton3D/Skin" unique_id=92978943]
 mesh = SubResource("ArrayMesh_ktyus")
 skin = SubResource("Skin_vmd8f")
-skeleton = NodePath("..")
+skeleton = NodePath("../..")
 
-[node name="Cylinder_002" type="MeshInstance3D" parent="Armature/Skeleton3D" unique_id=843307083]
+[node name="Cylinder_002" type="MeshInstance3D" parent="Armature/Skeleton3D/Skin" unique_id=843307083]
 mesh = SubResource("ArrayMesh_d0ce0")
 skin = SubResource("Skin_vmd8f")
-skeleton = NodePath("..")
+skeleton = NodePath("../..")
 
-[node name="Sphere" type="MeshInstance3D" parent="Armature/Skeleton3D" unique_id=1632696037]
+[node name="Sphere" type="MeshInstance3D" parent="Armature/Skeleton3D/Skin" unique_id=1632696037]
 mesh = SubResource("ArrayMesh_ey42q")
 skin = SubResource("Skin_vmd8f")
-skeleton = NodePath("..")
+skeleton = NodePath("../..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1012385318]
 libraries/ = SubResource("AnimationLibrary_lpgkf")
@@ -1093,7 +1095,7 @@ transform = Transform3D(0.31231213, 0, 0, 0, 0.31231213, 0, 0, 0, 0.31231213, 0,
 mesh = SubResource("ArrayMesh_se4p3")
 
 [node name="Pico" type="Node3D" parent="." unique_id=1972141765]
-transform = Transform3D(0.21444744, 0.04911502, 0, -0.04911502, 0.21444744, 0, 0, 0, 0.22, 0.6595726, 0.20669281, 0)
+transform = Transform3D(0.21444742, 0.049115017, 0, -0.049115017, 0.21444742, 0, 0, 0, 0.22, 0.6595726, 0.20669281, 0)
 visible = false
 
 [node name="Cube" type="MeshInstance3D" parent="Pico" unique_id=2077238777]
