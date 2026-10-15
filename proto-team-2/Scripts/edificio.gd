@@ -19,7 +19,6 @@ var escenas_edificios = {
 
 var puntos_totales: float = 100.0
 var puntos_actuales: float = 0.0
-@export var completado: bool = false
 var tipo_actual: String = ""
 
 var base_instanciada: Node3D = null

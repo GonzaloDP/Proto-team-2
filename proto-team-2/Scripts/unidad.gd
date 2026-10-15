@@ -298,8 +298,7 @@ func _on_hunger_timer_timeout():	#Al acabarse el timer de la comida, la saciedad
 		target_edificio = null
 		target_resource = null
 		
-		if(get_tree().get_nodes_in_group("Comedores").is_empty()):	#Si no hay ningún comedor, la unidad se pondrá en rojo y setteara su propia posición como destino. (Es decir, se quedará quieta en el lugar)
-			$MeshInstance3D.mesh.material.albedo_color = Color("DARK_RED")
+		if(get_tree().get_nodes_in_group("Comedores").is_empty()):	#Si no hay ningún comedor, la unidad setteara su propia posición como destino. (Es decir, se quedará quieta en el lugar). Nota: Aquí cabería una animación o efecto de partícula.
 			set_move_target(global_position)
 		else:	#Si existen comedores, empezará a evaluarlos para encontrar el más cercano.
 			goEat()

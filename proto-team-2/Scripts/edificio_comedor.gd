@@ -61,14 +61,14 @@ func recibir_trabajo(cantidad: float):
 	puntos_actuales += cantidad
 	var progreso = puntos_actuales / puntos_totales
 	
-	mesh_instance.scale = Vector3(1, max(0.1,progreso), 1)
+#	mesh_instance.scale = Vector3(1, max(0.1,progreso), 1)
 	#mesh_instance.scale = Vector3(1, max(0.1, progreso), 1)
 	
 	if puntos_actuales >= puntos_totales:
 		completado = true
 		add_to_group("Comedores")
 
-		mesh_instance.scale = Vector3(1, 1, 1)
+		#mesh_instance.scale = Vector3(1, 1, 1)
 		
 		if barra_progreso:
 			barra_progreso.hide()
