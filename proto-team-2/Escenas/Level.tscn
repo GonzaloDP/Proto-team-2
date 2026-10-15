@@ -17,11 +17,76 @@
 [ext_resource type="Script" uid="uid://dxptnbkd0tpec" path="res://Scripts/pause_menu.gd" id="12_a2mc0"]
 [ext_resource type="PackedScene" uid="uid://c0uoncfpsqxot" path="res://Escenas/Edificio_Reproducción.tscn" id="13_iqjgs"]
 [ext_resource type="Script" uid="uid://xyn54yubrflu" path="res://Scripts/day_manager.gd" id="13_ohlfa"]
+[ext_resource type="Script" uid="uid://bxopmkerfdbx3" path="res://Scripts/win_screen.gd" id="13_u2sv0"]
+[ext_resource type="Script" uid="uid://b8fn6cektmhqb" path="res://Scripts/defeat_screen.gd" id="14_6b4jh"]
 [ext_resource type="Script" uid="uid://cc08vd22bdeu5" path="res://Scripts/cuota.gd" id="14_tid47"]
 [ext_resource type="Texture2D" uid="uid://b18xa68b7nuqd" path="res://Assets/Gráficos 2D/Construcción UI/Martillo Icono.png" id="15_65587"]
 [ext_resource type="Script" uid="uid://c4auf7cjj024c" path="res://Scripts/menu_construccion.gd" id="15_tid47"]
 [ext_resource type="Script" uid="uid://bm0vvop2w0grr" path="res://Scripts/penalties_manager.gd" id="18_xytri"]
 [ext_resource type="PackedScene" uid="uid://b4f5ki2p41ee1" path="res://Escenas/Edificio_Comedor.tscn" id="19_ofqdk"]
+
+[sub_resource type="Theme" id="Theme_h4t55"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ydnqi"]
+bg_color = Color(0.7529412, 0.7529412, 0.7529412, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(1, 0.7647059, 0.2, 1)
+border_blend = true
+corner_detail = 20
+
+[sub_resource type="Theme" id="Theme_xpcoj"]
+RichTextLabel/constants/outline_size = 3
+
+[sub_resource type="Theme" id="Theme_6b4jh"]
+default_font_size = 16
+RichTextLabel/constants/outline_size = 2
+TextEdit/constants/outline_size = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uyafw"]
+bg_color = Color(0.46618086, 0.4661808, 0.4661808, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.14767095, 0.14767227, 0.14767098, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k85as"]
+bg_color = Color(0.427493, 0.42749307, 0.42749295, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_stj0u"]
+bg_color = Color(0.6174547, 0.61745477, 0.6174546, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.14901961, 0.14901961, 0.14901961, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xpcoj"]
+bg_color = Color(0.18717596, 0.18717623, 0.18717602, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(1, 0, 0.2, 1)
+border_blend = true
+corner_detail = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xytri"]
 bg_color = Color(0.35800117, 0.15985161, 0, 0.49411765)
@@ -252,6 +317,193 @@ offset_right = 400.0
 offset_bottom = 370.0
 text = "Abandonar"
 
+[node name="WinScreen" type="Control" parent="UI" unique_id=605782393]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+script = ExtResource("13_u2sv0")
+
+[node name="Panel" type="Panel" parent="UI/WinScreen" unique_id=100154463]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.83334
+offset_top = -164.0
+offset_right = 170.83337
+offset_bottom = 164.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_h4t55")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ydnqi")
+
+[node name="WinTitle" type="RichTextLabel" parent="UI/WinScreen/Panel" unique_id=804760585]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -142.00073
+offset_top = 20.0
+offset_right = 142.00002
+offset_bottom = 50.0
+grow_horizontal = 2
+theme = SubResource("Theme_xpcoj")
+theme_override_colors/default_color = Color(1, 0.7647059, 0.2, 1)
+bbcode_enabled = true
+text = "[wave amp=50 freq=2]¡Felicidades![/wave]"
+horizontal_alignment = 1
+vertical_alignment = 3
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="WinText" type="RichTextLabel" parent="UI/WinScreen/Panel" unique_id=1589867336]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -149.00073
+offset_top = 70.0
+offset_right = 149.00002
+offset_bottom = 224.0
+grow_horizontal = 2
+theme = SubResource("Theme_6b4jh")
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+bbcode_enabled = true
+text = "Has cumplido con tu labor y la misión divina que te fue asignada. 
+Tu asentamiento ha demostrado que puede sobrevivir y prosperar a través de los años."
+horizontal_alignment = 1
+vertical_alignment = 3
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="QuitButton" type="Button" parent="UI/WinScreen/Panel" unique_id=401851027]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.00037
+offset_top = -90.0
+offset_right = 149.99965
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_uyafw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_k85as")
+theme_override_styles/hover = SubResource("StyleBoxFlat_stj0u")
+text = "Salir al Menú"
+
+[node name="DefeatScreen" type="Control" parent="UI" unique_id=1855636727]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+script = ExtResource("14_6b4jh")
+
+[node name="Panel" type="Panel" parent="UI/DefeatScreen" unique_id=1434354868]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.83334
+offset_top = -164.0
+offset_right = 170.83337
+offset_bottom = 164.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_h4t55")
+theme_override_styles/panel = SubResource("StyleBoxFlat_xpcoj")
+
+[node name="DefeatTitle" type="RichTextLabel" parent="UI/DefeatScreen/Panel" unique_id=988613938]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -142.00073
+offset_top = 20.0
+offset_right = 142.00002
+offset_bottom = 50.0
+grow_horizontal = 2
+theme = SubResource("Theme_xpcoj")
+theme_override_colors/default_color = Color(1, 0.16862746, 0.2, 1)
+bbcode_enabled = true
+text = "[wave amp=50 freq=2]¡Perdiste![/wave]"
+horizontal_alignment = 1
+vertical_alignment = 3
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="DefeatText" type="RichTextLabel" parent="UI/DefeatScreen/Panel" unique_id=1331147266]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -149.00073
+offset_top = 70.0
+offset_right = 149.00002
+offset_bottom = 146.0
+grow_horizontal = 2
+theme = SubResource("Theme_6b4jh")
+theme_override_colors/default_color = Color(0.8047426, 0.80474263, 0.8047426, 1)
+bbcode_enabled = true
+text = "No has cumplido las demandas de tu Dios. Te vas al infiernirijillo."
+horizontal_alignment = 1
+vertical_alignment = 1
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="RestartButton" type="Button" parent="UI/DefeatScreen/Panel" unique_id=1764636481]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -123.00073
+offset_top = -178.0
+offset_right = 123.000015
+offset_bottom = -108.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_uyafw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_k85as")
+theme_override_styles/hover = SubResource("StyleBoxFlat_stj0u")
+text = "Reintentar"
+
+[node name="QuitButton" type="Button" parent="UI/DefeatScreen/Panel" unique_id=2056819599]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -136.00073
+offset_top = -90.0
+offset_right = 136.00002
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_uyafw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_k85as")
+theme_override_styles/hover = SubResource("StyleBoxFlat_stj0u")
+text = "Salir al Menú"
+
 [node name="MouseInteraction" type="Node" parent="." unique_id=1411286151]
 script = ExtResource("7_418oe")
 
@@ -353,4 +605,7 @@ completado = true
 [connection signal="pressed" from="UI/PauseMenu/Panel/ResumeButton" to="UI/PauseMenu" method="_on_resume_button_pressed"]
 [connection signal="pressed" from="UI/PauseMenu/Panel/RestartButton" to="UI/PauseMenu" method="_on_restart_button_pressed"]
 [connection signal="pressed" from="UI/PauseMenu/Panel/QuitButton" to="UI/PauseMenu" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="UI/WinScreen/Panel/QuitButton" to="UI/WinScreen" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="UI/DefeatScreen/Panel/RestartButton" to="UI/DefeatScreen" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="UI/DefeatScreen/Panel/QuitButton" to="UI/DefeatScreen" method="_on_quit_button_pressed"]
 [connection signal="timeout" from="DayManager/Timer" to="DayManager" method="_on_timer_timeout"]
