@@ -142,7 +142,6 @@ func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta
 				$CollectionTimer.stop()
 			else:
 				$CollectionTimer.start(10/get_collection_speed())	#De todos modos, se reinicia el timer.
-				progressBar.show()
 		else:	#Si no hay más recursos, entonces ya no estamos haciendo nada. Acá es adonde mandaría una alerta al jugador de que está inactivo.
 			target_resource = null
 			progressBar.targetTimer = null
@@ -282,3 +281,7 @@ func salir_del_comedor(posicion: Vector3):
 	set_collision_mask_value(2,true)
 	set_collision_mask_value(3,true)
 	show()
+
+func _getProgressBar():	#Este método chequea si la barra de progreso debería mostrarse o no. Es para que las unidades recién seleccionadas puedan mostrar su barra de progreso.
+	if (!$CollectionTimer.is_stopped()):
+		progressBar.show()
