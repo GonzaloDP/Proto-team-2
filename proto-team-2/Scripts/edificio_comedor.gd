@@ -9,13 +9,13 @@ class_name EdificioComedor
 var unidades_comiendo: Array[Unidad] = []
 
 func _ready() -> void:
-	add_to_group("Comedores")
-
+	pass
+	
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body is Unidad:
 		var unidad := body as Unidad
 		
-		if unidad._isStarving():
+		if unidad._isStarving() && completado:
 			recibir_unidad(unidad)
 
 #func _process(delta: float) -> void:
@@ -54,3 +54,21 @@ func terminar_comida(unidad: Unidad):
 	
 	var posicion_salida := global_position + Vector3(3,0,0)
 	unidad.salir_del_comedor(posicion_salida)
+
+func recibir_trabajo(cantidad: float):
+	if completado: return
+	
+	puntos_actuales += cantidad
+	var progreso = puntos_actuales / puntos_totales
+	
+	mesh_instance.scale = Vector3(1, max(0.1,progreso), 1)
+	#mesh_instance.scale = Vector3(1, max(0.1, progreso), 1)
+	
+	if puntos_actuales >= puntos_totales:
+		completado = true
+		add_to_group("Comedores")
+
+		mesh_instance.scale = Vector3(1, 1, 1)
+		
+		if barra_progreso:
+			barra_progreso.hide()
