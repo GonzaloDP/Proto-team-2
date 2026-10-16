@@ -17,12 +17,17 @@ func _ready() -> void:
 	confirmacion.confirmed.connect(_confirmar_demolicion)
 
 func mostrar_edificio(edificio: Edificio):
-	print("ENTRÉ A MOSTRAR EDIFICIO")
 	if not is_instance_valid(edificio):
 		return
 	
 	edificio_seleccionado = edificio
-	titulo.text = edificio.nombre_edificio
+	
+	if edificio.completado:
+		titulo.text = edificio.nombre_edificio
+		boton_demoler.text = "Demoler Edificio"
+	else:
+		titulo.text = edificio.nombre_edificio + " (En construcción)"
+		boton_demoler.text = "Cancelar construcción"
 	show()
 
 func ocultar_hud():

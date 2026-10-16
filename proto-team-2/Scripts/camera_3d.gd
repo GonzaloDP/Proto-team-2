@@ -87,7 +87,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			if posicion_inicio_seleccion == posicion_actual_mouse:
 				var edificio: Edificio = obtener_edificio_bajo_mouse(posicion_actual_mouse)
-				if edificio != null and edificio.completado:
+				if edificio != null:
 					edificio_seleccionado = edificio
 					hud_demolicion.mostrar_edificio(edificio)
 				else:

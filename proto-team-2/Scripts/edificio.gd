@@ -56,9 +56,6 @@ func recibir_trabajo(cantidad: float):
 			barra_progreso.hide()
 
 func eliminar_edificio():
-	if not completado:
-		return
-	
 	if is_instance_valid(inventario_referencia):
 		for tipo in costo_original.keys():
 			var cantidad: int = int(floor(float(costo_original[tipo]) * 0.5))
