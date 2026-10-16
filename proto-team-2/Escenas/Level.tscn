@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://je4kc6eqa6ml" path="res://Escenas/Suelo.tscn" id="1_qbrn0"]
 [ext_resource type="PackedScene" uid="uid://6igeb67om02i" path="res://Escenas/Unidad.tscn" id="2_e8t1n"]
 [ext_resource type="PackedScene" uid="uid://bn6d2v3lbapoo" path="res://Escenas/Recurso.tscn" id="3_e8t1n"]
+[ext_resource type="PackedScene" uid="uid://cxvt5p305mm4m" path="res://Escenas/Ciclo_Dia_Noche.tscn" id="3_u2sv0"]
 [ext_resource type="Script" uid="uid://bvdlol81y4g7f" path="res://Scripts/camera_3d.gd" id="4_s3uta"]
 [ext_resource type="PackedScene" uid="uid://b6phliso32eq2" path="res://Escenas/Tooltip.tscn" id="6_418oe"]
 [ext_resource type="PackedScene" uid="uid://dxwtmug6edfw3" path="res://Escenas/Inventario.tscn" id="6_hc14g"]
@@ -120,6 +121,8 @@ script = ExtResource("1_7l8dv")
 [node name="Suelo" parent="." unique_id=721908082 instance=ExtResource("1_qbrn0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 1)
 
+[node name="Ciclo_Dia_Noche" parent="." unique_id=65373244 instance=ExtResource("3_u2sv0")]
+
 [node name="Node3D2" parent="." unique_id=1803103505 groups=["Unidades"] instance=ExtResource("2_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, -1)
 
@@ -137,6 +140,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.083725, 0.6455455, 2.75)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=48548983]
 transform = Transform3D(1, 0, 0, 0, -0.0041241967, 0.9999915, 0, -0.9999915, -0.0041241967, 0, 12.879479, 0)
+visible = false
 
 [node name="Unidad" parent="." unique_id=1688446011 groups=["Unidades"] instance=ExtResource("2_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.125, 1)
