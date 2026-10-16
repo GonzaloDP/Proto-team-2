@@ -23,10 +23,10 @@ func mostrar_edificio(edificio: Edificio):
 	edificio_seleccionado = edificio
 	
 	if edificio.completado:
-		titulo.text = edificio.nombre_edificio
+		#titulo.text = edificio.nombre_edificio
 		boton_demoler.text = "Demoler Edificio"
 	else:
-		titulo.text = edificio.nombre_edificio + " (En construcción)"
+		#titulo.text = edificio.nombre_edificio + " (En construcción)"
 		boton_demoler.text = "Cancelar construcción"
 	show()
 
