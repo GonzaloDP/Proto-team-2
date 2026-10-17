@@ -8,6 +8,7 @@ gradient = SubResource("Gradient_kb03t")
 fill_from = Vector2(1, 0.61340207)
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_w7mgy"]
+ground_color = Color(0.01588032, 0.28078598, 0.00580878, 1)
 night_sky = SubResource("GradientTexture2D_4e15o")
 
 [sub_resource type="Sky" id="Sky_h4t55"]
