@@ -38,32 +38,6 @@ func configurar_edificio(tipo_id: String, puntos_requeridos: float):
 	puntos_actuales = 0.0
 	completado = false
 	
-	#for hijo in modelo.get_children():
-		#hijo.queue_free()
-	# Acá se cambian los assets de los edificios, como prueba se estableció un mesh instance (quitarlo*)
-	#match tipo_id:
-		#"reproduccion":
-		## Usar mesh_instance.mesh = load("res://modelo_super_jelou")
-			#mesh_instance.mesh = BoxMesh.new() # <-- Quitar esta mierda una vez con los modelos
-			#mesh_instance.mesh.size = Vector3(2, 2, 2)
-			#
-			#colision.shape = BoxShape3D.new()
-			#colision.shape.size = Vector3(2, 2, 2)
-			#
-		#"vivienda":
-			#mesh_instance.mesh = PrismMesh.new() 
-			#mesh_instance.mesh.size = Vector3(2, 2, 2)
-			#
-			#colision.shape = BoxShape3D.new()
-			#colision.shape.size = Vector3(2, 2, 2)
-			#
-		#"comedor":
-			#mesh_instance.mesh = CylinderMesh.new()
-			#mesh_instance.mesh.height = 2.0
-			#
-			#colision.shape = CylinderShape3D.new()
-			#colision.shape.height = 2.0
-#
 	
 	if modelo and escenas_edificios.has(tipo_id):
 		for hijo in modelo.get_children():
@@ -111,13 +85,6 @@ func configurar_edificio(tipo_id: String, puntos_requeridos: float):
 				modelo_terminado.visible = true
 				modelo_terminado.position.y = -50.0
 
-	#if escenas_edificios.has(tipo_id):
-		#var escena = escenas_edificios[tipo_id]
-		#var edificio_visual = escena.instantiate()
-		
-		#modelo.add_child(edificio_visual)
-	
-	#modelo.scale = Vector3(1,0.1,1)
 	
 	if barra_progreso:
 		barra_progreso.targetEdificio = self
@@ -133,7 +100,6 @@ func recibir_trabajo(cantidad: float):
 	if modelo_rojo: 
 		modelo_rojo.position.y = lerp(profundidad_inicial, posicion_original_y, progreso)
 		
-	#mesh_instance.scale = Vector3(1, max(0.1, progreso), 1)
 	
 	if puntos_actuales >= (puntos_totales - 0.1):
 		completado = true

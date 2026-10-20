@@ -884,6 +884,11 @@ shadow_mesh = SubResource("ArrayMesh_aeif0")
 [node name="Unidad" type="CharacterBody3D" unique_id=1688446011 groups=["unidades"]]
 script = ExtResource("1_s5656")
 
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1603038734]
+path_max_distance = 100.01
+max_neighbors = 100
+debug_enabled = true
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=750490593]
 shape = SubResource("CapsuleShape3D_yf5fn")
 
