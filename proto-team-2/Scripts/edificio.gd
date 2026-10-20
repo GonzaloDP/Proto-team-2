@@ -27,43 +27,24 @@ var modelo_terminado: Node3D = null
 var profundidad_inicial: float = -3.0
 var posicion_original_y: float = 0.0
 
+var costo_original: Dictionary = {}
+var inventario_referencia: Inventario = null
+
+var navigation3D: NavigationRegion3D = null
+var camara_referencia: Node = null
+
 func _ready() -> void:
 	if completado:
 		if barra_progreso:
 			barra_progreso.hide()
 
-func configurar_edificio(tipo_id: String, puntos_requeridos: float):
+func configurar_edificio(tipo_id: String, puntos_requeridos: float, 
+	costo: Dictionary = {}, inventario_ref: Inventario = null, 
+	navigation_ref: NavigationRegion3D = null, camara_ref: Node = null):
 	tipo_actual = tipo_id
 	puntos_totales = puntos_requeridos
 	puntos_actuales = 0.0
 	completado = false
-	
-	#for hijo in modelo.get_children():
-		#hijo.queue_free()
-	# Acá se cambian los assets de los edificios, como prueba se estableció un mesh instance (quitarlo*)
-	#match tipo_id:
-		#"reproduccion":
-		## Usar mesh_instance.mesh = load("res://modelo_super_jelou")
-			#mesh_instance.mesh = BoxMesh.new() # <-- Quitar esta mierda una vez con los modelos
-			#mesh_instance.mesh.size = Vector3(2, 2, 2)
-			#
-			#colision.shape = BoxShape3D.new()
-			#colision.shape.size = Vector3(2, 2, 2)
-			#
-		#"vivienda":
-			#mesh_instance.mesh = PrismMesh.new() 
-			#mesh_instance.mesh.size = Vector3(2, 2, 2)
-			#
-			#colision.shape = BoxShape3D.new()
-			#colision.shape.size = Vector3(2, 2, 2)
-			#
-		#"comedor":
-			#mesh_instance.mesh = CylinderMesh.new()
-			#mesh_instance.mesh.height = 2.0
-			#
-			#colision.shape = CylinderShape3D.new()
-			#colision.shape.height = 2.0
-#
 	
 	if modelo and escenas_edificios.has(tipo_id):
 		for hijo in modelo.get_children():
@@ -111,13 +92,12 @@ func configurar_edificio(tipo_id: String, puntos_requeridos: float):
 				modelo_terminado.visible = true
 				modelo_terminado.position.y = -50.0
 
-	#if escenas_edificios.has(tipo_id):
-		#var escena = escenas_edificios[tipo_id]
-		#var edificio_visual = escena.instantiate()
-		
-		#modelo.add_child(edificio_visual)
+	costo_original = costo.duplicate(true)
+	inventario_referencia = inventario_ref
+	navigation3D = navigation_ref
+	camara_referencia = camara_ref
 	
-	#modelo.scale = Vector3(1,0.1,1)
+	mesh_instance.scale = Vector3(1, 0.1, 1)
 	
 	if barra_progreso:
 		barra_progreso.targetEdificio = self
@@ -149,3 +129,22 @@ func recibir_trabajo(cantidad: float):
 		
 		if barra_progreso:
 			barra_progreso.hide()
+
+func eliminar_edificio():
+	if is_instance_valid(inventario_referencia):
+		for tipo in costo_original.keys():
+			var cantidad: int = int(floor(float(costo_original[tipo]) * 0.5))
+			
+			if cantidad > 0:
+				inventario_referencia.agregar_recurso(tipo,cantidad)
+	print("1. ANTES DE LIBERAR EL EDIFICIO")
+	
+	var camara := camara_referencia
+	queue_free()
+	
+	print("2. DESPUÉS DE QUEUE FREE")
+	
+	if is_instance_valid(camara):
+		camara.actualizar_navegacion_despues_de_demoler()
+	else:
+		print("ERROR: NO SE ENCONTRÓ LA CAMARA")
