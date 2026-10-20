@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://xhpoh3cmgxo" path="res://Scripts/cuota_ui.gd" id="10_pke20"]
 [ext_resource type="PackedScene" uid="uid://dkbr30n3bn7y4" path="res://Escenas/Recurso_unidad.tscn" id="12_6tp1g"]
 [ext_resource type="Script" uid="uid://dxptnbkd0tpec" path="res://Scripts/pause_menu.gd" id="12_a2mc0"]
+[ext_resource type="Script" uid="uid://b8up60c8maoh1" path="res://Scripts/boton_animado.gd" id="13_6b4jh"]
 [ext_resource type="Script" uid="uid://xyn54yubrflu" path="res://Scripts/day_manager.gd" id="13_ohlfa"]
 [ext_resource type="Script" uid="uid://bxopmkerfdbx3" path="res://Scripts/win_screen.gd" id="13_u2sv0"]
 [ext_resource type="Script" uid="uid://b8fn6cektmhqb" path="res://Scripts/defeat_screen.gd" id="14_6b4jh"]
@@ -23,6 +24,26 @@
 [ext_resource type="Texture2D" uid="uid://b18xa68b7nuqd" path="res://Assets/Gráficos 2D/Construcción UI/Martillo Icono.png" id="15_65587"]
 [ext_resource type="Script" uid="uid://c4auf7cjj024c" path="res://Scripts/menu_construccion.gd" id="15_tid47"]
 [ext_resource type="Script" uid="uid://bm0vvop2w0grr" path="res://Scripts/penalties_manager.gd" id="18_xytri"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i8jda"]
+bg_color = Color(0.95686275, 0.17254902, 0.20784314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ggx5j"]
+bg_color = Color(0.70980394, 0.078431375, 0.12941177, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v7hys"]
+bg_color = Color(0.9882353, 0.39607844, 0.37254903, 1)
+
+[sub_resource type="Theme" id="Theme_i8jda"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5kxe0"]
+bg_color = Color(0.95686275, 0.17254902, 0.20784314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fu8k2"]
+bg_color = Color(0.7093019, 0.07813134, 0.12839827, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u2sv0"]
+bg_color = Color(0.9864109, 0.3979757, 0.37338716, 1)
 
 [sub_resource type="Theme" id="Theme_h4t55"]
 
@@ -302,6 +323,7 @@ offset_top = 80.0
 offset_right = 400.0
 offset_bottom = 150.0
 text = "Reanudar"
+script = ExtResource("13_6b4jh")
 
 [node name="RestartButton" type="Button" parent="UI/PauseMenu/Panel" unique_id=2014958026]
 layout_mode = 0
@@ -309,7 +331,11 @@ offset_left = 100.0
 offset_top = 190.0
 offset_right = 400.0
 offset_bottom = 260.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_i8jda")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ggx5j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_v7hys")
 text = "Reiniciar"
+script = ExtResource("13_6b4jh")
 
 [node name="QuitButton" type="Button" parent="UI/PauseMenu/Panel" unique_id=1030064431]
 layout_mode = 0
@@ -317,7 +343,12 @@ offset_left = 100.0
 offset_top = 300.0
 offset_right = 400.0
 offset_bottom = 370.0
+theme = SubResource("Theme_i8jda")
+theme_override_styles/normal = SubResource("StyleBoxFlat_5kxe0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fu8k2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_u2sv0")
 text = "Abandonar"
+script = ExtResource("13_6b4jh")
 
 [node name="WinScreen" type="Control" parent="UI" unique_id=605782393]
 process_mode = 2
@@ -403,6 +434,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_uyafw")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_k85as")
 theme_override_styles/hover = SubResource("StyleBoxFlat_stj0u")
 text = "Salir al Menú"
+script = ExtResource("13_6b4jh")
 
 [node name="DefeatScreen" type="Control" parent="UI" unique_id=1855636727]
 process_mode = 2
@@ -487,6 +519,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_uyafw")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_k85as")
 theme_override_styles/hover = SubResource("StyleBoxFlat_stj0u")
 text = "Reintentar"
+script = ExtResource("13_6b4jh")
 
 [node name="QuitButton" type="Button" parent="UI/DefeatScreen/Panel" unique_id=2056819599]
 layout_mode = 1
@@ -505,6 +538,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_uyafw")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_k85as")
 theme_override_styles/hover = SubResource("StyleBoxFlat_stj0u")
 text = "Salir al Menú"
+script = ExtResource("13_6b4jh")
 
 [node name="MouseInteraction" type="Node" parent="." unique_id=1411286151]
 script = ExtResource("7_418oe")
