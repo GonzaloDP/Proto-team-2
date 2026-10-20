@@ -97,7 +97,7 @@ func configurar_edificio(tipo_id: String, puntos_requeridos: float,
 	navigation3D = navigation_ref
 	camara_referencia = camara_ref
 	
-	mesh_instance.scale = Vector3(1, 0.1, 1)
+	#mesh_instance.scale = Vector3(1, 0.1, 1)
 	
 	if barra_progreso:
 		barra_progreso.targetEdificio = self

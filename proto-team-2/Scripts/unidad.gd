@@ -126,7 +126,7 @@ func _process(delta: float):
 	if target_resource and is_instance_valid(target_resource) and not starving:
 		var distancia_recurso = global_position.distance_to(target_resource.global_position)
 		
-		if distancia_recurso < 5.0:
+		if distancia_recurso < 8.0:
 			if target_resource.has_method("get_names"):
 				var nombre_recurso = target_resource.get_names()
 				
