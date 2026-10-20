@@ -9,6 +9,7 @@ class_name Unidad
 @onready var hacha = $Hacha
 @onready var pico = $Pico
 @onready var canasto = $Canasto
+@onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 
 @export var moveSpeed: float = 6.0	#Esta variable controla la velocidad de desplazamiento de la unidad.
 @export var constructionSpeed : int = 5	#La cantidad de puntos de construcción que la unidad aporta mientras construye. Mientras más, más rápido se crea el edificio.
@@ -26,6 +27,8 @@ var target_edificio : Edificio
 var target_position: Vector3
 var en_reproduccion: bool = false
 var posicion_anterior: Vector3
+
+var en_rango_construccion: bool = false
 
 func _ready():
 #	traitList.append(Rasgo.new("Movement Speed", 10)) Esta línea de código es puramente de Debug. Es simplemente un rasgo de prueba para mostrar que el sistema funciona. Luego lo borramos, okay?
@@ -52,6 +55,21 @@ func _ready():
 	if anim_player:
 		anim_player.play("idle")
 
+	#a partir de acá son configuraciones que se les hace al NavigationAgent de la unidad, que sirve para que no se choque con otra unidad dentro del juego
+	navigation_agent.path_desired_distance = 1.0
+	navigation_agent.target_desired_distance = 0.5
+	
+	navigation_agent.radius = 0.5
+	navigation_agent.avoidance_enabled = true
+	navigation_agent.max_speed = moveSpeed
+	
+	navigation_agent.neighbor_distance = 6.0
+	navigation_agent.max_neighbors = 10
+	navigation_agent.time_horizon_agents = 2.5
+	
+	if not navigation_agent.velocity_computed.is_connected(_on_velocity_computed):
+		navigation_agent.velocity_computed.connect(_on_velocity_computed)
+	
 	set_collision_mask_value(1, true)
 	set_collision_mask_value(2,true)
 	set_collision_mask_value(3,true)
@@ -67,13 +85,18 @@ func set_move_target(new_target: Vector3, es_orden_construccion: bool = false):
 	# Si le damos una orden de movimiento normal, debe olvidar el edificio para no quedarse atascado
 	if not es_orden_construccion:
 		target_edificio = null
+	
+	navigation_agent.target_position = target_position
 
 func _process(delta: float):
 	if target_edificio and is_instance_valid(target_edificio) and not starving:
 		if not target_edificio.completado:
 			var distancia = global_position.distance_to(target_edificio.global_position)			# Ampliamos un poco el rango para que no se empujen entre varias unidades y cancelen el trabajo
-			if distancia < 4.0: 
-				set_move_target(global_position, true)
+			if distancia < 2.5:
+				if not en_rango_construccion:
+					en_rango_construccion = true
+					set_move_target(global_position, true)
+				
 				target_edificio.recibir_trabajo(constructionSpeed * delta)
 				
 				if casco and not casco.visible:
@@ -84,6 +107,8 @@ func _process(delta: float):
 					anim_player.play("construir")
 				
 			else:
+				en_rango_construccion = false
+				
 				if casco and casco.visible:
 					casco.hide()
 					martillo.hide()
@@ -160,25 +185,35 @@ func _process(delta: float):
 
 func _physics_process(delta: float):
 	if en_reproduccion:
+		navigation_agent.velocity = Vector3.ZERO
+		velocity = Vector3.ZERO
 		return
 	
-	var distance_to_target = global_position.distance_to(target_position)
-
-	if distance_to_target > 0.1:
-		var direction = (target_position - global_position).normalized()
-		velocity = direction * moveSpeed
-		
-		var look_target = Vector3(target_position.x, global_position.y, target_position.z)
-		if global_position != look_target:
-			look_at(look_target, Vector3.UP)
-		
-		move_and_slide()
-		if anim_player.current_animation != "walk":
-			anim_player.play("walk")
-	else:
-		velocity = Vector3.ZERO
+	if navigation_agent.is_navigation_finished():
+		navigation_agent.velocity = Vector3.ZERO
 		if anim_player and anim_player.current_animation != "idle" and not casco.visible and not hacha.visible and not pico.visible and not canasto.visible:
 			anim_player.play("idle")
+		return
+	
+	var next_position: Vector3 = navigation_agent.get_next_path_position()
+	
+	var direction := next_position - global_position
+	direction.y = 0.0
+	
+	if direction.length_squared() < 0.0001:
+		navigation_agent.velocity = Vector3.ZERO
+		return
+	
+	direction = direction.normalized()
+	
+	var desired_velocity: Vector3 = direction * moveSpeed
+	
+	navigation_agent.velocity = desired_velocity
+	
+	var look_target := global_position + direction
+	look_target.y = global_position.y
+	
+	look_at(look_target, Vector3.UP)
 
 func asignar_edificio(edificio_a_construir: Edificio):
 	target_resource = null
@@ -202,7 +237,6 @@ func modifyAttribute(attribute: String, value: int):	#Función que mejora los at
 			breedingSpeed += value
 		"Satiety":
 			initialSatiety += value
-		
 
 func applyTraits():	#Recorre todos los rasgos en el array traitList, y pide a cada uno que aplique su efecto.
 	for each in traitList:
@@ -230,7 +264,7 @@ func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta
 	
 	if(target_resource && !starving):	#Si hay un recurso objetivo seguimos. Al dar otra orden, se borra el recurso objetivo, lo que podría causar un crash.
 		if(target_resource.cantidad_variable > 0):	#¿Sigue habiendo recursos que recolectar?
-			if(position.distance_to(target_resource.position) < 5):	#Si la unidad está lo suficientemente cerca, se detiene (target de movimiento a su propa posición), recoge 10 recursos.
+			if(position.distance_to(target_resource.position) < 1.5):	#Si la unidad está lo suficientemente cerca, se detiene (target de movimiento a su propa posición), recoge 10 recursos.
 				set_move_target(position)
 				if target_resource is RecursoRespawn:
 					var cantidad_recolectaba = target_resource.cantidad_variable
@@ -364,6 +398,7 @@ func get_construction_speed() -> float:
 
 func get_breeding_speed() -> float:
 	return breedingSpeed * penaltyManager.breeding_multiplier
+
 func entrar_en_comedor():
 	posicion_anterior = global_position
 	
@@ -390,3 +425,18 @@ func salir_del_comedor(posicion: Vector3):
 func _getProgressBar():	#Este método chequea si la barra de progreso debería mostrarse o no. Es para que las unidades recién seleccionadas puedan mostrar su barra de progreso.
 	if (!$CollectionTimer.is_stopped()):
 		progressBar.show()
+func _on_velocity_computed(safe_velocity: Vector3):#esta funcion nueva es la que calcula el movimiento ahora, dandole un movimiento "safe"
+	if en_reproduccion:
+		velocity = Vector3.ZERO
+		return
+	
+	velocity = safe_velocity
+	velocity.y = 0.0
+	
+	move_and_slide()
+	if anim_player.current_animation != "walk":
+			anim_player.play("walk")
+	
+	if get_slide_collision_count() > 0:
+		var colision := get_slide_collision(0)
+		var otro_objeto := colision.get_collider()

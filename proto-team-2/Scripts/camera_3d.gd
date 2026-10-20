@@ -3,7 +3,7 @@ extends Camera3D
 @onready var selection_box = $"../../../../UI/SelectionBox"
 @onready var menu_construccion = $"../../../../UIConstruccion/MenuConstruccion"
 @onready var inventario: Inventario = get_tree().current_scene.get_node("Inventario")
-
+@onready var navigation_region: NavigationRegion3D = get_tree().current_scene.get_node("NavigationRegion3D")
 
 var area_fantasma: Area3D = null
 var ubicacion_valida: bool = false
@@ -12,7 +12,6 @@ var selected_units: Array[CharacterBody3D] = []
 var seleccionando: bool = false
 var posicion_inicio_seleccion: Vector2
 var posicion_actual_mouse: Vector2
-
 
 enum EstadoCamara { NORMAL, CONSTRUYENDO }
 var estado_actual = EstadoCamara.NORMAL
@@ -24,6 +23,10 @@ var nombre_edificio_pendiente: String
 func _ready() -> void:
 	if menu_construccion:
 		menu_construccion.iniciar_construccion.connect(_activar_modo_construccion)
+	
+	if is_instance_valid(navigation_region):
+		if not navigation_region.bake_finished.is_connected(_on_navegacion_horneado):
+			navigation_region.bake_finished.connect(_on_navegacion_horneado)
 
 func _process(delta: float) -> void:
 	if estado_actual == EstadoCamara.CONSTRUYENDO and is_instance_valid(edificio_fantasma):
@@ -52,15 +55,12 @@ func _process(delta: float) -> void:
 					else:
 						ubicacion_valida = false
 					
-					#var mat = edificio_fantasma.material_override as StandardMaterial3D
 					if ubicacion_valida:
 						for mesh in materiales_fantasma:
 							mesh.material_override.albedo_color = Color(0,1,0,0.5)
-						#mat.albedo_color = Color(0, 1, 0, 0.5)
 					else:
 						for mesh in materiales_fantasma:
 							mesh.material_override.albedo_color = Color(1,0,0,0.5)
-						#mat.albedo_color = Color(1, 0, 0, 0.5)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if estado_actual == EstadoCamara.CONSTRUYENDO:
@@ -145,11 +145,7 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 
 		else:
 			var click_world_position: Vector3 = result.position
-			for unidad in selected_units:
-				if is_instance_valid(unidad) and (!unidad._isStarving()):
-					unidad.target_resource = null
-					unidad.hideProgressBar()
-					unidad.set_move_target(click_world_position)
+			mover_unidades_en_formacion(click_world_position)
 
 func seleccionar_unidad(mouse_pos: Vector2) -> void:
 	deseleccionar_todas()
@@ -245,30 +241,6 @@ func _activar_modo_construccion(nombre: String, datos: Dictionary):
 		if colision:
 			colision.disabled = true
 	
-	#for nodo in escena_visual.find_children("*", "MeshInstance3D", true, false):
-		#nodo.material_override = material
-		#nodo.disabled = true
-		#materiales_fantasma.append(nodo)
-	
-	#edificio_fantasma = MeshInstance3D.new()
-	#var malla = BoxMesh.new()
-	#malla.size = Vector3(2, 2, 2)
-	#edificio_fantasma.mesh = malla
-	#
-	#var material = StandardMaterial3D.new()
-	#material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	#edificio_fantasma.material_override = material
-	#
-	#area_fantasma = Area3D.new() 
-	#area_fantasma.collision_layer = 0 
-	#area_fantasma.collision_mask = 2 | 4
-	#
-	#var colision = CollisionShape3D.new()
-	#var forma = BoxShape3D.new()
-	#forma.size = Vector3(1.8, 1.8, 1.8) 
-	#colision.shape = forma
-	#
-	
 	area_fantasma = Area3D.new()
 	area_fantasma.collision_layer = 0
 	area_fantasma.collision_mask = 2 | 4
@@ -324,15 +296,60 @@ func _confirmar_construccion():
 	var escena = escenas_edificios[id_del_edificio]
 	var nuevo_edificio = escena.instantiate()
 	
-	nuevo_edificio.position = edificio_fantasma.global_position
-	nuevo_edificio.rotation = edificio_fantasma.global_rotation
+	var posicion_mundo = edificio_fantasma.global_position
+	var rotacion_mundo = edificio_fantasma.global_rotation
 	
-	get_tree().current_scene.add_child(nuevo_edificio)
+	navigation_region.add_child(nuevo_edificio)
+	
+	nuevo_edificio.position = posicion_mundo
+	nuevo_edificio.rotation = rotacion_mundo
 	
 	nuevo_edificio.configurar_edificio(id_del_edificio, puntos_req)
-		
+	
+	await get_tree().physics_frame
+	
+	actualizar_navegacion()
+	
 	for unidad in selected_units:
 		if is_instance_valid(unidad) and unidad.has_method("asignar_edificio"):
 			unidad.asignar_edificio(nuevo_edificio)
 	
 	_cancelar_construccion()
+
+func mover_unidades_en_formacion(destino: Vector3):
+	var unidades_validas: Array[CharacterBody3D] = []
+	
+	for unidad in selected_units:
+		if is_instance_valid(unidad) and not unidad._isStarving():
+			unidades_validas.append(unidad)
+	
+	if unidades_validas.is_empty():
+		return
+	
+	var columnas := int(ceil(sqrt(float(unidades_validas.size()))))
+	var filas := int(ceil(float(unidades_validas.size()) / columnas))
+	var separacion := 1.5
+	
+	for i in range(unidades_validas.size()):
+		var columna := i % columnas
+		var fila := int(i / columnas)
+		
+		var desplazamiento_x := (columna - (columnas - 1) / 2.0) * separacion
+		var desplazamiento_y := (fila - (filas - 1) / 2.0) * separacion
+		
+		var posicion_objetivo := destino + Vector3(desplazamiento_x,0.0,desplazamiento_y)
+		var unidad := unidades_validas[i]
+		
+		unidad.target_resource = null
+		unidad.hideProgressBar()
+		unidad.set_move_target(posicion_objetivo)
+
+func actualizar_navegacion():
+	if not is_instance_valid(navigation_region):
+		push_warning("No se encontró el NavigationRegion3D")
+		return
+	
+	navigation_region.bake_navigation_mesh(true)
+
+func _on_navegacion_horneado():
+	print("navegacion actualizada")
