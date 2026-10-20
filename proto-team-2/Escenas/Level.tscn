@@ -26,6 +26,7 @@
 [ext_resource type="Script" uid="uid://bm0vvop2w0grr" path="res://Scripts/penalties_manager.gd" id="18_xytri"]
 [ext_resource type="PackedScene" uid="uid://b4f5ki2p41ee1" path="res://Escenas/Edificio_Comedor.tscn" id="19_ofqdk"]
 [ext_resource type="PackedScene" uid="uid://daacyapsqmknq" path="res://Escenas/HUD_Demolicion.tscn" id="23_u2sv0"]
+[ext_resource type="PackedScene" uid="uid://bkvj7woegk1v6" path="res://Escenas/HUD_Unidad.tscn" id="24_6b4jh"]
 
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i8jda"]
@@ -651,6 +652,8 @@ text = "X"
 script = ExtResource("18_xytri")
 
 [node name="HUDDemolicion" parent="." unique_id=1196322522 instance=ExtResource("23_u2sv0")]
+
+[node name="HUD_Unidad" parent="." unique_id=1556987955 instance=ExtResource("24_6b4jh")]
 
 [connection signal="pressed" from="UI/AlimentarDebug" to="." method="_on_alimentar_debug_pressed"]
 [connection signal="pressed" from="UI/PauseMenu/Panel/ResumeButton" to="UI/PauseMenu" method="_on_resume_button_pressed"]

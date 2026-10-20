@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://bkvj7woegk1v6"]
+
+[ext_resource type="Script" uid="uid://caen83bucpfys" path="res://Scripts/hud_unidad.gd" id="1_22wvu"]
+
+[node name="HUD_Unidad" type="Control" unique_id=1556987955]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -264.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_22wvu")
+
+[node name="Panel" type="Panel" parent="." unique_id=2110299503]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -331.0
+offset_top = -264.0
+offset_right = 331.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Margen" type="MarginContainer" parent="Panel" unique_id=14315378]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Contenido" type="VBoxContainer" parent="Panel/Margen" unique_id=1951747078]
+layout_mode = 2
+
+[node name="NombreUnidad" type="Label" parent="Panel/Margen/Contenido" unique_id=289769084]
+layout_mode = 2
+
+[node name="EstadoUnidad" type="Label" parent="Panel/Margen/Contenido" unique_id=18086454]
+layout_mode = 2
+
+[node name="TituloRasgo" type="Label" parent="Panel/Margen/Contenido" unique_id=86913290]
+layout_mode = 2
+
+[node name="ListaRasgo" type="Label" parent="Panel/Margen/Contenido" unique_id=273614422]
+layout_mode = 2
+
+[node name="TituloAtributo" type="Label" parent="Panel/Margen/Contenido" unique_id=2005232571]
+layout_mode = 2
+
+[node name="Atributos" type="GridContainer" parent="Panel/Margen/Contenido" unique_id=503893148]
+layout_mode = 2
+size_flags_vertical = 8
+columns = 2
+
+[node name="IconoRecoleccion" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=34072369]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="ValorRecoleccion" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=459318186]
+layout_mode = 2
+
+[node name="IconoReproduccion" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=878622524]
+layout_mode = 2
+
+[node name="ValorReproduccion" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=511207368]
+layout_mode = 2
+
+[node name="IconoMovimiento" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=996533253]
+layout_mode = 2
+
+[node name="ValorMovimiento" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=1582661789]
+layout_mode = 2
+
+[node name="IconoConstruccion" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=624040747]
+layout_mode = 2
+
+[node name="ValorConstruccion" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=2016882252]
+layout_mode = 2
+
+[node name="IconoSaciedad" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=215746989]
+layout_mode = 2
+
+[node name="ValorSaciedad" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=1671871530]
+layout_mode = 2
