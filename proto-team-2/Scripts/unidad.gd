@@ -21,6 +21,7 @@ var starving = false #Starving es un boolean que controla si la unidad está sie
 var traitList: Array[Rasgo]	#Un array que contiene todos los rasgos de la unidad.
 var target_resource : Recurso
 var target_edificio : Edificio
+var seleccionada : bool
 
 @onready var progressBar = $SubViewportContainer/SubViewport/BarraProgreso
 
@@ -37,6 +38,7 @@ func _ready():
 	applyTraits()	#Al inicializar a la unidad, esta recorre su lista de rasgos y aplica las modificaciones correspondientes. Ya preveo que esto puede resultar en un bug, quizás sería prudente que la unidad aplique las modificaciones en un paso posterior a ser creada, para dar tiempo a cargarle sus rasgos.
 	satiety = initialSatiety
 	$HungerTimer.start()
+	seleccionada = false
 	progressBar.hide()
 	
 	if casco:
@@ -87,6 +89,8 @@ func set_move_target(new_target: Vector3, es_orden_construccion: bool = false):
 		target_edificio = null
 	
 	navigation_agent.target_position = target_position
+	if anim_player.current_animation != "walk" && !target_edificio && !target_resource:
+		anim_player.play("walk")
 
 func _process(delta: float):
 	if target_edificio and is_instance_valid(target_edificio) and not starving:
@@ -126,7 +130,7 @@ func _process(delta: float):
 	if target_resource and is_instance_valid(target_resource) and not starving:
 		var distancia_recurso = global_position.distance_to(target_resource.global_position)
 		
-		if distancia_recurso < 5.0:
+		if distancia_recurso < 1.5:
 			if target_resource.has_method("get_names"):
 				var nombre_recurso = target_resource.get_names()
 				
@@ -137,6 +141,7 @@ func _process(delta: float):
 						canasto.hide()
 					if hacha and not hacha.visible:
 						hacha.show()
+						anim_player.play("talar")
 					if anim_player and anim_player.current_animation != "talar":
 						anim_player.play("talar")
 				
@@ -265,7 +270,11 @@ func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta
 	if(target_resource && !starving):	#Si hay un recurso objetivo seguimos. Al dar otra orden, se borra el recurso objetivo, lo que podría causar un crash.
 		if(target_resource.cantidad_variable > 0):	#¿Sigue habiendo recursos que recolectar?
 			if(position.distance_to(target_resource.position) < 1.5):	#Si la unidad está lo suficientemente cerca, se detiene (target de movimiento a su propa posición), recoge 10 recursos.
-				set_move_target(position)
+				set_move_target(global_position)
+				if (seleccionada):
+					progressBar.show()
+				else:
+					progressBar.hide()
 				if target_resource is RecursoRespawn:
 					var cantidad_recolectaba = target_resource.cantidad_variable
 					var tipo_recurso = target_resource.obtener_tipo_recurso()
@@ -425,6 +434,7 @@ func salir_del_comedor(posicion: Vector3):
 func _getProgressBar():	#Este método chequea si la barra de progreso debería mostrarse o no. Es para que las unidades recién seleccionadas puedan mostrar su barra de progreso.
 	if (!$CollectionTimer.is_stopped()):
 		progressBar.show()
+		
 func _on_velocity_computed(safe_velocity: Vector3):#esta funcion nueva es la que calcula el movimiento ahora, dandole un movimiento "safe"
 	if en_reproduccion:
 		velocity = Vector3.ZERO
@@ -434,8 +444,6 @@ func _on_velocity_computed(safe_velocity: Vector3):#esta funcion nueva es la que
 	velocity.y = 0.0
 	
 	move_and_slide()
-	if anim_player.current_animation != "walk":
-			anim_player.play("walk")
 	
 	if get_slide_collision_count() > 0:
 		var colision := get_slide_collision(0)
