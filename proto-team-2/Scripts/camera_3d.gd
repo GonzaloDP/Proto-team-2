@@ -5,6 +5,7 @@ extends Camera3D
 @onready var hud_demolicion: HudDemolicion = $"../../../../HUDDemolicion"
 @onready var inventario: Inventario = get_tree().current_scene.get_node("Inventario")
 @onready var navigation_region: NavigationRegion3D = get_tree().current_scene.get_node("NavigationRegion3D")
+@onready var hud_unidad: HUD_Unidad = get_tree().current_scene.get_node_or_null("HUD_Unidad")
 
 var area_fantasma: Area3D = null
 var ubicacion_valida: bool = false
@@ -147,23 +148,6 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 			_ocultar_hud_demolicion()
 			var click_world_position: Vector3 = result.position
 			mover_unidades_en_formacion(click_world_position)
-		#if result.collider is Edificio and not result.collider.completado:
-			#for unidad in selected_units:
-				#if is_instance_valid(unidad) and (!unidad._isStarving()):
-					#if unidad.has_method("asignar_edificio"):
-						#unidad.asignar_edificio(result.collider)
-		#elif (result.collider is Recurso):
-			#for unidad in selected_units:
-				#if is_instance_valid(unidad) and (!unidad._isStarving()):
-					#unidad.seekResource(result.collider)
-#
-		#elif result.collider is Area3D and result.collider.get_parent() is EdificioReproduccion:
-			#var edificio: EdificioReproduccion = result.collider.get_parent()
-			#edificio.recibir_unidades(selected_units)
-		#
-		#else:
-			#var click_world_position: Vector3 = result.position
-			#mover_unidades_en_formacion(click_world_position)
 
 func seleccionar_unidad(mouse_pos: Vector2) -> void:
 	deseleccionar_todas()
@@ -177,10 +161,11 @@ func seleccionar_unidad(mouse_pos: Vector2) -> void:
 	
 	if result:
 		var objeto = result.collider
-		if objeto is CharacterBody3D:
+		if objeto is Unidad:
 			selected_units.append(objeto)
 			mostrar_indicador(objeto)
 			menu_construccion.toggle_hud_construccion(true, selected_units)
+	actualizar_hudUnidad()
 
 func seleccionar_unidades_en_rectangulo() -> void:
 	deseleccionar_todas()
@@ -188,6 +173,9 @@ func seleccionar_unidades_en_rectangulo() -> void:
 	var unidades = get_tree().get_nodes_in_group("unidades")
 	
 	for unidad in unidades:
+		if not unidad is Unidad:
+			continue
+		
 		var posicion_pantalla = unproject_position(unidad.global_position)
 		if rectangulo.has_point(posicion_pantalla):
 			selected_units.append(unidad)
@@ -195,6 +183,8 @@ func seleccionar_unidades_en_rectangulo() -> void:
 	
 	if selected_units.size() > 0:
 		menu_construccion.toggle_hud_construccion(true, selected_units)
+	
+	actualizar_hudUnidad()
 
 func deseleccionar_todas() -> void:
 	for unidad in selected_units:
@@ -202,6 +192,8 @@ func deseleccionar_todas() -> void:
 	selected_units.clear()
 	if menu_construccion:
 		menu_construccion.toggle_hud_construccion(false, [])
+	
+	actualizar_hudUnidad()
 
 func mostrar_indicador(unidad: CharacterBody3D) -> void:
 	var indicador = unidad.get_node("SelectionMesh")
@@ -290,9 +282,6 @@ func _confirmar_construccion():
 			
 	for tipo in costo.keys():
 		inventario.agregar_recurso(tipo, -costo[tipo])
-	
-	#var escena_base = load("res://Escenas/Edificio.tscn")
-	#var nuevo_edificio = escena_base.instantiate()
 	
 	var id_del_edificio = datos_edificio_pendiente["tipo_id"]
 	var puntos_req = datos_edificio_pendiente["puntos_construccion_requeridos"]
@@ -394,3 +383,12 @@ func actualizar_navegacion_despues_de_demoler():
 	await get_tree().process_frame
 	print("EDIFICIO ELIMINADO, ACTUALIZANDO NAVEGACION")
 	actualizar_navegacion()
+
+func actualizar_hudUnidad():
+	if not is_instance_valid(hud_unidad):
+		return
+	
+	if selected_units.size() == 1 and selected_units[0] is Unidad:
+		hud_unidad.mostrar_unidad(selected_units[0])
+	else:
+		hud_unidad.ocultar_hud()
