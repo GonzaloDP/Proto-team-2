@@ -163,6 +163,7 @@ func seleccionar_unidad(mouse_pos: Vector2) -> void:
 			selected_units.append(objeto)
 			mostrar_indicador(objeto)
 			objeto._getProgressBar()
+			objeto.seleccionada = true
 			menu_construccion.toggle_hud_construccion(true, selected_units)
 
 func seleccionar_unidades_en_rectangulo() -> void:
@@ -176,6 +177,7 @@ func seleccionar_unidades_en_rectangulo() -> void:
 			selected_units.append(unidad)
 			mostrar_indicador(unidad)
 			unidad._getProgressBar()
+			unidad.seleccionada = true
 
 	if selected_units.size() > 0:
 		menu_construccion.toggle_hud_construccion(true, selected_units)
@@ -183,6 +185,7 @@ func seleccionar_unidades_en_rectangulo() -> void:
 func deseleccionar_todas() -> void:
 	for unidad in selected_units:
 		ocultar_indicador(unidad)
+		unidad.seleccionada = false
 	selected_units.clear()
 	if menu_construccion:
 		menu_construccion.toggle_hud_construccion(false, [])
