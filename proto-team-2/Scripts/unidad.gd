@@ -3,6 +3,12 @@ class_name Unidad
 
 @onready var inventario: Inventario = get_tree().current_scene.get_node("Inventario")
 @onready var penaltyManager = get_tree().current_scene.get_node("PenaltiesManager")
+@onready var anim_player = $AnimationPlayer
+@onready var casco = $Casco
+@onready var martillo = $Martillo
+@onready var hacha = $Hacha
+@onready var pico = $Pico
+@onready var canasto = $Canasto
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 
 @export var moveSpeed: float = 6.0	#Esta variable controla la velocidad de desplazamiento de la unidad.
@@ -15,6 +21,7 @@ var starving = false #Starving es un boolean que controla si la unidad está sie
 var traitList: Array[Rasgo]	#Un array que contiene todos los rasgos de la unidad.
 var target_resource : Recurso
 var target_edificio : Edificio
+var seleccionada : bool
 
 @onready var progressBar = $SubViewportContainer/SubViewport/BarraProgreso
 
@@ -31,8 +38,25 @@ func _ready():
 	applyTraits()	#Al inicializar a la unidad, esta recorre su lista de rasgos y aplica las modificaciones correspondientes. Ya preveo que esto puede resultar en un bug, quizás sería prudente que la unidad aplique las modificaciones en un paso posterior a ser creada, para dar tiempo a cargarle sus rasgos.
 	satiety = initialSatiety
 	$HungerTimer.start()
+	seleccionada = false
 	progressBar.hide()
 	
+	if casco:
+		casco.hide()
+		martillo.hide()
+	
+	if hacha:
+		hacha.hide()
+	
+	if pico:
+		pico.hide()
+	
+	if canasto:
+		canasto.hide()
+
+	if anim_player:
+		anim_player.play("idle")
+
 	#a partir de acá son configuraciones que se les hace al NavigationAgent de la unidad, que sirve para que no se choque con otra unidad dentro del juego
 	navigation_agent.path_desired_distance = 1.0
 	navigation_agent.target_desired_distance = 0.5
@@ -52,6 +76,8 @@ func _ready():
 	set_collision_mask_value(2,true)
 	set_collision_mask_value(3,true)
 
+
+
 func set_move_target(new_target: Vector3, es_orden_construccion: bool = false):
 	if en_reproduccion:
 		return
@@ -63,6 +89,8 @@ func set_move_target(new_target: Vector3, es_orden_construccion: bool = false):
 		target_edificio = null
 	
 	navigation_agent.target_position = target_position
+	if anim_player.current_animation != "walk" && !target_edificio && !target_resource:
+		anim_player.play("walk")
 
 func _process(delta: float):
 	if target_edificio and is_instance_valid(target_edificio) and not starving:
@@ -74,10 +102,91 @@ func _process(delta: float):
 					set_move_target(global_position, true)
 				
 				target_edificio.recibir_trabajo(constructionSpeed * delta)
+				
+				if casco and not casco.visible:
+					casco.show()
+					martillo.show()
+				
+				if anim_player and anim_player.current_animation != "construir":
+					anim_player.play("construir")
+				
 			else:
 				en_rango_construccion = false
+				
+				if casco and casco.visible:
+					casco.hide()
+					martillo.hide()
 		else:
 			target_edificio = null
+			if casco and casco.visible:
+				casco.hide()
+				martillo.hide()
+	else:
+		if casco and casco.visible:
+			casco.hide()
+			martillo.hide()
+	
+	# Todo este choclo para animaciones de recolección
+	if target_resource and is_instance_valid(target_resource) and not starving:
+		var distancia_recurso = global_position.distance_to(target_resource.global_position)
+		
+		if distancia_recurso < 1.5:
+			if target_resource.has_method("get_names"):
+				var nombre_recurso = target_resource.get_names()
+				
+				if nombre_recurso == "Madera":
+					if pico and pico.visible:
+						pico.hide()
+					if canasto and canasto.visible:
+						canasto.hide()
+					if hacha and not hacha.visible:
+						hacha.show()
+						anim_player.play("talar")
+					if anim_player and anim_player.current_animation != "talar":
+						anim_player.play("talar")
+				
+				elif nombre_recurso == "Piedra" or nombre_recurso == "Metal":
+					if hacha and hacha.visible:
+						hacha.hide()
+					if canasto and canasto.visible:
+						canasto.hide()
+					if pico and not pico.visible:
+						pico.show()
+					if anim_player and anim_player.current_animation != "picar":
+						anim_player.play("picar")
+				
+				elif nombre_recurso == "Comida":
+					if hacha and hacha.visible:
+						hacha.hide()
+					if pico and pico.visible:
+						pico.hide()
+					if canasto and not canasto.visible:
+						canasto.show()
+					if anim_player and anim_player.current_animation != "recolectar comida":
+						anim_player.play("recolectar comida")
+				
+			else:
+				if hacha and hacha.visible:
+					hacha.hide()
+				if pico and pico.visible:
+					pico.hide()
+				if canasto and canasto.visible:
+					canasto.hide()
+		else:
+			if hacha and hacha.visible:
+				hacha.hide()
+			if pico and pico.visible:
+				pico.hide()
+			if canasto and canasto.visible:
+				canasto.hide()
+	else:
+		if hacha and hacha.visible:
+			hacha.hide()
+		if pico and pico.visible:
+			pico.hide()
+		if canasto and canasto.visible:
+			canasto.hide()
+
 
 func _physics_process(delta: float):
 	if en_reproduccion:
@@ -87,6 +196,8 @@ func _physics_process(delta: float):
 	
 	if navigation_agent.is_navigation_finished():
 		navigation_agent.velocity = Vector3.ZERO
+		if anim_player and anim_player.current_animation != "idle" and not casco.visible and not hacha.visible and not pico.visible and not canasto.visible:
+			anim_player.play("idle")
 		return
 	
 	var next_position: Vector3 = navigation_agent.get_next_path_position()
@@ -161,7 +272,11 @@ func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta
 	if(target_resource && !starving):	#Si hay un recurso objetivo seguimos. Al dar otra orden, se borra el recurso objetivo, lo que podría causar un crash.
 		if(target_resource.cantidad_variable > 0):	#¿Sigue habiendo recursos que recolectar?
 			if(position.distance_to(target_resource.position) < 1.5):	#Si la unidad está lo suficientemente cerca, se detiene (target de movimiento a su propa posición), recoge 10 recursos.
-				set_move_target(position)
+				set_move_target(global_position)
+				if (seleccionada):
+					progressBar.show()
+				else:
+					progressBar.hide()
 				if target_resource is RecursoRespawn:
 					var cantidad_recolectaba = target_resource.cantidad_variable
 					var tipo_recurso = target_resource.obtener_tipo_recurso()
@@ -179,7 +294,6 @@ func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta
 				$CollectionTimer.stop()
 			else:
 				$CollectionTimer.start(10/get_collection_speed())	#De todos modos, se reinicia el timer.
-				progressBar.show()
 		else:	#Si no hay más recursos, entonces ya no estamos haciendo nada. Acá es adonde mandaría una alerta al jugador de que está inactivo.
 			target_resource = null
 			progressBar.targetTimer = null
@@ -229,8 +343,7 @@ func _on_hunger_timer_timeout():	#Al acabarse el timer de la comida, la saciedad
 		target_edificio = null
 		target_resource = null
 		
-		if(get_tree().get_nodes_in_group("Comedores").is_empty()):	#Si no hay ningún comedor, la unidad se pondrá en rojo y setteara su propia posición como destino. (Es decir, se quedará quieta en el lugar)
-			$MeshInstance3D.mesh.material.albedo_color = Color("DARK_RED")
+		if(get_tree().get_nodes_in_group("Comedores").is_empty()):	#Si no hay ningún comedor, la unidad setteara su propia posición como destino. (Es decir, se quedará quieta en el lugar). Nota: Aquí cabería una animación o efecto de partícula.
 			set_move_target(global_position)
 		else:	#Si existen comedores, empezará a evaluarlos para encontrar el más cercano.
 			goEat()
@@ -252,7 +365,6 @@ func goEat():
 
 func _resetSatiety():	#Este método reinicia la saciedad de la unidad y la devuelve a su color normal.
 	satiety = initialSatiety
-	$MeshInstance3D.mesh.material.albedo_color = Color("Gray")
 	starving = false
 
 func _isStarving():
@@ -321,6 +433,10 @@ func salir_del_comedor(posicion: Vector3):
 	set_collision_mask_value(3,true)
 	show()
 
+func _getProgressBar():	#Este método chequea si la barra de progreso debería mostrarse o no. Es para que las unidades recién seleccionadas puedan mostrar su barra de progreso.
+	if (!$CollectionTimer.is_stopped()):
+		progressBar.show()
+
 func _on_velocity_computed(safe_velocity: Vector3):#esta funcion nueva es la que calcula el movimiento ahora, dandole un movimiento "safe"
 	if en_reproduccion:
 		velocity = Vector3.ZERO
@@ -331,6 +447,9 @@ func _on_velocity_computed(safe_velocity: Vector3):#esta funcion nueva es la que
 	
 	move_and_slide()
 	
+	if anim_player.current_animation != "walk":
+		anim_player.play("walk")
+
 	if get_slide_collision_count() > 0:
 		var colision := get_slide_collision(0)
 		var otro_objeto := colision.get_collider()

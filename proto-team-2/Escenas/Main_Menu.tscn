@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://1gm2mnki8lui" path="res://Scripts/main_menu.gd" id="1_5ckub"]
 [ext_resource type="Texture2D" uid="uid://dm3804a16o763" path="res://Assets/Gráficos 2D/Iconos/Ritual de luz en el desierto.png" id="2_i8jda"]
+[ext_resource type="Script" uid="uid://b8up60c8maoh1" path="res://Scripts/boton_animado.gd" id="2_i8jda"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ckub"]
 bg_color = Color(0.11372549, 0.27450982, 0, 1)
@@ -64,18 +65,22 @@ alignment = 1
 [node name="Jugar" type="Button" parent="CenterContainer/Panel/VBoxContainer" unique_id=1142267723]
 custom_minimum_size = Vector2(300, 70)
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_5ckub")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_i8jda")
 theme_override_styles/hover = SubResource("StyleBoxFlat_5kxe0")
 text = "Jugar"
+script = ExtResource("2_i8jda")
 
 [node name="Salir" type="Button" parent="CenterContainer/Panel/VBoxContainer" unique_id=560348384]
 custom_minimum_size = Vector2(300, 70)
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_5ckub")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_i8jda")
 theme_override_styles/hover = SubResource("StyleBoxFlat_5kxe0")
 text = "Salir"
+script = ExtResource("2_i8jda")
 
 [connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/Jugar" to="." method="_on_jugar_pressed"]
 [connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/Salir" to="." method="_on_salir_pressed"]

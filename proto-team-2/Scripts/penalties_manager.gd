@@ -113,5 +113,5 @@ func apply_penalty(penalty):
 		PenaltyType.UNITY_KILL:
 			print("se ha muerto una unidad" )
 		PenaltyType.DEFEAT:
-			print("FIN DEL JUEGO: PERDISTE")
+			$"../UI/DefeatScreen"._showDefeatScreen()
 	

@@ -144,6 +144,25 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 			var edificio: EdificioReproduccion = collider.get_parent()
 			edificio.recibir_unidades(selected_units)
 		
+		elif result.collider is Area3D and result.collider.get_parent() is EdificioComedor: #Si el jugador hace clic sobre un edificio comedor, enviamos a las unidades allí a comer.
+			if(inventario.get_recurso(Recurso.Tipo_Recurso.COMIDA) == 0): #Primero chequeamos que el jugador tenga comida, de no ser así, la función regresa. Esto evita que un jugador deje a sus unidades inutilizadas frente a un comedor que no tiene comida. Para un futuro, añadir algún tipo de feedback o mensaje.
+				return
+			var edificio: EdificioComedor = result.collider.get_parent()
+			if(edificio.completado == false):	#Si el edificio no está terminado, entonces le pedimos a las unidades que lo construyan.
+				for unidad in selected_units:
+					if is_instance_valid(unidad) and (!unidad._isStarving()):
+						if unidad.has_method("asignar_edificio"):
+							unidad.asignar_edificio(edificio)
+				return
+			for unidad in selected_units:
+				if is_instance_valid(unidad):
+						unidad.starving = true
+						unidad.hideProgressBar()
+						unidad.target_edificio = null
+						unidad.target_resource = null
+						unidad.set_move_target(edificio.global_position)
+
+
 		else:
 			_ocultar_hud_demolicion()
 			var click_world_position: Vector3 = result.position
@@ -164,6 +183,8 @@ func seleccionar_unidad(mouse_pos: Vector2) -> void:
 		if objeto is Unidad:
 			selected_units.append(objeto)
 			mostrar_indicador(objeto)
+			objeto._getProgressBar()
+			objeto.seleccionada = true
 			menu_construccion.toggle_hud_construccion(true, selected_units)
 	actualizar_hudUnidad()
 
@@ -180,7 +201,9 @@ func seleccionar_unidades_en_rectangulo() -> void:
 		if rectangulo.has_point(posicion_pantalla):
 			selected_units.append(unidad)
 			mostrar_indicador(unidad)
-	
+			unidad._getProgressBar()
+			unidad.seleccionada = true
+
 	if selected_units.size() > 0:
 		menu_construccion.toggle_hud_construccion(true, selected_units)
 	
@@ -189,6 +212,7 @@ func seleccionar_unidades_en_rectangulo() -> void:
 func deseleccionar_todas() -> void:
 	for unidad in selected_units:
 		ocultar_indicador(unidad)
+		unidad.seleccionada = false
 	selected_units.clear()
 	if menu_construccion:
 		menu_construccion.toggle_hud_construccion(false, [])
@@ -202,6 +226,7 @@ func mostrar_indicador(unidad: CharacterBody3D) -> void:
 func ocultar_indicador(unidad: CharacterBody3D) -> void:
 	var indicador = unidad.get_node("SelectionMesh")
 	indicador.visible = false
+	unidad.progressBar.hide()
 
 func _activar_modo_construccion(nombre: String, datos: Dictionary):
 	estado_actual = EstadoCamara.CONSTRUYENDO
