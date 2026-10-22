@@ -113,7 +113,6 @@ func recibir_trabajo(cantidad: float):
 	if modelo_rojo: 
 		modelo_rojo.position.y = lerp(profundidad_inicial, posicion_original_y, progreso)
 		
-	#mesh_instance.scale = Vector3(1, max(0.1, progreso), 1)
 	
 	if puntos_actuales >= (puntos_totales - 0.1):
 		completado = true
