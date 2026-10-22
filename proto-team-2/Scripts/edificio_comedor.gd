@@ -52,22 +52,29 @@ func terminar_comida(unidad: Unidad):
 	unidad._resetSatiety()
 	unidades_comiendo.erase(unidad)
 	
-	var posicion_salida := global_position + Vector3(3,0,0)
+	var posicion_salida := global_position + Vector3(-5,0,7)
 	unidad.salir_del_comedor(posicion_salida)
 
 func recibir_trabajo(cantidad: float):
 	if completado: return
 	
 	puntos_actuales += cantidad
-	var progreso = puntos_actuales / puntos_totales
+	var progreso = clamp(puntos_actuales / puntos_totales, 0.0, 1.0)
 	
 #	mesh_instance.scale = Vector3(1, max(0.1,progreso), 1)
 	#mesh_instance.scale = Vector3(1, max(0.1, progreso), 1)
 	
-	if puntos_actuales >= puntos_totales:
+	if puntos_actuales >= (puntos_totales - 0.1):
 		completado = true
 		add_to_group("Comedores")
 
+		#Edificio construido se teletransporta hacia el edificio rojo desvanecido
+		if modelo_rojo:
+			modelo_rojo.queue_free()
+			
+		if modelo_terminado:
+			modelo_terminado.position.y = posicion_original_y
+		
 		#mesh_instance.scale = Vector3(1, 1, 1)
 		
 		if barra_progreso:

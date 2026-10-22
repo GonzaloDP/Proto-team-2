@@ -7,7 +7,10 @@
 size = Vector3(1.6263428, 1.0097656, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_austa"]
-size = Vector3(1.7212887, 1.0411072, 1.0544701)
+size = Vector3(12.677066, 4.414818, 9.898546)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_83186"]
+size = Vector3(12.677066, 3.5500603, 9.898546)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_83186"]
 resource_name = "Corazon"
@@ -373,8 +376,12 @@ shape = SubResource("BoxShape3D_1icel")
 [node name="Area3D" type="Area3D" parent="." unique_id=554658138]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=568805367]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.015013695, 0, -0.00010871887)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8746371, 1.6868553, 0.3355844)
 shape = SubResource("BoxShape3D_austa")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D" unique_id=447177533]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8746371, 5.1731386, 0.3355844)
+shape = SubResource("BoxShape3D_83186")
 
 [node name="Timer" type="Timer" parent="." unique_id=1473201846]
 wait_time = 30.0

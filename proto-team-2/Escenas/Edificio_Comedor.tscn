@@ -6,9 +6,11 @@
 height = 0.9650879
 radius = 1.2753906
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_austa"]
-height = 1.0744629
-radius = 1.5185547
+[sub_resource type="BoxShape3D" id="BoxShape3D_x43xs"]
+size = Vector3(9.653198, 14.271957, 9.020386)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7svnd"]
+size = Vector3(7.8441772, 8.811874, 22.15094)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p0w7y"]
 resource_name = "Concreto"
@@ -433,21 +435,26 @@ collision_layer = 2
 script = ExtResource("1_7svnd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=601883582]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51745605, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51745605, -0.7398572)
 shape = SubResource("CylinderShape3D_1icel")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=2013272636]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.8606038)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1010859182]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.510376, 0)
-shape = SubResource("CylinderShape3D_austa")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.350647, 7.1463547, -4.4873657)
+shape = SubResource("BoxShape3D_x43xs")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D" unique_id=815715839]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.023513, 4.416313, 2.0779114)
+shape = SubResource("BoxShape3D_7svnd")
 
 [node name="Modelo_Terminado" type="MeshInstance3D" parent="." unique_id=1986485731]
-transform = Transform3D(0.7231312, 0, -0.4175, 0, 0.835, 0, 0.4175, 0, 0.7231312, 0, 4.027, 0)
+transform = Transform3D(0.7231312, 0, -0.4175, 0, 0.835, 0, 0.4175, 0, 0.7231312, 0, 4.027, 1.8606038)
 mesh = SubResource("ArrayMesh_7svnd")
 
 [node name="Modelo_Rojo" type="MeshInstance3D" parent="." unique_id=1788444009]
-transform = Transform3D(0.7231312, 0, -0.4175, 0, 0.835, 0, 0.4175, 0, 0.7231312, 0, 4.027, 0)
+transform = Transform3D(0.7231312, 0, -0.4175, 0, 0.835, 0, 0.4175, 0, 0.7231312, 0, 4.027, 1.8606038)
 mesh = SubResource("ArrayMesh_pivxf")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

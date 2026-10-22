@@ -96,7 +96,7 @@ func _process(delta: float):
 	if target_edificio and is_instance_valid(target_edificio) and not starving:
 		if not target_edificio.completado:
 			var distancia = global_position.distance_to(target_edificio.global_position)			# Ampliamos un poco el rango para que no se empujen entre varias unidades y cancelen el trabajo
-			if distancia < 2.5:
+			if distancia < 6:
 				if not en_rango_construccion:
 					en_rango_construccion = true
 					set_move_target(global_position, true)
@@ -130,7 +130,7 @@ func _process(delta: float):
 	if target_resource and is_instance_valid(target_resource) and not starving:
 		var distancia_recurso = global_position.distance_to(target_resource.global_position)
 		
-		if distancia_recurso < 1.5:
+		if distancia_recurso < 2:
 			if target_resource.has_method("get_names"):
 				var nombre_recurso = target_resource.get_names()
 				
@@ -271,7 +271,7 @@ func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta
 	
 	if(target_resource && !starving):	#Si hay un recurso objetivo seguimos. Al dar otra orden, se borra el recurso objetivo, lo que podría causar un crash.
 		if(target_resource.cantidad_variable > 0):	#¿Sigue habiendo recursos que recolectar?
-			if(position.distance_to(target_resource.position) < 1.5):	#Si la unidad está lo suficientemente cerca, se detiene (target de movimiento a su propa posición), recoge 10 recursos.
+			if(position.distance_to(target_resource.position) < 2):	#Si la unidad está lo suficientemente cerca, se detiene (target de movimiento a su propa posición), recoge 10 recursos.
 				set_move_target(global_position)
 				if (seleccionada):
 					progressBar.show()
@@ -447,8 +447,8 @@ func _on_velocity_computed(safe_velocity: Vector3):#esta funcion nueva es la que
 	
 	move_and_slide()
 	
-	if anim_player.current_animation != "walk":
-		anim_player.play("walk")
+	#if anim_player.current_animation != "walk":
+		#anim_player.play("walk")
 
 	if get_slide_collision_count() > 0:
 		var colision := get_slide_collision(0)
@@ -460,11 +460,11 @@ func obtener_estado_actual() -> String:
 	if en_reproduccion:
 		return "En reproducción"
 	if is_instance_valid(target_resource):
-		if global_position.distance_to(target_resource.global_position) > 1.5:
+		if global_position.distance_to(target_resource.global_position) > 2:
 			return "Yendo a recolectar"
 		return "Recolectando recursos"
 	if is_instance_valid(target_edificio):
-		if global_position.distance_to(target_edificio.global_position) > 2.0:
+		if global_position.distance_to(target_edificio.global_position) > 6.0:
 			return "Yendo a construir"
 		return "Construyendo"
 	if global_position.distance_to(target_position) > 0.5:
