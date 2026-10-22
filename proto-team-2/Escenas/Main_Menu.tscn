@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://d05w17gtf1lnj"]
 
 [ext_resource type="Script" uid="uid://1gm2mnki8lui" path="res://Scripts/main_menu.gd" id="1_5ckub"]
+[ext_resource type="Texture2D" uid="uid://dm3804a16o763" path="res://Assets/Gráficos 2D/Iconos/Ritual de luz en el desierto.png" id="2_i8jda"]
 [ext_resource type="Script" uid="uid://b8up60c8maoh1" path="res://Scripts/boton_animado.gd" id="2_i8jda"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ckub"]
@@ -20,6 +21,24 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5ckub")
+
+[node name="CenterContainer2" type="CenterContainer" parent="." unique_id=1265395487]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_scale = Vector2(0.85, 0.85)
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer2" unique_id=1717090045]
+layout_mode = 2
+texture = ExtResource("2_i8jda")
+expand_mode = 1
+stretch_mode = 3
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=632397287]
 layout_mode = 1

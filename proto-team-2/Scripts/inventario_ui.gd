@@ -3,11 +3,11 @@ extends Control
 @onready var inventario: Inventario = get_tree().current_scene.get_node("Inventario")
 @onready var unidad_maxima: int
 
-@onready var madera_label = $HBoxContainer/LabelMadera
-@onready var piedra_label = $HBoxContainer/LabelPiedra
-@onready var metal_label = $HBoxContainer/LabelMetal
-@onready var comida_label = $HBoxContainer/LabelComida
-@onready var poblacion_label = $"HBoxContainer/LabelPoblación"
+@onready var madera_label = $VBoxContainer/HBoxContainer/LabelMadera
+@onready var piedra_label = $VBoxContainer/HBoxContainer2/LabelPiedra
+@onready var metal_label = $VBoxContainer/HBoxContainer3/LabelMetal
+@onready var comida_label = $VBoxContainer/HBoxContainer4/LabelComida
+@onready var poblacion_label = $"VBoxContainer/LabelPoblación"
 
 func _ready() -> void:
 	inventario.inventario_actualizado.connect(actualizar_ui)
