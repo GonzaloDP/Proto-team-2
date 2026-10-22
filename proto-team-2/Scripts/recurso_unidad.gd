@@ -3,15 +3,19 @@ extends Recurso
 
 enum tipo_recurso{ ARBUSTO, PIEDRAS, ARBOLES}
 
+
 @export var cantidad: int = 60
 @export var timer: float = 60.0
+
 
 var tipo_respawn: tipo_recurso
 var agotado := false
 
 func _ready() -> void:
 	tipo_respawn = tipo_recurso.values().pick_random()
+	tipo = obtener_tipo_recurso()
 	cantidad_variable = cantidad
+	cambiar_modelo()
 
 func _process(delta: float) -> void:
 	pass
@@ -54,3 +58,24 @@ func respawn():
 	
 	cantidad_variable = cantidad
 	agotado = false
+
+func cambiar_modelo() -> void:
+	var escena_elegida: PackedScene
+
+	match tipo_respawn:
+		tipo_recurso.ARBUSTO:
+			escena_elegida = modelo_arbusto
+		tipo_recurso.PIEDRAS:
+			escena_elegida = modelo_piedras
+		tipo_recurso.ARBOLES:
+			escena_elegida = modelo_arboles
+
+	if escena_elegida == null:
+		print("Falta asignar un modelo para " + get_names())
+		return
+
+	if modelo_actual != null:
+		modelo_actual.queue_free()
+
+	modelo_actual = escena_elegida.instantiate() as Node3D
+	contenedor_modelo.add_child(modelo_actual)
