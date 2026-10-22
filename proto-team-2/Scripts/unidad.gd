@@ -252,6 +252,8 @@ func seekResource(resource: Recurso):	#Al detectar un recurso, lo primero que ha
 	if en_reproduccion:
 		return
 	
+	target_edificio = null
+	
 	if(resource.cantidad_variable == 0):
 		pass
 	else:		#Si el recurso aún tiene para dar, entonces comprobamos que no hayamos inicializado el timer de recurso todavía. Esto es para evitar una situación en la que un jugador impaciente reinicie el timer una y otra vez.
@@ -434,7 +436,7 @@ func salir_del_comedor(posicion: Vector3):
 func _getProgressBar():	#Este método chequea si la barra de progreso debería mostrarse o no. Es para que las unidades recién seleccionadas puedan mostrar su barra de progreso.
 	if (!$CollectionTimer.is_stopped()):
 		progressBar.show()
-		
+
 func _on_velocity_computed(safe_velocity: Vector3):#esta funcion nueva es la que calcula el movimiento ahora, dandole un movimiento "safe"
 	if en_reproduccion:
 		velocity = Vector3.ZERO
@@ -445,6 +447,27 @@ func _on_velocity_computed(safe_velocity: Vector3):#esta funcion nueva es la que
 	
 	move_and_slide()
 	
+	if anim_player.current_animation != "walk":
+		anim_player.play("walk")
+
 	if get_slide_collision_count() > 0:
 		var colision := get_slide_collision(0)
 		var otro_objeto := colision.get_collider()
+
+func obtener_estado_actual() -> String:
+	if starving:
+		return "Hambriento"
+	if en_reproduccion:
+		return "En reproducción"
+	if is_instance_valid(target_resource):
+		if global_position.distance_to(target_resource.global_position) > 1.5:
+			return "Yendo a recolectar"
+		return "Recolectando recursos"
+	if is_instance_valid(target_edificio):
+		if global_position.distance_to(target_edificio.global_position) > 2.0:
+			return "Yendo a construir"
+		return "Construyendo"
+	if global_position.distance_to(target_position) > 0.5:
+		return "En movimiento"
+	
+	return "Inactivo"
