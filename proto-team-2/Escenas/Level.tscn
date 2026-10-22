@@ -16,9 +16,13 @@
 [ext_resource type="PackedScene" uid="uid://dkbr30n3bn7y4" path="res://Escenas/Recurso_unidad.tscn" id="12_6tp1g"]
 [ext_resource type="Script" uid="uid://dxptnbkd0tpec" path="res://Scripts/pause_menu.gd" id="12_a2mc0"]
 [ext_resource type="PackedScene" uid="uid://c0uoncfpsqxot" path="res://Escenas/Edificio_Reproducción.tscn" id="13_iqjgs"]
+[ext_resource type="Texture2D" uid="uid://c6qu3qu2eba7" path="res://Assets/Gráficos 2D/Iconos/Icono Madera.png" id="13_jbvcs"]
 [ext_resource type="Script" uid="uid://xyn54yubrflu" path="res://Scripts/day_manager.gd" id="13_ohlfa"]
+[ext_resource type="Texture2D" uid="uid://b2qu4v2btafcp" path="res://Assets/Gráficos 2D/Iconos/Icono comida.png" id="13_xpcoj"]
+[ext_resource type="Texture2D" uid="uid://ddmht60gnuwmf" path="res://Assets/Gráficos 2D/Iconos/Icono Piedra.png" id="14_k85as"]
 [ext_resource type="Script" uid="uid://cc08vd22bdeu5" path="res://Scripts/cuota.gd" id="14_tid47"]
 [ext_resource type="Texture2D" uid="uid://b18xa68b7nuqd" path="res://Assets/Gráficos 2D/Construcción UI/Martillo Icono.png" id="15_65587"]
+[ext_resource type="Texture2D" uid="uid://d1dxqpth6omnr" path="res://Assets/Gráficos 2D/Iconos/icono Metal.png" id="15_kour3"]
 [ext_resource type="Script" uid="uid://c4auf7cjj024c" path="res://Scripts/menu_construccion.gd" id="15_tid47"]
 [ext_resource type="Script" uid="uid://bm0vvop2w0grr" path="res://Scripts/penalties_manager.gd" id="18_xytri"]
 [ext_resource type="PackedScene" uid="uid://b4f5ki2p41ee1" path="res://Escenas/Edificio_Comedor.tscn" id="19_ofqdk"]
@@ -128,24 +132,64 @@ offset_right = 420.0
 offset_bottom = 70.0
 script = ExtResource("9_kcfce")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/InventarioUI" unique_id=925857572]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/InventarioUI" unique_id=1117051341]
 layout_mode = 0
-offset_right = 400.0
-offset_bottom = 50.0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="LabelMadera" type="Label" parent="UI/InventarioUI/HBoxContainer" unique_id=204743402]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/InventarioUI/VBoxContainer" unique_id=925857572]
 layout_mode = 2
 
-[node name="LabelPiedra" type="Label" parent="UI/InventarioUI/HBoxContainer" unique_id=1861554169]
+[node name="IconMadera" type="TextureRect" parent="UI/InventarioUI/VBoxContainer/HBoxContainer" unique_id=507528787]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("13_jbvcs")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LabelMadera" type="Label" parent="UI/InventarioUI/VBoxContainer/HBoxContainer" unique_id=204743402]
 layout_mode = 2
 
-[node name="LabelMetal" type="Label" parent="UI/InventarioUI/HBoxContainer" unique_id=2125560515]
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/InventarioUI/VBoxContainer" unique_id=1818758833]
 layout_mode = 2
 
-[node name="LabelComida" type="Label" parent="UI/InventarioUI/HBoxContainer" unique_id=874767175]
+[node name="IconPiedra" type="TextureRect" parent="UI/InventarioUI/VBoxContainer/HBoxContainer2" unique_id=2097821708]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("14_k85as")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LabelPiedra" type="Label" parent="UI/InventarioUI/VBoxContainer/HBoxContainer2" unique_id=1861554169]
 layout_mode = 2
 
-[node name="LabelPoblación" type="Label" parent="UI/InventarioUI/HBoxContainer" unique_id=566696229]
+[node name="HBoxContainer3" type="HBoxContainer" parent="UI/InventarioUI/VBoxContainer" unique_id=1705076365]
+layout_mode = 2
+
+[node name="IconMetal" type="TextureRect" parent="UI/InventarioUI/VBoxContainer/HBoxContainer3" unique_id=1879291213]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("15_kour3")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LabelMetal" type="Label" parent="UI/InventarioUI/VBoxContainer/HBoxContainer3" unique_id=2125560515]
+layout_mode = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="UI/InventarioUI/VBoxContainer" unique_id=1992466240]
+layout_mode = 2
+
+[node name="IconComida" type="TextureRect" parent="UI/InventarioUI/VBoxContainer/HBoxContainer4" unique_id=945587277]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("13_xpcoj")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LabelComida" type="Label" parent="UI/InventarioUI/VBoxContainer/HBoxContainer4" unique_id=874767175]
+layout_mode = 2
+
+[node name="LabelPoblación" type="Label" parent="UI/InventarioUI/VBoxContainer" unique_id=566696229]
 layout_mode = 2
 
 [node name="DayUI" type="Control" parent="UI" unique_id=463724722]

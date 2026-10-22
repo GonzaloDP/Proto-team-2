@@ -14,7 +14,6 @@ class_name HUD_Unidad
 var unidad_actual: Unidad = null
 
 func _ready() -> void:
-	_configurar_tooltips()
 	hide()
 
 func _process(delta: float) -> void:
@@ -25,12 +24,12 @@ func _process(delta: float) -> void:
 	estado_unidad.text = obtener_estado(unidad_actual)
 	valor_saciedad.text = "%d / %d" % [unidad_actual.satiety, unidad_actual.initialSatiety]
 
-func _configurar_tooltips():
-	$Panel/Margen/Contenido/Atributos/IconoRecoleccion.text = "Icono recoleccion"
-	$Panel/Margen/Contenido/Atributos/IconoReproduccion.text = "Icono reproduccion"
-	$Panel/Margen/Contenido/Atributos/IconoMovimiento.text = "Icono movimiento"
-	$Panel/Margen/Contenido/Atributos/IconoConstruccion.text = "Icono construccion"
-	$Panel/Margen/Contenido/Atributos/ValorSaciedad.text = "Icono Saciedad"
+#func _configurar_tooltips():
+	#$Panel/Margen/Contenido/Atributos/IconoRecoleccion.text = "Icono recoleccion"
+	#$Panel/Margen/Contenido/Atributos/IconoReproduccion.text = "Icono reproduccion"
+	#$Panel/Margen/Contenido/Atributos/IconoMovimiento.text = "Icono movimiento"
+	#$Panel/Margen/Contenido/Atributos/IconoConstruccion.text = "Icono construccion"
+	#$Panel/Margen/Contenido/Atributos/ValorSaciedad.text = "Icono Saciedad"
 
 func mostrar_unidad(unidad: Unidad):
 	if not is_instance_valid(unidad):

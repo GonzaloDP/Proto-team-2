@@ -1,6 +1,11 @@
 [gd_scene format=3 uid="uid://bkvj7woegk1v6"]
 
 [ext_resource type="Script" uid="uid://caen83bucpfys" path="res://Scripts/hud_unidad.gd" id="1_22wvu"]
+[ext_resource type="Texture2D" uid="uid://b20tk7nm1d56x" path="res://Assets/Gráficos 2D/Iconos/icono recoleccion.png" id="2_6bmu8"]
+[ext_resource type="Texture2D" uid="uid://qrn12u1hlggw" path="res://Assets/Gráficos 2D/Iconos/icono Velocidad de Rep.png" id="3_w7g60"]
+[ext_resource type="Texture2D" uid="uid://cm1kjpjl1akqh" path="res://Assets/Gráficos 2D/Iconos/Icono de velocidad de movimientp.png" id="4_nfvn5"]
+[ext_resource type="Texture2D" uid="uid://d2uhjr4pqb7xl" path="res://Assets/Gráficos 2D/Iconos/Icono Velocidad de Cons.png" id="5_gg6ah"]
+[ext_resource type="Texture2D" uid="uid://ckxasknebu2ae" path="res://Assets/Gráficos 2D/Iconos/icono saciedad.png" id="6_imowq"]
 
 [node name="HUD_Unidad" type="Control" unique_id=1556987955]
 layout_mode = 3
@@ -57,33 +62,42 @@ layout_mode = 2
 size_flags_vertical = 8
 columns = 2
 
-[node name="IconoRecoleccion" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=34072369]
+[node name="IconoRecoleccion" type="TextureRect" parent="Panel/Margen/Contenido/Atributos" unique_id=266918361]
 layout_mode = 2
-size_flags_vertical = 1
+texture = ExtResource("2_6bmu8")
+expand_mode = 2
 
 [node name="ValorRecoleccion" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=459318186]
 layout_mode = 2
 
-[node name="IconoReproduccion" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=878622524]
+[node name="IconoReproduccion" type="TextureRect" parent="Panel/Margen/Contenido/Atributos" unique_id=429206556]
 layout_mode = 2
+texture = ExtResource("3_w7g60")
+expand_mode = 2
 
 [node name="ValorReproduccion" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=511207368]
 layout_mode = 2
 
-[node name="IconoMovimiento" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=996533253]
+[node name="IconoMovimiento" type="TextureRect" parent="Panel/Margen/Contenido/Atributos" unique_id=1612504070]
 layout_mode = 2
+texture = ExtResource("4_nfvn5")
+expand_mode = 2
 
 [node name="ValorMovimiento" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=1582661789]
 layout_mode = 2
 
-[node name="IconoConstruccion" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=624040747]
+[node name="IconoConstruccion" type="TextureRect" parent="Panel/Margen/Contenido/Atributos" unique_id=63744130]
 layout_mode = 2
+texture = ExtResource("5_gg6ah")
+expand_mode = 2
 
 [node name="ValorConstruccion" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=2016882252]
 layout_mode = 2
 
-[node name="IconoSaciedad" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=215746989]
+[node name="IconoSaciedad" type="TextureRect" parent="Panel/Margen/Contenido/Atributos" unique_id=1619911611]
 layout_mode = 2
+texture = ExtResource("6_imowq")
+expand_mode = 2
 
 [node name="ValorSaciedad" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=1671871530]
 layout_mode = 2

@@ -16,19 +16,19 @@ var lista_edificios = {
 	"Edificio de Reproducción": {
 		"tipo_id": "reproduccion",
 		"costo": {Recurso.Tipo_Recurso.COMIDA: 1, Recurso.Tipo_Recurso.MADERA: 1},
-		"icono": "res://icon.svg", # Placeholder*
+		"icono": "res://Assets/Gráficos 2D/Iconos/Icono Reproduccion.png", 
 		"puntos_construccion_requeridos": 100
 	},
 	"Edificio de Vivienda": {
 		"tipo_id": "vivienda",
 		"costo": {Recurso.Tipo_Recurso.MADERA: 1},
-		"icono": "res://icon.svg", # Placeholder*
+		"icono": "res://Assets/Gráficos 2D/Iconos/Icono Vivienda.png",
 		"puntos_construccion_requeridos": 60
 	},
 	"Edificio Comedor": {
 		"tipo_id": "comedor",
 		"costo": {Recurso.Tipo_Recurso.MADERA: 1, Recurso.Tipo_Recurso.PIEDRA: 1},
-		"icono": "res://icon.svg", # Placeholder*
+		"icono": "res://Assets/Gráficos 2D/Iconos/Icono Comedor.png",
 		"puntos_construccion_requeridos": 150
 	}
 }
