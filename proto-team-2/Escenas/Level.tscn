@@ -16,13 +16,13 @@
 [ext_resource type="Script" uid="uid://xhpoh3cmgxo" path="res://Scripts/cuota_ui.gd" id="10_pke20"]
 [ext_resource type="PackedScene" uid="uid://dkbr30n3bn7y4" path="res://Escenas/Recurso_unidad.tscn" id="12_6tp1g"]
 [ext_resource type="Script" uid="uid://dxptnbkd0tpec" path="res://Scripts/pause_menu.gd" id="12_a2mc0"]
-[ext_resource type="Texture2D" uid="uid://c6qu3qu2eba7" path="res://Assets/Gráficos 2D/Iconos/Icono Madera.png" id="13_jbvcs"]
-[ext_resource type="Texture2D" uid="uid://b2qu4v2btafcp" path="res://Assets/Gráficos 2D/Iconos/Icono comida.png" id="13_xpcoj"]
-[ext_resource type="Texture2D" uid="uid://ddmht60gnuwmf" path="res://Assets/Gráficos 2D/Iconos/Icono Piedra.png" id="14_k85as"]
 [ext_resource type="Script" uid="uid://b8up60c8maoh1" path="res://Scripts/boton_animado.gd" id="13_6b4jh"]
+[ext_resource type="Texture2D" uid="uid://c6qu3qu2eba7" path="res://Assets/Gráficos 2D/Iconos/Icono Madera.png" id="13_jbvcs"]
 [ext_resource type="Script" uid="uid://xyn54yubrflu" path="res://Scripts/day_manager.gd" id="13_ohlfa"]
 [ext_resource type="Script" uid="uid://bxopmkerfdbx3" path="res://Scripts/win_screen.gd" id="13_u2sv0"]
+[ext_resource type="Texture2D" uid="uid://b2qu4v2btafcp" path="res://Assets/Gráficos 2D/Iconos/Icono comida.png" id="13_xpcoj"]
 [ext_resource type="Script" uid="uid://b8fn6cektmhqb" path="res://Scripts/defeat_screen.gd" id="14_6b4jh"]
+[ext_resource type="Texture2D" uid="uid://ddmht60gnuwmf" path="res://Assets/Gráficos 2D/Iconos/Icono Piedra.png" id="14_k85as"]
 [ext_resource type="Script" uid="uid://cc08vd22bdeu5" path="res://Scripts/cuota.gd" id="14_tid47"]
 [ext_resource type="Texture2D" uid="uid://b18xa68b7nuqd" path="res://Assets/Gráficos 2D/Construcción UI/Martillo Icono.png" id="15_65587"]
 [ext_resource type="Texture2D" uid="uid://d1dxqpth6omnr" path="res://Assets/Gráficos 2D/Iconos/icono Metal.png" id="15_kour3"]
@@ -176,7 +176,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.166275, 0.6455455, 4)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.083725, 0.6455455, 2.75)
 
 [node name="RecursoUnidad" parent="NavigationRegion3D" unique_id=1902933503 instance=ExtResource("12_6tp1g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.813269, 0.7046747, 4.568039)
+
+[node name="RecursoUnidad2" parent="NavigationRegion3D" unique_id=1319754783 instance=ExtResource("12_6tp1g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7576337, 0.7046747, -4.8289022)
+
+[node name="RecursoUnidad3" parent="NavigationRegion3D" unique_id=1986052599 instance=ExtResource("12_6tp1g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.637348, 0.7046747, -17.558033)
 
 [node name="Ciclo_Dia_Noche" parent="." unique_id=65373244 instance=ExtResource("3_u2sv0")]
 

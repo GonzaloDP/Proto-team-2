@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ddo6yxkwa7bap"]
+
+[ext_resource type="PackedScene" uid="uid://c8ru5mps1h2qu" path="res://Assets/3D/Recursos/SpruceTree3.fbx" id="1_gakdy"]
+[ext_resource type="Texture2D" uid="uid://ctk5ypf48hn2q" path="res://Assets/3D/Recursos/Materiales/SpruceTreeLeaf.png" id="2_0txbd"]
+[ext_resource type="Texture2D" uid="uid://cfslk35okbatw" path="res://Assets/3D/Recursos/Materiales/SpruceTreeTrunk.png" id="3_603bb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_blr7t"]
+albedo_texture = ExtResource("2_0txbd")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vq4k1"]
+albedo_texture = ExtResource("3_603bb")
+
+[node name="SpruceTree3" unique_id=1903247501 instance=ExtResource("1_gakdy")]
+
+[node name="SpruceTree3" parent="." index="0" unique_id=1929368609]
+surface_material_override/0 = SubResource("StandardMaterial3D_blr7t")
+surface_material_override/1 = SubResource("StandardMaterial3D_vq4k1")
