@@ -142,6 +142,13 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 		elif collider is Area3D and collider.get_parent() is EdificioReproduccion:
 			_ocultar_hud_demolicion()
 			var edificio: EdificioReproduccion = collider.get_parent()
+			if(edificio.completado == false):	#Si el edificio no está terminado, entonces le pedimos a las unidades que lo construyan.
+				for unidad in selected_units:
+					if is_instance_valid(unidad) and (!unidad._isStarving()):
+						if unidad.has_method("asignar_edificio"):
+							unidad.asignar_edificio(edificio)
+				return
+
 			edificio.recibir_unidades(selected_units)
 		
 		elif result.collider is Area3D and result.collider.get_parent() is EdificioComedor: #Si el jugador hace clic sobre un edificio comedor, enviamos a las unidades allí a comer.

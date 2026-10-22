@@ -116,6 +116,7 @@ func recibir_trabajo(cantidad: float):
 	
 	if puntos_actuales >= (puntos_totales - 0.1):
 		completado = true
+		construir()
 		
 		#Edificio construido se teletransporta hacia el edificio rojo desvanecido
 		if modelo_rojo:
@@ -147,3 +148,6 @@ func eliminar_edificio():
 		camara.actualizar_navegacion_despues_de_demoler()
 	else:
 		print("ERROR: NO SE ENCONTRÓ LA CAMARA")
+		
+func construir(): #La función construir se ejecuta cuando el edificio se termine de construir. En la clase base no hace nada.
+	pass
