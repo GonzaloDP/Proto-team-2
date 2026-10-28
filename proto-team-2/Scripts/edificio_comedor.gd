@@ -62,9 +62,10 @@ func recibir_trabajo(cantidad: float):
 	puntos_actuales += cantidad
 	var progreso = clamp(puntos_actuales / puntos_totales, 0.0, 1.0)
 	
-#	mesh_instance.scale = Vector3(1, max(0.1,progreso), 1)
-	#mesh_instance.scale = Vector3(1, max(0.1, progreso), 1)
-	
+	#Edificio emerge
+	if modelo_rojo: 
+		modelo_rojo.position.y = lerp(profundidad_inicial, posicion_original_y, progreso)
+		
 	if puntos_actuales >= (puntos_totales - 0.1):
 		completado = true
 		$CleanUpTimer.start()
