@@ -7,7 +7,7 @@
 size = Vector3(1.6263428, 1.0097656, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_austa"]
-size = Vector3(12.677066, 4.414818, 9.898546)
+size = Vector3(13.0626545, 4.414818, 9.898546)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_83186"]
 size = Vector3(12.677066, 3.5500603, 9.898546)
@@ -376,7 +376,7 @@ shape = SubResource("BoxShape3D_1icel")
 [node name="Area3D" type="Area3D" parent="." unique_id=554658138]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=568805367]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8746371, 1.6868553, 0.3355844)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0674314, 1.6868553, 0.3355844)
 shape = SubResource("BoxShape3D_austa")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D" unique_id=447177533]
@@ -395,6 +395,14 @@ mesh = SubResource("ArrayMesh_dcgvl")
 [node name="Modelo_Rojo" type="MeshInstance3D" parent="." unique_id=414404377]
 transform = Transform3D(0.0012869138, -0.5089984, 0.00016828421, 0.41789514, 0.00115265, 0.2905913, -0.29059073, -0.0005965438, 0.41789672, 0, 3, 0)
 mesh = SubResource("ArrayMesh_ub4ur")
+
+[node name="PuntoRespawn" type="Marker3D" parent="." unique_id=1785237578]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6742115, 0, 2.4743524)
+
+[node name="PuntoObjetivo" type="Marker3D" parent="." unique_id=1695999459]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.306694, 0, -8.886591)
+
+[node name="CleanUpTimer" type="Timer" parent="." unique_id=413742689]
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

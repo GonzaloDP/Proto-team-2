@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dmu7pc0py18yi" path="res://Scripts/edificio_vivienda.gd" id="1_js4tm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_austa"]
-size = Vector3(8.49527, 4.3551025, 10.581543)
+size = Vector3(8.49527, 4.940735, 10.581543)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aid1k"]
 resource_name = "Marcos"
@@ -1074,7 +1074,7 @@ collision_layer = 2
 script = ExtResource("1_js4tm")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1930400955]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.41783142, 2.7490306, 0.08520508)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.41783142, 3.0418468, 0.08520508)
 shape = SubResource("BoxShape3D_austa")
 
 [node name="Variante 1" type="Node3D" parent="." unique_id=673544526]
@@ -1116,3 +1116,7 @@ visible = false
 mesh = SubResource("ArrayMesh_imgk1")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1421302568]
+
+[node name="PuntoRespawn" type="Marker3D" parent="." unique_id=740546172]
+
+[node name="CleanUpTimer" type="Timer" parent="." unique_id=1038761242]

@@ -7,10 +7,10 @@ height = 0.9650879
 radius = 1.2753906
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x43xs"]
-size = Vector3(9.653198, 14.271957, 9.020386)
+size = Vector3(9.930115, 14.271957, 10.879822)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7svnd"]
-size = Vector3(7.8441772, 8.811874, 22.15094)
+size = Vector3(8.522675, 8.187527, 22.15094)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p0w7y"]
 resource_name = "Concreto"
@@ -442,11 +442,11 @@ shape = SubResource("CylinderShape3D_1icel")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.8606038)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1010859182]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.350647, 7.1463547, -4.4873657)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4891052, 7.1463547, -3.5576477)
 shape = SubResource("BoxShape3D_x43xs")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D" unique_id=815715839]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.023513, 4.416313, 2.0779114)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.684264, 4.1041393, 2.0779114)
 shape = SubResource("BoxShape3D_7svnd")
 
 [node name="Modelo_Terminado" type="MeshInstance3D" parent="." unique_id=1986485731]
@@ -456,5 +456,13 @@ mesh = SubResource("ArrayMesh_7svnd")
 [node name="Modelo_Rojo" type="MeshInstance3D" parent="." unique_id=1788444009]
 transform = Transform3D(0.7231312, 0, -0.4175, 0, 0.835, 0, 0.4175, 0, 0.7231312, 0, 4.027, 1.8606038)
 mesh = SubResource("ArrayMesh_pivxf")
+
+[node name="PuntoRespawn" type="Marker3D" parent="." unique_id=1326853163]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.615438, 0, 9.662832)
+
+[node name="PuntoObjetivoSalida" type="Marker3D" parent="." unique_id=615607617]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0481639, 0, 2.8019805)
+
+[node name="CleanUpTimer" type="Timer" parent="." unique_id=1642512897]
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

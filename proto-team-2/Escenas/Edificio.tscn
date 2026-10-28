@@ -11,3 +11,11 @@ script = ExtResource("1_wmytc")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=402039813]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=254236377]
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1809614409]
+
+[node name="CleanUpTimer" type="Timer" parent="." unique_id=1658719328]
+
+[node name="PuntoRespawn" type="Marker3D" parent="." unique_id=663193473]
+
+[connection signal="timeout" from="CleanUpTimer" to="." method="checkForBuggedUnits"]

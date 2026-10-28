@@ -52,8 +52,9 @@ func terminar_comida(unidad: Unidad):
 	unidad._resetSatiety()
 	unidades_comiendo.erase(unidad)
 	
-	var posicion_salida := global_position + Vector3(-5,0,7)
-	unidad.salir_del_comedor(posicion_salida)
+	var posicion_salida = $PuntoRespawn.global_position	#Tomamos los puntos de spawn y de objetivo del comedor para darselos a la unidad. Estos determinarán, respectivamente, donde aparecerá la unidad al salir, y hacia donde se moverá.
+	var objetivo_salida = $PuntoObjetivoSalida.global_position
+	unidad.salir_del_comedor(posicion_salida, objetivo_salida)
 
 func recibir_trabajo(cantidad: float):
 	if completado: return
@@ -66,6 +67,7 @@ func recibir_trabajo(cantidad: float):
 	
 	if puntos_actuales >= (puntos_totales - 0.1):
 		completado = true
+		$CleanUpTimer.start()
 		add_to_group("Comedores")
 
 		#Edificio construido se teletransporta hacia el edificio rojo desvanecido

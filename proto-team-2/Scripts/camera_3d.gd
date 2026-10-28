@@ -152,14 +152,14 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 			edificio.recibir_unidades(selected_units)
 		
 		elif result.collider is Area3D and result.collider.get_parent() is EdificioComedor: #Si el jugador hace clic sobre un edificio comedor, enviamos a las unidades allí a comer.
-			if(inventario.get_recurso(Recurso.Tipo_Recurso.COMIDA) == 0): #Primero chequeamos que el jugador tenga comida, de no ser así, la función regresa. Esto evita que un jugador deje a sus unidades inutilizadas frente a un comedor que no tiene comida. Para un futuro, añadir algún tipo de feedback o mensaje.
-				return
 			var edificio: EdificioComedor = result.collider.get_parent()
 			if(edificio.completado == false):	#Si el edificio no está terminado, entonces le pedimos a las unidades que lo construyan.
 				for unidad in selected_units:
 					if is_instance_valid(unidad) and (!unidad._isStarving()):
 						if unidad.has_method("asignar_edificio"):
 							unidad.asignar_edificio(edificio)
+				return
+			if(inventario.get_recurso(Recurso.Tipo_Recurso.COMIDA) == 0): #Chequeamos que el jugador tenga comida, de no ser así, la función regresa. Esto evita que un jugador deje a sus unidades inutilizadas frente a un comedor que no tiene comida. Para un futuro, añadir algún tipo de feedback o mensaje.
 				return
 			for unidad in selected_units:
 				if is_instance_valid(unidad):

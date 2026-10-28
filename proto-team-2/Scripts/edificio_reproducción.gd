@@ -55,9 +55,9 @@ func _on_timer_timeout() -> void:
 	print("terminó el follaje")
 	
 	if padre_1:
-		padre_1.salir_de_reproduccion(padre_1.posicion_anterior)
+		padre_1.salir_de_reproduccion($PuntoRespawn.global_position, $PuntoObjetivo.global_position)
 	if padre_2:
-		padre_2.salir_de_reproduccion(padre_2.posicion_anterior)
+		padre_2.salir_de_reproduccion($PuntoRespawn.global_position, $PuntoObjetivo.global_position)
 	
 	crear_nueva_unidad()
 	
@@ -85,9 +85,9 @@ func recibir_unidades(unidades: Array[CharacterBody3D]):
 	if unidades_objetivo.size() != 2:
 		print("No se completo el coito")
 		if padre_1:
-			padre_1.salir_de_reproduccion(padre_1.posicion_anterior)
+			padre_1.salir_de_reproduccion($PuntoRespawn.global_position, $PuntoObjetivo.global_position)
 		if padre_2:
-			padre_2.salir_de_reproduccion(padre_2.posicion_anterior)
+			padre_2.salir_de_reproduccion($PuntoRespawn.global_position,$PuntoObjetivo.global_position)
 
 		unidades_objetivo.clear()
 		return
@@ -105,5 +105,6 @@ func crear_nueva_unidad():
 	var nueva_unidad = escena_unidad.instantiate()
 	get_tree().current_scene.add_child(nueva_unidad)
 	nueva_unidad._setInheritance(padre_1,padre_2)
-	nueva_unidad.global_position = global_position
+	nueva_unidad.global_position = $PuntoRespawn.global_position
 	nueva_unidad.add_to_group("Unidades")
+	nueva_unidad.set_move_target($PuntoObjetivo.global_position)

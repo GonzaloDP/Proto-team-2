@@ -116,6 +116,7 @@ func recibir_trabajo(cantidad: float):
 	
 	if puntos_actuales >= (puntos_totales - 0.1):
 		completado = true
+		$CleanUpTimer.start()
 		construir()
 		
 		#Edificio construido se teletransporta hacia el edificio rojo desvanecido
@@ -151,3 +152,8 @@ func eliminar_edificio():
 		
 func construir(): #La función construir se ejecuta cuando el edificio se termine de construir. En la clase base no hace nada.
 	pass
+
+func checkForBuggedUnits():	#Chequeamos que no haya ninguna unidad dentro del edifico que no deba estar ahí (Pueden quedar buggeadas a veces). Si hay alguna unidad allí, entonces la movemos a otro lugar para liberarla.
+	for body in $Area3D.get_overlapping_bodies():
+		if(body.visible && body is Unidad):	#Chequeamos que la unidad esté visible. Las unidades que están comiendo o reproduciéndose se ocultan, así que estas no serán expulsadas por el método.
+			body.global_position = $PuntoRespawn.global_position
