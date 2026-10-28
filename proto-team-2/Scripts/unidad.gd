@@ -113,7 +113,7 @@ func _process(delta: float):
 				
 			else:
 				en_rango_construccion = false
-				
+				anim_player.play("walk")
 				if casco and casco.visible:
 					casco.hide()
 					martillo.hide()
@@ -167,6 +167,7 @@ func _process(delta: float):
 						anim_player.play("recolectar comida")
 				
 			else:
+				anim_player.play("walk")
 				if hacha and hacha.visible:
 					hacha.hide()
 				if pico and pico.visible:
@@ -197,7 +198,7 @@ func _physics_process(delta: float):
 	
 	if navigation_agent.is_navigation_finished():
 		navigation_agent.velocity = Vector3.ZERO
-		if anim_player and anim_player.current_animation != "idle" and not casco.visible and not hacha.visible and not pico.visible and not canasto.visible:
+		if anim_player and anim_player.current_animation != "idle" and !target_resource and !target_edificio:
 			anim_player.play("idle")
 		return
 	

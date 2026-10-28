@@ -9,7 +9,7 @@ class_name EdificioComedor
 var unidades_comiendo: Array[Unidad] = []
 
 func _ready() -> void:
-	pass
+	profundidad_inicial = -5.0	#Como el comedor es mucho más alto que los demás edificio, sobreescribimos el valor de la profundidad inicial.
 	
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body is Unidad:
