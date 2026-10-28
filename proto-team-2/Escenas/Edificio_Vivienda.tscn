@@ -1117,6 +1117,13 @@ mesh = SubResource("ArrayMesh_imgk1")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1421302568]
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1524839487]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.41783142, 3.0418468, 0.08520508)
+shape = SubResource("BoxShape3D_austa")
+
 [node name="PuntoRespawn" type="Marker3D" parent="." unique_id=740546172]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.800928)
 
 [node name="CleanUpTimer" type="Timer" parent="." unique_id=1038761242]
+
+[connection signal="timeout" from="CleanUpTimer" to="." method="checkForBuggedUnits"]
