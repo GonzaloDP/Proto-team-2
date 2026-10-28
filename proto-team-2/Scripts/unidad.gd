@@ -330,6 +330,7 @@ func salir_de_reproduccion(posicionSpawn: Vector3, posicionObjetivo: Vector3):
 	set_collision_mask_value(3,true)
 	
 	show()
+	set_move_target(posicionObjetivo)
 
 func hideProgressBar():
 	progressBar.hide()
