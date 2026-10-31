@@ -16,6 +16,7 @@ class_name Unidad
 @export var collectionSpeed: float = 10 #Igual que la constructionSpeed, pero afecta la recolección.
 @export var breedingSpeed: int = 5 #Mientras más alta sea esta variable, menos tiempo tardará la unidad en salir del edificio de reproducción.
 @export var initialSatiety: int = 10 #El valor inicial de saciedad de la unidad. Disminuye con el tiempo (debería), y al quedarse sin, la unidad no podrá trabajar.
+@export var nombre: String
 var satiety	#Este es el valor de saciedad "real" de la unidad, es decir el que se modifica y se chequea para ver si tiene hambre o no.
 var starving = false #Starving es un boolean que controla si la unidad está siendo incapaz de comer. De ser verdadero, la unidad no obedecerá órdenes..
 var traitList: Array[Rasgo]	#Un array que contiene todos los rasgos de la unidad.
@@ -41,6 +42,7 @@ func _ready():
 	$HungerTimer.start()
 	seleccionada = false
 	progressBar.hide()
+	setName()
 	
 	if casco:
 		casco.hide()
@@ -495,3 +497,7 @@ func resumeTask(): #Esta función toma la tarea guardada y le ordena a la unidad
 		if(savedTask is Recurso):
 			seekResource(savedTask)
 		savedTask = null #Al terminar, borramos la tarea guardada.
+
+func setName():
+	var nameList = ["Juan", "Pepe", "Boblin el Goblin"]
+	nombre = nameList[randi() % nameList.size()]

@@ -37,7 +37,7 @@ func mostrar_unidad(unidad: Unidad):
 		return
 	
 	unidad_actual = unidad
-	nombre_unidad.text = unidad.name
+	nombre_unidad.text = unidad.nombre
 	estado_unidad.text = obtener_estado(unidad)
 	
 	valor_recoleccion.text = str(unidad.collectionSpeed)
