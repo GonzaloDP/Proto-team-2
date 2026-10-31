@@ -3,6 +3,7 @@ class_name EdificioComedor
 
 @export var tiempo_comida: float = 5.0
 @export var distancia_para_comer: float = 3.0
+@export var costo_alimentacion: int = 5
 
 @onready var inventario: Inventario = get_tree().current_scene.get_node("Inventario")
 
@@ -33,7 +34,7 @@ func recibir_unidad(unidad: Unidad):
 	var cantidad_comida = inventario.get_recurso(Recurso.Tipo_Recurso.COMIDA)
 	var comida_reservada = unidades_comiendo.size()
 	
-	if cantidad_comida - comida_reservada < 1:
+	if cantidad_comida - comida_reservada < costo_alimentacion:	#Chequeamos que haya suficiente comida para alimentar a la unidad.
 		return
 	
 	unidades_comiendo.append(unidad)
@@ -47,7 +48,7 @@ func terminar_comida(unidad: Unidad):
 		unidades_comiendo.erase(unidad)
 		return
 	
-	inventario.reducir_recurso(Recurso.Tipo_Recurso.COMIDA, 1)
+	inventario.reducir_recurso(Recurso.Tipo_Recurso.COMIDA, costo_alimentacion)	#Cuando la unidad termina de comer, descontamos la comida del inventario.
 	
 	unidad._resetSatiety()
 	unidades_comiendo.erase(unidad)
