@@ -501,5 +501,5 @@ func resumeTask(): #Esta función toma la tarea guardada y le ordena a la unidad
 		savedTask = null #Al terminar, borramos la tarea guardada.
 
 func setName():
-	var nameList = ["Juan", "Pepe", "Boblin el Goblin, Tropa Suricata, Obrero, Rata Touille, Rata Peon, Sindicato, El Kompi, Pigsona, Jorginho, CerdusX, Rigoberto, Rebañero #16, Rebañero #17, Rebañero #18"]
+	var nameList = ["Juan", "Pepe", "Boblin el Goblin", "Tropa Suricata", "Obrero", "Rata Touille", "Rata Peon", "Sindicato", "El Kompi", "Pigsona", "Jorginho", "CerdusX", "Rigoberto", "Rebañero #16", "Rebañero #17", "Rebañero #18"]
 	nombre = nameList[randi() % nameList.size()]
