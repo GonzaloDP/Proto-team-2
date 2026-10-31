@@ -342,6 +342,7 @@ func hideProgressBar():
 func _on_hunger_timer_timeout():	#Al acabarse el timer de la comida, la saciedad de la unidad disminuye en 1, y esta chequea si se ha agotado.
 	satiety -= 1
 	if(satiety < 1):	#Si se ha agotado la saciedad, la unidad se declara "hambrienta", por lo que ya no obedecerá al jugador. Luego comprueba si existe algún comedor.
+		satiety = 0 #Ponemos la saciedad en 0, simplemente con fines gráficos.
 		starving = true
 		hideProgressBar()
 		
