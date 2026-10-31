@@ -177,6 +177,7 @@ func _process(delta: float):
 				if canasto and canasto.visible:
 					canasto.hide()
 		else:
+			anim_player.play("walk")
 			if hacha and hacha.visible:
 				hacha.hide()
 			if pico and pico.visible:
