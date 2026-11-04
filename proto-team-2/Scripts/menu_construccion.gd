@@ -15,19 +15,19 @@ signal iniciar_construccion(nombre_edificio, datos_edificio)
 var lista_edificios = {
 	"Edificio de Reproducción": {
 		"tipo_id": "reproduccion",
-		"costo": {Recurso.Tipo_Recurso.COMIDA: 1, Recurso.Tipo_Recurso.MADERA: 1},
+		"costo": {Recurso.Tipo_Recurso.COMIDA: 15, Recurso.Tipo_Recurso.MADERA: 25},
 		"icono": "res://Assets/3D/Edificios/Reproduccion_Miniatura.png",
 		"puntos_construccion_requeridos": 100
 	},
 	"Edificio de Vivienda": {
 		"tipo_id": "vivienda",
-		"costo": {Recurso.Tipo_Recurso.MADERA: 1},
+		"costo": {Recurso.Tipo_Recurso.MADERA: 10},
 		"icono": "res://Assets/3D/Edificios/Vivienda_Miniatura.png",
 		"puntos_construccion_requeridos": 60
 	},
 	"Edificio Comedor": {
 		"tipo_id": "comedor",
-		"costo": {Recurso.Tipo_Recurso.MADERA: 1, Recurso.Tipo_Recurso.PIEDRA: 1},
+		"costo": {Recurso.Tipo_Recurso.MADERA: 25, Recurso.Tipo_Recurso.PIEDRA: 25},
 		"icono": "res://Assets/3D/Edificios/Comedor_Miniatura.png",
 		"puntos_construccion_requeridos": 150
 	}

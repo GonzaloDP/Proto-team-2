@@ -129,14 +129,14 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 			else:
 				_ocultar_hud_demolicion()
 				for unidad in selected_units:
-					if is_instance_valid(unidad) and not unidad._isStarving():
+					if is_instance_valid(unidad):
 						if unidad.has_method("asignar_edificio"):
 							unidad.asignar_edificio(edificio)
 		
 		elif collider is Recurso:
 			_ocultar_hud_demolicion()
 			for unidad in selected_units:
-				if is_instance_valid(unidad) and not unidad._isStarving():
+				if is_instance_valid(unidad):
 					unidad.seekResource(collider)
 		
 		elif collider is Area3D and collider.get_parent() is EdificioReproduccion:
@@ -144,7 +144,7 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 			var edificio: EdificioReproduccion = collider.get_parent()
 			if(edificio.completado == false):	#Si el edificio no está terminado, entonces le pedimos a las unidades que lo construyan.
 				for unidad in selected_units:
-					if is_instance_valid(unidad) and (!unidad._isStarving()):
+					if is_instance_valid(unidad):
 						if unidad.has_method("asignar_edificio"):
 							unidad.asignar_edificio(edificio)
 				return
@@ -152,14 +152,14 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 			edificio.recibir_unidades(selected_units)
 		
 		elif result.collider is Area3D and result.collider.get_parent() is EdificioComedor: #Si el jugador hace clic sobre un edificio comedor, enviamos a las unidades allí a comer.
-			if(inventario.get_recurso(Recurso.Tipo_Recurso.COMIDA) == 0): #Primero chequeamos que el jugador tenga comida, de no ser así, la función regresa. Esto evita que un jugador deje a sus unidades inutilizadas frente a un comedor que no tiene comida. Para un futuro, añadir algún tipo de feedback o mensaje.
-				return
 			var edificio: EdificioComedor = result.collider.get_parent()
 			if(edificio.completado == false):	#Si el edificio no está terminado, entonces le pedimos a las unidades que lo construyan.
 				for unidad in selected_units:
-					if is_instance_valid(unidad) and (!unidad._isStarving()):
+					if is_instance_valid(unidad):
 						if unidad.has_method("asignar_edificio"):
 							unidad.asignar_edificio(edificio)
+				return
+			if(inventario.get_recurso(Recurso.Tipo_Recurso.COMIDA) == 0): #Chequeamos que el jugador tenga comida, de no ser así, la función regresa. Esto evita que un jugador deje a sus unidades inutilizadas frente a un comedor que no tiene comida. Para un futuro, añadir algún tipo de feedback o mensaje.
 				return
 			for unidad in selected_units:
 				if is_instance_valid(unidad):
@@ -342,6 +342,9 @@ func _confirmar_construccion():
 	
 	nuevo_edificio.configurar_edificio(id_del_edificio, puntos_req, costo, inventario, navigation_region, self)
 	
+	if(nuevo_edificio is EdificioComedor):
+		get_tree().current_scene.checkVoucher(nuevo_edificio)
+	
 	await get_tree().physics_frame
 	
 	actualizar_navegacion()
@@ -356,7 +359,7 @@ func mover_unidades_en_formacion(destino: Vector3):
 	var unidades_validas: Array[CharacterBody3D] = []
 	
 	for unidad in selected_units:
-		if is_instance_valid(unidad) and not unidad._isStarving():
+		if is_instance_valid(unidad):
 			unidades_validas.append(unidad)
 	
 	if unidades_validas.is_empty():

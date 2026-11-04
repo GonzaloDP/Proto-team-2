@@ -12,6 +12,7 @@
 material = SubResource("StandardMaterial3D_e8t1n")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_austa"]
+size = Vector3(1.2263184, 1.8491211, 1.2756348)
 
 [node name="Recurso" type="StaticBody3D" unique_id=1250565611]
 collision_layer = 4
@@ -26,6 +27,7 @@ visible = false
 mesh = SubResource("BoxMesh_1icel")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=357680996]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.029907227, 0.42456055, 0.0052490234)
 shape = SubResource("BoxShape3D_austa")
 
 [node name="Modelo" type="Node3D" parent="." unique_id=1427247101]
