@@ -83,3 +83,6 @@ func recibir_trabajo(cantidad: float):
 		
 		if barra_progreso:
 			barra_progreso.hide()
+		
+func instaBuild(): #Con esta función, el comedor se construye instantáneamente, esto solo funciona para el primer comedor construido en la partida, a modo de facilitar el early game.
+	puntos_totales = 1 #Setteando los puntos totales a uno, el comedor se construirá en cuanto una unidad le de el más mínimo esfuerzo.

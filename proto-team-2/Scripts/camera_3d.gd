@@ -342,6 +342,9 @@ func _confirmar_construccion():
 	
 	nuevo_edificio.configurar_edificio(id_del_edificio, puntos_req, costo, inventario, navigation_region, self)
 	
+	if(nuevo_edificio is EdificioComedor):
+		get_tree().current_scene.checkVoucher(nuevo_edificio)
+	
 	await get_tree().physics_frame
 	
 	actualizar_navegacion()

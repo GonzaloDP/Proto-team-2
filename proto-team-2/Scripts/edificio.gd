@@ -13,7 +13,7 @@ class_name Edificio
 
 var escenas_edificios = {
 	"reproduccion": load("res://Escenas/Edificio_Reproducción.tscn"),
-	"vivienda": preload("res://Escenas/Edificio_Vivienda.tscn"),
+	"vivienda": load("res://Escenas/Edificio_Vivienda.tscn"),
 	"comedor": load("res://Escenas/Edificio_Comedor.tscn")
 }
 

@@ -5,11 +5,12 @@ signal poblacion_actualizada
 
 #var cantidad_maxima_unidades: int = 5
 var unidades_actuales: int
-var limite_unidades: int = 10
+var limite_unidades: int = 5
+var voucherComedor
 
 func _ready() -> void:
 	#print("Level encontrado: ", Level)
-	pass
+	voucherComedor = true	#Al iniciar el nivel, tenemos un voucher del comedor. Este se usa para que el primer comedor se construya inmediatamente.
 
 func _process(delta: float) -> void:
 	pass
@@ -38,3 +39,8 @@ func _on_alimentar_debug_pressed():		#Este método (Y el grupo que utiliza) son 
 
 func restart_level():
 	unidades_actuales = 0
+	
+func checkVoucher(comedor: EdificioComedor):	#Este método es llamado cuando se construye un nuevo comedor en una ubicación válida. Chequea si el voucher está activo, si lo está, el comedor se construye inmediatamente y el voucher se consume.
+	if(voucherComedor):
+		comedor.instaBuild()
+		voucherComedor = false
