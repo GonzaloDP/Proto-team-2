@@ -129,14 +129,14 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 			else:
 				_ocultar_hud_demolicion()
 				for unidad in selected_units:
-					if is_instance_valid(unidad) and not unidad._isStarving():
+					if is_instance_valid(unidad):
 						if unidad.has_method("asignar_edificio"):
 							unidad.asignar_edificio(edificio)
 		
 		elif collider is Recurso:
 			_ocultar_hud_demolicion()
 			for unidad in selected_units:
-				if is_instance_valid(unidad) and not unidad._isStarving():
+				if is_instance_valid(unidad):
 					unidad.seekResource(collider)
 		
 		elif collider is Area3D and collider.get_parent() is EdificioReproduccion:
@@ -144,7 +144,7 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 			var edificio: EdificioReproduccion = collider.get_parent()
 			if(edificio.completado == false):	#Si el edificio no está terminado, entonces le pedimos a las unidades que lo construyan.
 				for unidad in selected_units:
-					if is_instance_valid(unidad) and (!unidad._isStarving()):
+					if is_instance_valid(unidad):
 						if unidad.has_method("asignar_edificio"):
 							unidad.asignar_edificio(edificio)
 				return
@@ -155,7 +155,7 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 			var edificio: EdificioComedor = result.collider.get_parent()
 			if(edificio.completado == false):	#Si el edificio no está terminado, entonces le pedimos a las unidades que lo construyan.
 				for unidad in selected_units:
-					if is_instance_valid(unidad) and (!unidad._isStarving()):
+					if is_instance_valid(unidad):
 						if unidad.has_method("asignar_edificio"):
 							unidad.asignar_edificio(edificio)
 				return
@@ -359,7 +359,7 @@ func mover_unidades_en_formacion(destino: Vector3):
 	var unidades_validas: Array[CharacterBody3D] = []
 	
 	for unidad in selected_units:
-		if is_instance_valid(unidad) and not unidad._isStarving():
+		if is_instance_valid(unidad):
 			unidades_validas.append(unidad)
 	
 	if unidades_validas.is_empty():

@@ -24,6 +24,9 @@ var target_resource : Recurso
 var target_edificio : Edificio
 var seleccionada : bool
 var savedTask
+var originalConstructionSpeed
+var originalCollectionSpeed
+var originalBreedingSpeed
 
 @onready var progressBar = $SubViewportContainer/SubViewport/BarraProgreso
 
@@ -96,7 +99,7 @@ func set_move_target(new_target: Vector3, es_orden_construccion: bool = false):
 		anim_player.play("walk")
 
 func _process(delta: float):
-	if target_edificio and is_instance_valid(target_edificio) and not starving:
+	if target_edificio and is_instance_valid(target_edificio):
 		if not target_edificio.completado:
 			var distancia = global_position.distance_to(target_edificio.global_position)			# Ampliamos un poco el rango para que no se empujen entre varias unidades y cancelen el trabajo
 			if distancia < 6:
@@ -130,7 +133,7 @@ func _process(delta: float):
 			martillo.hide()
 	
 	# Todo este choclo para animaciones de recolección
-	if target_resource and is_instance_valid(target_resource) and not starving:
+	if target_resource and is_instance_valid(target_resource):
 		var distancia_recurso = global_position.distance_to(target_resource.global_position)
 		
 		if distancia_recurso < 2:
@@ -274,7 +277,7 @@ func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta
 		target_resource = null
 		return
 	
-	if(target_resource && !starving):	#Si hay un recurso objetivo seguimos. Al dar otra orden, se borra el recurso objetivo, lo que podría causar un crash.
+	if(target_resource):	#Si hay un recurso objetivo seguimos. Al dar otra orden, se borra el recurso objetivo, lo que podría causar un crash.
 		if(target_resource.cantidad_variable > 0):	#¿Sigue habiendo recursos que recolectar?
 			if(position.distance_to(target_resource.position) < 2):	#Si la unidad está lo suficientemente cerca, se detiene (target de movimiento a su propa posición), recoge 10 recursos.
 				set_move_target(global_position)
@@ -343,6 +346,8 @@ func _on_hunger_timer_timeout():	#Al acabarse el timer de la comida, la saciedad
 	satiety -= 1
 	if(satiety < 1):	#Si se ha agotado la saciedad, la unidad se declara "hambrienta", por lo que ya no obedecerá al jugador. Luego comprueba si existe algún comedor.
 		satiety = 0 #Ponemos la saciedad en 0, simplemente con fines gráficos.
+		if(starving): #Si la unidad ya estaba con hambre, no hacemos lo siguiente.
+			return
 		starving = true
 		hideProgressBar()
 		
@@ -350,6 +355,8 @@ func _on_hunger_timer_timeout():	#Al acabarse el timer de la comida, la saciedad
 		saveTask()
 		target_edificio = null
 		target_resource = null
+		
+		halveAttributes()	#Reducimos los atributos de la unidad por la mitad, ya que hambrienta trabaja mucho peor.
 		
 		if(get_tree().get_nodes_in_group("Comedores").is_empty()):	#Si no hay ningún comedor, la unidad setteara su propia posición como destino. (Es decir, se quedará quieta en el lugar). Nota: Aquí cabería una animación o efecto de partícula.
 			set_move_target(global_position)
@@ -371,8 +378,9 @@ func goEat():
 				bestCandidate =  each
 		set_move_target(bestCandidate.global_position)	#Al haber evaluado todos los comedores, nos dirigimos al mejor.
 
-func _resetSatiety():	#Este método reinicia la saciedad de la unidad y la devuelve a su color normal.
+func _resetSatiety():	#Este método reinicia la saciedad de la unidad y la devuelve a su color normal. 
 	satiety = initialSatiety
+	restoreAttributes()
 	starving = false
 
 func _isStarving():
@@ -503,3 +511,17 @@ func resumeTask(): #Esta función toma la tarea guardada y le ordena a la unidad
 func setName():
 	var nameList = ["Juan", "Pepe", "Boblin el Goblin", "Tropa Suricata", "Obrero", "Rata Touille", "Rata Peon", "Sindicato", "El Kompi", "Pigsona", "Jorginho", "CerdusX", "Rigoberto", "Rebañero #16", "Rebañero #17", "Rebañero #18"]
 	nombre = nameList[randi() % nameList.size()]
+
+func halveAttributes():
+		originalConstructionSpeed = constructionSpeed
+		originalCollectionSpeed = collectionSpeed
+		originalBreedingSpeed = breedingSpeed
+		
+		constructionSpeed /=2
+		collectionSpeed /=2
+		breedingSpeed /=2
+
+func restoreAttributes():
+		constructionSpeed = originalConstructionSpeed
+		collectionSpeed = originalCollectionSpeed
+		breedingSpeed = originalBreedingSpeed
