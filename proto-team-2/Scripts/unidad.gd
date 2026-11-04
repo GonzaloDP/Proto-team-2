@@ -473,7 +473,7 @@ func _on_velocity_computed(safe_velocity: Vector3):#esta funcion nueva es la que
 
 func obtener_estado_actual() -> String:
 	if starving:
-		return "Hambriento"
+		return "Hambriento, trabajará más lento si no lo envías a un comedor."
 	if en_reproduccion:
 		return "En reproducción"
 	if is_instance_valid(target_resource):
