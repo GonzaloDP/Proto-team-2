@@ -497,7 +497,7 @@ func saveTask():	#Esta función le permite a la unidad guardar su última tarea,
 	else: if(target_resource): #De no tener un edificio como target, chequeamos si la unidad iba tras un recurso. 
 		savedTask =	target_resource
 		return
-		
+
 func resumeTask(): #Esta función toma la tarea guardada y le ordena a la unidad resumirla, si es que tiene alguna.
 	if(!savedTask):	#Si no tenemos ninguna tarea guardada, esta función no hace absolutamente nada.
 		return

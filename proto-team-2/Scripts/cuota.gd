@@ -28,7 +28,9 @@ func _ready():
 	paidQuotas = 0
 	failedQuotas = 0
 	day_manager.dia_cambio.connect(checkDeadline)
+	inventario.inventario_actualizado.connect(comprobar_primera_cuota_alcanzada)
 	setNewQuota()
+	comprobar_primera_cuota_alcanzada()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -36,8 +38,11 @@ func _process(delta: float) -> void:
 	
 func checkDeadline(dia_actual: int): #Chequeamos el día en el que se debe entregar la cuota contra el día actual. Si ha pasado el día de entrega, entonces cobramos.
 	if(deadlineDay < dia_actual):
+		if Metrics.get_metric("primera_cuota_incumplida") == -1:
+			Metrics.record_set("primera_cuota_incumplida", paidQuotas + 1)
+		
 		collectQuota()
-	
+
 func collectQuota():
 	for each in quota:	#Chequeamos primero que se pueda pagar toda la cuota al mismo tiempo. Si algún elemento de la cuota es mayor a la cantidad de recursos que tiene el jugador, aplicamos la penalización y nos detenemos.
 		if(quota[each] > inventario.recursos[each]):
@@ -87,3 +92,13 @@ func setNewQuota():
 	
 func applyPenalty(): #Método para aplicar la penalización si los recursos son insuficientes para pagar la cuota. Por ahora vacío.
 	pass
+
+func comprobar_primera_cuota_alcanzada():
+	if Metrics.get_metric("dia_primera_cuota_alcanzada") != -1:
+		return
+	
+	for recurso in quota:
+		if inventario.get_recurso(recurso) < quota[recurso]:
+			return
+	
+	Metrics.record_set("dia_primera_cuota_alcanzada", day_manager.dia_actual)

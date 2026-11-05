@@ -147,6 +147,12 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 			else:
 				recurso = collider.get_parent() as Recurso
 			
+			if recurso.obtener_tipo_recurso() == Recurso.Tipo_Recurso.COMIDA:
+				for unidad in selected_units:
+					if is_instance_valid(unidad):
+						inventario.ordenes_comida_dia += 1
+						break
+			
 			for unidad in selected_units:
 				if is_instance_valid(unidad):
 					unidad.seekResource(recurso)

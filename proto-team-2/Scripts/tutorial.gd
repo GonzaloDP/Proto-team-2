@@ -67,7 +67,7 @@ Si ya sabes jugar, en la esquina inferior derecha podrás skipear el tutorial."
 		
 		TutorialStep.SELECCION_UNIDADES:
 			titulo.text = "Señeccionar unidades"
-			descripcion.text = "Aprende a seleccionar tus unidades para poder darles órdenes."
+			descripcion.text = "Aprende a seleccionar tus unidades para poder darles órdenes. Haz clic primario a una unidad para seleccionarla o manten apretado el clic y arrastra el ratón para desplegar una ventana azul donde podrás seleccione a varias unidades."
 			boton_continuar.text = "Continuar"
 			boton_continuar.disabled = true
 		

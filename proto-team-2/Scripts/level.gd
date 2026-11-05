@@ -3,14 +3,21 @@ extends Node3D
 
 signal poblacion_actualizada
 
+@onready var day_manager = get_node_or_null("DayManager")
+
+const METRICS_DEFINITION = preload("res://local_metrics/metricas_level1.tres")
+
 #var cantidad_maxima_unidades: int = 5
 var unidades_actuales: int
 var limite_unidades: int = 5
 var voucherComedor
 
 func _ready() -> void:
-	#print("Level encontrado: ", Level)
 	voucherComedor = true	#Al iniciar el nivel, tenemos un voucher del comedor. Este se usa para que el primer comedor se construya inmediatamente.
+	
+	if get_tree().current_scene == self:
+		Metrics.register_metrics(METRICS_DEFINITION)
+		day_manager.dia_cambio.connect(registrar_metricas_unidades)
 
 func _process(delta: float) -> void:
 	pass
@@ -22,6 +29,18 @@ func agregar_unidad():
 	if puede_crear_unidad():
 		unidades_actuales += 1
 		poblacion_actualizada.emit()
+		
+		var nivel_actual = get_tree().current_scene
+		print("Escena actual: ", nivel_actual)
+		print("Ruta de escena: ", nivel_actual.get_path())
+		
+		var day_manager_actual = nivel_actual.get_node_or_null("DayManager")
+		print("DayManager encontrado: ", day_manager_actual)
+		print("Unidades actuales: ", unidades_actuales)
+		
+		if day_manager != null:
+			if Metrics.get_metric("dia_alcanza_5_unidades") == -1 and unidades_actuales >= 5:
+				Metrics.record_set("dia_alcanza_5_unidades", day_manager_actual.dia_actual)
 
 func quitar_unidades():
 	if unidades_actuales > 0:
@@ -44,3 +63,6 @@ func checkVoucher(comedor: EdificioComedor):	#Este método es llamado cuando se 
 	if(voucherComedor):
 		comedor.instaBuild()
 		voucherComedor = false
+
+func registrar_metricas_unidades(_nuevo_dia: int):
+	Metrics.record_add("unidades_diarias", Level.unidades_actuales)

@@ -15,8 +15,9 @@ material = SubResource("StandardMaterial3D_mvknu")
 [node name="RecursoUnidad" type="StaticBody3D" unique_id=1902933503]
 collision_layer = 4
 script = ExtResource("1_imde8")
-escala_arbusto_unidad = Vector3(0.3, 0.3, 0.3)
-escala_piedras_unidad = Vector3(0.25, 0.25, 0.25)
+escala_arbusto_unidad = Vector3(0.15, 0.15, 0.15)
+escala_piedras_unidad = Vector3(0.1, 0.1, 0.1)
+escala_arboles_unidad = Vector3(0.2, 0.2, 0.2)
 modelo_arbusto = ExtResource("2_p35jk")
 modelo_piedras = ExtResource("3_2krmw")
 modelo_arboles = ExtResource("3_p35jk")
