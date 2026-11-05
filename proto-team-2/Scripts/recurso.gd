@@ -15,8 +15,19 @@ enum Tipo_Recurso{ MADERA, PIEDRA, COMIDA, METAL}
 @export var escala_piedras: Vector3 = Vector3(2, 2, 2)
 @export var escala_arboles: Vector3 = Vector3(2, 2, 2)
 @export var escala_metal: Vector3 = Vector3(2, 2, 2)
+@export_group("Colisiones de recursos")
+@export var colision_arbusto: Vector3 = Vector3(1, 1, 1)
+@export var colision_piedras: Vector3 = Vector3(1, 1, 1)
+@export var colision_arboles: Vector3 = Vector3(1, 1, 1)
+@export var colision_metal: Vector3 = Vector3(1, 1, 1)
+@export_group("Posición de colisiones")
+@export var posicion_arbusto: Vector3 = Vector3.ZERO
+@export var posicion_piedras: Vector3 = Vector3.ZERO
+@export var posicion_arboles: Vector3 = Vector3.ZERO
+@export var posicion_metal: Vector3 = Vector3.ZERO
 
 @onready var contenedor_modelo: Node3D = $Modelo
+@onready var colision_fisica: CollisionShape3D = $CollisionShape3D
 
 var modelo_actual: Node3D
 var tipo: Tipo_Recurso#Variable del tipo de lo que contenga la lista
@@ -51,20 +62,31 @@ func reduceQuantity(quantity: int):	#Recibe un int, y reduce la cantidad de recu
 func cambiar_modelo() -> void: #con esta función elegimos un modelo segun el tipo de recurso que da
 	var escena_elegida: PackedScene
 	var escala_elegida: Vector3
+	var tamano_colision: Vector3
+	var posicion_colision: Vector3
 	
 	match tipo:
 		Tipo_Recurso.COMIDA:
 			escena_elegida = modelo_arbusto
 			escala_elegida = escala_arbusto
+			tamano_colision = colision_arbusto
+			posicion_colision = posicion_arbusto
+			
 		Tipo_Recurso.PIEDRA:
 			escena_elegida = modelo_piedras
 			escala_elegida = escala_piedras
+			tamano_colision = colision_piedras
+			posicion_colision = posicion_piedras
 		Tipo_Recurso.MADERA:
 			escena_elegida = modelo_arboles
 			escala_elegida = escala_arboles
+			tamano_colision = colision_arboles
+			posicion_colision = posicion_arboles
 		Tipo_Recurso.METAL:
 			escena_elegida = modelo_metal
 			escala_elegida = escala_metal
+			tamano_colision = colision_metal
+			posicion_colision = posicion_metal
 	if escena_elegida == null:
 		return
 	if modelo_actual != null:
@@ -73,4 +95,8 @@ func cambiar_modelo() -> void: #con esta función elegimos un modelo segun el ti
 	modelo_actual = escena_elegida.instantiate() as Node3D
 	contenedor_modelo.add_child(modelo_actual)
 	
+	var forma := BoxShape3D.new()
+	forma.size = tamano_colision
+	colision_fisica.shape = forma
+	colision_fisica.position = posicion_colision
 	modelo_actual.scale = escala_elegida

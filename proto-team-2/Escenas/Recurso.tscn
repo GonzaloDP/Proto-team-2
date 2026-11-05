@@ -14,6 +14,8 @@ material = SubResource("StandardMaterial3D_e8t1n")
 [sub_resource type="BoxShape3D" id="BoxShape3D_austa"]
 size = Vector3(1.2263184, 1.8491211, 1.2756348)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_nps2w"]
+
 [node name="Recurso" type="StaticBody3D" unique_id=1250565611]
 collision_layer = 4
 script = ExtResource("1_rkgit")
@@ -23,6 +25,8 @@ modelo_arboles = ExtResource("4_0ty5d")
 modelo_metal = ExtResource("5_kerbr")
 escala_arboles = Vector3(4, 4, 4)
 escala_metal = Vector3(1, 1, 1)
+colision_arboles = Vector3(0.5, 0.5, 0.5)
+colision_metal = Vector3(2, 1, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1099368702]
 visible = false
@@ -33,3 +37,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.029907227, 0.053600073, 0.0
 shape = SubResource("BoxShape3D_austa")
 
 [node name="Modelo" type="Node3D" parent="." unique_id=1427247101]
+
+[node name="Area3D" type="Area3D" parent="." unique_id=534985688]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1047957423]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_nps2w")
