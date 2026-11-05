@@ -17,6 +17,8 @@ enum TutorialStep {
 	INVENTARIO,
 	CONSTRUCCION,
 	ESTADISTICAS,
+	REPRODUCCION_1,
+	REPRODUCCION_2,
 	PAGO_CUOTA,
 	CONSECUENCIAS,
 	FINALIZADO
@@ -24,6 +26,8 @@ enum TutorialStep {
 
 var etapa_actual: TutorialStep = TutorialStep.INTRODUCCION # Etapa actual
 var unidades_conectadas: Array[Unidad] = []
+var edificio_reproduccion_actua: EdificioReproduccion = null
+var reproduccion_completada: bool = false
 
 func _ready() -> void:
 	boton_continuar.pressed.connect(siguiente_etapa)
@@ -31,6 +35,7 @@ func _ready() -> void:
 	camara.seleccion_actualizada.connect(_on_seleccion_actualizada)
 	camara.orden_movimiento_emitida.connect(_on_orden_movimiento_emitida)
 	control_camara.camara_desplazada.connect(_on_camara_desplazada)
+	camara.comedor_colocado.connect(_on_comedor_colocado)
 
 # Inicia el tutorial
 func iniciar_tutorial():
@@ -86,9 +91,27 @@ func mostrar_etapa():
 			boton_continuar.text = "Continuar"
 			boton_continuar.disabled = false
 		
-		#TutorialStep.ESTADISTICAS:
-			#print("Estadisticas de unidades")
-		#
+		TutorialStep.CONSTRUCCION:
+			titulo.text = "Construccion"
+			descripcion.text = "Podés hacer clic en el martillo que tienen sobre la cabeza de las unidades para desplegar el menú de construcción. Allí encontrarán los distintos edificios que pueden crear y que serán necesarios para sobrevivir. Construye un COMEDOR para que sus unidades puedan alimentarse."
+			boton_continuar.text = "Continuar"
+			boton_continuar.disabled = true
+		
+		TutorialStep.ESTADISTICAS:
+			titulo.text = "Estadísticas de las unidades"
+			descripcion.text = "Cada unidad tiene sus propias estadísticas, que determinan su rengimiento y sus capacidades.
+*Velocidad de recolección: Determina qué tan rápido consigue recursos.
+*Velocidad de reproducción: Determina qué tan rápido puede reproducirse.
+*Velocidad de movimiento: Determina qué tan rápido se desplaza por el mapa.
+*Velocidad de construcción: Determina qué tan rápido construye edificios.
+*Saciedad: Reprensenta qué tan alimentada está la unidad."
+			boton_continuar.text = "Continuar"
+			boton_continuar.disabled = false
+		
+		TutorialStep.REPRODUCCION_1:
+			titulo.text = "Edificio de reproducción"
+			descripcion.text = "El edificio de reproducción permite generar nuevas unidades y mejorar las características de nuestra población. Para utilizarlo, primero deben construir un edificio de REPRODUCCIÓN."
+			boton_continuar.text = "Continuar"
 		#TutorialStep.PAGO_CUOTA:
 			#print("Asi se paga")
 		#
@@ -113,6 +136,10 @@ func _on_seleccion_actualizada(cantidad: int):
 	
 	if etapa_actual == TutorialStep.RECOLECCION:
 		conectar_unidades_seleccionadas()
+	
+	if etapa_actual == TutorialStep.ESTADISTICAS:
+		if cantidad > 0:
+			boton_continuar.disabled = false
 
 func _on_orden_movimiento_emitida():
 	if etapa_actual == TutorialStep.MANEJO_UNIDADES:
@@ -144,3 +171,19 @@ func _on_recurso_recolectado():
 	if etapa_actual == TutorialStep.RECOLECCION:
 		boton_continuar.disabled = false
 		desconectar_unidades()
+
+func _on_comedor_colocado(edificio: Edificio):
+	if etapa_actual != TutorialStep.CONSTRUCCION:
+		return
+	
+	print("Tutorial: comedor colocado, espeando construcción")
+	
+	while is_instance_valid(edificio) and not edificio.completado:
+		await get_tree().create_timer(0.2).timeout
+	
+	if not is_instance_valid(edificio):
+		return
+	
+	if etapa_actual == TutorialStep.CONSTRUCCION:
+		print("Tutorial: comedor terminado")
+		boton_continuar.disabled = false

@@ -1,6 +1,10 @@
 extends Edificio
 class_name EdificioReproduccion
 
+signal reproduccion_iniciada
+signal nueva_unidad_creada(unidad: Unidad)
+
+
 @onready var penalty_manager = get_tree().current_scene.get_node("PenaltiesManager")
 
 @export var tiempo_reproduccion: float = 5.0
@@ -49,7 +53,7 @@ func iniciar_coito():
 	var velocidad_reproduccion = penalty_manager.breeding_multiplier
 	$Timer.wait_time = tiempo_reproduccion / velocidad_reproduccion
 	$Timer.start()
-	print("reproduciendose")
+	reproduccion_iniciada.emit()
 
 func _on_timer_timeout() -> void:
 	print("terminó el follaje")
@@ -107,3 +111,4 @@ func crear_nueva_unidad():
 	nueva_unidad._setInheritance(padre_1,padre_2)
 	nueva_unidad.global_position = global_position
 	nueva_unidad.add_to_group("Unidades")
+	nueva_unidad_creada.emit(nueva_unidad)

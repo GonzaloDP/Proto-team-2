@@ -3,6 +3,7 @@ extends Camera3D
 signal seleccion_actualizada(cantidad: int)
 signal orden_movimiento_emitida
 signal comedor_colocado(edificio: Edificio)
+signal reproduccion_colocada(edificio: EdificioReproduccion)
 
 @onready var selection_box = $"../../../../UI/SelectionBox"
 @onready var menu_construccion = $"../../../../UIConstruccion/MenuConstruccion"
@@ -349,6 +350,9 @@ func _confirmar_construccion():
 	nuevo_edificio.configurar_edificio(id_del_edificio, puntos_req, costo, inventario, navigation_region, self)
 	if id_del_edificio == "comedor":
 		comedor_colocado.emit(nuevo_edificio)
+	if id_del_edificio == "reproduccion":
+		if nuevo_edificio is EdificioReproduccion:
+			reproduccion_colocada.emit(nuevo_edificio)
 	
 	await get_tree().physics_frame
 	
