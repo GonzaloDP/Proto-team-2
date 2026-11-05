@@ -133,11 +133,18 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 						if unidad.has_method("asignar_edificio"):
 							unidad.asignar_edificio(edificio)
 		
-		elif collider is Recurso:
+		elif collider is Recurso or (collider is Area3D and collider.get_parent() is Recurso):
 			_ocultar_hud_demolicion()
+			
+			var recurso: Recurso
+			if collider is Recurso:
+				recurso = collider
+			else:
+				recurso = collider.get_parent() as Recurso
+			
 			for unidad in selected_units:
 				if is_instance_valid(unidad):
-					unidad.seekResource(collider)
+					unidad.seekResource(recurso)
 		
 		elif collider is Area3D and collider.get_parent() is EdificioReproduccion:
 			_ocultar_hud_demolicion()

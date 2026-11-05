@@ -78,6 +78,7 @@ func end_penalty():
 	recolection_multiplier = 1.0
 	construction_multiplier = 1.0
 	breeding_multiplier = 1.0
+	penalty_removed.emit()
 
 func dia_cambio(dia_actual : int):
 	if not cuota_fail:
@@ -114,4 +115,5 @@ func apply_penalty(penalty):
 			print("se ha muerto una unidad" )
 		PenaltyType.DEFEAT:
 			$"../UI/DefeatScreen"._showDefeatScreen()
+	penalty_apllied.emit(penalty)
 	

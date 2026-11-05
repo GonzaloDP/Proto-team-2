@@ -19,10 +19,18 @@ func _process(delta: float) -> void:
 	
 	var result = space_state.intersect_ray(query)#acá nos dice con que chocó
 	
-	if result and result.collider is Recurso:
-		var recurso: Recurso = result.collider
+	if result:
+		var collider = result.collider
+		var recurso: Recurso = null
 		
-		tooltip.mostrar(recurso.get_names(), recurso.cantidad_variable)
-		tooltip.position = mouse_position + Vector2(15,15)
+		if collider is Recurso:
+			recurso = collider
+		elif collider is Area3D and collider.get_parent() is Recurso:
+			recurso = collider.get_parent()
+		if recurso != null:
+			tooltip.mostrar(recurso.get_names(), recurso.cantidad_variable)
+			tooltip.position = mouse_position + Vector2(15,15)
+		else:
+			tooltip.ocultar()
 	else:
 		tooltip.ocultar()
