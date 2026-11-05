@@ -741,6 +741,18 @@ fit_content = true
 layout_mode = 2
 text = "Continuar"
 
+[node name="SkipTuto" type="Button" parent="UITuto" unique_id=1410575554]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -123.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "SKIP TUTORIAL"
+
 [connection signal="pressed" from="UI/AlimentarDebug" to="." method="_on_alimentar_debug_pressed"]
 [connection signal="pressed" from="UI/PauseMenu/Panel/ResumeButton" to="UI/PauseMenu" method="_on_resume_button_pressed"]
 [connection signal="pressed" from="UI/PauseMenu/Panel/RestartButton" to="UI/PauseMenu" method="_on_restart_button_pressed"]

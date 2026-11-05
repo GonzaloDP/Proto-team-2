@@ -5,6 +5,7 @@ extends Node3D
 @onready var boton_continuar: Button = $"../UITuto/TutorialPanel/PanelContainer/Contenido/Continuar"
 @onready var camara = $"../CameraPosition/CameraRotationX/CameraZoomPivot/Camera3D2"
 @onready var control_camara = $"../CameraPosition"
+@onready var boton_skip: Button = $"../UITuto/SkipTuto"
 
 # Estapas del tutorial
 enum TutorialStep {
@@ -38,6 +39,7 @@ func _ready() -> void:
 	control_camara.camara_desplazada.connect(_on_camara_desplazada)
 	camara.comedor_colocado.connect(_on_comedor_colocado)
 	camara.reproduccion_colocada.connect(_on_reproduccion_colocada)
+	boton_skip.pressed.connect(finalizar_tutorial)
 
 # Inicia el tutorial
 func iniciar_tutorial():
@@ -52,7 +54,8 @@ func mostrar_etapa():
 	match etapa_actual:
 		TutorialStep.INTRODUCCION:
 			titulo.text = "Bienvenido a la VOLUNTAD DE DIOS"
-			descripcion.text = "A partir de ahora estarás a cargo de este asentamiento. Tu tarea será administrar tus unidades, conseguir recursos y mantener todo funcionando."
+			descripcion.text = "A partir de ahora estarás a cargo de estas unidades. Tu tarea será administrarlas, conseguir recursos y mantener todo funcionando. 
+Si ya sabes jugar, en la esquina inferior derecha podrás skipear el tutorial."
 			boton_continuar.text = "Continuar"
 			boton_continuar.disabled = false
 		
