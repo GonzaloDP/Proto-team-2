@@ -17,7 +17,7 @@ var max_zoom = 20
 var mouse_sensitivity = 0.2
 var rotate_target : float
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.is_action_pressed("rotar"):
 		rotate_target -= event.relative.x * mouse_sensitivity
 		rotation_x.rotation_degrees.x -= event.relative.y * mouse_sensitivity
