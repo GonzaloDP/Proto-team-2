@@ -1,6 +1,8 @@
 extends CharacterBody3D
 class_name Unidad
 
+signal recurso_recolectado
+
 @onready var inventario: Inventario = get_tree().current_scene.get_node("Inventario")
 @onready var penaltyManager = get_tree().current_scene.get_node("PenaltiesManager")
 @onready var anim_player = $AnimationPlayer
@@ -75,8 +77,6 @@ func _ready():
 	set_collision_mask_value(1, true)
 	set_collision_mask_value(2,true)
 	set_collision_mask_value(3,true)
-
-
 
 func set_move_target(new_target: Vector3, es_orden_construccion: bool = false):
 	if en_reproduccion:
@@ -187,7 +187,6 @@ func _process(delta: float):
 		if canasto and canasto.visible:
 			canasto.hide()
 
-
 func _physics_process(delta: float):
 	if en_reproduccion:
 		navigation_agent.velocity = Vector3.ZERO
@@ -282,9 +281,11 @@ func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta
 					var tipo_recurso = target_resource.obtener_tipo_recurso()
 					target_resource.reduceQuantity(cantidad_recolectaba)
 					inventario.agregar_recurso(tipo_recurso, cantidad_recolectaba)
+					recurso_recolectado.emit()
 				else:
 					target_resource.reduceQuantity(10)
 					inventario.agregar_recurso(target_resource.tipo, 10)
+					recurso_recolectado.emit()
 			else:
 				set_move_target(target_resource.position)
 			if(target_resource.cantidad_variable == 0):

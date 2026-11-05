@@ -1,5 +1,7 @@
 extends Node3D
 
+signal camara_desplazada
+
 @onready var rotation_x = $CameraRotationX
 @onready var zoom_pivot = $CameraRotationX/CameraZoomPivot
 @onready var camara = $CameraRotationX/CameraZoomPivot/Camera3D2
@@ -56,6 +58,9 @@ func _process(delta: float) -> void:
 	
 	zoom_target += zoom_dir * zoom_speed
 	zoom_target = clamp(zoom_target,min_zoom,max_zoom)
+	
+	if position.distance_to(move_target) > 0.01:
+		camara_desplazada.emit()
 	
 	position = move_target
 	camara.position.z = lerp(camara.position.z, zoom_target, 0.10)

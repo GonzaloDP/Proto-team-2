@@ -1,5 +1,9 @@
 extends Camera3D
 
+signal seleccion_actualizada(cantidad: int)
+signal orden_movimiento_emitida
+signal comedor_colocado(edificio: Edificio)
+
 @onready var selection_box = $"../../../../UI/SelectionBox"
 @onready var menu_construccion = $"../../../../UIConstruccion/MenuConstruccion"
 @onready var hud_demolicion: HudDemolicion = $"../../../../HUDDemolicion"
@@ -194,6 +198,7 @@ func seleccionar_unidad(mouse_pos: Vector2) -> void:
 			objeto.seleccionada = true
 			menu_construccion.toggle_hud_construccion(true, selected_units)
 	actualizar_hudUnidad()
+	seleccion_actualizada.emit(selected_units.size())
 
 func seleccionar_unidades_en_rectangulo() -> void:
 	deseleccionar_todas()
@@ -215,6 +220,7 @@ func seleccionar_unidades_en_rectangulo() -> void:
 		menu_construccion.toggle_hud_construccion(true, selected_units)
 	
 	actualizar_hudUnidad()
+	seleccion_actualizada.emit(selected_units.size())
 
 func deseleccionar_todas() -> void:
 	for unidad in selected_units:
@@ -341,6 +347,8 @@ func _confirmar_construccion():
 	nuevo_edificio.rotation = rotacion_mundo
 	
 	nuevo_edificio.configurar_edificio(id_del_edificio, puntos_req, costo, inventario, navigation_region, self)
+	if id_del_edificio == "comedor":
+		comedor_colocado.emit(nuevo_edificio)
 	
 	await get_tree().physics_frame
 	
@@ -379,6 +387,8 @@ func mover_unidades_en_formacion(destino: Vector3):
 		unidad.target_resource = null
 		unidad.hideProgressBar()
 		unidad.set_move_target(posicion_objetivo)
+	
+	orden_movimiento_emitida.emit()
 
 func actualizar_navegacion():
 	if not is_instance_valid(navigation_region):
