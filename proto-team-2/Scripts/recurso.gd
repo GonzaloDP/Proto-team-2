@@ -10,6 +10,11 @@ enum Tipo_Recurso{ MADERA, PIEDRA, COMIDA, METAL}
 @export var modelo_piedras: PackedScene
 @export var modelo_arboles: PackedScene
 @export var modelo_metal: PackedScene
+@export_group("Escala de los recursos")
+@export var escala_arbusto: Vector3 = Vector3(2, 2, 2)
+@export var escala_piedras: Vector3 = Vector3(2, 2, 2)
+@export var escala_arboles: Vector3 = Vector3(2, 2, 2)
+@export var escala_metal: Vector3 = Vector3(2, 2, 2)
 
 @onready var contenedor_modelo: Node3D = $Modelo
 
@@ -45,16 +50,21 @@ func reduceQuantity(quantity: int):	#Recibe un int, y reduce la cantidad de recu
 
 func cambiar_modelo() -> void: #con esta función elegimos un modelo segun el tipo de recurso que da
 	var escena_elegida: PackedScene
+	var escala_elegida: Vector3
 	
 	match tipo:
 		Tipo_Recurso.COMIDA:
 			escena_elegida = modelo_arbusto
+			escala_elegida = escala_arbusto
 		Tipo_Recurso.PIEDRA:
 			escena_elegida = modelo_piedras
+			escala_elegida = escala_piedras
 		Tipo_Recurso.MADERA:
 			escena_elegida = modelo_arboles
+			escala_elegida = escala_arboles
 		Tipo_Recurso.METAL:
 			escena_elegida = modelo_metal
+			escala_elegida = escala_metal
 	if escena_elegida == null:
 		return
 	if modelo_actual != null:
@@ -62,3 +72,5 @@ func cambiar_modelo() -> void: #con esta función elegimos un modelo segun el ti
 	
 	modelo_actual = escena_elegida.instantiate() as Node3D
 	contenedor_modelo.add_child(modelo_actual)
+	
+	modelo_actual.scale = escala_elegida

@@ -18,14 +18,28 @@
 [ext_resource type="Script" uid="uid://dxptnbkd0tpec" path="res://Scripts/pause_menu.gd" id="12_a2mc0"]
 [ext_resource type="Script" uid="uid://b8up60c8maoh1" path="res://Scripts/boton_animado.gd" id="13_6b4jh"]
 [ext_resource type="Script" uid="uid://xyn54yubrflu" path="res://Scripts/day_manager.gd" id="13_ohlfa"]
+[ext_resource type="Texture2D" uid="uid://bt5tapkvixuwa" path="res://Assets/Gráficos 2D/UI/UI HUD2.png" id="13_stj0u"]
 [ext_resource type="Script" uid="uid://bxopmkerfdbx3" path="res://Scripts/win_screen.gd" id="13_u2sv0"]
 [ext_resource type="Script" uid="uid://b8fn6cektmhqb" path="res://Scripts/defeat_screen.gd" id="14_6b4jh"]
+[ext_resource type="Texture2D" uid="uid://2b26hi2rm7hb" path="res://Assets/Gráficos 2D/UI/Fondo-progressBar.png" id="14_kour3"]
 [ext_resource type="Script" uid="uid://cc08vd22bdeu5" path="res://Scripts/cuota.gd" id="14_tid47"]
 [ext_resource type="Texture2D" uid="uid://b18xa68b7nuqd" path="res://Assets/Gráficos 2D/Construcción UI/Martillo Icono.png" id="15_65587"]
+[ext_resource type="Texture2D" uid="uid://dk81vxhjsjwl" path="res://Assets/Gráficos 2D/UI/Marco-progressBar.png" id="15_s8v6j"]
 [ext_resource type="Script" uid="uid://c4auf7cjj024c" path="res://Scripts/menu_construccion.gd" id="15_tid47"]
+[ext_resource type="Texture2D" uid="uid://c50ni4wq0d0da" path="res://Assets/Gráficos 2D/UI/Relleno-progressBar.png" id="16_vksv8"]
 [ext_resource type="Script" uid="uid://bm0vvop2w0grr" path="res://Scripts/penalties_manager.gd" id="18_xytri"]
+[ext_resource type="Texture2D" uid="uid://doihx7veka6t6" path="res://Assets/Gráficos 2D/UI/Rayos divinos dorados con destellos.png" id="19_cc26a"]
+[ext_resource type="Texture2D" uid="uid://c8ewfwsq1rohd" path="res://Assets/Gráficos 2D/Botones/boton-reanudar.png" id="19_tc4e0"]
+[ext_resource type="Texture2D" uid="uid://bcs1hpbfeggw4" path="res://Assets/Gráficos 2D/Botones/boton-reanudar-pressed.png" id="20_mvjhb"]
+[ext_resource type="Texture2D" uid="uid://jlpe5s7jfjop" path="res://Assets/Gráficos 2D/Botones/boton-reanudar-hover.png" id="21_5yclt"]
+[ext_resource type="Texture2D" uid="uid://crgymt4d8knni" path="res://Assets/Gráficos 2D/Botones/boton-reiniciar.png" id="23_72bp2"]
 [ext_resource type="PackedScene" uid="uid://daacyapsqmknq" path="res://Escenas/HUD_Demolicion.tscn" id="23_u2sv0"]
 [ext_resource type="PackedScene" uid="uid://bkvj7woegk1v6" path="res://Escenas/HUD_Unidad.tscn" id="24_6b4jh"]
+[ext_resource type="Texture2D" uid="uid://c0sieti1pu7xw" path="res://Assets/Gráficos 2D/Botones/boton-reiniciar-pressed.png" id="24_cc26a"]
+[ext_resource type="Texture2D" uid="uid://b2cyr43on15fj" path="res://Assets/Gráficos 2D/Botones/boton-reiniciar-hover.png" id="25_iw5u2"]
+[ext_resource type="Texture2D" uid="uid://dqt7tjl7ytodj" path="res://Assets/Gráficos 2D/Botones/boton-abandonar.png" id="26_x7iek"]
+[ext_resource type="Texture2D" uid="uid://b63tnfuf81ufc" path="res://Assets/Gráficos 2D/Botones/boton-abandonar-pressed.png" id="27_mmnwr"]
+[ext_resource type="Texture2D" uid="uid://besgiia05q068" path="res://Assets/Gráficos 2D/Botones/boton-abandonar-hover.png" id="28_0xhyv"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_austa"]
 vertices = PackedVector3Array(-24.5, 0.5, -4.75, -6, 0.5, -4.75, -5.75, 0.5, -5.75, -4.75, 0.5, -6, -4.75, 0.5, -29.5, -24.5, 0.5, -29.5, -4.5, 0.5, -3.75, -4.25, 0.5, -1, -3.25, 0.5, -1, -3.75, 0.5, -4, -3.75, 0.5, -5.75, 2.25, 0.5, -1, 3.75, 0.5, -1, 24.5, 0.5, -1.25, 24.5, 0.5, -29.5, -3, 0.5, 0, 2, 0.5, 0, -5.25, 0.5, 2, -4.25, 0.5, 1.75, -4.25, 0.5, 1.25, -5.25, 0.5, 1, -5.5, 0.5, -3.75, -5.25, 0.5, -0.75, -5.25, 0.5, 3.75, -24.5, 0.5, 4.25, -4.75, 0.5, 4, 4.25, 0.5, 1, 3.25, 0.5, 1.25, 3.25, 0.5, 3, 4.25, 0.5, 3.25, 24.5, 0.5, 5.5, 4.25, 0.5, -0.75, 4.25, 0.5, 5, 3.75, 0.5, 5.25, -3.25, 0.5, 1.25, -3, 0.5, 2, -3, 0.5, 3.75, -3.5, 0.5, 4, 2, 0.5, 4.75, 2, 0.5, 3.25, 2, 0.5, 1, -4.25, 0.5, 4, -24.5, 0.5, 29.5, -4.25, 0.5, 29.5, 2.25, 0.5, 5.25, 3.25, 0.5, 29.5, 3.25, 0.5, 5.25, 24.5, 0.5, 29.5)
@@ -33,25 +47,40 @@ polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(2, 0, 3), PackedInt32Arr
 geometry_parsed_geometry_type = 1
 filter_baking_aabb = AABB(-25, 0, -30, 50, 1, 60)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i8jda"]
-bg_color = Color(0.95686275, 0.17254902, 0.20784314, 1)
+[sub_resource type="SystemFont" id="SystemFont_x7iek"]
+font_names = PackedStringArray("Californian FB")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ggx5j"]
-bg_color = Color(0.70980394, 0.078431375, 0.12941177, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b01mn"]
+texture = ExtResource("19_cc26a")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v7hys"]
-bg_color = Color(0.9882353, 0.39607844, 0.37254903, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mjs2v"]
+texture = ExtResource("19_tc4e0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fj6t8"]
+texture = ExtResource("20_mvjhb")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7mkik"]
+texture = ExtResource("21_5yclt")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pxhey"]
+texture = ExtResource("23_72bp2")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pmv01"]
+texture = ExtResource("24_cc26a")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rsodt"]
+texture = ExtResource("25_iw5u2")
 
 [sub_resource type="Theme" id="Theme_i8jda"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5kxe0"]
-bg_color = Color(0.95686275, 0.17254902, 0.20784314, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_72bp2"]
+texture = ExtResource("26_x7iek")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fu8k2"]
-bg_color = Color(0.7093019, 0.07813134, 0.12839827, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cc26a"]
+texture = ExtResource("27_mmnwr")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u2sv0"]
-bg_color = Color(0.9864109, 0.3979757, 0.37338716, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iw5u2"]
+texture = ExtResource("28_0xhyv")
 
 [sub_resource type="Theme" id="Theme_h4t55"]
 
@@ -214,24 +243,55 @@ layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -59.0
+offset_left = -249.0
 offset_top = 20.0
-offset_right = -19.0
-offset_bottom = 60.0
+offset_right = -53.89795
+offset_bottom = 331.0204
 grow_horizontal = 0
 scale = Vector2(1.225, 1.225)
+size_flags_horizontal = 0
+size_flags_vertical = 0
 script = ExtResource("9_iqjgs")
 
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/DayUI" unique_id=2073285405]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("13_stj0u")
+patch_margin_left = 40
+patch_margin_top = 40
+patch_margin_right = 40
+patch_margin_bottom = 40
+
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/DayUI" unique_id=594506068]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 54.0
+propagate_maximum_size = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Dias" type="Label" parent="UI/DayUI/VBoxContainer" unique_id=1788123509]
 layout_mode = 2
+size_flags_horizontal = 4
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 35.2)
+text = "dias"
 
-[node name="ProgresoDia" type="ProgressBar" parent="UI/DayUI/VBoxContainer" unique_id=234744608]
+[node name="ProgresoDia" type="TextureProgressBar" parent="UI/DayUI/VBoxContainer" unique_id=1918535758]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 20.64)
+offset_transform_scale = Vector2(0.28, 0.28)
+texture_under = ExtResource("14_kour3")
+texture_over = ExtResource("15_s8v6j")
+texture_progress = ExtResource("16_vksv8")
 
 [node name="CuotaUI" type="Control" parent="UI" unique_id=1535982634]
 layout_mode = 3
@@ -239,25 +299,29 @@ anchor_left = 1.0
 anchor_top = 0.069000006
 anchor_right = 1.0
 anchor_bottom = 0.069000006
-offset_left = -84.0
-offset_top = -24.712006
-offset_right = -44.0
-offset_bottom = 15.287994
+offset_left = -210.0
+offset_top = 86.29799
+offset_right = -76.93872
+offset_bottom = 260.99173
 grow_horizontal = 0
 scale = Vector2(1.225, 1.225)
 script = ExtResource("10_pke20")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/CuotaUI" unique_id=1041738528]
-layout_mode = 0
-offset_left = -70.20409
-offset_top = 57.142857
-offset_right = 44.795914
-offset_bottom = 111.14285
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Cuota" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=101136191]
 layout_mode = 2
-text = "Cuota"
+theme_override_fonts/font = SubResource("SystemFont_x7iek")
+theme_override_font_sizes/font_size = 32
+text = "CUOTA"
 horizontal_alignment = 1
+uppercase = true
 
 [node name="DiasRestantes" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=493693613]
 layout_mode = 2
@@ -277,14 +341,42 @@ layout_mode = 2
 [node name="Comida" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=216961377]
 layout_mode = 2
 
+[node name="cuota pago" type="Label" parent="UI/CuotaUI" unique_id=1809790926]
+visible = false
+modulate = Color(0.6509804, 0.76862746, 0.35686275, 1)
+layout_mode = 0
+offset_left = -8.19
+offset_top = 218.975
+offset_right = 136.81
+offset_bottom = 246.97507
+rotation = -0.13264503
+theme_override_font_sizes/font_size = 20
+text = "¡Cuota pagada!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="cuota impago" type="Label" parent="UI/CuotaUI" unique_id=1527214177]
+visible = false
+modulate = Color(0.7254902, 0.29411766, 0.27058825, 1)
+custom_maximum_size = Vector2(200, -1)
+layout_mode = 0
+offset_left = -29.09
+offset_top = 213.87
+offset_right = 151.91
+offset_bottom = 241.87001
+theme_override_font_sizes/font_size = 20
+text = "¡Cuota incumplida!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="AlimentarDebug" type="Button" parent="UI" unique_id=1457718069]
+visible = false
 offset_right = 8.0
 offset_bottom = 8.0
 text = "Alimentar esbirros"
 
 [node name="PauseMenu" type="Control" parent="UI" unique_id=311185493]
 process_mode = 2
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -297,54 +389,50 @@ script = ExtResource("12_a2mc0")
 
 [node name="Panel" type="Panel" parent="UI/PauseMenu" unique_id=471368754]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -240.0
-offset_right = 250.0
-offset_bottom = 240.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_b01mn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PauseMenu/Panel" unique_id=2015857968]
+custom_maximum_size = Vector2(300, 300)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ResumeButton" type="Button" parent="UI/PauseMenu/Panel" unique_id=813799659]
-layout_mode = 0
-offset_left = 100.0
-offset_top = 80.0
-offset_right = 400.0
-offset_bottom = 150.0
-text = "Reanudar"
+[node name="ResumeButton" type="Button" parent="UI/PauseMenu/Panel/VBoxContainer" unique_id=813799659]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_mjs2v")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_fj6t8")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7mkik")
 script = ExtResource("13_6b4jh")
 
-[node name="RestartButton" type="Button" parent="UI/PauseMenu/Panel" unique_id=2014958026]
-layout_mode = 0
-offset_left = 100.0
-offset_top = 190.0
-offset_right = 400.0
-offset_bottom = 260.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_i8jda")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ggx5j")
-theme_override_styles/hover = SubResource("StyleBoxFlat_v7hys")
-text = "Reiniciar"
+[node name="RestartButton" type="Button" parent="UI/PauseMenu/Panel/VBoxContainer" unique_id=2014958026]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_pxhey")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pmv01")
+theme_override_styles/hover = SubResource("StyleBoxTexture_rsodt")
 script = ExtResource("13_6b4jh")
 
-[node name="QuitButton" type="Button" parent="UI/PauseMenu/Panel" unique_id=1030064431]
-layout_mode = 0
-offset_left = 100.0
-offset_top = 300.0
-offset_right = 400.0
-offset_bottom = 370.0
+[node name="QuitButton" type="Button" parent="UI/PauseMenu/Panel/VBoxContainer" unique_id=1030064431]
+layout_mode = 2
+size_flags_vertical = 3
 theme = SubResource("Theme_i8jda")
-theme_override_styles/normal = SubResource("StyleBoxFlat_5kxe0")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_fu8k2")
-theme_override_styles/hover = SubResource("StyleBoxFlat_u2sv0")
-text = "Abandonar"
+theme_override_styles/normal = SubResource("StyleBoxTexture_72bp2")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_cc26a")
+theme_override_styles/hover = SubResource("StyleBoxTexture_iw5u2")
 script = ExtResource("13_6b4jh")
 
 [node name="WinScreen" type="Control" parent="UI" unique_id=605782393]
 process_mode = 2
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -431,6 +519,7 @@ script = ExtResource("13_6b4jh")
 
 [node name="DefeatScreen" type="Control" parent="UI" unique_id=1855636727]
 process_mode = 2
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -624,9 +713,9 @@ script = ExtResource("18_xytri")
 [node name="HUD_Unidad" parent="." unique_id=1556987955 instance=ExtResource("24_6b4jh")]
 
 [connection signal="pressed" from="UI/AlimentarDebug" to="." method="_on_alimentar_debug_pressed"]
-[connection signal="pressed" from="UI/PauseMenu/Panel/ResumeButton" to="UI/PauseMenu" method="_on_resume_button_pressed"]
-[connection signal="pressed" from="UI/PauseMenu/Panel/RestartButton" to="UI/PauseMenu" method="_on_restart_button_pressed"]
-[connection signal="pressed" from="UI/PauseMenu/Panel/QuitButton" to="UI/PauseMenu" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="UI/PauseMenu/Panel/VBoxContainer/ResumeButton" to="UI/PauseMenu" method="_on_resume_button_pressed"]
+[connection signal="pressed" from="UI/PauseMenu/Panel/VBoxContainer/RestartButton" to="UI/PauseMenu" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="UI/PauseMenu/Panel/VBoxContainer/QuitButton" to="UI/PauseMenu" method="_on_quit_button_pressed"]
 [connection signal="pressed" from="UI/WinScreen/Panel/QuitButton" to="UI/WinScreen" method="_on_quit_button_pressed"]
 [connection signal="pressed" from="UI/DefeatScreen/Panel/RestartButton" to="UI/DefeatScreen" method="_on_restart_button_pressed"]
 [connection signal="pressed" from="UI/DefeatScreen/Panel/QuitButton" to="UI/DefeatScreen" method="_on_quit_button_pressed"]

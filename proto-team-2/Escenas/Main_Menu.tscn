@@ -1,17 +1,37 @@
 [gd_scene format=3 uid="uid://d05w17gtf1lnj"]
 
 [ext_resource type="Script" uid="uid://1gm2mnki8lui" path="res://Scripts/main_menu.gd" id="1_5ckub"]
-[ext_resource type="Texture2D" uid="uid://dm3804a16o763" path="res://Assets/Gráficos 2D/Iconos/Ritual de luz en el desierto.png" id="2_i8jda"]
+[ext_resource type="Texture2D" uid="uid://65u57wte63pl" path="res://Assets/Gráficos 2D/Iconos/0d1500df-8712-490d-9973-4690e2a7c284.png" id="2_5kxe0"]
 [ext_resource type="Script" uid="uid://b8up60c8maoh1" path="res://Scripts/boton_animado.gd" id="2_i8jda"]
+[ext_resource type="Texture2D" uid="uid://bt5tapkvixuwa" path="res://Assets/Gráficos 2D/UI/UI HUD2.png" id="3_7vcsk"]
+[ext_resource type="Texture2D" uid="uid://c7g0m8dluo0al" path="res://Assets/Gráficos 2D/Botones/boton-jugar.png" id="4_b4mdi"]
+[ext_resource type="Texture2D" uid="uid://g1qlxibojd68" path="res://Assets/Gráficos 2D/Botones/boton-jugar-pressed.png" id="5_3huxk"]
+[ext_resource type="Texture2D" uid="uid://y14wc7snahls" path="res://Assets/Gráficos 2D/Botones/boton-jugar-hover.png" id="6_wprfe"]
+[ext_resource type="Texture2D" uid="uid://boijmqk1m1p4t" path="res://Assets/Gráficos 2D/Botones/boton-salir.png" id="8_wprfe"]
+[ext_resource type="Texture2D" uid="uid://c8s3tfa356xbn" path="res://Assets/Gráficos 2D/Botones/boton-salir-pressed.png" id="9_ogyce"]
+[ext_resource type="Texture2D" uid="uid://xm4fmpfxmyur" path="res://Assets/Gráficos 2D/Botones/boton-salir-hover.png" id="10_3qw8k"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ckub"]
-bg_color = Color(0.11372549, 0.27450982, 0, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ggx5j"]
+texture = ExtResource("3_7vcsk")
+modulate_color = Color(0.9407418, 0.7996058, 0.57292134, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i8jda"]
-bg_color = Color(0.07086598, 0.1924138, 7.219613e-08, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v7hys"]
+texture = ExtResource("4_b4mdi")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5kxe0"]
-bg_color = Color(0.17508343, 0.39433798, 3.85046e-07, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7vcsk"]
+texture = ExtResource("5_3huxk")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b4mdi"]
+texture = ExtResource("6_wprfe")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ogyce"]
+texture = ExtResource("8_wprfe")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3qw8k"]
+texture = ExtResource("9_ogyce")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mjs2v"]
+texture = ExtResource("10_3qw8k")
 
 [node name="MainMenu" type="Control" unique_id=1760668253]
 layout_mode = 3
@@ -20,37 +40,42 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_5ckub")
 
 [node name="CenterContainer2" type="CenterContainer" parent="." unique_id=1265395487]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-offset_transform_enabled = true
-offset_transform_scale = Vector2(0.85, 0.85)
-
-[node name="TextureRect" type="TextureRect" parent="CenterContainer2" unique_id=1717090045]
-layout_mode = 2
-texture = ExtResource("2_i8jda")
-expand_mode = 1
-stretch_mode = 3
-
-[node name="CenterContainer" type="CenterContainer" parent="." unique_id=632397287]
+propagate_maximum_size = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_scale = Vector2(0.71, 0.71)
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer2" unique_id=1717090045]
+layout_mode = 2
+offset_transform_enabled = true
+texture = ExtResource("2_5kxe0")
+stretch_mode = 6
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=632397287]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 78.065
+offset_top = -200.0
+offset_right = 528.0652
+offset_bottom = 200.0
+grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="CenterContainer" unique_id=1194326300]
 custom_minimum_size = Vector2(450, 400)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ggx5j")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel" unique_id=66192015]
 layout_mode = 1
@@ -66,20 +91,18 @@ alignment = 1
 custom_minimum_size = Vector2(300, 70)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_styles/normal = SubResource("StyleBoxFlat_5ckub")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_i8jda")
-theme_override_styles/hover = SubResource("StyleBoxFlat_5kxe0")
-text = "Jugar"
+theme_override_styles/normal = SubResource("StyleBoxTexture_v7hys")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_7vcsk")
+theme_override_styles/hover = SubResource("StyleBoxTexture_b4mdi")
 script = ExtResource("2_i8jda")
 
 [node name="Salir" type="Button" parent="CenterContainer/Panel/VBoxContainer" unique_id=560348384]
 custom_minimum_size = Vector2(300, 70)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_styles/normal = SubResource("StyleBoxFlat_5ckub")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_i8jda")
-theme_override_styles/hover = SubResource("StyleBoxFlat_5kxe0")
-text = "Salir"
+theme_override_styles/normal = SubResource("StyleBoxTexture_ogyce")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_3qw8k")
+theme_override_styles/hover = SubResource("StyleBoxTexture_mjs2v")
 script = ExtResource("2_i8jda")
 
 [connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/Jugar" to="." method="_on_jugar_pressed"]

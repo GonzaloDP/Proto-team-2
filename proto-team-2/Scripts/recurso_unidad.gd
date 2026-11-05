@@ -6,7 +6,10 @@ enum tipo_recurso{ ARBUSTO, PIEDRAS, ARBOLES}
 
 @export var cantidad: int = 60
 @export var timer: float = 60.0
-
+@export_group("Escala de recursos de unidad")
+@export var escala_arbusto_unidad: Vector3 = Vector3(0.5, 0.5, 0.5)
+@export var escala_piedras_unidad: Vector3 = Vector3(0.5, 0.5, 0.5)
+@export var escala_arboles_unidad: Vector3 = Vector3(0.5, 0.5, 0.5)
 
 var tipo_respawn: tipo_recurso
 var agotado := false
@@ -61,14 +64,17 @@ func respawn():
 
 func cambiar_modelo() -> void:
 	var escena_elegida: PackedScene
-
+	var escala_elegida: Vector3
 	match tipo_respawn:
 		tipo_recurso.ARBUSTO:
 			escena_elegida = modelo_arbusto
+			escala_elegida = escala_arbusto_unidad
 		tipo_recurso.PIEDRAS:
 			escena_elegida = modelo_piedras
+			escala_elegida = escala_piedras_unidad
 		tipo_recurso.ARBOLES:
 			escena_elegida = modelo_arboles
+			escala_elegida = escala_arboles_unidad
 
 	if escena_elegida == null:
 		print("Falta asignar un modelo para " + get_names())
@@ -79,3 +85,5 @@ func cambiar_modelo() -> void:
 
 	modelo_actual = escena_elegida.instantiate() as Node3D
 	contenedor_modelo.add_child(modelo_actual)
+	
+	modelo_actual.scale = escala_elegida

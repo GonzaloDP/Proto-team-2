@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://dkbr30n3bn7y4"]
 
 [ext_resource type="Script" uid="uid://bowd1isfryu7s" path="res://Scripts/recurso_unidad.gd" id="1_imde8"]
-[ext_resource type="PackedScene" uid="uid://leuqbked4bwn" path="res://Assets/3D/Recursos/GLB/bush_3.glb" id="2_637nl"]
-[ext_resource type="PackedScene" uid="uid://b3rnv78dv1h74" path="res://Assets/3D/Recursos/GLB/ROCK_08_ClusterLarge.glb" id="3_2krmw"]
+[ext_resource type="PackedScene" uid="uid://m5t123br1nrq" path="res://Assets/3D/Recursos/GLB/bush_4.glb" id="2_p35jk"]
+[ext_resource type="PackedScene" uid="uid://l8uey2bs7ryq" path="res://Assets/3D/Recursos/GLB/ROCK_04_BoulderTall.glb" id="3_2krmw"]
 [ext_resource type="PackedScene" uid="uid://c75fwvekcx0um" path="res://Assets/3D/Recursos/GLB/tree_pine_2.glb" id="3_p35jk"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mvknu"]
@@ -15,7 +15,9 @@ material = SubResource("StandardMaterial3D_mvknu")
 [node name="RecursoUnidad" type="StaticBody3D" unique_id=1902933503]
 collision_layer = 4
 script = ExtResource("1_imde8")
-modelo_arbusto = ExtResource("2_637nl")
+escala_arbusto_unidad = Vector3(0.3, 0.3, 0.3)
+escala_piedras_unidad = Vector3(0.25, 0.25, 0.25)
+modelo_arbusto = ExtResource("2_p35jk")
 modelo_piedras = ExtResource("3_2krmw")
 modelo_arboles = ExtResource("3_p35jk")
 
@@ -27,4 +29,4 @@ mesh = SubResource("SphereMesh_n4n7x")
 shape = SubResource("SphereShape3D_wlkfn")
 
 [node name="Modelo" type="Node3D" parent="." unique_id=1945842940]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4177835, 0)
+transform = Transform3D(5.005, 0, 0, 0, 5.005, 0, 0, 0, 5.005, 0, 0, 0)

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bn6d2v3lbapoo"]
 
 [ext_resource type="Script" uid="uid://c4x71hlcwrjke" path="res://Scripts/recurso.gd" id="1_rkgit"]
-[ext_resource type="PackedScene" uid="uid://m5t123br1nrq" path="res://Assets/3D/Recursos/GLB/bush_4.glb" id="2_jn3yn"]
-[ext_resource type="PackedScene" uid="uid://l8uey2bs7ryq" path="res://Assets/3D/Recursos/GLB/ROCK_04_BoulderTall.glb" id="3_kerbr"]
+[ext_resource type="PackedScene" uid="uid://leuqbked4bwn" path="res://Assets/3D/Recursos/GLB/bush_3.glb" id="2_kerbr"]
+[ext_resource type="PackedScene" uid="uid://b3rnv78dv1h74" path="res://Assets/3D/Recursos/GLB/ROCK_08_ClusterLarge.glb" id="3_kerbr"]
 [ext_resource type="PackedScene" uid="uid://dlrkitre3c5ne" path="res://Assets/3D/Recursos/GLB/tree_6.glb" id="4_0ty5d"]
 [ext_resource type="PackedScene" uid="uid://btn2l6sx181ci" path="res://Assets/3D/Recursos/GLB/ROCK_09_CliffSmall.glb" id="5_kerbr"]
 
@@ -17,17 +17,19 @@ size = Vector3(1.2263184, 1.8491211, 1.2756348)
 [node name="Recurso" type="StaticBody3D" unique_id=1250565611]
 collision_layer = 4
 script = ExtResource("1_rkgit")
-modelo_arbusto = ExtResource("2_jn3yn")
+modelo_arbusto = ExtResource("2_kerbr")
 modelo_piedras = ExtResource("3_kerbr")
 modelo_arboles = ExtResource("4_0ty5d")
 modelo_metal = ExtResource("5_kerbr")
+escala_arboles = Vector3(4, 4, 4)
+escala_metal = Vector3(1, 1, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1099368702]
 visible = false
 mesh = SubResource("BoxMesh_1icel")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=357680996]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.029907227, 0.42456055, 0.0052490234)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.029907227, 0.053600073, 0.0052490234)
 shape = SubResource("BoxShape3D_austa")
 
 [node name="Modelo" type="Node3D" parent="." unique_id=1427247101]
