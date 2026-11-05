@@ -21,12 +21,13 @@ enum TutorialStep {
 	REPRODUCCION_2,
 	PAGO_CUOTA,
 	CONSECUENCIAS,
+	TUTO_COMPLETADO,
 	FINALIZADO
 }
 
 var etapa_actual: TutorialStep = TutorialStep.INTRODUCCION # Etapa actual
 var unidades_conectadas: Array[Unidad] = []
-var edificio_reproduccion_actua: EdificioReproduccion = null
+var edificio_reproduccion_actual: EdificioReproduccion = null
 var reproduccion_completada: bool = false
 
 func _ready() -> void:
@@ -36,6 +37,7 @@ func _ready() -> void:
 	camara.orden_movimiento_emitida.connect(_on_orden_movimiento_emitida)
 	control_camara.camara_desplazada.connect(_on_camara_desplazada)
 	camara.comedor_colocado.connect(_on_comedor_colocado)
+	camara.reproduccion_colocada.connect(_on_reproduccion_colocada)
 
 # Inicia el tutorial
 func iniciar_tutorial():
@@ -112,11 +114,36 @@ func mostrar_etapa():
 			titulo.text = "Edificio de reproducción"
 			descripcion.text = "El edificio de reproducción permite generar nuevas unidades y mejorar las características de nuestra población. Para utilizarlo, primero deben construir un edificio de REPRODUCCIÓN."
 			boton_continuar.text = "Continuar"
-		#TutorialStep.PAGO_CUOTA:
-			#print("Asi se paga")
-		#
-		#TutorialStep.CONSECUENCIAS:
-			#print("Esto pasa si no pagas")
+			boton_continuar.disabled = true
+		
+		TutorialStep.REPRODUCCION_2:
+			titulo.text = "Reproducción"
+			descripcion.text = "¡Ahora podemos reproducir nuestras unidades! Seleccionen dos unidades y envíenlas juntas al edificio de reproducción. Cuando el proceso termine, aparecerá una nueva unidad con características mejoradas."
+			boton_continuar.text = "Continuar"
+			boton_continuar.disabled = true
+		
+		TutorialStep.PAGO_CUOTA:
+			titulo.text = "Cuota"
+			descripcion.text = "Para mantener a nuestra aldea funcionando, debemos pagar cuotas periódicamente. En el HUD de la derecha pueden consultar qué cantidad de cada recusso nos exige la próxima cupta y cuántas días quedan para pagarla. La barra de progreso indica cuánto avanzó el día, tanto visualmente como mediante un porcentaje. Cuando llegue la fecha de vencimiento, la cuota se cobrará automáticamente si contamos con todos los recursos necesarios."
+			boton_continuar.text = "Continuar"
+			boton_continuar.disabled = false
+		
+		TutorialStep.CONSECUENCIAS:
+			titulo.text = "Consecuencias del incumplimiento"
+			descripcion.text = "¡Cuidado con las cuotas! Si no contamos con los recursos necesarios al llegar el vencimiento, comenzaremos a recibir penalizaciones. Cuantos más días pasen sin pagar, más graves serán las consecuencias:
+* La recolección de recursos será más lenta.
+* La construcción de edificios llevará más tiempo.
+* La reproducción de unidades será menos eficiente.
+* Si no pagas la cuota por 3 días, sin la necesidad de ser consecutivos, pierdes.
+¡Administren bien los recursos y prioricen el pago de las cuotas, sino DIOS se enojará!"
+			boton_continuar.text = "Avanzar al Nivel"
+			boton_continuar.disabled = false
+		
+		TutorialStep.TUTO_COMPLETADO:
+			titulo.text = "¡Felicidades completaste el tutorial!"
+			descripcion.text = "Ahora ya sabes cómo jugar a la Voluntad de Dios. Para avanzar aprieta el botón Continuar que está debajo y comenzarás con el nivel que tenemos preparado para vos."
+			boton_continuar.text = "Continuar"
+			boton_continuar.disabled = false
 		
 		TutorialStep.FINALIZADO:
 			finalizar_tutorial()
@@ -128,6 +155,7 @@ func siguiente_etapa():
 
 func finalizar_tutorial():
 	print("Tutorial completado")
+	get_tree().change_scene_to_file("res://Escenas/Level.tscn")
 
 func _on_seleccion_actualizada(cantidad: int):
 	if etapa_actual == TutorialStep.SELECCION_UNIDADES:
@@ -187,3 +215,38 @@ func _on_comedor_colocado(edificio: Edificio):
 	if etapa_actual == TutorialStep.CONSTRUCCION:
 		print("Tutorial: comedor terminado")
 		boton_continuar.disabled = false
+
+func _on_reproduccion_colocada(edificio: EdificioReproduccion):
+	if etapa_actual != TutorialStep.REPRODUCCION_1:
+		return
+	
+	edificio_reproduccion_actual = edificio
+	
+	while is_instance_valid(edificio) and not edificio.completado:
+		await get_tree().create_timer(0.2).timeout
+	
+	if not is_instance_valid(edificio):
+		return
+	
+	if etapa_actual == TutorialStep.REPRODUCCION_1:
+		boton_continuar.disabled = false
+		conectar_eventos_reproduccion()
+
+func conectar_eventos_reproduccion():
+	if not is_instance_valid(edificio_reproduccion_actual):
+		return
+	
+	edificio_reproduccion_actual.reproduccion_iniciada.connect(_on_reproduccion_iniciada)
+	edificio_reproduccion_actual.nueva_unidad_creada.connect(_on_nueva_unidad_creada)
+
+func _on_reproduccion_iniciada():
+	if etapa_actual != TutorialStep.REPRODUCCION_2:
+		return
+	print("tuto las unidades se reproducen")
+
+func _on_nueva_unidad_creada(unidad: Unidad):
+	if etapa_actual != TutorialStep.REPRODUCCION_2:
+		return
+	
+	reproduccion_completada = true
+	boton_continuar.disabled = false

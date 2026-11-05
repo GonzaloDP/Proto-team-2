@@ -20,15 +20,11 @@ script = ExtResource("1_22wvu")
 
 [node name="Panel" type="Panel" parent="." unique_id=2110299503]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -331.0
 offset_top = -264.0
-offset_right = 331.0
-grow_horizontal = 2
+offset_right = 662.0
 grow_vertical = 0
 
 [node name="Margen" type="MarginContainer" parent="Panel" unique_id=14315378]
