@@ -3,13 +3,14 @@ class_name EdificioComedor
 
 @export var tiempo_comida: float = 5.0
 @export var distancia_para_comer: float = 3.0
+@export var costo_alimentacion: int = 5
 
 @onready var inventario: Inventario = get_tree().current_scene.get_node("Inventario")
 
 var unidades_comiendo: Array[Unidad] = []
 
 func _ready() -> void:
-	pass
+	profundidad_inicial = -5.0	#Como el comedor es mucho más alto que los demás edificio, sobreescribimos el valor de la profundidad inicial.
 	
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body is Unidad:
@@ -33,7 +34,7 @@ func recibir_unidad(unidad: Unidad):
 	var cantidad_comida = inventario.get_recurso(Recurso.Tipo_Recurso.COMIDA)
 	var comida_reservada = unidades_comiendo.size()
 	
-	if cantidad_comida - comida_reservada < 1:
+	if cantidad_comida - comida_reservada < costo_alimentacion:	#Chequeamos que haya suficiente comida para alimentar a la unidad.
 		return
 	
 	unidades_comiendo.append(unidad)
@@ -47,13 +48,14 @@ func terminar_comida(unidad: Unidad):
 		unidades_comiendo.erase(unidad)
 		return
 	
-	inventario.reducir_recurso(Recurso.Tipo_Recurso.COMIDA, 1)
+	inventario.reducir_recurso(Recurso.Tipo_Recurso.COMIDA, costo_alimentacion)	#Cuando la unidad termina de comer, descontamos la comida del inventario.
 	
 	unidad._resetSatiety()
 	unidades_comiendo.erase(unidad)
 	
-	var posicion_salida := global_position + Vector3(-5,0,7)
-	unidad.salir_del_comedor(posicion_salida)
+	var posicion_salida = $PuntoRespawn.global_position	#Tomamos los puntos de spawn y de objetivo del comedor para darselos a la unidad. Estos determinarán, respectivamente, donde aparecerá la unidad al salir, y hacia donde se moverá.
+	var objetivo_salida = $PuntoObjetivoSalida.global_position
+	unidad.salir_del_comedor(posicion_salida, objetivo_salida)
 
 func recibir_trabajo(cantidad: float):
 	if completado: return
@@ -61,11 +63,13 @@ func recibir_trabajo(cantidad: float):
 	puntos_actuales += cantidad
 	var progreso = clamp(puntos_actuales / puntos_totales, 0.0, 1.0)
 	
-#	mesh_instance.scale = Vector3(1, max(0.1,progreso), 1)
-	#mesh_instance.scale = Vector3(1, max(0.1, progreso), 1)
-	
+	#Edificio emerge
+	if modelo_rojo: 
+		modelo_rojo.position.y = lerp(profundidad_inicial, posicion_original_y, progreso)
+		
 	if puntos_actuales >= (puntos_totales - 0.1):
 		completado = true
+		$CleanUpTimer.start()
 		add_to_group("Comedores")
 
 		#Edificio construido se teletransporta hacia el edificio rojo desvanecido
@@ -79,3 +83,6 @@ func recibir_trabajo(cantidad: float):
 		
 		if barra_progreso:
 			barra_progreso.hide()
+		
+func instaBuild(): #Con esta función, el comedor se construye instantáneamente, esto solo funciona para el primer comedor construido en la partida, a modo de facilitar el early game.
+	puntos_totales = 1 #Setteando los puntos totales a uno, el comedor se construirá en cuanto una unidad le de el más mínimo esfuerzo.

@@ -4,9 +4,9 @@ class_name Inventario
 signal inventario_actualizado
 
 var recursos = {
-Recurso.Tipo_Recurso.MADERA: 0,
-Recurso.Tipo_Recurso.PIEDRA: 0,
-Recurso.Tipo_Recurso.COMIDA: 0,
+Recurso.Tipo_Recurso.MADERA: 25,
+Recurso.Tipo_Recurso.PIEDRA: 25,
+Recurso.Tipo_Recurso.COMIDA: 20,
 Recurso.Tipo_Recurso.METAL: 0
 }
 

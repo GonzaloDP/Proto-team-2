@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://c8pvvrtrgo6nf" path="res://Assets/3D/Herramientas/Amarillo.png" id="6_lpgkf"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yf5fn"]
+radius = 0.7270508
+height = 2.5714111
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_h4t55"]
 viewport_path = NodePath("SubViewportContainer/SubViewport")
@@ -890,6 +892,7 @@ max_neighbors = 100
 debug_enabled = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=750490593]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22735596, 0)
 shape = SubResource("CapsuleShape3D_yf5fn")
 
 [node name="Sprite3D" type="Sprite3D" parent="CollisionShape3D" unique_id=1194924271]

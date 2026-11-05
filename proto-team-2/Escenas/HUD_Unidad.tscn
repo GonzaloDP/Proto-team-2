@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://caen83bucpfys" path="res://Scripts/hud_unidad.gd" id="1_22wvu"]
 [ext_resource type="Texture2D" uid="uid://b20tk7nm1d56x" path="res://Assets/Gráficos 2D/Iconos/icono recoleccion.png" id="2_6bmu8"]
+[ext_resource type="Texture2D" uid="uid://bynpvmk0cirym" path="res://Assets/Gráficos 2D/UI/HUDrasgos.png" id="2_nfvn5"]
 [ext_resource type="Texture2D" uid="uid://qrn12u1hlggw" path="res://Assets/Gráficos 2D/Iconos/icono Velocidad de Rep.png" id="3_w7g60"]
 [ext_resource type="Texture2D" uid="uid://cm1kjpjl1akqh" path="res://Assets/Gráficos 2D/Iconos/Icono de velocidad de movimientp.png" id="4_nfvn5"]
 [ext_resource type="Texture2D" uid="uid://d2uhjr4pqb7xl" path="res://Assets/Gráficos 2D/Iconos/Icono Velocidad de Cons.png" id="5_gg6ah"]
@@ -18,6 +19,26 @@ grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("1_22wvu")
 
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1803512157]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -349.0
+offset_top = -150.0
+offset_right = 346.0
+offset_bottom = 133.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_nfvn5")
+region_rect = Rect2(0, 0, 197.89996, 164.34998)
+patch_margin_left = 30
+patch_margin_top = 30
+patch_margin_right = 30
+patch_margin_bottom = 33
+
 [node name="Panel" type="Panel" parent="." unique_id=2110299503]
 layout_mode = 1
 anchors_preset = 2
@@ -32,8 +53,14 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -7.5
+offset_bottom = 7.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 13
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 15
 
 [node name="Contenido" type="VBoxContainer" parent="Panel/Margen" unique_id=1951747078]
 layout_mode = 2
