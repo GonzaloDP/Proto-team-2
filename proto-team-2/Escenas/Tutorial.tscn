@@ -645,10 +645,10 @@ script = ExtResource("24_u1v05")
 
 [node name="DayManager" type="Node" parent="." unique_id=687561421]
 script = ExtResource("25_ntwt0")
-duracion_dia = 10.0
+duracion_dia = 60.0
 
 [node name="Timer" type="Timer" parent="DayManager" unique_id=811959382]
-wait_time = 60.0
+wait_time = 100.0
 autostart = true
 
 [node name="UIConstruccion" type="CanvasLayer" parent="." unique_id=225911941]
@@ -723,16 +723,17 @@ script = ExtResource("31_4sq7t")
 
 [node name="TutorialPanel" type="Control" parent="UITuto" unique_id=638402781]
 layout_mode = 3
-anchor_left = 0.60700005
-anchor_top = 0.418
-anchor_right = 0.92300004
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 248.1189
-offset_top = 184.13599
-offset_right = -252.10901
-offset_bottom = -193.0
+offset_left = 366.5
+offset_top = -295.0
+offset_right = 366.5
+offset_bottom = -295.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 mouse_filter = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="UITuto/TutorialPanel" unique_id=1553878598]
