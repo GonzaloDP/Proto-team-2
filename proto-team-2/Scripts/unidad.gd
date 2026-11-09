@@ -19,6 +19,8 @@ signal recurso_recolectado
 @export var breedingSpeed: int = 5 #Mientras más alta sea esta variable, menos tiempo tardará la unidad en salir del edificio de reproducción.
 @export var initialSatiety: int = 10 #El valor inicial de saciedad de la unidad. Disminuye con el tiempo (debería), y al quedarse sin, la unidad no podrá trabajar.
 @export var nombre: String
+@export var collectionRange = 3.0
+@export var constructionRange = 8
 var satiety	#Este es el valor de saciedad "real" de la unidad, es decir el que se modifica y se chequea para ver si tiene hambre o no.
 var starving = false #Starving es un boolean que controla si la unidad está siendo incapaz de comer. De ser verdadero, la unidad no obedecerá órdenes..
 var traitList: Array[Rasgo]	#Un array que contiene todos los rasgos de la unidad.
@@ -29,6 +31,7 @@ var savedTask
 var originalConstructionSpeed
 var originalCollectionSpeed
 var originalBreedingSpeed
+
 
 @onready var progressBar = $SubViewportContainer/SubViewport/BarraProgreso
 
@@ -102,7 +105,7 @@ func _process(delta: float):
 	if target_edificio and is_instance_valid(target_edificio):
 		if not target_edificio.completado:
 			var distancia = global_position.distance_to(target_edificio.global_position)			# Ampliamos un poco el rango para que no se empujen entre varias unidades y cancelen el trabajo
-			if distancia < 6:
+			if distancia < constructionRange:
 				if not en_rango_construccion:
 					en_rango_construccion = true
 					set_move_target(global_position, true)
@@ -136,7 +139,7 @@ func _process(delta: float):
 	if target_resource and is_instance_valid(target_resource):
 		var distancia_recurso = global_position.distance_to(target_resource.global_position)
 		
-		if distancia_recurso < 2:
+		if distancia_recurso < collectionRange:
 			if target_resource.has_method("get_names"):
 				var nombre_recurso = target_resource.get_names()
 				
@@ -278,7 +281,7 @@ func gatherResource():	#El Timer (CollectionTimer), al terminar nos lleva a esta
 	
 	if(target_resource):	#Si hay un recurso objetivo seguimos. Al dar otra orden, se borra el recurso objetivo, lo que podría causar un crash.
 		if(target_resource.cantidad_variable > 0):	#¿Sigue habiendo recursos que recolectar?
-			if(position.distance_to(target_resource.position) < 2):	#Si la unidad está lo suficientemente cerca, se detiene (target de movimiento a su propa posición), recoge 10 recursos.
+			if(position.distance_to(target_resource.position) < collectionRange):	#Si la unidad está lo suficientemente cerca, se detiene (target de movimiento a su propa posición), recoge 10 recursos.
 				set_move_target(global_position)
 				if (seleccionada):
 					progressBar.show()
@@ -324,10 +327,9 @@ func entrar_en_reproduccion(Edificio: Node3D):
 	
 	hide()
 
-func salir_de_reproduccion(posicionSpawn: Vector3, posicionObjetivo: Vector3):
+func salir_de_reproduccion(posicionObjetivo: Vector3):
 	en_reproduccion = false
 	
-	global_position = posicionSpawn
 	target_position = posicionObjetivo
 	velocity = Vector3.ZERO
 	
@@ -438,8 +440,7 @@ func entrar_en_comedor():
 	set_collision_mask_value(1, false)
 	hide()
 
-func salir_del_comedor(posicionSpawn: Vector3, posicionObjetivo: Vector3):	#Al salir del comedor, la unidad aparece en el punto de respawn del comedor, y se le asigna como objetivo el punto de salida de este mismo. Si la unidad tenía una tarea guardada, irá a por esta en vez de dirigirse al punto de salida.
-	global_position = posicionSpawn
+func salir_del_comedor(posicionObjetivo: Vector3):	#Al salir del comedor, la unidad aparece en el punto de respawn del comedor, y se le asigna como objetivo el punto de salida de este mismo. Si la unidad tenía una tarea guardada, irá a por esta en vez de dirigirse al punto de salida.
 	target_position = posicionObjetivo
 	velocity = Vector3.ZERO
 	
@@ -448,6 +449,7 @@ func salir_del_comedor(posicionSpawn: Vector3, posicionObjetivo: Vector3):	#Al s
 	set_collision_mask_value(1, true)
 	set_collision_mask_value(2,true)
 	set_collision_mask_value(3,true)
+	set_move_target(posicionObjetivo)
 	resumeTask()
 	show()
 
@@ -478,11 +480,11 @@ func obtener_estado_actual() -> String:
 	if en_reproduccion:
 		return "En reproducción"
 	if is_instance_valid(target_resource):
-		if global_position.distance_to(target_resource.global_position) > 2:
+		if global_position.distance_to(target_resource.global_position) > collectionRange:
 			return "Yendo a recolectar"
 		return "Recolectando recursos"
 	if is_instance_valid(target_edificio):
-		if global_position.distance_to(target_edificio.global_position) > 6.0:
+		if global_position.distance_to(target_edificio.global_position) > constructionRange:
 			return "Yendo a construir"
 		return "Construyendo"
 	if global_position.distance_to(target_position) > 0.5:
@@ -523,6 +525,7 @@ func halveAttributes():
 		breedingSpeed /=2
 
 func restoreAttributes():
+	if(originalCollectionSpeed): #Solo restauramos los atributos si se han guardado los originales.
 		constructionSpeed = originalConstructionSpeed
 		collectionSpeed = originalCollectionSpeed
 		breedingSpeed = originalBreedingSpeed

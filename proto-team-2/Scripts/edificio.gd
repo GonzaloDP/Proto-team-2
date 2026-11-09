@@ -32,6 +32,8 @@ var inventario_referencia: Inventario = null
 
 var navigation3D: NavigationRegion3D = null
 var camara_referencia: Node = null
+var puntosDeSalida: Array
+var puntoDeSalidaActual = 0
 
 func _ready() -> void:
 	if completado:
@@ -45,6 +47,7 @@ func configurar_edificio(tipo_id: String, puntos_requeridos: float,
 	puntos_totales = puntos_requeridos
 	puntos_actuales = 0.0
 	completado = false
+	puntoDeSalidaActual = 0
 	
 	if modelo and escenas_edificios.has(tipo_id):
 		for hijo in modelo.get_children():
@@ -156,5 +159,11 @@ func construir(): #La función construir se ejecuta cuando el edificio se termin
 func checkForBuggedUnits():	#Chequeamos que no haya ninguna unidad dentro del edifico que no deba estar ahí (Pueden quedar buggeadas a veces). Si hay alguna unidad allí, entonces la movemos a otro lugar para liberarla.
 	for body in $Area3D.get_overlapping_bodies():
 		if(body.visible && body is Unidad):	#Chequeamos que la unidad esté visible. Las unidades que están comiendo o reproduciéndose se ocultan, así que estas no serán expulsadas por el método.
-			body.global_position = $PuntoRespawn.global_position
-			body.set_move_target($PuntoRespawn.global_position)
+			kickOutUnit(body)
+
+func kickOutUnit(unidad: Unidad):
+	unidad.global_position = puntosDeSalida[puntoDeSalidaActual].global_position
+	unidad.set_move_target(puntosDeSalida[puntoDeSalidaActual].global_position)
+	puntoDeSalidaActual += 1
+	if(puntoDeSalidaActual >= puntosDeSalida.size()):	#Si llegamos al límite del array, entonces volvemos al primer elemento.
+		puntoDeSalidaActual = 0
