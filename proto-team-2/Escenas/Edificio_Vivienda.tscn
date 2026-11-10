@@ -1124,6 +1124,12 @@ shape = SubResource("BoxShape3D_austa")
 [node name="PuntoRespawn" type="Marker3D" parent="." unique_id=740546172]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.800928)
 
+[node name="PuntoRespawn2" type="Marker3D" parent="." unique_id=2014092563]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.182272, 0, 5.88904)
+
+[node name="PuntoRespawn3" type="Marker3D" parent="." unique_id=1767802918]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6432233, 0, 8.895726)
+
 [node name="CleanUpTimer" type="Timer" parent="." unique_id=1038761242]
 
 [connection signal="timeout" from="CleanUpTimer" to="." method="checkForBuggedUnits"]
