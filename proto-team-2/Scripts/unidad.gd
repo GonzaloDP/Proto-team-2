@@ -329,8 +329,8 @@ func entrar_en_reproduccion(Edificio: Node3D):
 
 func salir_de_reproduccion(posicionObjetivo: Vector3):
 	en_reproduccion = false
-	
-	target_position = posicionObjetivo
+	posicionObjetivo += Vector3(randf_range(-0.5,0.5),0.0,randf_range(-0.5,0.5)) * 1.5
+	target_position = posicionObjetivo 
 	velocity = Vector3.ZERO
 	
 	set_collision_layer_value(1,true)
@@ -441,7 +441,7 @@ func entrar_en_comedor():
 	hide()
 
 func salir_del_comedor(posicionObjetivo: Vector3):	#Al salir del comedor, la unidad aparece en el punto de respawn del comedor, y se le asigna como objetivo el punto de salida de este mismo. Si la unidad tenía una tarea guardada, irá a por esta en vez de dirigirse al punto de salida.
-	target_position = posicionObjetivo
+	posicionObjetivo = posicionObjetivo + Vector3(randf_range(-0.5,0.5),0.0,randf_range(-0.5,0.5)) * 1.5
 	velocity = Vector3.ZERO
 	
 	set_collision_layer_value(1, true)

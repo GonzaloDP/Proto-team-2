@@ -54,8 +54,8 @@ func terminar_comida(unidad: Unidad):
 	unidad._resetSatiety()
 	unidades_comiendo.erase(unidad)
 	
-	var objetivo_salida = $PuntoObjetivoSalida.global_position	#Expulsamos a la unidad del comedor, luego le pasamos el punto objetivo del comedor, para que se dirija hacia este.
 	kickOutUnit(unidad)
+	var objetivo_salida = $PuntoObjetivoSalida.global_position	#Expulsamos a la unidad del comedor, luego le pasamos el punto objetivo del comedor, para que se dirija hacia este.
 	unidad.salir_del_comedor(objetivo_salida)
 
 func recibir_trabajo(cantidad: float):
@@ -72,6 +72,9 @@ func recibir_trabajo(cantidad: float):
 		completado = true
 		$CleanUpTimer.start()
 		add_to_group("Comedores")
+		for each in puntosDeSalida:
+			each.global_position.y = 0
+		$PuntoObjetivoSalida.global_position.y = 0
 
 		#Edificio construido se teletransporta hacia el edificio rojo desvanecido
 		if modelo_rojo:
