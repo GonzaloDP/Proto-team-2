@@ -30,8 +30,13 @@ var etapa_actual: TutorialStep = TutorialStep.INTRODUCCION # Etapa actual
 var unidades_conectadas: Array[Unidad] = []
 var edificio_reproduccion_actual: EdificioReproduccion = null
 var reproduccion_completada: bool = false
+var esperando_interaccion: bool = false
+var interaccion_completada: bool = false
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	$"../UITuto".process_mode = Node.PROCESS_MODE_ALWAYS
+	
 	boton_continuar.pressed.connect(siguiente_etapa)
 	iniciar_tutorial()
 	camara.seleccion_actualizada.connect(_on_seleccion_actualizada)
@@ -48,6 +53,10 @@ func iniciar_tutorial():
 
 # Muestra la etapa correspondiente
 func mostrar_etapa():
+	get_tree().paused = true
+	esperando_interaccion = false
+	interaccion_completada = false
+	
 	if etapa_actual != TutorialStep.RECOLECCION:
 		desconectar_unidades()
 	
@@ -150,36 +159,51 @@ Si ya sabes jugar, en la esquina inferior derecha podrás skipear el tutorial."
 		
 		TutorialStep.FINALIZADO:
 			finalizar_tutorial()
+	
+	if etapa_requiere_interaccion():
+		boton_continuar.text = "Comenzar"
+		boton_continuar.disabled = false
 
 func siguiente_etapa():
+	if etapa_requiere_interaccion() and not interaccion_completada:
+		if not esperando_interaccion:
+			esperando_interaccion = true
+			
+			boton_continuar.disabled = true
+			boton_continuar.text = "Realizá la acción.."
+			
+			get_tree().paused = false
+		return
+	
 	if etapa_actual < TutorialStep.FINALIZADO:
 		etapa_actual += 1
 		mostrar_etapa()
 
 func finalizar_tutorial():
-	print("Tutorial completado")
+	get_tree().paused = false
+	
 	Level.restart_level()
 	get_tree().change_scene_to_file("res://Escenas/Level.tscn")
 
 func _on_seleccion_actualizada(cantidad: int):
 	if etapa_actual == TutorialStep.SELECCION_UNIDADES:
 		if cantidad > 0:
-			boton_continuar.disabled = false
+			completar_interaccion()
 	
 	if etapa_actual == TutorialStep.RECOLECCION:
 		conectar_unidades_seleccionadas()
 	
 	if etapa_actual == TutorialStep.ESTADISTICAS:
 		if cantidad > 0:
-			boton_continuar.disabled = false
+			completar_interaccion()
 
 func _on_orden_movimiento_emitida():
 	if etapa_actual == TutorialStep.MANEJO_UNIDADES:
-		boton_continuar.disabled = false
+		completar_interaccion()
 
 func _on_camara_desplazada():
 	if etapa_actual == TutorialStep.CAMARA:
-		boton_continuar.disabled = false
+		completar_interaccion()
 
 func conectar_unidades_seleccionadas():
 	desconectar_unidades()
@@ -201,14 +225,12 @@ func desconectar_unidades():
 
 func _on_recurso_recolectado():
 	if etapa_actual == TutorialStep.RECOLECCION:
-		boton_continuar.disabled = false
+		completar_interaccion()
 		desconectar_unidades()
 
 func _on_comedor_colocado(edificio: Edificio):
 	if etapa_actual != TutorialStep.CONSTRUCCION:
 		return
-	
-	print("Tutorial: comedor colocado, espeando construcción")
 	
 	while is_instance_valid(edificio) and not edificio.completado:
 		await get_tree().create_timer(0.2).timeout
@@ -217,8 +239,7 @@ func _on_comedor_colocado(edificio: Edificio):
 		return
 	
 	if etapa_actual == TutorialStep.CONSTRUCCION:
-		print("Tutorial: comedor terminado")
-		boton_continuar.disabled = false
+		completar_interaccion()
 
 func _on_reproduccion_colocada(edificio: EdificioReproduccion):
 	if etapa_actual != TutorialStep.REPRODUCCION_1:
@@ -233,7 +254,7 @@ func _on_reproduccion_colocada(edificio: EdificioReproduccion):
 		return
 	
 	if etapa_actual == TutorialStep.REPRODUCCION_1:
-		boton_continuar.disabled = false
+		completar_interaccion()
 		conectar_eventos_reproduccion()
 
 func conectar_eventos_reproduccion():
@@ -253,4 +274,27 @@ func _on_nueva_unidad_creada(unidad: Unidad):
 		return
 	
 	reproduccion_completada = true
+	completar_interaccion()
+
+func etapa_requiere_interaccion():
+	return etapa_actual in [
+		TutorialStep.SELECCION_UNIDADES,
+		TutorialStep.MANEJO_UNIDADES,
+		TutorialStep.CAMARA,
+		TutorialStep.RECOLECCION,
+		TutorialStep.CONSTRUCCION,
+		TutorialStep.REPRODUCCION_1,
+		TutorialStep.REPRODUCCION_2,
+	]
+
+func completar_interaccion():
+	if not esperando_interaccion:
+		return
+	
+	interaccion_completada = true
+	esperando_interaccion = false
+	
+	get_tree().paused = true
+	
 	boton_continuar.disabled = false
+	boton_continuar.text = "Continuar"
