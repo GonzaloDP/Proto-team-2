@@ -10,7 +10,7 @@ class_name EdificioComedor
 var unidades_comiendo: Array[Unidad] = []
 
 func _ready() -> void:
-	profundidad_inicial = -5.0	#Como el comedor es mucho más alto que los demás edificio, sobreescribimos el valor de la profundidad inicial.
+	profundidad_inicial = -7.0	#Como el comedor es mucho más alto que los demás edificio, sobreescribimos el valor de la profundidad inicial.
 	puntosDeSalida = [$PuntoRespawn, $PuntoRespawn2, $PuntoRespawn3]
 	
 func _on_area_3d_body_entered(body: Node3D) -> void:
