@@ -158,6 +158,7 @@ func siguiente_etapa():
 
 func finalizar_tutorial():
 	print("Tutorial completado")
+	Level.restart_level()
 	get_tree().change_scene_to_file("res://Escenas/Level.tscn")
 
 func _on_seleccion_actualizada(cantidad: int):
