@@ -187,6 +187,24 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 						unidad.target_resource = null
 						unidad.set_move_target(edificio.global_position)
 
+		elif result.collider is Area3D and result.collider.get_parent() is EdificioPasivo: #Si el jugador hace clic sobre un edificio pasivo, una de las unidades seleccionadas irá a ocuparlo.
+			var edificio: EdificioPasivo = result.collider.get_parent()
+			if(edificio.completado == false):	#Si el edificio no está terminado, entonces le pedimos a las unidades que lo construyan.
+				for unidad in selected_units:
+					if is_instance_valid(unidad):
+						if unidad.has_method("asignar_edificio"):
+							unidad.asignar_edificio(edificio)
+				return
+			if(edificio.ocupado):
+				print("Ya hay una unidad trabajando allí.")
+				return
+				
+			if(is_instance_valid(selected_units.front())):	#Como el edificio pasivo solo admite una unidad, al tener un grupo seleccionado, solo la primera se dirigirá hacia el edificio.
+				if selected_units.front().has_method("asignar_edificio"):
+					selected_units.front().asignar_edificio(edificio)
+					ocultar_indicador(selected_units.front())
+					selected_units.front().seleccionada = false
+					edificio.ocupante = selected_units.pop_front()
 
 		else:
 			_ocultar_hud_demolicion()

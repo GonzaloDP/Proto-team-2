@@ -7,7 +7,7 @@ height = 0.9650879
 radius = 1.2753906
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x43xs"]
-size = Vector3(9.380913, 14.271957, 7.420927)
+size = Vector3(10.477491, 14.271957, 8.316658)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qkj57"]
 resource_name = "Concreto"
@@ -358,7 +358,7 @@ shape = SubResource("CylinderShape3D_1icel")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.8606038)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1010859182]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22688532, 7.1463547, -1.7939432)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2809863, 7.1463547, -1.7547548)
 shape = SubResource("BoxShape3D_x43xs")
 
 [node name="Modelo_Terminado" type="MeshInstance3D" parent="." unique_id=1986485731]

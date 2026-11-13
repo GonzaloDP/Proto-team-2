@@ -39,7 +39,7 @@ func recibir_unidad(unidad: Unidad):
 		return
 	
 	unidades_comiendo.append(unidad)
-	unidad.entrar_en_comedor()
+	unidad.entrar_en_edificio()
 	
 	var timer := get_tree().create_timer(tiempo_comida)
 	timer.timeout.connect(func(): terminar_comida(unidad))

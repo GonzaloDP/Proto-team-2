@@ -126,6 +126,7 @@ func _process(delta: float):
 					casco.hide()
 					martillo.hide()
 		else:
+			anim_player.play("walk")
 			target_edificio = null
 			if casco and casco.visible:
 				casco.hide()
@@ -367,6 +368,8 @@ func _on_hunger_timer_timeout():	#Al acabarse el timer de la comida, la saciedad
 			goEat()
 
 func goEat():
+	if(get_tree().get_nodes_in_group("Comedores").is_empty()):	#Si no hay ningún comedor. Pues no se hace nada.
+		return
 	if(get_tree().get_nodes_in_group("Comedores").size() == 1):	#Primero chequeamos si hay un solo comedor. De ser así, obviamos las comparativas y nos dirigimos directamente allí.
 		set_move_target(get_tree().get_first_node_in_group("Comedores").global_position)
 	else:
@@ -429,7 +432,7 @@ func get_construction_speed() -> float:
 func get_breeding_speed() -> float:
 	return breedingSpeed * penaltyManager.breeding_multiplier
 
-func entrar_en_comedor():
+func entrar_en_edificio():
 	posicion_anterior = global_position
 	
 	velocity = Vector3.ZERO
@@ -439,6 +442,13 @@ func entrar_en_comedor():
 	set_collision_layer_value(1, false)
 	set_collision_mask_value(1, false)
 	hide()
+	
+func _salir_de_edificio():
+	
+	velocity = Vector3.ZERO
+	set_collision_layer_value(1, true)
+	set_collision_mask_value(1, true)
+	show()
 
 func salir_del_comedor(posicionObjetivo: Vector3):	#Al salir del comedor, la unidad aparece en el punto de respawn del comedor, y se le asigna como objetivo el punto de salida de este mismo. Si la unidad tenía una tarea guardada, irá a por esta en vez de dirigirse al punto de salida.
 	posicionObjetivo = posicionObjetivo + Vector3(randf_range(-0.5,0.5),0.0,randf_range(-0.5,0.5)) * 1.5
@@ -505,7 +515,7 @@ func resumeTask(): #Esta función toma la tarea guardada y le ordena a la unidad
 		return
 	else: #chequeamos, si la tarea guardada es un edificio, entonces chequeamos que no esté terminado. No tendría sentido enviar a la unidad allí de otro modo.
 		if(savedTask is Edificio):
-			if(savedTask.completado == false):
+			if(savedTask.completado == false or savedTask is EdificioPasivo):
 				asignar_edificio(savedTask)
 		if(savedTask is Recurso):
 			seekResource(savedTask)
