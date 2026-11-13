@@ -1,11 +1,30 @@
 extends Node3D
 
-@onready var titulo: Label = $"../UITuto/TutorialPanel/PanelContainer/Contenido/Titulo"
-@onready var descripcion: RichTextLabel = $"../UITuto/TutorialPanel/PanelContainer/Contenido/Descripcion"
-@onready var boton_continuar: Button = $"../UITuto/TutorialPanel/PanelContainer/Contenido/Continuar"
+@onready var titulo: Label = $"../UITuto/TutorialPanel/PanelContainer/MarginContainer/Contenido/Titulo"
+@onready var descripcion: RichTextLabel = $"../UITuto/TutorialPanel/PanelContainer/MarginContainer/Contenido/Descripcion"
+@onready var boton_continuar: Button = $"../UITuto/TutorialPanel/PanelContainer/MarginContainer/Contenido/Continuar"
 @onready var camara = $"../CameraPosition/CameraRotationX/CameraZoomPivot/Camera3D2"
 @onready var control_camara = $"../CameraPosition"
 @onready var boton_skip: Button = $"../UITuto/SkipTuto"
+
+@export_group("Continuar")
+@export var continuar_normal: Texture2D
+@export var continuar_hover: Texture2D
+@export var continuar_pressed: Texture2D
+
+@export_group("Comenzar")
+@export var comenzar_normal: Texture2D
+@export var comenzar_hover: Texture2D
+@export var comenzar_pressed: Texture2D
+
+@export_group("Avanzar Nivel")
+@export var avanzar_normal: Texture2D
+@export var avanzar_hover: Texture2D
+@export var avanzar_pressed: Texture2D
+
+@export_group("Realizar Acción")
+@export var realizar_accion_disabled: Texture2D
+
 
 # Estapas del tutorial
 enum TutorialStep {
@@ -56,6 +75,7 @@ func mostrar_etapa():
 	get_tree().paused = true
 	esperando_interaccion = false
 	interaccion_completada = false
+	cambiar_texturas_boton(continuar_normal,continuar_hover,continuar_pressed)
 	
 	if etapa_actual != TutorialStep.RECOLECCION:
 		desconectar_unidades()
@@ -65,50 +85,50 @@ func mostrar_etapa():
 			titulo.text = "Bienvenido a la VOLUNTAD DE DIOS"
 			descripcion.text = "A partir de ahora estarás a cargo de estas unidades. Tu tarea será administrarlas, conseguir recursos y mantener todo funcionando. 
 Si ya sabes jugar, en la esquina inferior derecha podrás skipear el tutorial."
-			boton_continuar.text = "Continuar"
+			#boton_continuar.text = "Continuar"
 			boton_continuar.disabled = false
 		
 		TutorialStep.OBJETIVO:
 			titulo.text = "Tu Objetivo"
 			descripcion.text = "Tu principal objetivo es conseguir los recursos necesarios para pagar la cuota. Tendrás un plazo determinado para cumplir con esta obligación."
-			boton_continuar.text = "Continuar"
+			#boton_continuar.text = "Continuar"
 			boton_continuar.disabled = false
 		
 		TutorialStep.SELECCION_UNIDADES:
 			titulo.text = "Señeccionar unidades"
 			descripcion.text = "Aprende a seleccionar tus unidades para poder darles órdenes. Haz clic primario a una unidad para seleccionarla o manten apretado el clic y arrastra el ratón para desplegar una ventana azul donde podrás seleccione a varias unidades."
-			boton_continuar.text = "Continuar"
+			#boton_continuar.text = "Continuar"
 			boton_continuar.disabled = true
 		
 		TutorialStep.MANEJO_UNIDADES:
 			titulo.text = "Mover unidades"
 			descripcion.text = "Ahora que seleccionaste una unidad, podés ordenarle que se mueva. Hacé clic derecho sobre el terreno para indicuale adónde ir."
-			boton_continuar.text = "Continuar"
+			#boton_continuar.text = "Continuar"
 			boton_continuar.disabled = true
 		
 		TutorialStep.CAMARA:
 			titulo.text = "Control de la cámara"
 			descripcion.text = "Podés desplazarte por el escenario utilizando las teclas WASD o acercando el cursor a los bordes de la pantalla. Probá ambos métodos para familiarizarte con el control de la cámara."
-			boton_continuar.text = "Continuar"
+			#boton_continuar.text = "Continuar"
 			boton_continuar.disabled = true
 		
 		TutorialStep.RECOLECCION:
 			titulo.text = "Recolectar recursos"
 			descripcion.text = "Los recusos son fundamentales para el desarrollo de tu aldea. Seleccioná una o varias unidades y hacé clic derecho sobre un recurso para ordenarles que lo recolecten."
-			boton_continuar.text = "continuar"
+			#boton_continuar.text = "continuar"
 			boton_continuar.disabled = true
 			conectar_unidades_seleccionadas()
 		
 		TutorialStep.INVENTARIO:
 			titulo.text = "Tu inventario"
 			descripcion.text = "En la esquina superior izquierda de la pantalla podés consultar los recursos de tu inventario: madera, piedra, metal y comida. También podés observar tu población actual y el límite de habitantes. Todos los recursos recolectados se almacenan automáticamente."
-			boton_continuar.text = "Continuar"
+			#boton_continuar.text = "Continuar"
 			boton_continuar.disabled = false
 		
 		TutorialStep.CONSTRUCCION:
 			titulo.text = "Construccion"
 			descripcion.text = "Podés hacer clic en el martillo que tienen sobre la cabeza de las unidades para desplegar el menú de construcción. Allí encontrarán los distintos edificios que pueden crear y que serán necesarios para sobrevivir. Construye un COMEDOR para que sus unidades puedan alimentarse."
-			boton_continuar.text = "Continuar"
+			#boton_continuar.text = "Continuar"
 			boton_continuar.disabled = true
 		
 		TutorialStep.ESTADISTICAS:
@@ -119,25 +139,25 @@ Si ya sabes jugar, en la esquina inferior derecha podrás skipear el tutorial."
 *Velocidad de movimiento: Determina qué tan rápido se desplaza por el mapa.
 *Velocidad de construcción: Determina qué tan rápido construye edificios.
 *Saciedad: Reprensenta qué tan alimentada está la unidad."
-			boton_continuar.text = "Continuar"
+			#boton_continuar.text = "Continuar"
 			boton_continuar.disabled = false
 		
 		TutorialStep.REPRODUCCION_1:
 			titulo.text = "Edificio de reproducción"
 			descripcion.text = "El edificio de reproducción permite generar nuevas unidades y mejorar las características de nuestra población. Para utilizarlo, primero deben construir un edificio de REPRODUCCIÓN."
-			boton_continuar.text = "Continuar"
+			#boton_continuar.text = "Continuar"
 			boton_continuar.disabled = true
 		
 		TutorialStep.REPRODUCCION_2:
 			titulo.text = "Reproducción"
 			descripcion.text = "¡Ahora podemos reproducir nuestras unidades! Seleccionen dos unidades y envíenlas juntas al edificio de reproducción. Cuando el proceso termine, aparecerá una nueva unidad con características mejoradas."
-			boton_continuar.text = "Continuar"
+			#boton_continuar.text = "Continuar"
 			boton_continuar.disabled = true
 		
 		TutorialStep.PAGO_CUOTA:
 			titulo.text = "Cuota"
 			descripcion.text = "Para mantener a nuestra aldea funcionando, debemos pagar cuotas periódicamente. En el HUD de la derecha pueden consultar qué cantidad de cada recusso nos exige la próxima cupta y cuántas días quedan para pagarla. La barra de progreso indica cuánto avanzó el día, tanto visualmente como mediante un porcentaje. Cuando llegue la fecha de vencimiento, la cuota se cobrará automáticamente si contamos con todos los recursos necesarios."
-			boton_continuar.text = "Continuar"
+			#boton_continuar.text = "Continuar"
 			boton_continuar.disabled = false
 		
 		TutorialStep.CONSECUENCIAS:
@@ -148,20 +168,20 @@ Si ya sabes jugar, en la esquina inferior derecha podrás skipear el tutorial."
 * La reproducción de unidades será menos eficiente.
 * Si no pagas la cuota por 3 días, sin la necesidad de ser consecutivos, pierdes.
 ¡Administren bien los recursos y prioricen el pago de las cuotas, sino DIOS se enojará!"
-			boton_continuar.text = "Avanzar al Nivel"
+			cambiar_texturas_boton(avanzar_normal, avanzar_hover, avanzar_pressed)
 			boton_continuar.disabled = false
 		
 		TutorialStep.TUTO_COMPLETADO:
 			titulo.text = "¡Felicidades completaste el tutorial!"
 			descripcion.text = "Ahora ya sabes cómo jugar a la Voluntad de Dios. Para avanzar aprieta el botón Continuar que está debajo y comenzarás con el nivel que tenemos preparado para vos."
-			boton_continuar.text = "Continuar"
+			#boton_continuar.text = "Continuar"
 			boton_continuar.disabled = false
 		
 		TutorialStep.FINALIZADO:
 			finalizar_tutorial()
 	
 	if etapa_requiere_interaccion():
-		boton_continuar.text = "Comenzar"
+		cambiar_texturas_boton(comenzar_normal,comenzar_hover,comenzar_pressed)
 		boton_continuar.disabled = false
 
 func siguiente_etapa():
@@ -170,9 +190,10 @@ func siguiente_etapa():
 			esperando_interaccion = true
 			
 			boton_continuar.disabled = true
-			boton_continuar.text = "Realizá la acción.."
+			mostrar_accion_pendiente()
 			
 			get_tree().paused = false
+			
 		return
 	
 	if etapa_actual < TutorialStep.FINALIZADO:
@@ -297,4 +318,24 @@ func completar_interaccion():
 	get_tree().paused = true
 	
 	boton_continuar.disabled = false
-	boton_continuar.text = "Continuar"
+	cambiar_texturas_boton(continuar_normal,continuar_hover,continuar_pressed)
+	#boton_continuar.text = "Continuar"
+
+func crear_estilo(textura: Texture2D) -> StyleBoxTexture:
+	var estilo = StyleBoxTexture.new()
+	estilo.texture = textura
+	return estilo
+
+func cambiar_texturas_boton(normal: Texture2D, hover: Texture2D, pressed: Texture2D):
+	boton_continuar.add_theme_stylebox_override("normal",crear_estilo(normal))
+	boton_continuar.add_theme_stylebox_override("hover",crear_estilo(hover))
+	boton_continuar.add_theme_stylebox_override("pressed",crear_estilo(pressed))
+	boton_continuar.add_theme_stylebox_override("disabled",crear_estilo(normal))
+	boton_continuar.add_theme_stylebox_override("focus",crear_estilo(normal))
+	
+	boton_continuar.text = ""
+
+func mostrar_accion_pendiente():
+	boton_continuar.add_theme_stylebox_override("disabled",crear_estilo(realizar_accion_disabled))
+	boton_continuar.text = ""
+	
