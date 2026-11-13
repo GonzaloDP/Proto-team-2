@@ -10,51 +10,90 @@
 [ext_resource type="Script" uid="uid://cc08vd22bdeu5" path="res://Scripts/cuota.gd" id="8_eowbx"]
 [ext_resource type="Script" uid="uid://bhryiebrp0c5" path="res://Scripts/selection_box.gd" id="9_0xl03"]
 [ext_resource type="PackedScene" uid="uid://b6phliso32eq2" path="res://Escenas/Tooltip.tscn" id="10_57psl"]
-[ext_resource type="Script" uid="uid://deqso77pqnruo" path="res://Scripts/inventario_ui.gd" id="11_3uvhe"]
-[ext_resource type="Texture2D" uid="uid://c6qu3qu2eba7" path="res://Assets/Gráficos 2D/Iconos/Icono Madera.png" id="12_ejtox"]
-[ext_resource type="Texture2D" uid="uid://ddmht60gnuwmf" path="res://Assets/Gráficos 2D/Iconos/Icono Piedra.png" id="13_lrrnf"]
-[ext_resource type="Texture2D" uid="uid://d1dxqpth6omnr" path="res://Assets/Gráficos 2D/Iconos/icono Metal.png" id="14_g8eca"]
-[ext_resource type="Texture2D" uid="uid://b2qu4v2btafcp" path="res://Assets/Gráficos 2D/Iconos/Icono comida.png" id="15_vr72q"]
+[ext_resource type="PackedScene" uid="uid://c5eol4u56basa" path="res://Escenas/Inventario_ui.tscn" id="11_m0co8"]
+[ext_resource type="Texture2D" uid="uid://bt5tapkvixuwa" path="res://Assets/Gráficos 2D/UI/UI HUD2.png" id="14_uau71"]
+[ext_resource type="Texture2D" uid="uid://2b26hi2rm7hb" path="res://Assets/Gráficos 2D/UI/Fondo-progressBar.png" id="15_u1v05"]
 [ext_resource type="Script" uid="uid://dyd7d6si64dbe" path="res://Scripts/day_ui.gd" id="16_1nlju"]
+[ext_resource type="Texture2D" uid="uid://dk81vxhjsjwl" path="res://Assets/Gráficos 2D/UI/Marco-progressBar.png" id="16_ntwt0"]
 [ext_resource type="Script" uid="uid://xhpoh3cmgxo" path="res://Scripts/cuota_ui.gd" id="17_a4n8r"]
+[ext_resource type="Texture2D" uid="uid://c50ni4wq0d0da" path="res://Assets/Gráficos 2D/UI/Relleno-progressBar.png" id="17_j4020"]
 [ext_resource type="Script" uid="uid://dxptnbkd0tpec" path="res://Scripts/pause_menu.gd" id="18_qwksn"]
+[ext_resource type="Texture2D" uid="uid://doihx7veka6t6" path="res://Assets/Gráficos 2D/UI/Rayos divinos dorados con destellos.png" id="19_1nlju"]
 [ext_resource type="Script" uid="uid://b8up60c8maoh1" path="res://Scripts/boton_animado.gd" id="19_m0co8"]
+[ext_resource type="Texture2D" uid="uid://c8ewfwsq1rohd" path="res://Assets/Gráficos 2D/Botones/boton-reanudar.png" id="20_a4n8r"]
 [ext_resource type="Script" uid="uid://bxopmkerfdbx3" path="res://Scripts/win_screen.gd" id="20_mever"]
 [ext_resource type="Script" uid="uid://b8fn6cektmhqb" path="res://Scripts/defeat_screen.gd" id="21_4kuqj"]
+[ext_resource type="Texture2D" uid="uid://bcs1hpbfeggw4" path="res://Assets/Gráficos 2D/Botones/boton-reanudar-pressed.png" id="21_qwksn"]
 [ext_resource type="Script" uid="uid://dmcxvn345x7nl" path="res://Scripts/mouse_interaction.gd" id="22_k2ntv"]
+[ext_resource type="Texture2D" uid="uid://jlpe5s7jfjop" path="res://Assets/Gráficos 2D/Botones/boton-reanudar-hover.png" id="22_m0co8"]
 [ext_resource type="Script" uid="uid://c8wov27agejcy" path="res://Scripts/camera_rts.gd" id="23_uau71"]
+[ext_resource type="Texture2D" uid="uid://crgymt4d8knni" path="res://Assets/Gráficos 2D/Botones/boton-reiniciar.png" id="24_mever"]
 [ext_resource type="Script" uid="uid://bvdlol81y4g7f" path="res://Scripts/camera_3d.gd" id="24_u1v05"]
+[ext_resource type="Texture2D" uid="uid://c0sieti1pu7xw" path="res://Assets/Gráficos 2D/Botones/boton-reiniciar-pressed.png" id="25_4kuqj"]
 [ext_resource type="Script" uid="uid://xyn54yubrflu" path="res://Scripts/day_manager.gd" id="25_ntwt0"]
 [ext_resource type="Script" uid="uid://c4auf7cjj024c" path="res://Scripts/menu_construccion.gd" id="26_j4020"]
+[ext_resource type="Texture2D" uid="uid://b2cyr43on15fj" path="res://Assets/Gráficos 2D/Botones/boton-reiniciar-hover.png" id="26_k2ntv"]
 [ext_resource type="Texture2D" uid="uid://b18xa68b7nuqd" path="res://Assets/Gráficos 2D/Construcción UI/Martillo Icono.png" id="27_sgfik"]
+[ext_resource type="Texture2D" uid="uid://dqt7tjl7ytodj" path="res://Assets/Gráficos 2D/Botones/boton-abandonar.png" id="27_uau71"]
 [ext_resource type="Script" uid="uid://bm0vvop2w0grr" path="res://Scripts/penalties_manager.gd" id="28_1sy27"]
+[ext_resource type="Texture2D" uid="uid://b63tnfuf81ufc" path="res://Assets/Gráficos 2D/Botones/boton-abandonar-pressed.png" id="28_u1v05"]
 [ext_resource type="PackedScene" uid="uid://daacyapsqmknq" path="res://Escenas/HUD_Demolicion.tscn" id="29_l522m"]
+[ext_resource type="Texture2D" uid="uid://besgiia05q068" path="res://Assets/Gráficos 2D/Botones/boton-abandonar-hover.png" id="29_ntwt0"]
 [ext_resource type="PackedScene" uid="uid://bkvj7woegk1v6" path="res://Escenas/HUD_Unidad.tscn" id="30_h7775"]
 [ext_resource type="Script" uid="uid://c4vp1hku825nf" path="res://Scripts/tutorial.gd" id="31_4sq7t"]
+[ext_resource type="Texture2D" uid="uid://dw3s3y4w1psw7" path="res://Assets/Gráficos 2D/UI/UI HUD transparente.png" id="32_ln6rj"]
+[ext_resource type="Texture2D" uid="uid://bnc6nqxkpykp6" path="res://Assets/Gráficos 2D/Botones/Boton continuar.png" id="33_b5sqc"]
+[ext_resource type="Texture2D" uid="uid://c07jegt4hlham" path="res://Assets/Gráficos 2D/Botones/Boton continuar pressed.png" id="34_eowbx"]
+[ext_resource type="Texture2D" uid="uid://bl0pv71cqy8jn" path="res://Assets/Gráficos 2D/Botones/Boton continuar hover.png" id="35_0xl03"]
+[ext_resource type="Texture2D" uid="uid://byubnt8wp6xnp" path="res://Assets/Gráficos 2D/Botones/Boton comenzar.png" id="45_uau71"]
+[ext_resource type="Texture2D" uid="uid://bx5jq77qwse68" path="res://Assets/Gráficos 2D/Botones/Boton comenzar hover.png" id="46_u1v05"]
+[ext_resource type="Texture2D" uid="uid://cdm45e8mowx4o" path="res://Assets/Gráficos 2D/Botones/Boton comenzar pressed.png" id="47_ntwt0"]
+[ext_resource type="Texture2D" uid="uid://cf8b3m834bufu" path="res://Assets/Gráficos 2D/Botones/Boton Avanzar Nivel.png" id="48_j4020"]
+[ext_resource type="Texture2D" uid="uid://cttovxk05g1vb" path="res://Assets/Gráficos 2D/Botones/Boton Avanzar Nivel hover.png" id="49_sgfik"]
+[ext_resource type="Texture2D" uid="uid://cqrckccw4ilr" path="res://Assets/Gráficos 2D/Botones/Boton Avanzar Nivel pressed.png" id="50_1sy27"]
+[ext_resource type="Texture2D" uid="uid://c8l7fov4l3ohl" path="res://Assets/Gráficos 2D/Botones/Boton Realiza-accion disabled.png" id="51_l522m"]
+[ext_resource type="Texture2D" uid="uid://gdtg30fiwftj" path="res://Assets/Gráficos 2D/Botones/Boton skip.png" id="53_j4020"]
+[ext_resource type="Texture2D" uid="uid://dcglqtuw7dsqc" path="res://Assets/Gráficos 2D/Botones/Boton skip pressed.png" id="54_sgfik"]
+[ext_resource type="Texture2D" uid="uid://bd4povm54btbs" path="res://Assets/Gráficos 2D/Botones/Boton skip hover.png" id="55_1sy27"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_4sq7t"]
 vertices = PackedVector3Array(-41.7925, 0.524585, -14.7925, -40.5425, 0.524585, -14.7925, -37.2925, 0.524585, -18.0425, -54.0425, 0.524585, -13.7925, -42.2925, 0.524585, -13.7925, -21.7925, 0.524585, -26.0425, -21.7925, 0.524585, -27.2925, -20.5425, 0.524585, -27.5425, -20.5425, 0.524585, -53.5425, -54.0425, 0.524585, -53.5425, -19.5425, 0.524585, -27.2925, -19.5425, 0.524585, -26.0425, -11.2925, 0.524585, -16.5425, -9.5425, 0.524585, -16.5425, -9.2925, 0.524585, -15.0425, 7.2075005, 0.524585, -12.2925, 7.9575005, 0.524585, -12.2925, 7.9575005, 0.524585, -53.5425, 8.7075, 0.524585, -12.2925, 18.4575, 0.524585, -13.5425, 18.4575, 0.524585, -15.2925, 19.7075, 0.524585, -53.5425, 19.7075, 0.524585, -15.5425, 20.7075, 0.524585, -15.5425, 20.9575, 0.524585, -15.0425, 54.9575, 0.524585, -15.0425, 54.9575, 0.524585, -53.5425, -21.0425, 0.524585, -25.2925, -16.5425, 0.524585, -9.7925, -11.2925, 0.524585, -14.0425, -11.7925, 0.524585, -14.2925, -16.7925, 0.524585, -10.2925, -11.7925, 0.524585, -16.2925, -20.2925, 0.524585, -25.2925, -19.0425, 0.524585, -10.0425, -20.5425, 0.524585, -7.5424995, -19.0425, 0.524585, -8.2925, -22.0425, 0.524585, -7.5424995, -40.0425, 0.524585, -13.2925, -40.0425, 0.524585, -14.5425, -10.7925, 2.024585, -15.5425, -10.7925, 2.024585, -15.0425, -10.2925, 2.024585, -15.0425, -10.2925, 2.024585, -15.5425, 0.95750046, 0.524585, -2.2924995, 6.7075005, 0.524585, -10.0425, 6.7075005, 0.524585, -12.0425, -9.2925, 0.524585, -14.2925, -1.5424995, 0.524585, -2.0424995, -9.7925, 0.524585, -14.0425, -1.7924995, 0.524585, -1.5424995, 20.9575, 0.524585, -3.7924995, 20.9575, 0.524585, -2.0424995, 27.7075, 0.524585, 0.70750046, 19.7075, 0.524585, -13.0425, 19.7075, 0.524585, -4.0424995, 29.2075, 0.524585, 0.70750046, 20.9575, 0.524585, -13.2925, 54.9575, 0.524585, 1.7075005, 29.4575, 0.524585, 1.7075005, 19.4575, 2.024585, -14.5425, 19.4575, 2.024585, -14.0425, 19.9575, 2.024585, -14.0425, 19.9575, 2.024585, -14.5425, -9.2925, 0.524585, -1.0424995, -1.7924995, 0.524585, -1.0424995, -9.5425, 0.524585, -2.0424995, -16.5425, 0.524585, -8.2925, -11.2925, 0.524585, -2.0424995, -17.5425, 0.524585, 1.9575005, -17.5425, 0.524585, 0.70750046, -20.7925, 0.524585, -5.0424995, -22.5425, 0.524585, -5.2924995, -41.5425, 0.524585, -12.5425, -22.5425, 0.524585, -7.0424995, -40.7925, 0.524585, -12.5425, -16.5425, 0.524585, 2.4575005, -54.0425, 0.524585, 55.4575, -16.5425, 0.524585, 55.4575, 13.7075, 0.524585, -3.2924995, 18.4575, 0.524585, -3.0424995, 18.7075, 0.524585, -4.0424995, 13.4575, 0.524585, -5.0424995, 18.7075, 0.524585, -13.0425, 9.2075, 0.524585, -9.7925, 8.7075, 0.524585, -9.5425, 11.7075, 0.524585, -5.0424995, 9.2075, 0.524585, -12.0425, 7.7075005, 2.024585, -11.2925, 7.7075005, 2.024585, -10.5425, 8.2075, 2.024585, -10.5425, 8.2075, 2.024585, -11.2925, 1.7075005, 0.524585, -1.5424995, 1.4575005, 0.524585, -0.29249954, 2.2075005, 0.524585, -0.29249954, 2.4575005, 0.524585, 0.20750046, 11.2075, 0.524585, -4.7924995, 6.9575005, 0.524585, -9.5425, 11.2075, 0.524585, -2.7924995, 11.7075, 0.524585, -2.5424995, -18.0425, 2.024585, -9.2925, -18.0425, 2.024585, -8.7925, -17.5425, 2.024585, -8.7925, -17.5425, 2.024585, -9.2925, -18.7925, 0.524585, -7.7924995, -20.2925, 0.524585, -5.2924995, -17.2925, 0.524585, 0.20750046, -15.7925, 0.524585, 0.20750046, -15.2925, 0.524585, 0.95750046, -11.5425, 0.524585, 0.45750046, -11.7925, 0.524585, -1.7924995, -16.7925, 0.524585, -7.7924995, 12.2075, 2.024585, -4.0424995, 12.2075, 2.024585, -3.5424995, 12.7075, 2.024585, -3.5424995, 12.7075, 2.024585, -4.0424995, 15.7075, 0.524585, 9.9575, 15.9575, 0.524585, 10.4575, 17.9575, 0.524585, 8.7075, 14.2075, 0.524585, 9.9575, 18.4575, 0.524585, -1.7924995, 13.2075, 0.524585, -2.5424995, 18.9575, 0.524585, -1.5424995, 13.7075, 0.524585, 10.4575, 19.4575, 2.024585, -3.0424995, 19.4575, 2.024585, -2.5424995, 19.9575, 2.024585, -2.5424995, 19.9575, 2.024585, -3.0424995, 2.4575005, 0.524585, 1.9575005, 1.9575005, 0.524585, 2.2075005, 13.7075, 0.524585, 10.7075, 27.2075, 0.524585, 0.95750046, 20.7075, 0.524585, -1.5424995, 27.2075, 0.524585, 2.4575005, 27.9575, 0.524585, 2.9575005, -10.7925, 2.024585, -1.0424995, -10.7925, 2.024585, -0.54249954, -10.2925, 2.024585, -0.54249954, -10.2925, 2.024585, -1.0424995, 15.4575, 0.524585, 12.9575, 15.2075, 0.524585, 12.2075, 14.4575, 0.524585, 12.2075, -0.54249954, 0.524585, 1.7075005, -0.79249954, 0.524585, -0.042499542, -1.7924995, 0.524585, -0.54249954, -9.2925, 0.524585, 0.20750046, -9.7925, 0.524585, 0.45750046, 13.7075, 0.524585, 11.4575, 0.20750046, 0.524585, 2.2075005, -9.7925, 0.524585, 55.4575, 15.7075, 0.524585, 55.4575, -15.5425, 0.524585, 2.2075005, 29.4575, 0.524585, 2.2075005, 32.2075, 0.524585, 19.2075, 33.2075, 0.524585, 19.2075, 33.7075, 0.524585, 20.4575, 54.9575, 0.524585, 20.4575, 15.9575, 0.524585, 11.7075, 28.9575, 0.524585, 2.9575005, 31.4575, 0.524585, 19.9575, 31.4575, 0.524585, 21.2075, 32.4575, 0.524585, 55.4575, 32.4575, 0.524585, 21.4575, 33.2075, 0.524585, 21.4575, 54.9575, 0.524585, 55.4575)
 polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 4, 3), PackedInt32Array(3, 2, 0), PackedInt32Array(6, 5, 2), PackedInt32Array(8, 7, 6), PackedInt32Array(2, 3, 6), PackedInt32Array(6, 3, 8), PackedInt32Array(8, 3, 9), PackedInt32Array(11, 10, 12), PackedInt32Array(12, 10, 13), PackedInt32Array(10, 7, 8), PackedInt32Array(15, 14, 13), PackedInt32Array(15, 13, 16), PackedInt32Array(16, 13, 10), PackedInt32Array(16, 10, 8), PackedInt32Array(16, 8, 17), PackedInt32Array(20, 19, 18), PackedInt32Array(18, 16, 20), PackedInt32Array(20, 16, 17), PackedInt32Array(20, 17, 21), PackedInt32Array(21, 22, 20), PackedInt32Array(24, 23, 25), PackedInt32Array(25, 23, 26), PackedInt32Array(26, 23, 21), PackedInt32Array(23, 22, 21), PackedInt32Array(5, 27, 2), PackedInt32Array(31, 30, 28), PackedInt32Array(28, 30, 29), PackedInt32Array(32, 33, 12), PackedInt32Array(12, 33, 11), PackedInt32Array(30, 31, 32), PackedInt32Array(32, 31, 34), PackedInt32Array(32, 34, 33), PackedInt32Array(35, 37, 36), PackedInt32Array(36, 37, 34), PackedInt32Array(33, 34, 27), PackedInt32Array(27, 34, 37), PackedInt32Array(27, 37, 2), PackedInt32Array(2, 37, 38), PackedInt32Array(39, 1, 2), PackedInt32Array(38, 39, 2), PackedInt32Array(43, 42, 40), PackedInt32Array(40, 42, 41), PackedInt32Array(45, 44, 46), PackedInt32Array(46, 44, 48), PackedInt32Array(46, 48, 47), PackedInt32Array(46, 47, 14), PackedInt32Array(14, 15, 46), PackedInt32Array(47, 48, 49), PackedInt32Array(49, 48, 50), PackedInt32Array(53, 52, 51), PackedInt32Array(51, 55, 54), PackedInt32Array(53, 51, 56), PackedInt32Array(56, 51, 57), PackedInt32Array(57, 51, 54), PackedInt32Array(57, 24, 56), PackedInt32Array(56, 24, 58), PackedInt32Array(58, 24, 25), PackedInt32Array(58, 59, 56), PackedInt32Array(63, 62, 60), PackedInt32Array(60, 62, 61), PackedInt32Array(65, 64, 50), PackedInt32Array(50, 64, 66), PackedInt32Array(66, 68, 67), PackedInt32Array(28, 29, 67), PackedInt32Array(67, 29, 49), PackedInt32Array(67, 49, 66), PackedInt32Array(66, 49, 50), PackedInt32Array(70, 69, 71), PackedInt32Array(71, 69, 72), PackedInt32Array(72, 69, 73), PackedInt32Array(73, 69, 3), PackedInt32Array(3, 4, 73), PackedInt32Array(75, 74, 73), PackedInt32Array(73, 74, 72), PackedInt32Array(69, 76, 3), PackedInt32Array(3, 76, 78), PackedInt32Array(3, 78, 77), PackedInt32Array(80, 79, 81), PackedInt32Array(81, 79, 82), PackedInt32Array(83, 54, 55), PackedInt32Array(85, 84, 86), PackedInt32Array(86, 84, 82), PackedInt32Array(55, 81, 82), PackedInt32Array(87, 18, 19), PackedInt32Array(84, 87, 82), PackedInt32Array(82, 87, 19), PackedInt32Array(82, 19, 83), PackedInt32Array(82, 83, 55), PackedInt32Array(37, 74, 38), PackedInt32Array(38, 74, 75), PackedInt32Array(91, 90, 88), PackedInt32Array(88, 90, 89), PackedInt32Array(94, 93, 92), PackedInt32Array(95, 94, 92), PackedInt32Array(85, 86, 96), PackedInt32Array(85, 96, 97), PackedInt32Array(97, 96, 98), PackedInt32Array(97, 98, 92), PackedInt32Array(92, 98, 95), PackedInt32Array(45, 97, 44), PackedInt32Array(44, 97, 92), PackedInt32Array(98, 99, 95), PackedInt32Array(103, 102, 100), PackedInt32Array(100, 102, 101), PackedInt32Array(36, 104, 35), PackedInt32Array(35, 104, 105), PackedInt32Array(105, 106, 71), PackedInt32Array(71, 106, 70), PackedInt32Array(108, 107, 109), PackedInt32Array(109, 107, 110), PackedInt32Array(104, 111, 105), PackedInt32Array(105, 111, 106), PackedInt32Array(106, 111, 110), PackedInt32Array(110, 111, 68), PackedInt32Array(111, 67, 68), PackedInt32Array(110, 107, 106), PackedInt32Array(115, 114, 112), PackedInt32Array(112, 114, 113), PackedInt32Array(116, 118, 117), PackedInt32Array(118, 116, 119), PackedInt32Array(79, 80, 120), PackedInt32Array(120, 122, 79), PackedInt32Array(79, 122, 121), PackedInt32Array(121, 122, 118), PackedInt32Array(121, 118, 119), PackedInt32Array(119, 123, 121), PackedInt32Array(127, 126, 124), PackedInt32Array(124, 126, 125), PackedInt32Array(128, 95, 99), PackedInt32Array(128, 99, 129), PackedInt32Array(129, 99, 121), PackedInt32Array(129, 121, 123), PackedInt32Array(129, 123, 130), PackedInt32Array(52, 53, 131), PackedInt32Array(52, 131, 132), PackedInt32Array(132, 131, 133), PackedInt32Array(133, 134, 132), PackedInt32Array(132, 134, 122), PackedInt32Array(122, 134, 118), PackedInt32Array(138, 137, 135), PackedInt32Array(135, 137, 136), PackedInt32Array(141, 140, 139), PackedInt32Array(143, 142, 144), PackedInt32Array(144, 142, 145), PackedInt32Array(145, 142, 146), PackedInt32Array(65, 144, 64), PackedInt32Array(64, 144, 145), PackedInt32Array(147, 141, 129), PackedInt32Array(129, 141, 148), PackedInt32Array(129, 130, 147), PackedInt32Array(141, 139, 148), PackedInt32Array(148, 139, 146), PackedInt32Array(146, 139, 150), PackedInt32Array(146, 150, 149), PackedInt32Array(146, 142, 148), PackedInt32Array(108, 109, 151), PackedInt32Array(151, 109, 146), PackedInt32Array(151, 146, 149), PackedInt32Array(151, 149, 78), PackedInt32Array(78, 76, 151), PackedInt32Array(154, 153, 152), PackedInt32Array(152, 59, 154), PackedInt32Array(154, 59, 155), PackedInt32Array(155, 59, 156), PackedInt32Array(156, 59, 58), PackedInt32Array(139, 140, 157), PackedInt32Array(157, 117, 118), PackedInt32Array(139, 157, 118), PackedInt32Array(134, 158, 118), PackedInt32Array(118, 158, 139), PackedInt32Array(139, 158, 153), PackedInt32Array(139, 153, 159), PackedInt32Array(153, 158, 152), PackedInt32Array(139, 159, 160), PackedInt32Array(160, 162, 161), PackedInt32Array(161, 150, 160), PackedInt32Array(160, 150, 139), PackedInt32Array(155, 156, 163), PackedInt32Array(163, 156, 164), PackedInt32Array(163, 164, 161), PackedInt32Array(161, 162, 163)]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i8jda"]
-bg_color = Color(0.95686275, 0.17254902, 0.20784314, 1)
+[sub_resource type="SystemFont" id="SystemFont_m0co8"]
+font_names = PackedStringArray("Californian FB")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ggx5j"]
-bg_color = Color(0.70980394, 0.078431375, 0.12941177, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ln6rj"]
+texture = ExtResource("19_1nlju")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v7hys"]
-bg_color = Color(0.9882353, 0.39607844, 0.37254903, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o74lh"]
+texture = ExtResource("20_a4n8r")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4v37f"]
+texture = ExtResource("21_qwksn")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fl6f3"]
+texture = ExtResource("22_m0co8")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_22b86"]
+texture = ExtResource("24_mever")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5fnxb"]
+texture = ExtResource("25_4kuqj")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2ktlh"]
+texture = ExtResource("26_k2ntv")
 
 [sub_resource type="Theme" id="Theme_i8jda"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5kxe0"]
-bg_color = Color(0.95686275, 0.17254902, 0.20784314, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tri6c"]
+texture = ExtResource("27_uau71")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fu8k2"]
-bg_color = Color(0.7093019, 0.07813134, 0.12839827, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sg66u"]
+texture = ExtResource("28_u1v05")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u2sv0"]
-bg_color = Color(0.9864109, 0.3979757, 0.37338716, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6yxdn"]
+texture = ExtResource("29_ntwt0")
 
 [sub_resource type="Theme" id="Theme_h4t55"]
 
@@ -147,6 +186,24 @@ content_margin_right = 10.0
 content_margin_bottom = 10.0
 bg_color = Color(0.53333336, 0.53333336, 0.53333336, 0.47058824)
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nps2w"]
+texture = ExtResource("33_b5sqc")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0bhb4"]
+texture = ExtResource("34_eowbx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x8rl1"]
+texture = ExtResource("35_0xl03")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ntwt0"]
+texture = ExtResource("53_j4020")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u1v05"]
+texture = ExtResource("54_sgfik")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uau71"]
+texture = ExtResource("55_1sy27")
+
 [node name="Tutorial" type="Node3D" unique_id=1295018767]
 script = ExtResource("1_lf1w3")
 
@@ -232,142 +289,139 @@ script = ExtResource("9_0xl03")
 
 [node name="Tooltip" parent="UI" unique_id=329360181 instance=ExtResource("10_57psl")]
 
-[node name="InventarioUI" type="Control" parent="UI" unique_id=571587682]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 420.0
-offset_bottom = 70.0
-script = ExtResource("11_3uvhe")
+[node name="InventarioUI" parent="UI" unique_id=410876157 instance=ExtResource("11_m0co8")]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/InventarioUI" unique_id=1117051341]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/InventarioUI/VBoxContainer" unique_id=925857572]
-layout_mode = 2
-
-[node name="IconMadera" type="TextureRect" parent="UI/InventarioUI/VBoxContainer/HBoxContainer" unique_id=507528787]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-texture = ExtResource("12_ejtox")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="LabelMadera" type="Label" parent="UI/InventarioUI/VBoxContainer/HBoxContainer" unique_id=204743402]
-layout_mode = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="UI/InventarioUI/VBoxContainer" unique_id=1818758833]
-layout_mode = 2
-
-[node name="IconPiedra" type="TextureRect" parent="UI/InventarioUI/VBoxContainer/HBoxContainer2" unique_id=2097821708]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-texture = ExtResource("13_lrrnf")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="LabelPiedra" type="Label" parent="UI/InventarioUI/VBoxContainer/HBoxContainer2" unique_id=1861554169]
-layout_mode = 2
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="UI/InventarioUI/VBoxContainer" unique_id=1705076365]
-layout_mode = 2
-
-[node name="IconMetal" type="TextureRect" parent="UI/InventarioUI/VBoxContainer/HBoxContainer3" unique_id=1879291213]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-texture = ExtResource("14_g8eca")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="LabelMetal" type="Label" parent="UI/InventarioUI/VBoxContainer/HBoxContainer3" unique_id=2125560515]
-layout_mode = 2
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="UI/InventarioUI/VBoxContainer" unique_id=1992466240]
-layout_mode = 2
-
-[node name="IconComida" type="TextureRect" parent="UI/InventarioUI/VBoxContainer/HBoxContainer4" unique_id=945587277]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-texture = ExtResource("15_vr72q")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="LabelComida" type="Label" parent="UI/InventarioUI/VBoxContainer/HBoxContainer4" unique_id=874767175]
-layout_mode = 2
-
-[node name="LabelPoblación" type="Label" parent="UI/InventarioUI/VBoxContainer" unique_id=566696229]
-layout_mode = 2
-
-[node name="DayUI" type="Control" parent="UI" unique_id=463724722]
+[node name="DayUI" type="Control" parent="UI" unique_id=190720885]
 layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -59.0
+offset_left = -249.0
 offset_top = 20.0
-offset_right = -19.0
-offset_bottom = 60.0
+offset_right = -53.89795
+offset_bottom = 331.0204
 grow_horizontal = 0
 scale = Vector2(1.225, 1.225)
+size_flags_horizontal = 0
+size_flags_vertical = 0
 script = ExtResource("16_1nlju")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/DayUI" unique_id=594506068]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 54.0
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/DayUI" unique_id=1391554298]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("14_uau71")
+patch_margin_left = 40
+patch_margin_top = 40
+patch_margin_right = 40
+patch_margin_bottom = 40
 
-[node name="Dias" type="Label" parent="UI/DayUI/VBoxContainer" unique_id=1788123509]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/DayUI" unique_id=136926943]
+propagate_maximum_size = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dias" type="Label" parent="UI/DayUI/VBoxContainer" unique_id=2093537525]
 layout_mode = 2
+size_flags_horizontal = 4
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 35.2)
+text = "dias"
 
-[node name="ProgresoDia" type="ProgressBar" parent="UI/DayUI/VBoxContainer" unique_id=234744608]
+[node name="ProgresoDia" type="TextureProgressBar" parent="UI/DayUI/VBoxContainer" unique_id=649191970]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 20.64)
+offset_transform_scale = Vector2(0.28, 0.28)
+texture_under = ExtResource("15_u1v05")
+texture_over = ExtResource("16_ntwt0")
+texture_progress = ExtResource("17_j4020")
 
-[node name="CuotaUI" type="Control" parent="UI" unique_id=1535982634]
+[node name="CuotaUI" type="Control" parent="UI" unique_id=1735893182]
 layout_mode = 3
 anchor_left = 1.0
 anchor_top = 0.069000006
 anchor_right = 1.0
 anchor_bottom = 0.069000006
-offset_left = -84.0
-offset_top = -24.712006
-offset_right = -44.0
-offset_bottom = 15.287994
+offset_left = -210.0
+offset_top = 86.29799
+offset_right = -76.93872
+offset_bottom = 260.99173
 grow_horizontal = 0
 scale = Vector2(1.225, 1.225)
 script = ExtResource("17_a4n8r")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/CuotaUI" unique_id=1041738528]
-layout_mode = 0
-offset_left = -70.20409
-offset_top = 57.142857
-offset_right = 44.795914
-offset_bottom = 111.14285
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/CuotaUI" unique_id=1677860874]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Cuota" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=101136191]
+[node name="Cuota" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=1584738262]
 layout_mode = 2
-text = "Cuota"
+theme_override_fonts/font = SubResource("SystemFont_m0co8")
+theme_override_font_sizes/font_size = 32
+text = "CUOTA"
 horizontal_alignment = 1
+uppercase = true
 
-[node name="DiasRestantes" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=493693613]
+[node name="DiasRestantes" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=1419997099]
 layout_mode = 2
 text = "Días restantes:"
 
-[node name="Madera" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=196596258]
+[node name="Madera" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=719959571]
 layout_mode = 2
 text = "Madera: 1"
 
-[node name="Piedra" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=272617575]
+[node name="Piedra" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=350398606]
 layout_mode = 2
 text = "Piedra: 1"
 
-[node name="Metal" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=1108684553]
+[node name="Metal" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=149666671]
 layout_mode = 2
 
-[node name="Comida" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=216961377]
+[node name="Comida" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=547021795]
 layout_mode = 2
+
+[node name="cuota pago" type="Label" parent="UI/CuotaUI" unique_id=541053556]
+visible = false
+modulate = Color(0.6509804, 0.76862746, 0.35686275, 1)
+layout_mode = 0
+offset_left = -8.19
+offset_top = 218.975
+offset_right = 136.81
+offset_bottom = 246.97507
+rotation = -0.13264503
+theme_override_font_sizes/font_size = 20
+text = "¡Cuota pagada!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="cuota impago" type="Label" parent="UI/CuotaUI" unique_id=570897757]
+visible = false
+modulate = Color(0.7254902, 0.29411766, 0.27058825, 1)
+custom_maximum_size = Vector2(200, -1)
+layout_mode = 0
+offset_left = -29.09
+offset_top = 213.87
+offset_right = 151.91
+offset_bottom = 241.87001
+theme_override_font_sizes/font_size = 20
+text = "¡Cuota incumplida!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="AlimentarDebug" type="Button" parent="UI" unique_id=1457718069]
 visible = false
@@ -378,6 +432,7 @@ text = "Alimentar esbirros"
 [node name="PauseMenu" type="Control" parent="UI" unique_id=311185493]
 process_mode = 2
 visible = false
+visibility_layer = 1023
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -390,54 +445,51 @@ script = ExtResource("18_qwksn")
 
 [node name="Panel" type="Panel" parent="UI/PauseMenu" unique_id=471368754]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -240.0
-offset_right = 250.0
-offset_bottom = 240.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ln6rj")
 
-[node name="ResumeButton" type="Button" parent="UI/PauseMenu/Panel" unique_id=813799659]
-layout_mode = 0
-offset_left = 100.0
-offset_top = 80.0
-offset_right = 400.0
-offset_bottom = 150.0
-text = "Reanudar"
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PauseMenu/Panel" unique_id=868638991]
+custom_maximum_size = Vector2(300, 300)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ResumeButton" type="Button" parent="UI/PauseMenu/Panel/VBoxContainer" unique_id=813799659]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_o74lh")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_4v37f")
+theme_override_styles/hover = SubResource("StyleBoxTexture_fl6f3")
 script = ExtResource("19_m0co8")
 
-[node name="RestartButton" type="Button" parent="UI/PauseMenu/Panel" unique_id=2014958026]
-layout_mode = 0
-offset_left = 100.0
-offset_top = 190.0
-offset_right = 400.0
-offset_bottom = 260.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_i8jda")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ggx5j")
-theme_override_styles/hover = SubResource("StyleBoxFlat_v7hys")
-text = "Reiniciar"
+[node name="RestartButton" type="Button" parent="UI/PauseMenu/Panel/VBoxContainer" unique_id=2014958026]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_22b86")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_5fnxb")
+theme_override_styles/hover = SubResource("StyleBoxTexture_2ktlh")
 script = ExtResource("19_m0co8")
 
-[node name="QuitButton" type="Button" parent="UI/PauseMenu/Panel" unique_id=1030064431]
-layout_mode = 0
-offset_left = 100.0
-offset_top = 300.0
-offset_right = 400.0
-offset_bottom = 370.0
+[node name="QuitButton" type="Button" parent="UI/PauseMenu/Panel/VBoxContainer" unique_id=1030064431]
+layout_mode = 2
+size_flags_vertical = 3
 theme = SubResource("Theme_i8jda")
-theme_override_styles/normal = SubResource("StyleBoxFlat_5kxe0")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_fu8k2")
-theme_override_styles/hover = SubResource("StyleBoxFlat_u2sv0")
-text = "Abandonar"
+theme_override_styles/normal = SubResource("StyleBoxTexture_tri6c")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_sg66u")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6yxdn")
 script = ExtResource("19_m0co8")
 
 [node name="WinScreen" type="Control" parent="UI" unique_id=605782393]
 process_mode = 2
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -524,6 +576,7 @@ script = ExtResource("19_m0co8")
 
 [node name="DefeatScreen" type="Control" parent="UI" unique_id=1855636727]
 process_mode = 2
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -718,8 +771,19 @@ script = ExtResource("28_1sy27")
 
 [node name="TutorialManager" type="Node3D" parent="." unique_id=2000728639]
 script = ExtResource("31_4sq7t")
+continuar_normal = ExtResource("33_b5sqc")
+continuar_hover = ExtResource("35_0xl03")
+continuar_pressed = ExtResource("34_eowbx")
+comenzar_normal = ExtResource("45_uau71")
+comenzar_hover = ExtResource("46_u1v05")
+comenzar_pressed = ExtResource("47_ntwt0")
+avanzar_normal = ExtResource("48_j4020")
+avanzar_hover = ExtResource("49_sgfik")
+avanzar_pressed = ExtResource("50_1sy27")
+realizar_accion_disabled = ExtResource("51_l522m")
 
 [node name="UITuto" type="CanvasLayer" parent="." unique_id=1270847766]
+layer = 5
 
 [node name="TutorialPanel" type="Control" parent="UITuto" unique_id=638402781]
 layout_mode = 3
@@ -740,38 +804,60 @@ mouse_filter = 2
 custom_minimum_size = Vector2(0, 380)
 custom_maximum_size = Vector2(500, -1)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = -250.0
-offset_top = -190.0
+offset_top = -214.0
 offset_right = 250.0
-offset_bottom = 190.0
+offset_bottom = 214.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Contenido" type="VBoxContainer" parent="UITuto/TutorialPanel/PanelContainer" unique_id=196560270]
+[node name="NinePatchRect" type="NinePatchRect" parent="UITuto/TutorialPanel/PanelContainer" unique_id=2042699115]
+layout_mode = 2
+texture = ExtResource("32_ln6rj")
+region_rect = Rect2(0, 1, 510, 509)
+patch_margin_left = 59
+patch_margin_top = 59
+patch_margin_right = 59
+patch_margin_bottom = 59
+
+[node name="MarginContainer" type="MarginContainer" parent="UITuto/TutorialPanel/PanelContainer" unique_id=257639025]
+layout_mode = 2
+theme_override_constants/margin_left = 34
+theme_override_constants/margin_top = 44
+theme_override_constants/margin_right = 35
+theme_override_constants/margin_bottom = 41
+
+[node name="Contenido" type="VBoxContainer" parent="UITuto/TutorialPanel/PanelContainer/MarginContainer" unique_id=196560270]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 110
+alignment = 1
 
-[node name="Titulo" type="Label" parent="UITuto/TutorialPanel/PanelContainer/Contenido" unique_id=2014826685]
+[node name="Titulo" type="Label" parent="UITuto/TutorialPanel/PanelContainer/MarginContainer/Contenido" unique_id=2014826685]
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Bienvenido a la VOLUNTAD DE DIOS"
 horizontal_alignment = 1
 
-[node name="Descripcion" type="RichTextLabel" parent="UITuto/TutorialPanel/PanelContainer/Contenido" unique_id=493297268]
+[node name="Descripcion" type="RichTextLabel" parent="UITuto/TutorialPanel/PanelContainer/MarginContainer/Contenido" unique_id=493297268]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_filter = 2
 text = "A partir de ahora estarás a cargo de este asentamiento.
 Tu tarea será administrar tus unidades, conseguir recursos y mantener todo funcionando."
 fit_content = true
 
-[node name="Continuar" type="Button" parent="UITuto/TutorialPanel/PanelContainer/Contenido" unique_id=1519759407]
+[node name="Continuar" type="Button" parent="UITuto/TutorialPanel/PanelContainer/MarginContainer/Contenido" unique_id=1519759407]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
-text = "Continuar"
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_nps2w")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_0bhb4")
+theme_override_styles/hover = SubResource("StyleBoxTexture_x8rl1")
 
 [node name="SkipTuto" type="Button" parent="UITuto" unique_id=1410575554]
 anchors_preset = 3
@@ -783,12 +869,14 @@ offset_left = -123.0
 offset_top = -31.0
 grow_horizontal = 0
 grow_vertical = 0
-text = "SKIP TUTORIAL"
+theme_override_styles/normal = SubResource("StyleBoxTexture_ntwt0")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_u1v05")
+theme_override_styles/hover = SubResource("StyleBoxTexture_uau71")
 
 [connection signal="pressed" from="UI/AlimentarDebug" to="." method="_on_alimentar_debug_pressed"]
-[connection signal="pressed" from="UI/PauseMenu/Panel/ResumeButton" to="UI/PauseMenu" method="_on_resume_button_pressed"]
-[connection signal="pressed" from="UI/PauseMenu/Panel/RestartButton" to="UI/PauseMenu" method="_on_restart_button_pressed"]
-[connection signal="pressed" from="UI/PauseMenu/Panel/QuitButton" to="UI/PauseMenu" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="UI/PauseMenu/Panel/VBoxContainer/ResumeButton" to="UI/PauseMenu" method="_on_resume_button_pressed"]
+[connection signal="pressed" from="UI/PauseMenu/Panel/VBoxContainer/RestartButton" to="UI/PauseMenu" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="UI/PauseMenu/Panel/VBoxContainer/QuitButton" to="UI/PauseMenu" method="_on_quit_button_pressed"]
 [connection signal="pressed" from="UI/WinScreen/Panel/QuitButton" to="UI/WinScreen" method="_on_quit_button_pressed"]
 [connection signal="pressed" from="UI/DefeatScreen/Panel/RestartButton" to="UI/DefeatScreen" method="_on_restart_button_pressed"]
 [connection signal="pressed" from="UI/DefeatScreen/Panel/QuitButton" to="UI/DefeatScreen" method="_on_quit_button_pressed"]
