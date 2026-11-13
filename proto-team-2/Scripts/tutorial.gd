@@ -95,14 +95,14 @@ Si ya sabes jugar, en la esquina inferior derecha podrás skipear el tutorial."
 			boton_continuar.disabled = false
 		
 		TutorialStep.SELECCION_UNIDADES:
-			titulo.text = "Señeccionar unidades"
-			descripcion.text = "Aprende a seleccionar tus unidades para poder darles órdenes. Haz clic primario a una unidad para seleccionarla o manten apretado el clic y arrastra el ratón para desplegar una ventana azul donde podrás seleccione a varias unidades."
+			titulo.text = "Seleccionar unidades"
+			descripcion.text = "Aprende a seleccionar tus unidades para poder darles órdenes. Haz clic primario a una unidad para seleccionarla o manten apretado el clic y arrastra el ratón para desplegar una ventana azul donde podrás seleccionar a varias unidades."
 			#boton_continuar.text = "Continuar"
 			boton_continuar.disabled = true
 		
 		TutorialStep.MANEJO_UNIDADES:
 			titulo.text = "Mover unidades"
-			descripcion.text = "Ahora que seleccionaste una unidad, podés ordenarle que se mueva. Hacé clic derecho sobre el terreno para indicuale adónde ir."
+			descripcion.text = "Ahora que seleccionaste una unidad, podés ordenarle que se mueva. Hacé clic derecho sobre el terreno para indicurle adónde ir."
 			#boton_continuar.text = "Continuar"
 			boton_continuar.disabled = true
 		
@@ -127,13 +127,13 @@ Si ya sabes jugar, en la esquina inferior derecha podrás skipear el tutorial."
 		
 		TutorialStep.CONSTRUCCION:
 			titulo.text = "Construccion"
-			descripcion.text = "Podés hacer clic en el martillo que tienen sobre la cabeza de las unidades para desplegar el menú de construcción. Allí encontrarán los distintos edificios que pueden crear y que serán necesarios para sobrevivir. Construye un COMEDOR para que sus unidades puedan alimentarse."
+			descripcion.text = "Podés hacer clic en el martillo que tienen sobre la cabeza de las unidades para desplegar el menú de construcción. Allí encontrarán los distintos edificios que pueden crear y que serán necesarios para sobrevivir. Construye un COMEDOR para que tus unidades puedan alimentarse."
 			#boton_continuar.text = "Continuar"
 			boton_continuar.disabled = true
 		
 		TutorialStep.ESTADISTICAS:
 			titulo.text = "Estadísticas de las unidades"
-			descripcion.text = "Cada unidad tiene sus propias estadísticas, que determinan su rengimiento y sus capacidades.
+			descripcion.text = "Cada unidad tiene sus propias estadísticas, que determinan su rendimiento y sus capacidades.
 *Velocidad de recolección: Determina qué tan rápido consigue recursos.
 *Velocidad de reproducción: Determina qué tan rápido puede reproducirse.
 *Velocidad de movimiento: Determina qué tan rápido se desplaza por el mapa.
@@ -150,13 +150,13 @@ Si ya sabes jugar, en la esquina inferior derecha podrás skipear el tutorial."
 		
 		TutorialStep.REPRODUCCION_2:
 			titulo.text = "Reproducción"
-			descripcion.text = "¡Ahora podemos reproducir nuestras unidades! Seleccionen dos unidades y envíenlas juntas al edificio de reproducción. Cuando el proceso termine, aparecerá una nueva unidad con características mejoradas."
+			descripcion.text = "¡Ahora podemos reproducir nuestras unidades! Seleccionen dos unidades y envíalas juntas al edificio de reproducción. Cuando el proceso termine, aparecerá una nueva unidad con características mejoradas."
 			#boton_continuar.text = "Continuar"
 			boton_continuar.disabled = true
 		
 		TutorialStep.PAGO_CUOTA:
 			titulo.text = "Cuota"
-			descripcion.text = "Para mantener a nuestra aldea funcionando, debemos pagar cuotas periódicamente. En el HUD de la derecha pueden consultar qué cantidad de cada recusso nos exige la próxima cupta y cuántas días quedan para pagarla. La barra de progreso indica cuánto avanzó el día, tanto visualmente como mediante un porcentaje. Cuando llegue la fecha de vencimiento, la cuota se cobrará automáticamente si contamos con todos los recursos necesarios."
+			descripcion.text = "Para mantener a nuestra aldea funcionando, debemos pagar cuotas periódicamente. En el HUD de la derecha pueden consultar qué cantidad de cada recurso nos exige la próxima cuota y cuántos días quedan para pagarla. La barra de progreso indica cuánto avanzó el día, tanto visualmente como mediante un porcentaje. Cuando llegue la fecha de vencimiento, la cuota se cobrará automáticamente si contamos con todos los recursos necesarios."
 			#boton_continuar.text = "Continuar"
 			boton_continuar.disabled = false
 		
@@ -167,7 +167,7 @@ Si ya sabes jugar, en la esquina inferior derecha podrás skipear el tutorial."
 * La construcción de edificios llevará más tiempo.
 * La reproducción de unidades será menos eficiente.
 * Si no pagas la cuota por 3 días, sin la necesidad de ser consecutivos, pierdes.
-¡Administren bien los recursos y prioricen el pago de las cuotas, sino DIOS se enojará!"
+¡Administra bien los recursos y prioricen el pago de las cuotas, sino DIOS se enojará!"
 			cambiar_texturas_boton(avanzar_normal, avanzar_hover, avanzar_pressed)
 			boton_continuar.disabled = false
 		
@@ -338,4 +338,3 @@ func cambiar_texturas_boton(normal: Texture2D, hover: Texture2D, pressed: Textur
 func mostrar_accion_pendiente():
 	boton_continuar.add_theme_stylebox_override("disabled",crear_estilo(realizar_accion_disabled))
 	boton_continuar.text = ""
-	
