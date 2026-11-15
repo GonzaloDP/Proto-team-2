@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dfffc83js76ws"]
+
+[ext_resource type="Script" uid="uid://c8wov27agejcy" path="res://Scripts/camera_rts.gd" id="1_i1waj"]
+[ext_resource type="Script" uid="uid://bvdlol81y4g7f" path="res://Scripts/camera_3d.gd" id="2_pyi12"]
+
+[node name="CameraPosition" type="Node3D" unique_id=1687866384]
+script = ExtResource("1_i1waj")
+
+[node name="CameraRotationX" type="Node3D" parent="." unique_id=996732330]
+
+[node name="CameraZoomPivot" type="Node3D" parent="CameraRotationX" unique_id=810520918]
+transform = Transform3D(1, 0, 0, 0, 0.76604444, 0.6427876, 0, -0.6427876, 0.76604444, 0, 6.809006, 6.0984364)
+
+[node name="Camera3D2" type="Camera3D" parent="CameraRotationX/CameraZoomPivot" unique_id=1282892525]
+transform = Transform3D(1.0000001, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+fov = 60.0
+script = ExtResource("2_pyi12")
