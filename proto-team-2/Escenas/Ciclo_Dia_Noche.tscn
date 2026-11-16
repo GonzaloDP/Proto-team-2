@@ -35,7 +35,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_14kqw"]
 resource_name = "animacion_sol"
-length = 10.0
+length = 40.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -44,10 +44,10 @@ tracks/0/path = NodePath("DirectionalLight3D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 10),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 28, 40),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(6.021386, 1.5707964, 0), Vector3(-0.2617994, 1.5707964, 0)]
+"values": [Vector3(6.021386, 1.5707964, 0), Vector3(4.759513, 1.5707964, 0), Vector3(-0.2617994, 1.5707964, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1stbs"]
