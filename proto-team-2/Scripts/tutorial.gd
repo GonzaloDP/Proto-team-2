@@ -51,6 +51,7 @@ var edificio_reproduccion_actual: EdificioReproduccion = null
 var reproduccion_completada: bool = false
 var esperando_interaccion: bool = false
 var interaccion_completada: bool = false
+var esperando_pausa_diferida: bool = false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -72,7 +73,7 @@ func iniciar_tutorial():
 
 # Muestra la etapa correspondiente
 func mostrar_etapa():
-	get_tree().paused = true
+	pausar_tuto()
 	esperando_interaccion = false
 	interaccion_completada = false
 	cambiar_texturas_boton(continuar_normal,continuar_hover,continuar_pressed)
@@ -108,7 +109,7 @@ Si ya sabes jugar, en la esquina inferior derecha podrás skipear el tutorial."
 		
 		TutorialStep.CAMARA:
 			titulo.text = "Control de la cámara"
-			descripcion.text = "Podés desplazarte por el escenario utilizando las teclas WASD o acercando el cursor a los bordes de la pantalla. Probá ambos métodos para familiarizarte con el control de la cámara."
+			descripcion.text = "Podés desplazarte por el escenario utilizando las teclas WASD o acercando el cursor a los bordes de la pantalla. Con el botón de la ruedita del mouse, si lo apretas y arrastrás el mouse podrás rotar la cámara. Probá ambos métodos para familiarizarte con el control de la cámara."
 			#boton_continuar.text = "Continuar"
 			boton_continuar.disabled = true
 		
@@ -311,15 +312,30 @@ func etapa_requiere_interaccion():
 func completar_interaccion():
 	if not esperando_interaccion:
 		return
+	if esperando_pausa_diferida:
+		return
 	
+	esperando_pausa_diferida = true
 	interaccion_completada = true
 	esperando_interaccion = false
 	
-	get_tree().paused = true
+	var etapa_completada = etapa_actual
+	
+	await get_tree().create_timer(2.0).timeout
+	
+	if not is_inside_tree():
+		return
+	
+	if etapa_actual != etapa_completada:
+		esperando_pausa_diferida = false
+		return
+	
+	pausar_tuto()
 	
 	boton_continuar.disabled = false
 	cambiar_texturas_boton(continuar_normal,continuar_hover,continuar_pressed)
-	#boton_continuar.text = "Continuar"
+	
+	esperando_pausa_diferida = false
 
 func crear_estilo(textura: Texture2D) -> StyleBoxTexture:
 	var estilo = StyleBoxTexture.new()
@@ -338,3 +354,11 @@ func cambiar_texturas_boton(normal: Texture2D, hover: Texture2D, pressed: Textur
 func mostrar_accion_pendiente():
 	boton_continuar.add_theme_stylebox_override("disabled",crear_estilo(realizar_accion_disabled))
 	boton_continuar.text = ""
+
+func pausar_tuto():
+	get_tree().paused = true
+	
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
+	var centro_pantalla = get_viewport().get_visible_rect().size / 2.0
+	Input.warp_mouse(centro_pantalla)
