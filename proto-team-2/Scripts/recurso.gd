@@ -54,6 +54,9 @@ func get_names() -> String:
 	
 	return "Desconocido"
 
+func obtener_tipo_recurso() -> Recurso.Tipo_Recurso:
+	return tipo
+
 func reduceQuantity(quantity: int):	#Recibe un int, y reduce la cantidad de recursos restantes por ese número. Si la cantidad de recursos restantes tras la operación fuese menor a 0, se redondea a 0.
 	cantidad_variable -= quantity
 	if(cantidad_variable < 0):

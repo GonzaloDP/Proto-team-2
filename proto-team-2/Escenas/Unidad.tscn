@@ -909,7 +909,7 @@ mesh = SubResource("SphereMesh_austa")
 one_shot = true
 
 [node name="HungerTimer" type="Timer" parent="." unique_id=303947379]
-wait_time = 3.0
+wait_time = 10.0
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1939248617]
 offset_left = 19.0

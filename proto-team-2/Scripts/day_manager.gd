@@ -27,5 +27,6 @@ func _process(delta: float) -> void:
 
 func _on_timer_timeout() -> void:
 	dia_actual += 1
+	print("DayManager emitió dia_cambio: ", dia_actual)
 	dia_cambio.emit(dia_actual)
 	pass # Replace with function body.

@@ -1,5 +1,10 @@
 extends Camera3D
 
+signal seleccion_actualizada(cantidad: int)
+signal orden_movimiento_emitida
+signal comedor_colocado(edificio: Edificio)
+signal reproduccion_colocada(edificio: EdificioReproduccion)
+
 @onready var selection_box = $"../../../../UI/SelectionBox"
 @onready var menu_construccion = $"../../../../UIConstruccion/MenuConstruccion"
 @onready var hud_demolicion: HudDemolicion = $"../../../../HUDDemolicion"
@@ -142,6 +147,12 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 			else:
 				recurso = collider.get_parent() as Recurso
 			
+			if recurso.obtener_tipo_recurso() == Recurso.Tipo_Recurso.COMIDA:
+				for unidad in selected_units:
+					if is_instance_valid(unidad):
+						inventario.ordenes_comida_dia += 1
+						break
+			
 			for unidad in selected_units:
 				if is_instance_valid(unidad):
 					unidad.seekResource(recurso)
@@ -201,6 +212,7 @@ func seleccionar_unidad(mouse_pos: Vector2) -> void:
 			objeto.seleccionada = true
 			menu_construccion.toggle_hud_construccion(true, selected_units)
 	actualizar_hudUnidad()
+	seleccion_actualizada.emit(selected_units.size())
 
 func seleccionar_unidades_en_rectangulo() -> void:
 	deseleccionar_todas()
@@ -222,6 +234,7 @@ func seleccionar_unidades_en_rectangulo() -> void:
 		menu_construccion.toggle_hud_construccion(true, selected_units)
 	
 	actualizar_hudUnidad()
+	seleccion_actualizada.emit(selected_units.size())
 
 func deseleccionar_todas() -> void:
 	for unidad in selected_units:
@@ -348,6 +361,11 @@ func _confirmar_construccion():
 	nuevo_edificio.rotation = rotacion_mundo
 	
 	nuevo_edificio.configurar_edificio(id_del_edificio, puntos_req, costo, inventario, navigation_region, self)
+	if id_del_edificio == "comedor":
+		comedor_colocado.emit(nuevo_edificio)
+	if id_del_edificio == "reproduccion":
+		if nuevo_edificio is EdificioReproduccion:
+			reproduccion_colocada.emit(nuevo_edificio)
 	
 	if(nuevo_edificio is EdificioComedor):
 		get_tree().current_scene.checkVoucher(nuevo_edificio)
@@ -389,6 +407,8 @@ func mover_unidades_en_formacion(destino: Vector3):
 		unidad.target_resource = null
 		unidad.hideProgressBar()
 		unidad.set_move_target(posicion_objetivo)
+	
+	orden_movimiento_emitida.emit()
 
 func actualizar_navegacion():
 	if not is_instance_valid(navigation_region):

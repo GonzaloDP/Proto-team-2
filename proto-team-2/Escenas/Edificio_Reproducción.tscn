@@ -399,6 +399,12 @@ mesh = SubResource("ArrayMesh_ub4ur")
 [node name="PuntoRespawn" type="Marker3D" parent="." unique_id=1785237578]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6742115, 0, 2.4743524)
 
+[node name="PuntoRespawn2" type="Marker3D" parent="." unique_id=131990483]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5194507, 0, 6.6003246)
+
+[node name="PuntoRespawn3" type="Marker3D" parent="." unique_id=844932039]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.739843, 0, -5.0514693)
+
 [node name="PuntoObjetivo" type="Marker3D" parent="." unique_id=1695999459]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.306694, 0, -8.886591)
 

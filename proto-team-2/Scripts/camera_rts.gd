@@ -1,5 +1,7 @@
 extends Node3D
 
+signal camara_desplazada
+
 @onready var rotation_x = $CameraRotationX
 @onready var zoom_pivot = $CameraRotationX/CameraZoomPivot
 @onready var camara = $CameraRotationX/CameraZoomPivot/Camera3D2
@@ -15,7 +17,7 @@ var max_zoom = 20
 var mouse_sensitivity = 0.2
 var rotate_target : float
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.is_action_pressed("rotar"):
 		rotate_target -= event.relative.x * mouse_sensitivity
 		rotation_x.rotation_degrees.x -= event.relative.y * mouse_sensitivity
@@ -56,6 +58,9 @@ func _process(delta: float) -> void:
 	
 	zoom_target += zoom_dir * zoom_speed
 	zoom_target = clamp(zoom_target,min_zoom,max_zoom)
+	
+	if position.distance_to(move_target) > 0.01:
+		camara_desplazada.emit()
 	
 	position = move_target
 	camara.position.z = lerp(camara.position.z, zoom_target, 0.10)

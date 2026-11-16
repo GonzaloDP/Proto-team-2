@@ -1,6 +1,10 @@
 extends Edificio
 class_name EdificioReproduccion
 
+signal reproduccion_iniciada
+signal nueva_unidad_creada(unidad: Unidad)
+
+
 @onready var penalty_manager = get_tree().current_scene.get_node("PenaltiesManager")
 
 @export var tiempo_reproduccion: float = 5.0
@@ -11,8 +15,9 @@ var padre_2: Unidad = null
 var reproduciendo: bool = false
 var unidades_objetivo: Array[Unidad] = []
 
+
 func _ready() -> void:
-	pass
+	puntosDeSalida = [$PuntoRespawn, $PuntoRespawn2, $PuntoRespawn3]
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if not body is Unidad:
@@ -49,15 +54,17 @@ func iniciar_coito():
 	var velocidad_reproduccion = penalty_manager.breeding_multiplier
 	$Timer.wait_time = tiempo_reproduccion / velocidad_reproduccion
 	$Timer.start()
-	print("reproduciendose")
+	reproduccion_iniciada.emit()
 
 func _on_timer_timeout() -> void:
 	print("terminó el follaje")
 	
 	if padre_1:
-		padre_1.salir_de_reproduccion($PuntoRespawn.global_position, $PuntoObjetivo.global_position)
+		kickOutUnit(padre_1)
+		padre_1.salir_de_reproduccion($PuntoObjetivo.global_position)
 	if padre_2:
-		padre_2.salir_de_reproduccion($PuntoRespawn.global_position, $PuntoObjetivo.global_position)
+		kickOutUnit(padre_2)
+		padre_2.salir_de_reproduccion($PuntoObjetivo.global_position)
 	
 	crear_nueva_unidad()
 	
@@ -85,9 +92,11 @@ func recibir_unidades(unidades: Array[CharacterBody3D]):
 	if unidades_objetivo.size() != 2:
 		print("No se completo el coito")
 		if padre_1:
-			padre_1.salir_de_reproduccion($PuntoRespawn.global_position, $PuntoObjetivo.global_position)
+			kickOutUnit(padre_1)
+			padre_1.salir_de_reproduccion($PuntoObjetivo.global_position)
 		if padre_2:
-			padre_2.salir_de_reproduccion($PuntoRespawn.global_position,$PuntoObjetivo.global_position)
+			kickOutUnit(padre_2)
+			padre_2.salir_de_reproduccion($PuntoObjetivo.global_position)
 
 		unidades_objetivo.clear()
 		return
@@ -105,6 +114,7 @@ func crear_nueva_unidad():
 	var nueva_unidad = escena_unidad.instantiate()
 	get_tree().current_scene.add_child(nueva_unidad)
 	nueva_unidad._setInheritance(padre_1,padre_2)
-	nueva_unidad.global_position = $PuntoRespawn.global_position
+	kickOutUnit(nueva_unidad)
 	nueva_unidad.add_to_group("Unidades")
+	nueva_unidad_creada.emit(nueva_unidad)
 	nueva_unidad.set_move_target($PuntoObjetivo.global_position)
