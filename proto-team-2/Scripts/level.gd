@@ -58,7 +58,8 @@ func _on_alimentar_debug_pressed():		#Este método (Y el grupo que utiliza) son 
 
 func restart_level():
 	unidades_actuales = 0
-	
+	limite_unidades = 5
+
 func checkVoucher(comedor: EdificioComedor):	#Este método es llamado cuando se construye un nuevo comedor en una ubicación válida. Chequea si el voucher está activo, si lo está, el comedor se construye inmediatamente y el voucher se consume.
 	if(voucherComedor):
 		comedor.instaBuild()
