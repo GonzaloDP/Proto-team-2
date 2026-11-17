@@ -11,6 +11,9 @@ signal recurso_recolectado
 @onready var hacha = $Hacha
 @onready var pico = $Pico
 @onready var canasto = $Canasto
+@onready var gorro_lenador = get_node_or_null("GorroLenador")
+@onready var gorro_paja = get_node_or_null("GorroPaja")
+@onready var casco_minero = get_node_or_null("CascoMinero")
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 
 @export var moveSpeed: float = 6.0	#Esta variable controla la velocidad de desplazamiento de la unidad.
@@ -64,6 +67,15 @@ func _ready():
 	
 	if canasto:
 		canasto.hide()
+		
+	if gorro_lenador:
+		gorro_lenador.hide()
+	
+	if gorro_paja:
+		gorro_paja.hide()
+	
+	if casco_minero:
+		casco_minero.hide()
 
 	if anim_player:
 		anim_player.play("idle")
@@ -148,6 +160,12 @@ func _process(delta: float):
 						pico.hide()
 					if canasto and canasto.visible:
 						canasto.hide()
+					if casco_minero and casco_minero.visible:
+						casco_minero.hide()
+					if gorro_paja and gorro_paja.visible:
+						gorro_paja.hide()
+					if gorro_lenador and not gorro_lenador.visible:
+						gorro_lenador.show()
 					if hacha and not hacha.visible:
 						hacha.show()
 						anim_player.play("talar")
@@ -159,6 +177,12 @@ func _process(delta: float):
 						hacha.hide()
 					if canasto and canasto.visible:
 						canasto.hide()
+					if gorro_lenador and gorro_lenador.visible:
+						gorro_lenador.hide()
+					if gorro_paja and gorro_paja.visible:
+						gorro_paja.hide()
+					if casco_minero and not casco_minero.visible:
+						casco_minero.show()
 					if pico and not pico.visible:
 						pico.show()
 					if anim_player and anim_player.current_animation != "picar":
@@ -169,6 +193,12 @@ func _process(delta: float):
 						hacha.hide()
 					if pico and pico.visible:
 						pico.hide()
+					if gorro_lenador and gorro_lenador.visible:
+						gorro_lenador.hide()
+					if casco_minero and casco_minero.visible:
+						casco_minero.hide()
+					if gorro_paja and not gorro_paja.visible:
+						gorro_paja.show()
 					if canasto and not canasto.visible:
 						canasto.show()
 					if anim_player and anim_player.current_animation != "recolectar comida":
@@ -182,6 +212,12 @@ func _process(delta: float):
 					pico.hide()
 				if canasto and canasto.visible:
 					canasto.hide()
+				if gorro_lenador and gorro_lenador.visible:
+					gorro_lenador.hide()
+				if gorro_paja and gorro_paja.visible:
+					gorro_paja.hide()
+				if casco_minero and casco_minero.visible:
+					casco_minero.hide()
 		else:
 			anim_player.play("walk")
 			if hacha and hacha.visible:
@@ -190,6 +226,12 @@ func _process(delta: float):
 				pico.hide()
 			if canasto and canasto.visible:
 				canasto.hide()
+			if gorro_lenador and gorro_lenador.visible:
+				gorro_lenador.hide()
+			if gorro_paja and gorro_paja.visible:
+				gorro_paja.hide()
+			if casco_minero and casco_minero.visible:
+				casco_minero.hide()
 	else:
 		if hacha and hacha.visible:
 			hacha.hide()
@@ -197,6 +239,12 @@ func _process(delta: float):
 			pico.hide()
 		if canasto and canasto.visible:
 			canasto.hide()
+		if gorro_lenador and gorro_lenador.visible:
+			gorro_lenador.hide()
+		if gorro_paja and gorro_paja.visible:
+			gorro_paja.hide()
+		if casco_minero and casco_minero.visible:
+			casco_minero.hide()
 
 func _physics_process(delta: float):
 	if en_reproduccion:
@@ -528,4 +576,4 @@ func restoreAttributes():
 	if(originalCollectionSpeed): #Solo restauramos los atributos si se han guardado los originales.
 		constructionSpeed = originalConstructionSpeed
 		collectionSpeed = originalCollectionSpeed
-		breedingSpeed = originalBreedingSpeed
+		breedingSpeed = originalCollectionSpeed
