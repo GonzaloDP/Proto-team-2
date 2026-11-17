@@ -102,3 +102,11 @@ func comprobar_primera_cuota_alcanzada():
 			return
 	
 	Metrics.record_set("dia_primera_cuota_alcanzada", day_manager.dia_actual)
+
+func _forgive_quota():
+	cuota_pagada.emit()
+	paidQuotas += 1
+	if (paidQuotas >= QuotasToWin):
+		victoria.emit()
+	difficulty += difficulty_increase #Aumentamos la dificultad con cada cuota pagada. Aquí también se enviaría una señal para indicar que el jugador ha pagado una cuota, para marcar su progreso.
+	setNewQuota()
