@@ -18,6 +18,7 @@ func _ready():
 	penalties_manager.penalty_apllied.connect(mostrar_penalizacion)
 	cuota.cuota_incumplida.connect(mostrar_penalizacion)
 	day_manager.dia_cambio.connect(actualizar_dias)
+	day_manager.actualizar_ui.connect(actualizar_dias)
 	actualizar_recursos()
 	actualizar_dias(1)
 

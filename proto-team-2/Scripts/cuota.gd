@@ -112,3 +112,4 @@ func _forgive_quota():
 	#difficulty += difficulty_increase #Aumentamos la dificultad con cada cuota pagada. Aquí también se enviaría una señal para indicar que el jugador ha pagado una cuota, para marcar su progreso.
 	#///////////////////////////////////////////
 	setNewQuota()
+	day_manager._update_day_manually()
