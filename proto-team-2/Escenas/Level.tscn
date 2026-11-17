@@ -204,6 +204,7 @@ points = PackedVector3Array(0.8734772, 101.220215, 6.381378, 1.0150328, 101.2202
 
 [sub_resource type="SystemFont" id="SystemFont_x7iek"]
 font_names = PackedStringArray("Californian FB")
+subpixel_positioning = 0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b01mn"]
 texture = ExtResource("19_cc26a")
@@ -372,14 +373,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.101498, 0.7046747, -9.1399
 [node name="RecursoUnidad3" parent="NavigationRegion3D" unique_id=1986052599 instance=ExtResource("12_6tp1g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.637348, 0.7046747, -17.558033)
 
-[node name="Castillo" type="MeshInstance3D" parent="." unique_id=1468586569]
-transform = Transform3D(-9.330196, 0, 2.9656002e-07, 0, 0.078317486, 0, -8.1567174e-07, 0, -3.3922515, 0, 0, 50.25)
-mesh = SubResource("ArrayMesh_cc26a")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Castillo" unique_id=1441906746]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Castillo/StaticBody3D" unique_id=2055264178]
-shape = SubResource("ConvexPolygonShape3D_cc26a")
 [node name="Recurso5" parent="NavigationRegion3D" unique_id=1397097413 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.929825, 0.6455455, 27.044876)
 colision_arboles = Vector3(1, 1, 1)
@@ -457,6 +450,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.257122, 0.7046747, 30.93763
 
 [node name="RecursoUnidad9" parent="NavigationRegion3D" unique_id=1092105285 instance=ExtResource("12_6tp1g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.324707, 0.7046747, -37.16713)
+
+[node name="Castillo" type="MeshInstance3D" parent="." unique_id=1468586569]
+transform = Transform3D(-9.330196, 0, 2.9656002e-07, 0, 0.078317486, 0, -8.1567174e-07, 0, -3.3922515, 0, 0, 50.25)
+mesh = SubResource("ArrayMesh_cc26a")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Castillo" unique_id=1441906746]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Castillo/StaticBody3D" unique_id=2055264178]
+shape = SubResource("ConvexPolygonShape3D_cc26a")
 
 [node name="Ciclo_Dia_Noche" parent="." unique_id=65373244 instance=ExtResource("3_u2sv0")]
 
