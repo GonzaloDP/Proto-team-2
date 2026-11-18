@@ -183,8 +183,13 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_dw13p")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_mws40"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_2v5dn"]
 viewport_path = NodePath("SubViewportContainer/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mws40"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 0, 0.09803922, 0.19607843)
 
 [node name="Edificio_Aserradero" unique_id=2142538707 instance=ExtResource("1_mws40")]
 
@@ -194,4 +199,9 @@ mesh = SubResource("ArrayMesh_2v5dn")
 
 [node name="Sprite3D" parent="." index="7" unique_id=1531616947]
 billboard = 1
-texture = SubResource("ViewportTexture_mws40")
+texture = SubResource("ViewportTexture_2v5dn")
+
+[node name="Modelo_Rojo" type="MeshInstance3D" parent="." index="9" unique_id=654556270]
+transform = Transform3D(-1.063, 0, 1.1670941e-07, 0, 0.872, 0, -9.293041e-08, 0, -1.335, 0.946, 0, 1.86)
+material_override = SubResource("StandardMaterial3D_mws40")
+mesh = SubResource("ArrayMesh_2v5dn")

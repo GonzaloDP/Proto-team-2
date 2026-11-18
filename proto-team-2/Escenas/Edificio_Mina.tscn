@@ -188,6 +188,11 @@ shadow_mesh = SubResource("ArrayMesh_7d5em")
 [sub_resource type="ViewportTexture" id="ViewportTexture_kyf6s"]
 viewport_path = NodePath("SubViewportContainer/SubViewport")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_57j7j"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 0, 0.09803922, 0.19607843)
+
 [node name="Edificio_Mina" unique_id=2142538707 instance=ExtResource("1_kyf6s")]
 script = ExtResource("2_57j7j")
 recursoGenerado2 = 1
@@ -201,3 +206,8 @@ mesh = SubResource("ArrayMesh_p5tns")
 [node name="Sprite3D" parent="." index="7" unique_id=1531616947]
 billboard = 1
 texture = SubResource("ViewportTexture_kyf6s")
+
+[node name="Modelo_Rojo" type="MeshInstance3D" parent="." index="9" unique_id=1117338634]
+transform = Transform3D(2.141858e-09, -0.052, -5.2453664e-09, -0.049, -2.2729922e-09, 0, -1.8724717e-16, 4.5459845e-09, -0.06, -0.26037621, 0, -1.6648747)
+material_override = SubResource("StandardMaterial3D_57j7j")
+mesh = SubResource("ArrayMesh_p5tns")

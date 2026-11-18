@@ -158,6 +158,11 @@ shadow_mesh = SubResource("ArrayMesh_ja2pe")
 [sub_resource type="ViewportTexture" id="ViewportTexture_p825s"]
 viewport_path = NodePath("SubViewportContainer/SubViewport")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p825s"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 0, 0.09803922, 0.19607843)
+
 [node name="Edificio_Granja" unique_id=2142538707 instance=ExtResource("1_p825s")]
 recursoGenerado = 2
 
@@ -174,11 +179,13 @@ visible = false
 [node name="CollisionShape3D2" parent="Area3D" parent_id_path=PackedInt32Array(1809614409) index="0" unique_id=1958020364]
 visible = false
 
-[node name="PuntoRespawn" parent="." index="5" unique_id=663193473]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.7449245)
-
 [node name="Sprite3D" parent="." index="7" unique_id=1531616947]
 billboard = 1
 texture = SubResource("ViewportTexture_p825s")
+
+[node name="Modelo_Rojo" type="MeshInstance3D" parent="." index="9" unique_id=674749560]
+transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_p825s")
+mesh = SubResource("ArrayMesh_tvyao")
 
 [connection signal="timeout" from="TimerRecolección" to="." method="generarRecurso"]

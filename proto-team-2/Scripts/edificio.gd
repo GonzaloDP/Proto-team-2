@@ -81,6 +81,10 @@ func configurar_edificio(tipo_id: String, puntos_requeridos: float,
 		else:
 			modelo_rojo = base_instanciada.get_node_or_null("Modelo_Rojo")
 			modelo_terminado = base_instanciada.get_node_or_null("Modelo_Terminado")
+			
+		#Si no encuentra un nodo llamado "Modelo_Terminado", usa automáticamente el MeshInstance3D de la escena heredada
+		if not modelo_terminado:
+			modelo_terminado = base_instanciada.get_node_or_null("MeshInstance3D")
 		
 		var nodo_referencia = modelo_rojo if modelo_rojo else modelo_terminado
 		
@@ -118,7 +122,6 @@ func recibir_trabajo(cantidad: float):
 	if modelo_rojo: 
 		modelo_rojo.position.y = lerp(profundidad_inicial, posicion_original_y, progreso)
 		
-	
 	if puntos_actuales >= (puntos_totales - 0.1):
 		completado = true
 		$CleanUpTimer.start()

@@ -283,7 +283,10 @@ func _activar_modo_construccion(nombre: String, datos: Dictionary):
 	var escenas_edificios = {
 		"reproduccion": preload("res://Escenas/Edificio_Reproducción.tscn"),
 		"vivienda": preload("res://Escenas/Edificio_Vivienda.tscn"),
-		"comedor": preload("res://Escenas/Edificio_Comedor.tscn")
+		"comedor": preload("res://Escenas/Edificio_Comedor.tscn"),
+		"pasivo_madera": preload("res://Escenas/Edificio_Aserradero.tscn"),
+		"pasivo_piedra": preload("res://Escenas/Edificio_Mina.tscn"),
+		"pasivo_comida": preload("res://Escenas/Edificio_Granja.tscn")
 	}
 	
 	if not escenas_edificios.has(id_del_edificio):
@@ -308,6 +311,10 @@ func _activar_modo_construccion(nombre: String, datos: Dictionary):
 	for nodo in mallas:
 		var mesh = nodo as MeshInstance3D
 		if mesh:
+			#Oculta Modelo_Rojo o mallas vacías en el fantasma
+			if "Modelo_Rojo" in mesh.name or mesh.mesh == null:
+				mesh.hide()
+				continue
 			mesh.material_override = material
 			materiales_fantasma.append(mesh)
 	
@@ -317,6 +324,14 @@ func _activar_modo_construccion(nombre: String, datos: Dictionary):
 		var colision = nodo as CollisionShape3D
 		if colision:
 			colision.disabled = true
+	
+	#Desactivamos las áreas internas de la escena visual para que el fantasma no se detecte a sí mismo
+	var areas = escena_visual.find_children("*","Area3D",true,false)
+	for nodo in areas:
+		var area = nodo as Area3D
+		if area:
+			area.monitoring = false
+			area.monitorable = false
 	
 	area_fantasma = Area3D.new()
 	area_fantasma.collision_layer = 0
@@ -359,7 +374,10 @@ func _confirmar_construccion():
 	var escenas_edificios = {
 		"reproduccion": preload("res://Escenas/Edificio_Reproducción.tscn"),
 		"vivienda": preload("res://Escenas/Edificio_Vivienda.tscn"),
-		"comedor": preload("res://Escenas/Edificio_Comedor.tscn")
+		"comedor": preload("res://Escenas/Edificio_Comedor.tscn"),
+		"pasivo_madera": preload("res://Escenas/Edificio_Aserradero.tscn"),
+		"pasivo_piedra": preload("res://Escenas/Edificio_Mina.tscn"),
+		"pasivo_comida": preload("res://Escenas/Edificio_Granja.tscn")
 	}
 	
 	if not escenas_edificios.has(id_del_edificio):
