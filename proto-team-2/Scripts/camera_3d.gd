@@ -8,6 +8,7 @@ signal reproduccion_colocada(edificio: EdificioReproduccion)
 @onready var selection_box = $"../../../../UI/SelectionBox"
 @onready var menu_construccion = $"../../../../UIConstruccion/MenuConstruccion"
 @onready var hud_demolicion: HudDemolicion = $"../../../../HUDDemolicion"
+@onready var gestor_penalizaciones : PenaltiesManager = $"../../../../PenaltiesManager"
 @onready var inventario: Inventario = get_tree().current_scene.get_node("Inventario")
 @onready var navigation_region: NavigationRegion3D = get_tree().current_scene.get_node("NavigationRegion3D")
 @onready var hud_unidad: HUD_Unidad = get_tree().current_scene.get_node_or_null("HUD_Unidad")
@@ -38,6 +39,7 @@ func _ready() -> void:
 			navigation_region.bake_finished.connect(_on_navegacion_horneado)
 	if is_instance_valid(level):
 		level.mapa_actualizado.connect(actualizar_navegacion)
+	gestor_penalizaciones.units_killed.connect(deseleccionar_todas)
 	
 func _process(delta: float) -> void:
 	if estado_actual == EstadoCamara.CONSTRUYENDO and is_instance_valid(edificio_fantasma):

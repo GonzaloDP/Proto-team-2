@@ -2,6 +2,7 @@ extends Node
 
 signal dia_cambio(nuevo_dia)
 signal progreso_dia_actualizado(progreso_dia)
+signal actualizar_ui(nuevo_dia)
 
 @onready var timer : Timer = $Timer
 
@@ -30,3 +31,8 @@ func _on_timer_timeout() -> void:
 	print("DayManager emitió dia_cambio: ", dia_actual)
 	dia_cambio.emit(dia_actual)
 	pass # Replace with function body.
+	
+func _update_day_manually():
+	actualizar_ui.emit(dia_actual)
+	print("actualizando manualmente... ", dia_actual)
+	#Este método actualiza manualmente la UI. Lo utiliza la cuota cuando perdona, así se actualiza correctamente cuota_ui. También afecta al day_ui por razones de consistencia.
