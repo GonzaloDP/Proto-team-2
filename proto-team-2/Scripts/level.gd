@@ -67,3 +67,24 @@ func checkVoucher(comedor: EdificioComedor):	#Este método es llamado cuando se 
 
 func registrar_metricas_unidades(_nuevo_dia: int):
 	Metrics.record_add("unidades_diarias", Level.unidades_actuales)
+
+func _matar_unidades(): 	#Esta función es llamada por el penalties manager. Le dice al level que mate unidades como resultado de la cuota.
+	var unidadesVisibles : Array[Unidad] = []
+	for each in (get_tree().get_nodes_in_group("unidades")):	#Primero, creamos un array con las unidades elegibles para morir. Solo seleccionamos las que actualmente estén visibles.
+		if each.visible:
+			unidadesVisibles.append(each)
+	var target = 0	#Creamos una variable target, esta indica la cantidad de unidades que tienen que morir. Se determina su valor según la cantidad de unidades que el jugador posea, si son menos de 5, solo mataremos 1. De a 5 a 10, matamos 2. 10 o más, matamos 4.
+	var killCount = 0
+	if(unidades_actuales > 10):
+		target = 4
+	elif(unidades_actuales >= 5):
+		target = 2
+	else:
+		target = 1
+	while(killCount < target):	# Y acá es donde empezamos a eliminarlas. Tomamos un número aleatorio del array, eliminamos esa unidad, y lo repetimos hasta alcanzar el target.
+		var chosenNumber = randi_range(0,unidadesVisibles.size() -1)
+		var chosenUnit = unidadesVisibles.pop_at(chosenNumber)
+		chosenUnit.queue_free()
+		unidades_actuales -=1
+		killCount += 1
+	poblacion_actualizada.emit()

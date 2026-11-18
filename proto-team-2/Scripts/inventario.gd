@@ -42,3 +42,10 @@ func _on_dia_cambio(_nuevo_dia: int):
 	ordenes_comida_dia = 0
 	
 	Metrics.record_add("comida_inventario_diario", get_recurso(Recurso.Tipo_Recurso.COMIDA))
+	
+func _reducir_inventario_a_la_mitad():	#Reducimos los valores de los recursos a la mitad.
+	for each in recursos:
+		#if(recursos[each]%10 && recursos[each] > 0):	 Para los que terminen en 5 (determinado como no ser divisibles por 10), les quitamos 5 más, ya que de otro modo quedarían con 2, lo que no sirve para nada.
+		#	recursos[each] -= 5	#Me di cuenta de que ya la cuota nos va a dar números horribles. Que se jodan.
+		recursos[each] /= 2
+	inventario_actualizado.emit()

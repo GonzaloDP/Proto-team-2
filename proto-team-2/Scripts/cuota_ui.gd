@@ -18,6 +18,7 @@ func _ready():
 	penalties_manager.penalty_apllied.connect(mostrar_penalizacion)
 	cuota.cuota_incumplida.connect(mostrar_penalizacion)
 	day_manager.dia_cambio.connect(actualizar_dias)
+	day_manager.actualizar_ui.connect(actualizar_dias)
 	actualizar_recursos()
 	actualizar_dias(1)
 
@@ -50,14 +51,10 @@ func mostrar_penalizacion(penalty: Dictionary):
 	var tipo = penalty["tipo"]    
 	var valor = penalty["valor"]    
 	match tipo:        
-		PenaltiesManager.PenaltyType.RECOLECTION:            
-			notificacion_penalizacion.text = "¡Recolección reducida un " + str(int(valor * 100)) + "%!"        
-		PenaltiesManager.PenaltyType.CONTRUCTION:            
-			notificacion_penalizacion.text = "¡Construcción reducida un " + str(int(valor * 100)) + "%!"        
-		PenaltiesManager.PenaltyType.BREEDING:           
-			notificacion_penalizacion.text = "¡Reproducción reducida un " + str(int(valor * 100)) + "%!"      
-		PenaltiesManager.PenaltyType.UNITY_KILL:            
-			notificacion_penalizacion.text = "¡Has perdido una unidad!"
+		PenaltiesManager.PenaltyType.TAX:            
+			notificacion_penalizacion.text = "¡La mitad de tu inventario fue cobrado!"        
+		PenaltiesManager.PenaltyType.UNIT_KILL:            
+			notificacion_penalizacion.text = "¡Has perdido unidades!"
 		PenaltiesManager.PenaltyType.DEFEAT:
 			notificacion_penalizacion.text = "¡Derrota!"
 	animar_penalizacion()
