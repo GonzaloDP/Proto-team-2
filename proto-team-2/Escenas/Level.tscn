@@ -41,9 +41,9 @@
 [ext_resource type="Texture2D" uid="uid://b63tnfuf81ufc" path="res://Assets/Gráficos 2D/Botones/boton-abandonar-pressed.png" id="27_mmnwr"]
 [ext_resource type="Texture2D" uid="uid://besgiia05q068" path="res://Assets/Gráficos 2D/Botones/boton-abandonar-hover.png" id="28_0xhyv"]
 [ext_resource type="Texture2D" uid="uid://dokx73yqtbyll" path="res://Assets/Gráficos 2D/Botones/Musica/Musica ON.png" id="32_mmnwr"]
-[ext_resource type="Script" uid="uid://dl5h62toknkc7" path="res://Scripts/boton_musica.gd" id="42_x7iek"]
 [ext_resource type="PackedScene" uid="uid://dccrafa32xa5i" path="res://Escenas/Edificio_Granja.tscn" id="41_iw5u2"]
 [ext_resource type="PackedScene" uid="uid://dbfp0ck1s5t60" path="res://Escenas/Edificio_Aserradero.tscn" id="42_mmnwr"]
+[ext_resource type="Script" uid="uid://dl5h62toknkc7" path="res://Scripts/boton_musica.gd" id="42_x7iek"]
 [ext_resource type="PackedScene" uid="uid://cixg6jur675w1" path="res://Escenas/Edificio_Mina.tscn" id="43_0xhyv"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_4sq7t"]
@@ -981,6 +981,7 @@ texture_normal = ExtResource("32_mmnwr")
 ignore_texture_size = true
 stretch_mode = 5
 script = ExtResource("42_x7iek")
+
 [node name="Edificio_Granja" parent="." unique_id=2142538707 instance=ExtResource("41_iw5u2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.87357, 0.17626226, 6.6846123)
 completado = true

@@ -30,6 +30,33 @@ var lista_edificios = {
 		"costo": {Recurso.Tipo_Recurso.MADERA: 25, Recurso.Tipo_Recurso.PIEDRA: 25},
 		"icono": "res://Assets/3D/Edificios/Nuevo_Comedor_Miniatura.png",
 		"puntos_construccion_requeridos": 150
+	},
+	"Aserradero": {
+		"tipo_id": "pasivo_madera",
+		"es_pasivo": true,
+		"recurso_generado": [Recurso.Tipo_Recurso.MADERA],
+		"cantidad_generada": 10,
+		"costo": {Recurso.Tipo_Recurso.MADERA: 30, Recurso.Tipo_Recurso.PIEDRA: 15},
+		"icono": "res://Assets/3D/Edificios/Aserradero_Miniatura.png",
+		"puntos_construccion_requeridos": 120
+	},
+	"Mina": {
+		"tipo_id": "pasivo_piedra",
+		"es_pasivo": true,
+		"recurso_generado": [Recurso.Tipo_Recurso.PIEDRA, Recurso.Tipo_Recurso.METAL],
+		"cantidad_generada": 10,
+		"costo": {Recurso.Tipo_Recurso.MADERA: 35, Recurso.Tipo_Recurso.PIEDRA: 20},
+		"icono": "res://Assets/3D/Edificios/Mina_Miniatura.png",
+		"puntos_construccion_requeridos": 130
+	},
+	"Granja": {
+		"tipo_id": "pasivo_comida",
+		"es_pasivo": true,
+		"recurso_generado": [Recurso.Tipo_Recurso.COMIDA],
+		"cantidad_generada": 10,
+		"costo": {Recurso.Tipo_Recurso.MADERA: 25, Recurso.Tipo_Recurso.COMIDA: 20},
+		"icono": "res://Assets/3D/Edificios/Granja_Miniatura.png",
+		"puntos_construccion_requeridos": 120
 	}
 }
 
@@ -39,6 +66,8 @@ func _ready() -> void:
 	tooltip_ui.hide()
 	boton_cerrar.hide()
 	tooltip_ui.top_level = true
+	#Aseguramos que el GridContainer tenga 3 columnas (3 edificios arriba y 3 pasivos abajo)
+	grid_edificios.columns = 3
 	boton_martillo.pressed.connect(_on_boton_martillo_pressed)
 	boton_cerrar.pressed.connect(_on_boton_cerrar_pressed)
 	crear_botones_edificios()
@@ -50,7 +79,7 @@ func crear_botones_edificios():
 		btn.text = nombre_edificio
 		btn.custom_minimum_size = Vector2(150, 120) 
 		var ruta_icono = lista_edificios[nombre_edificio].get("icono", "")
-		if ruta_icono != "":
+		if ruta_icono != "" and ResourceLoader.exists(ruta_icono):
 			btn.icon = load(ruta_icono)
 			btn.expand_icon = true
 			btn.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -95,6 +124,13 @@ func _on_edificio_mouse_entered(nombre_edificio: String, btn: Button):
 		var nombre_recurso = _obtener_nombre_recurso(tipo)
 		texto += "- " + nombre_recurso + ": " + str(datos.costo[tipo]) + "\n"
 		
+	#Si tiene "recurso_generado", armamos la línea de descripción (soporta 1 o varios recursos como Piedra y Metal)
+	if datos.has("recurso_generado"):
+		var nombres_generados: Array[String] = []
+		for tipo_gen in datos["recurso_generado"]:
+			nombres_generados.append(_obtener_nombre_recurso(tipo_gen))
+		texto += "Genera: +" + str(datos["cantidad_generada"]) + " " + " y ".join(nombres_generados) + "\n"
+		
 	label_tooltip.text = texto
 	tooltip_ui.global_position = btn.global_position + Vector2(10, btn.size.y + 10)
 	tooltip_ui.show()
@@ -129,7 +165,7 @@ func toggle_hud_construccion(activar: bool, unidades: Array = []):
 		unidades_seguidas.clear()
 		boton_martillo.hide()
 		panel_edificios.hide()
-		boton_cerrar.hide() # NUEVO
+		boton_cerrar.hide()
 		tooltip_ui.hide()
 
 func _process(delta: float) -> void:
