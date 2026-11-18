@@ -28,7 +28,7 @@ var lista_edificios = {
 	"Edificio Comedor": {
 		"tipo_id": "comedor",
 		"costo": {Recurso.Tipo_Recurso.MADERA: 25, Recurso.Tipo_Recurso.PIEDRA: 25},
-		"icono": "res://Assets/3D/Edificios/Comedor_Miniatura.png",
+		"icono": "res://Assets/3D/Edificios/Nuevo_Comedor_Miniatura.png",
 		"puntos_construccion_requeridos": 150
 	}
 }

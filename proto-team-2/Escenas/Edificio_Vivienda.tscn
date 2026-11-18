@@ -1087,6 +1087,7 @@ mesh = SubResource("ArrayMesh_xi5la")
 
 [node name="Modelo_Rojo" type="MeshInstance3D" parent="Variante 1" unique_id=1450349383]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 1.7348676, 0)
+visible = false
 mesh = SubResource("ArrayMesh_js4tm")
 
 [node name="Variante 2" type="Node3D" parent="." unique_id=8256568]
@@ -1112,7 +1113,6 @@ mesh = SubResource("ArrayMesh_sfpx2")
 
 [node name="Modelo_Rojo" type="MeshInstance3D" parent="Variante 3" unique_id=1778678323]
 transform = Transform3D(0.93, 0, 0, 0, 0.143, 0, 0, 0, 0.93, 0, 1.676, 0)
-visible = false
 mesh = SubResource("ArrayMesh_imgk1")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1421302568]
