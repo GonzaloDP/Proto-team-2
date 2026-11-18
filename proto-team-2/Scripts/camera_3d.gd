@@ -11,7 +11,7 @@ signal reproduccion_colocada(edificio: EdificioReproduccion)
 @onready var inventario: Inventario = get_tree().current_scene.get_node("Inventario")
 @onready var navigation_region: NavigationRegion3D = get_tree().current_scene.get_node("NavigationRegion3D")
 @onready var hud_unidad: HUD_Unidad = get_tree().current_scene.get_node_or_null("HUD_Unidad")
-
+@onready var level : Level = get_tree().current_scene
 var area_fantasma: Area3D = null
 var ubicacion_valida: bool = false
 
@@ -36,7 +36,10 @@ func _ready() -> void:
 	if is_instance_valid(navigation_region):
 		if not navigation_region.bake_finished.is_connected(_on_navegacion_horneado):
 			navigation_region.bake_finished.connect(_on_navegacion_horneado)
-
+	if is_instance_valid(level):
+		level.mapa_actualizado.connect(actualizar_navegacion)
+		print("conectando")
+	
 func _process(delta: float) -> void:
 	if estado_actual == EstadoCamara.CONSTRUYENDO and is_instance_valid(edificio_fantasma):
 		var mouse_pos = get_viewport().get_mouse_position()

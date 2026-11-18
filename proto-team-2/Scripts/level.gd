@@ -2,8 +2,10 @@ extends Node3D
 #Este script es solo para hacer unas validaciones, luego se puede borrar
 
 signal poblacion_actualizada
+signal mapa_actualizado
 
 @onready var day_manager = get_node_or_null("DayManager")
+@onready var camara = get_node_or_null("CameraPosition/CameraRotationX/CameraZoomPivot/Camera3D2")
 
 const METRICS_DEFINITION = preload("res://local_metrics/metricas_level1.tres")
 
@@ -67,3 +69,8 @@ func checkVoucher(comedor: EdificioComedor):	#Este método es llamado cuando se 
 
 func registrar_metricas_unidades(_nuevo_dia: int):
 	Metrics.record_add("unidades_diarias", Level.unidades_actuales)
+	
+func _actualizar_mapa(delay: float):
+	await get_tree().create_timer(delay).timeout
+	mapa_actualizado.emit()
+	print("Actualizando el mapa...")
