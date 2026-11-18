@@ -73,4 +73,3 @@ func registrar_metricas_unidades(_nuevo_dia: int):
 func _actualizar_mapa(delay: float):
 	await get_tree().create_timer(delay).timeout
 	mapa_actualizado.emit()
-	print("Actualizando el mapa...")

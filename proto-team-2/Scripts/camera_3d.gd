@@ -38,7 +38,6 @@ func _ready() -> void:
 			navigation_region.bake_finished.connect(_on_navegacion_horneado)
 	if is_instance_valid(level):
 		level.mapa_actualizado.connect(actualizar_navegacion)
-		print("conectando")
 	
 func _process(delta: float) -> void:
 	if estado_actual == EstadoCamara.CONSTRUYENDO and is_instance_valid(edificio_fantasma):
