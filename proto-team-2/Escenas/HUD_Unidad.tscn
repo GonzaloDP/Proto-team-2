@@ -17,6 +17,7 @@ anchor_bottom = 1.0
 offset_top = -264.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 2
 script = ExtResource("1_22wvu")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1803512157]
