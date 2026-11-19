@@ -11,6 +11,9 @@ signal recurso_recolectado
 @onready var hacha = $Hacha
 @onready var pico = $Pico
 @onready var canasto = $Canasto
+@onready var gorro_lenador = get_node_or_null("GorroLenador")
+@onready var gorro_paja = get_node_or_null("GorroPaja")
+@onready var casco_minero = get_node_or_null("CascoMinero")
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 
 @export var moveSpeed: float = 6.0	#Esta variable controla la velocidad de desplazamiento de la unidad.
@@ -64,6 +67,15 @@ func _ready():
 	
 	if canasto:
 		canasto.hide()
+		
+	if gorro_lenador:
+		gorro_lenador.hide()
+	
+	if gorro_paja:
+		gorro_paja.hide()
+	
+	if casco_minero:
+		casco_minero.hide()
 
 	if anim_player:
 		anim_player.play("idle")
@@ -126,6 +138,7 @@ func _process(delta: float):
 					casco.hide()
 					martillo.hide()
 		else:
+			anim_player.play("walk")
 			target_edificio = null
 			if casco and casco.visible:
 				casco.hide()
@@ -148,6 +161,12 @@ func _process(delta: float):
 						pico.hide()
 					if canasto and canasto.visible:
 						canasto.hide()
+					if casco_minero and casco_minero.visible:
+						casco_minero.hide()
+					if gorro_paja and gorro_paja.visible:
+						gorro_paja.hide()
+					if gorro_lenador and not gorro_lenador.visible:
+						gorro_lenador.show()
 					if hacha and not hacha.visible:
 						hacha.show()
 						anim_player.play("talar")
@@ -159,6 +178,12 @@ func _process(delta: float):
 						hacha.hide()
 					if canasto and canasto.visible:
 						canasto.hide()
+					if gorro_lenador and gorro_lenador.visible:
+						gorro_lenador.hide()
+					if gorro_paja and gorro_paja.visible:
+						gorro_paja.hide()
+					if casco_minero and not casco_minero.visible:
+						casco_minero.show()
 					if pico and not pico.visible:
 						pico.show()
 					if anim_player and anim_player.current_animation != "picar":
@@ -169,6 +194,12 @@ func _process(delta: float):
 						hacha.hide()
 					if pico and pico.visible:
 						pico.hide()
+					if gorro_lenador and gorro_lenador.visible:
+						gorro_lenador.hide()
+					if casco_minero and casco_minero.visible:
+						casco_minero.hide()
+					if gorro_paja and not gorro_paja.visible:
+						gorro_paja.show()
 					if canasto and not canasto.visible:
 						canasto.show()
 					if anim_player and anim_player.current_animation != "recolectar comida":
@@ -182,6 +213,12 @@ func _process(delta: float):
 					pico.hide()
 				if canasto and canasto.visible:
 					canasto.hide()
+				if gorro_lenador and gorro_lenador.visible:
+					gorro_lenador.hide()
+				if gorro_paja and gorro_paja.visible:
+					gorro_paja.hide()
+				if casco_minero and casco_minero.visible:
+					casco_minero.hide()
 		else:
 			anim_player.play("walk")
 			if hacha and hacha.visible:
@@ -190,6 +227,12 @@ func _process(delta: float):
 				pico.hide()
 			if canasto and canasto.visible:
 				canasto.hide()
+			if gorro_lenador and gorro_lenador.visible:
+				gorro_lenador.hide()
+			if gorro_paja and gorro_paja.visible:
+				gorro_paja.hide()
+			if casco_minero and casco_minero.visible:
+				casco_minero.hide()
 	else:
 		if hacha and hacha.visible:
 			hacha.hide()
@@ -197,6 +240,12 @@ func _process(delta: float):
 			pico.hide()
 		if canasto and canasto.visible:
 			canasto.hide()
+		if gorro_lenador and gorro_lenador.visible:
+			gorro_lenador.hide()
+		if gorro_paja and gorro_paja.visible:
+			gorro_paja.hide()
+		if casco_minero and casco_minero.visible:
+			casco_minero.hide()
 
 func _physics_process(delta: float):
 	if en_reproduccion:
@@ -367,6 +416,8 @@ func _on_hunger_timer_timeout():	#Al acabarse el timer de la comida, la saciedad
 			goEat()
 
 func goEat():
+	if(get_tree().get_nodes_in_group("Comedores").is_empty()):	#Si no hay ningún comedor. Pues no se hace nada.
+		return
 	if(get_tree().get_nodes_in_group("Comedores").size() == 1):	#Primero chequeamos si hay un solo comedor. De ser así, obviamos las comparativas y nos dirigimos directamente allí.
 		set_move_target(get_tree().get_first_node_in_group("Comedores").global_position)
 	else:
@@ -429,7 +480,7 @@ func get_construction_speed() -> float:
 func get_breeding_speed() -> float:
 	return breedingSpeed * penaltyManager.breeding_multiplier
 
-func entrar_en_comedor():
+func entrar_en_edificio():
 	posicion_anterior = global_position
 	
 	velocity = Vector3.ZERO
@@ -439,6 +490,13 @@ func entrar_en_comedor():
 	set_collision_layer_value(1, false)
 	set_collision_mask_value(1, false)
 	hide()
+	
+func _salir_de_edificio():
+	
+	velocity = Vector3.ZERO
+	set_collision_layer_value(1, true)
+	set_collision_mask_value(1, true)
+	show()
 
 func salir_del_comedor(posicionObjetivo: Vector3):	#Al salir del comedor, la unidad aparece en el punto de respawn del comedor, y se le asigna como objetivo el punto de salida de este mismo. Si la unidad tenía una tarea guardada, irá a por esta en vez de dirigirse al punto de salida.
 	posicionObjetivo = posicionObjetivo + Vector3(randf_range(-0.5,0.5),0.0,randf_range(-0.5,0.5)) * 1.5
@@ -505,7 +563,7 @@ func resumeTask(): #Esta función toma la tarea guardada y le ordena a la unidad
 		return
 	else: #chequeamos, si la tarea guardada es un edificio, entonces chequeamos que no esté terminado. No tendría sentido enviar a la unidad allí de otro modo.
 		if(savedTask is Edificio):
-			if(savedTask.completado == false):
+			if(savedTask.completado == false or savedTask is EdificioPasivo):
 				asignar_edificio(savedTask)
 		if(savedTask is Recurso):
 			seekResource(savedTask)
@@ -528,4 +586,4 @@ func restoreAttributes():
 	if(originalCollectionSpeed): #Solo restauramos los atributos si se han guardado los originales.
 		constructionSpeed = originalConstructionSpeed
 		collectionSpeed = originalCollectionSpeed
-		breedingSpeed = originalBreedingSpeed
+		breedingSpeed = originalCollectionSpeed

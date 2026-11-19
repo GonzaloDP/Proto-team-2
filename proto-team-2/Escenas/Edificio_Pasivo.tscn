@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://ca21h6jnh2mrf"]
+
+[ext_resource type="PackedScene" uid="uid://c5h84wufomsqq" path="res://Escenas/Edificio.tscn" id="1_7qoc6"]
+[ext_resource type="Script" uid="uid://b1lxdt4py5cy6" path="res://Scripts/edificio_pasivo.gd" id="2_or1ya"]
+[ext_resource type="Texture2D" uid="uid://dr0lngtt4bcqu" path="res://Assets/Gráficos 2D/Cronómetros/textura_barra_respawn_under.png" id="3_sdarj"]
+[ext_resource type="Texture2D" uid="uid://dq731yj8e4coq" path="res://Assets/Gráficos 2D/Cronómetros/textura_barra_respawn_over.png" id="4_5efjv"]
+[ext_resource type="Texture2D" uid="uid://bjh1tebqadamo" path="res://Assets/Gráficos 2D/Cronómetros/textura_barra_respawn_progress.png" id="5_6x08d"]
+[ext_resource type="Script" uid="uid://1r1iasxapqq2" path="res://Scripts/barra_progreso.gd" id="6_6hx5g"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7dm7v"]
+size = Vector3(6.8779297, 6.6670685, 8.370972)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7qoc6"]
+size = Vector3(7, 5.8893127, 9)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_8w0r3"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7qoc6"]
+light_mode = 1
+
+[node name="Edificio_Pasivo" unique_id=2142538707 instance=ExtResource("1_7qoc6")]
+script = ExtResource("2_or1ya")
+recursoGenerado = 0
+cantidadGenerada = 10
+
+[node name="MeshInstance3D" parent="." index="1" unique_id=402039813]
+transform = Transform3D(0.999999, 0.0014982205, 0, -0.0014982205, 0.999999, 0, 0, 0, 1, 1.263895, 0, 0)
+
+[node name="CollisionShape3D" parent="." index="2" unique_id=254236377]
+transform = Transform3D(0.98, 0, 0, 0, 0.98, 0, 0, 0, 0.98, 0, 3.2884252, 0.6784687)
+shape = SubResource("BoxShape3D_7dm7v")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D" parent_id_path=PackedInt32Array(1809614409) index="0" unique_id=1958020364]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8141363, 0.6784687)
+shape = SubResource("BoxShape3D_7qoc6")
+
+[node name="PuntoRespawn" parent="." index="5" unique_id=663193473]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.7449245)
+
+[node name="TimerRecolección" type="Timer" parent="." index="6" unique_id=35062582]
+
+[node name="Sprite3D" type="Sprite3D" parent="." index="7" unique_id=1531616947]
+transform = Transform3D(10.539786, 0, 0, 0, 10.539786, 0, 0, 0, 1, 0, 9.1563635, 0)
+texture = SubResource("ViewportTexture_8w0r3")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." index="8" unique_id=223052459]
+offset_left = 19.0
+offset_top = -70.0
+offset_right = 69.0
+offset_bottom = -20.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" index="0" unique_id=1339941903]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(50, 50)
+render_target_update_mode = 4
+
+[node name="BarraProgreso" type="TextureProgressBar" parent="SubViewportContainer/SubViewport" index="0" unique_id=83807941]
+material = SubResource("CanvasItemMaterial_7qoc6")
+anchors_preset = -1
+offset_right = 159.0
+offset_bottom = 182.0
+scale = Vector2(0.3, 0.3)
+value = 25.0
+fill_mode = 4
+texture_under = ExtResource("3_sdarj")
+texture_over = ExtResource("4_5efjv")
+texture_progress = ExtResource("5_6x08d")
+tint_under = Color(0.2627451, 0.2627451, 0.2627451, 0.59607846)
+tint_over = Color(0.83889675, 0.83889717, 0.83889675, 1)
+script = ExtResource("6_6hx5g")
+metadata/_edit_use_anchors_ = true
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
