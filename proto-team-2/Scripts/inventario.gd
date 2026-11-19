@@ -5,6 +5,13 @@ signal inventario_actualizado
 
 @onready var day_manager = $"../DayManager"
 
+#Diccionario para que reconozca los sonidos por recurso
+@onready var sonidos_obtener: Dictionary = {
+	Recurso.Tipo_Recurso.COMIDA: get_node_or_null("../SFX/Comida_Obtener"),
+	Recurso.Tipo_Recurso.MADERA: get_node_or_null("../SFX/Madera_Obtener"),
+	Recurso.Tipo_Recurso.METAL: get_node_or_null("../SFX/Metal_Obtener"),
+	Recurso.Tipo_Recurso.PIEDRA: get_node_or_null("../SFX/Piedra_Obtener") }
+
 var recursos = {
 Recurso.Tipo_Recurso.MADERA: 25,
 Recurso.Tipo_Recurso.PIEDRA: 25,
@@ -20,6 +27,12 @@ func _ready() -> void:
 
 func agregar_recurso(tipo: Recurso.Tipo_Recurso, cantidad:int):
 	recursos[tipo] += cantidad
+	
+	if cantidad > 0: #Reproduce el sonido solo si el recurso se suma
+		var sonido = sonidos_obtener.get(tipo)
+		if sonido:
+			sonido.pitch_scale = pow(2.0, randf_range(-1.0, 0.0))
+			sonido.play()
 	
 	if tipo == Recurso.Tipo_Recurso.COMIDA:
 		Metrics.record_add("comida_recolectada_total", cantidad)
