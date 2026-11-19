@@ -19,6 +19,7 @@ var mostrando_penalizacion := false
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	panel_penalizacion.process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	panel_penalizacion.hide()
 	boton_continuar.hide()
