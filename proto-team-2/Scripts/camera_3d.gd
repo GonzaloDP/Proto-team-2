@@ -191,6 +191,24 @@ func raycast_to_ground(mouse_pos: Vector2) -> void:
 						unidad.target_resource = null
 						unidad.set_move_target(edificio.global_position)
 
+		elif result.collider is Area3D and result.collider.get_parent() is EdificioPasivo: #Si el jugador hace clic sobre un edificio pasivo, una de las unidades seleccionadas irá a ocuparlo.
+			var edificio: EdificioPasivo = result.collider.get_parent()
+			if(edificio.completado == false):	#Si el edificio no está terminado, entonces le pedimos a las unidades que lo construyan.
+				for unidad in selected_units:
+					if is_instance_valid(unidad):
+						if unidad.has_method("asignar_edificio"):
+							unidad.asignar_edificio(edificio)
+				return
+			if(edificio.ocupado):
+				print("Ya hay una unidad trabajando allí.")
+				return
+				
+			if(is_instance_valid(selected_units.front())):	#Como el edificio pasivo solo admite una unidad, al tener un grupo seleccionado, solo la primera se dirigirá hacia el edificio.
+				if selected_units.front().has_method("asignar_edificio"):
+					selected_units.front().asignar_edificio(edificio)
+					ocultar_indicador(selected_units.front())
+					selected_units.front().seleccionada = false
+					edificio.ocupante = selected_units.pop_front()
 
 		else:
 			_ocultar_hud_demolicion()
@@ -269,7 +287,10 @@ func _activar_modo_construccion(nombre: String, datos: Dictionary):
 	var escenas_edificios = {
 		"reproduccion": preload("res://Escenas/Edificio_Reproducción.tscn"),
 		"vivienda": preload("res://Escenas/Edificio_Vivienda.tscn"),
-		"comedor": preload("res://Escenas/Edificio_Comedor.tscn")
+		"comedor": preload("res://Escenas/Edificio_Comedor.tscn"),
+		"pasivo_madera": preload("res://Escenas/Edificio_Aserradero.tscn"),
+		"pasivo_piedra": preload("res://Escenas/Edificio_Mina.tscn"),
+		"pasivo_comida": preload("res://Escenas/Edificio_Granja.tscn")
 	}
 	
 	if not escenas_edificios.has(id_del_edificio):
@@ -294,6 +315,10 @@ func _activar_modo_construccion(nombre: String, datos: Dictionary):
 	for nodo in mallas:
 		var mesh = nodo as MeshInstance3D
 		if mesh:
+			#Oculta Modelo_Rojo o mallas vacías en el fantasma
+			if "Modelo_Rojo" in mesh.name or mesh.mesh == null:
+				mesh.hide()
+				continue
 			mesh.material_override = material
 			materiales_fantasma.append(mesh)
 	
@@ -303,6 +328,14 @@ func _activar_modo_construccion(nombre: String, datos: Dictionary):
 		var colision = nodo as CollisionShape3D
 		if colision:
 			colision.disabled = true
+	
+	#Desactivamos las áreas internas de la escena visual para que el fantasma no se detecte a sí mismo
+	var areas = escena_visual.find_children("*","Area3D",true,false)
+	for nodo in areas:
+		var area = nodo as Area3D
+		if area:
+			area.monitoring = false
+			area.monitorable = false
 	
 	area_fantasma = Area3D.new()
 	area_fantasma.collision_layer = 0
@@ -345,7 +378,10 @@ func _confirmar_construccion():
 	var escenas_edificios = {
 		"reproduccion": preload("res://Escenas/Edificio_Reproducción.tscn"),
 		"vivienda": preload("res://Escenas/Edificio_Vivienda.tscn"),
-		"comedor": preload("res://Escenas/Edificio_Comedor.tscn")
+		"comedor": preload("res://Escenas/Edificio_Comedor.tscn"),
+		"pasivo_madera": preload("res://Escenas/Edificio_Aserradero.tscn"),
+		"pasivo_piedra": preload("res://Escenas/Edificio_Mina.tscn"),
+		"pasivo_comida": preload("res://Escenas/Edificio_Granja.tscn")
 	}
 	
 	if not escenas_edificios.has(id_del_edificio):
