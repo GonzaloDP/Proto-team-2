@@ -27,10 +27,14 @@
 [ext_resource type="Texture2D" uid="uid://dk81vxhjsjwl" path="res://Assets/Gráficos 2D/UI/Marco-progressBar.png" id="15_s8v6j"]
 [ext_resource type="Script" uid="uid://c4auf7cjj024c" path="res://Scripts/menu_construccion.gd" id="15_tid47"]
 [ext_resource type="Texture2D" uid="uid://c50ni4wq0d0da" path="res://Assets/Gráficos 2D/UI/Relleno-progressBar.png" id="16_vksv8"]
+[ext_resource type="Texture2D" uid="uid://dtg7pr3mkmnkj" path="res://Assets/Gráficos 2D/UI/modal cuota impaga.png" id="18_0xhyv"]
 [ext_resource type="Script" uid="uid://bm0vvop2w0grr" path="res://Scripts/penalties_manager.gd" id="18_xytri"]
+[ext_resource type="Texture2D" uid="uid://bnc6nqxkpykp6" path="res://Assets/Gráficos 2D/Botones/Boton continuar.png" id="19_b01mn"]
 [ext_resource type="Texture2D" uid="uid://doihx7veka6t6" path="res://Assets/Gráficos 2D/UI/Rayos divinos dorados con destellos.png" id="19_cc26a"]
 [ext_resource type="Texture2D" uid="uid://c8ewfwsq1rohd" path="res://Assets/Gráficos 2D/Botones/boton-reanudar.png" id="19_tc4e0"]
+[ext_resource type="Texture2D" uid="uid://c07jegt4hlham" path="res://Assets/Gráficos 2D/Botones/Boton continuar pressed.png" id="20_mpbdk"]
 [ext_resource type="Texture2D" uid="uid://bcs1hpbfeggw4" path="res://Assets/Gráficos 2D/Botones/boton-reanudar-pressed.png" id="20_mvjhb"]
+[ext_resource type="Texture2D" uid="uid://bl0pv71cqy8jn" path="res://Assets/Gráficos 2D/Botones/Boton continuar hover.png" id="21_4lfjt"]
 [ext_resource type="Texture2D" uid="uid://jlpe5s7jfjop" path="res://Assets/Gráficos 2D/Botones/boton-reanudar-hover.png" id="21_5yclt"]
 [ext_resource type="Texture2D" uid="uid://crgymt4d8knni" path="res://Assets/Gráficos 2D/Botones/boton-reiniciar.png" id="23_72bp2"]
 [ext_resource type="PackedScene" uid="uid://daacyapsqmknq" path="res://Escenas/HUD_Demolicion.tscn" id="23_u2sv0"]
@@ -47,6 +51,18 @@ polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Arr
 
 [sub_resource type="SystemFont" id="SystemFont_x7iek"]
 font_names = PackedStringArray("Californian FB")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mmnwr"]
+texture = ExtResource("18_0xhyv")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nps2w"]
+texture = ExtResource("19_b01mn")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_85p78"]
+texture = ExtResource("20_mpbdk")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0bhb4"]
+texture = ExtResource("21_4lfjt")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b01mn"]
 texture = ExtResource("19_cc26a")
@@ -440,14 +456,31 @@ text = "¡Cuota pagada!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Panel" type="Panel" parent="UI/CuotaUI" unique_id=2033366885]
-layout_mode = 0
-offset_left = -31.836792
-offset_top = 220.39998
-offset_right = 163.26526
-offset_bottom = 279.99182
+[node name="Panel" type="Panel" parent="UI" unique_id=2033366885]
+custom_minimum_size = Vector2(400, 400)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_mmnwr")
 
-[node name="cuota impago" type="Label" parent="UI/CuotaUI/Panel" unique_id=1527214177]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Panel" unique_id=89809868]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Panel/VBoxContainer" unique_id=816607684]
+layout_mode = 2
+theme_override_constants/margin_top = 111
+
+[node name="cuota impago" type="Label" parent="UI/Panel/VBoxContainer/MarginContainer" unique_id=1527214177]
 modulate = Color(0.7254902, 0.29411766, 0.27058825, 1)
 custom_maximum_size = Vector2(200, -1)
 layout_mode = 1
@@ -459,19 +492,25 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Button" type="Button" parent="UI/CuotaUI/Panel" unique_id=144321561]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -65.71411
-offset_top = -29.387787
-offset_right = 67.347046
-grow_horizontal = 2
-grow_vertical = 0
-text = "Continuar"
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/Panel/VBoxContainer" unique_id=536714432]
+custom_minimum_size = Vector2(240, 132)
+custom_maximum_size = Vector2(240, 132)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="UI/Panel/VBoxContainer" unique_id=144321561]
+custom_minimum_size = Vector2(150, 50)
+custom_maximum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_styles/normal = SubResource("StyleBoxTexture_nps2w")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_85p78")
+theme_override_styles/hover = SubResource("StyleBoxTexture_0bhb4")
 
 [node name="AlimentarDebug" type="Button" parent="UI" unique_id=1457718069]
 visible = false
