@@ -451,7 +451,7 @@ offset_bottom = 279.99182
 modulate = Color(0.7254902, 0.29411766, 0.27058825, 1)
 custom_maximum_size = Vector2(200, -1)
 layout_mode = 1
-offset_right = 1.0
+offset_right = 181.0
 offset_bottom = 28.0
 theme_override_font_sizes/font_size = 20
 text = "¡Cuota incumplida!"
@@ -746,6 +746,7 @@ script = ExtResource("4_s3uta")
 
 [node name="DayManager" type="Node" parent="." unique_id=687561421]
 script = ExtResource("13_ohlfa")
+duracion_dia = 40.0
 
 [node name="Timer" type="Timer" parent="DayManager" unique_id=811959382]
 wait_time = 100.0
