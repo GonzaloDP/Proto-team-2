@@ -6,32 +6,48 @@
 [ext_resource type="PackedScene" uid="uid://bn6d2v3lbapoo" path="res://Escenas/Recurso.tscn" id="3_e8t1n"]
 [ext_resource type="PackedScene" uid="uid://cxvt5p305mm4m" path="res://Escenas/Ciclo_Dia_Noche.tscn" id="3_u2sv0"]
 [ext_resource type="Script" uid="uid://bvdlol81y4g7f" path="res://Scripts/camera_3d.gd" id="4_s3uta"]
+[ext_resource type="PackedScene" uid="uid://wl4tm76fben8" path="res://Assets/Recursos/Comida Recurso 1.glb" id="5_mpbdk"]
+[ext_resource type="PackedScene" uid="uid://udfjvsyrcpw2" path="res://Assets/Recursos/Piedra 1.glb" id="6_4lfjt"]
 [ext_resource type="PackedScene" uid="uid://b6phliso32eq2" path="res://Escenas/Tooltip.tscn" id="6_418oe"]
 [ext_resource type="PackedScene" uid="uid://dxwtmug6edfw3" path="res://Escenas/Inventario.tscn" id="6_hc14g"]
 [ext_resource type="Script" uid="uid://bhryiebrp0c5" path="res://Scripts/selection_box.gd" id="6_o7ik0"]
 [ext_resource type="Script" uid="uid://dmcxvn345x7nl" path="res://Scripts/mouse_interaction.gd" id="7_418oe"]
+[ext_resource type="PackedScene" uid="uid://dk1ttvhvq40qu" path="res://Assets/Recursos/Arbol 1.glb" id="7_ilaqs"]
+[ext_resource type="PackedScene" uid="uid://bsyrooy80ottt" path="res://Assets/Recursos/Hierro 1.glb" id="8_dd2uo"]
 [ext_resource type="Script" uid="uid://c8wov27agejcy" path="res://Scripts/camera_rts.gd" id="8_hc14g"]
+[ext_resource type="PackedScene" uid="uid://yx0hprrh86og" path="res://Assets/Recursos/Comida Recurso 2.glb" id="9_01n04"]
 [ext_resource type="Script" uid="uid://dyd7d6si64dbe" path="res://Scripts/day_ui.gd" id="9_iqjgs"]
+[ext_resource type="PackedScene" uid="uid://dfd4vscciarpv" path="res://Assets/Recursos/Piedra 2.glb" id="10_hjac3"]
 [ext_resource type="Script" uid="uid://xhpoh3cmgxo" path="res://Scripts/cuota_ui.gd" id="10_pke20"]
+[ext_resource type="PackedScene" uid="uid://b8laybxq1ma4j" path="res://Assets/Recursos/Arbol 2.glb" id="11_k3vby"]
 [ext_resource type="PackedScene" uid="uid://c5eol4u56basa" path="res://Escenas/Inventario_ui.tscn" id="11_uyafw"]
 [ext_resource type="PackedScene" uid="uid://dkbr30n3bn7y4" path="res://Escenas/Recurso_unidad.tscn" id="12_6tp1g"]
 [ext_resource type="Script" uid="uid://dxptnbkd0tpec" path="res://Scripts/pause_menu.gd" id="12_a2mc0"]
+[ext_resource type="PackedScene" uid="uid://de7vxm6qmirbp" path="res://Assets/Recursos/Hierro 2.glb" id="12_p7cdx"]
 [ext_resource type="Script" uid="uid://b8up60c8maoh1" path="res://Scripts/boton_animado.gd" id="13_6b4jh"]
+[ext_resource type="PackedScene" uid="uid://dxpkvvpdmnxqn" path="res://Assets/Recursos/Comida Recurso 3.glb" id="13_busva"]
 [ext_resource type="Script" uid="uid://xyn54yubrflu" path="res://Scripts/day_manager.gd" id="13_ohlfa"]
 [ext_resource type="Texture2D" uid="uid://bt5tapkvixuwa" path="res://Assets/Gráficos 2D/UI/UI HUD2.png" id="13_stj0u"]
 [ext_resource type="Script" uid="uid://bxopmkerfdbx3" path="res://Scripts/win_screen.gd" id="13_u2sv0"]
 [ext_resource type="Script" uid="uid://b8fn6cektmhqb" path="res://Scripts/defeat_screen.gd" id="14_6b4jh"]
 [ext_resource type="Texture2D" uid="uid://2b26hi2rm7hb" path="res://Assets/Gráficos 2D/UI/Fondo-progressBar.png" id="14_kour3"]
+[ext_resource type="PackedScene" uid="uid://darlo1gfubxsr" path="res://Assets/Recursos/Piedra 3.glb" id="14_ryo5x"]
 [ext_resource type="Script" uid="uid://cc08vd22bdeu5" path="res://Scripts/cuota.gd" id="14_tid47"]
 [ext_resource type="Texture2D" uid="uid://b18xa68b7nuqd" path="res://Assets/Gráficos 2D/Construcción UI/Martillo Icono.png" id="15_65587"]
+[ext_resource type="PackedScene" uid="uid://bb11bilfni6mm" path="res://Assets/Recursos/Arbol 3.glb" id="15_jufh4"]
 [ext_resource type="Texture2D" uid="uid://dk81vxhjsjwl" path="res://Assets/Gráficos 2D/UI/Marco-progressBar.png" id="15_s8v6j"]
 [ext_resource type="Script" uid="uid://c4auf7cjj024c" path="res://Scripts/menu_construccion.gd" id="15_tid47"]
+[ext_resource type="PackedScene" uid="uid://da4hwkovow6qo" path="res://Assets/Recursos/Hierro 3.glb" id="16_jdni3"]
 [ext_resource type="Texture2D" uid="uid://c50ni4wq0d0da" path="res://Assets/Gráficos 2D/UI/Relleno-progressBar.png" id="16_vksv8"]
+[ext_resource type="PackedScene" uid="uid://7ldoqd5cqe7q" path="res://Assets/Recursos/Unitarios/Comida Recurso Unitario Hongo.glb" id="18_ryo5x"]
 [ext_resource type="Script" uid="uid://bm0vvop2w0grr" path="res://Scripts/penalties_manager.gd" id="18_xytri"]
 [ext_resource type="Texture2D" uid="uid://doihx7veka6t6" path="res://Assets/Gráficos 2D/UI/Rayos divinos dorados con destellos.png" id="19_cc26a"]
+[ext_resource type="PackedScene" uid="uid://bfj5ye5n8xioo" path="res://Assets/Recursos/Unitarios/Roca Recurso Unitario.glb" id="19_jdni3"]
 [ext_resource type="Texture2D" uid="uid://c8ewfwsq1rohd" path="res://Assets/Gráficos 2D/Botones/boton-reanudar.png" id="19_tc4e0"]
 [ext_resource type="Texture2D" uid="uid://bcs1hpbfeggw4" path="res://Assets/Gráficos 2D/Botones/boton-reanudar-pressed.png" id="20_mvjhb"]
+[ext_resource type="PackedScene" uid="uid://c1syrkfy1u0n4" path="res://Assets/Recursos/Unitarios/Arbol Recurso Tronco.glb" id="20_ojcmg"]
 [ext_resource type="Texture2D" uid="uid://jlpe5s7jfjop" path="res://Assets/Gráficos 2D/Botones/boton-reanudar-hover.png" id="21_5yclt"]
+[ext_resource type="PackedScene" uid="uid://dkocyca8tqecn" path="res://Assets/Recursos/Unitarios/Hierro Recurso Unitario.glb" id="21_ojcmg"]
 [ext_resource type="Texture2D" uid="uid://crgymt4d8knni" path="res://Assets/Gráficos 2D/Botones/boton-reiniciar.png" id="23_72bp2"]
 [ext_resource type="PackedScene" uid="uid://daacyapsqmknq" path="res://Escenas/HUD_Demolicion.tscn" id="23_u2sv0"]
 [ext_resource type="PackedScene" uid="uid://bkvj7woegk1v6" path="res://Escenas/HUD_Unidad.tscn" id="24_6b4jh"]
@@ -346,110 +362,210 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 1)
 
 [node name="Recurso" parent="NavigationRegion3D" unique_id=1863188596 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.16359, 0.6455455, -13.135246)
+modelo_arbusto = ExtResource("5_mpbdk")
+modelo_piedras = ExtResource("6_4lfjt")
+modelo_arboles = ExtResource("7_ilaqs")
+modelo_metal = ExtResource("8_dd2uo")
 colision_arboles = Vector3(1, 1, 1)
 colision_metal = Vector3(1, 1, 1)
 
 [node name="Recurso3" parent="NavigationRegion3D" unique_id=1250565611 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.38459, 0.6455455, -5.9048843)
+modelo_arbusto = ExtResource("9_01n04")
+modelo_piedras = ExtResource("10_hjac3")
+modelo_arboles = ExtResource("11_k3vby")
+modelo_metal = ExtResource("12_p7cdx")
 colision_arboles = Vector3(1, 1, 1)
 colision_metal = Vector3(1, 1, 1)
 
 [node name="Recurso4" parent="NavigationRegion3D" unique_id=555355697 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.072098, 0.6455455, -7.869133)
+modelo_arbusto = ExtResource("13_busva")
+modelo_piedras = ExtResource("14_ryo5x")
+modelo_arboles = ExtResource("15_jufh4")
+modelo_metal = ExtResource("16_jdni3")
 colision_arboles = Vector3(1, 1, 1)
 colision_metal = Vector3(1, 1, 1)
 
 [node name="Recurso2" parent="NavigationRegion3D" unique_id=1301207889 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.469985, 0.6455455, -8.823626)
+modelo_arbusto = ExtResource("9_01n04")
+modelo_piedras = ExtResource("6_4lfjt")
+modelo_arboles = ExtResource("7_ilaqs")
+modelo_metal = ExtResource("12_p7cdx")
 colision_arboles = Vector3(1, 1, 1)
 colision_metal = Vector3(1, 1, 1)
 
 [node name="RecursoUnidad" parent="NavigationRegion3D" unique_id=1902933503 instance=ExtResource("12_6tp1g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.813269, 0.7046747, -11.89909)
+modelo_arbusto = ExtResource("18_ryo5x")
+modelo_piedras = ExtResource("19_jdni3")
+modelo_arboles = ExtResource("20_ojcmg")
+modelo_metal = ExtResource("21_ojcmg")
 
 [node name="RecursoUnidad2" parent="NavigationRegion3D" unique_id=1319754783 instance=ExtResource("12_6tp1g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.101498, 0.7046747, -9.139926)
+modelo_arbusto = ExtResource("18_ryo5x")
+modelo_piedras = ExtResource("19_jdni3")
+modelo_arboles = ExtResource("20_ojcmg")
+modelo_metal = ExtResource("21_ojcmg")
 
 [node name="RecursoUnidad3" parent="NavigationRegion3D" unique_id=1986052599 instance=ExtResource("12_6tp1g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.637348, 0.7046747, -17.558033)
+modelo_arbusto = ExtResource("18_ryo5x")
+modelo_piedras = ExtResource("19_jdni3")
+modelo_arboles = ExtResource("20_ojcmg")
+modelo_metal = ExtResource("21_ojcmg")
 
 [node name="Recurso5" parent="NavigationRegion3D" unique_id=1397097413 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.929825, 0.6455455, 27.044876)
+modelo_arbusto = ExtResource("5_mpbdk")
+modelo_piedras = ExtResource("6_4lfjt")
+modelo_arboles = ExtResource("11_k3vby")
+modelo_metal = ExtResource("8_dd2uo")
 colision_arboles = Vector3(1, 1, 1)
 colision_metal = Vector3(1, 1, 1)
 
 [node name="Recurso6" parent="NavigationRegion3D" unique_id=902011105 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.642395, 0.6455455, 19.672878)
+modelo_arbusto = ExtResource("13_busva")
+modelo_piedras = ExtResource("14_ryo5x")
+modelo_arboles = ExtResource("15_jufh4")
+modelo_metal = ExtResource("16_jdni3")
 colision_arboles = Vector3(1, 1, 1)
 colision_metal = Vector3(1, 1, 1)
 
 [node name="Recurso7" parent="NavigationRegion3D" unique_id=124891308 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.74763, 0.6455455, 21.534832)
+modelo_arbusto = ExtResource("9_01n04")
+modelo_piedras = ExtResource("10_hjac3")
+modelo_arboles = ExtResource("11_k3vby")
+modelo_metal = ExtResource("12_p7cdx")
 colision_arboles = Vector3(1, 1, 1)
 colision_metal = Vector3(1, 1, 1)
 
 [node name="Recurso8" parent="NavigationRegion3D" unique_id=690594348 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.16359, 0.6455455, 25.987495)
+modelo_arbusto = ExtResource("13_busva")
+modelo_piedras = ExtResource("14_ryo5x")
+modelo_arboles = ExtResource("15_jufh4")
+modelo_metal = ExtResource("16_jdni3")
 colision_arboles = Vector3(1, 1, 1)
 colision_metal = Vector3(1, 1, 1)
 
 [node name="Recurso9" parent="NavigationRegion3D" unique_id=591530540 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.28598, 0.6455455, 25.570457)
+modelo_arbusto = ExtResource("5_mpbdk")
+modelo_piedras = ExtResource("6_4lfjt")
+modelo_arboles = ExtResource("7_ilaqs")
+modelo_metal = ExtResource("8_dd2uo")
 colision_arboles = Vector3(1, 1, 1)
 colision_metal = Vector3(1, 1, 1)
 
 [node name="Recurso10" parent="NavigationRegion3D" unique_id=1772502793 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.11822, 0.6455455, 26.833069)
+modelo_arbusto = ExtResource("9_01n04")
+modelo_piedras = ExtResource("10_hjac3")
+modelo_arboles = ExtResource("11_k3vby")
+modelo_metal = ExtResource("12_p7cdx")
 colision_arboles = Vector3(1, 1, 1)
 colision_metal = Vector3(1, 1, 1)
 
 [node name="Recurso11" parent="NavigationRegion3D" unique_id=1776037891 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.037197, 0.6455455, -24.084263)
+modelo_arbusto = ExtResource("13_busva")
+modelo_piedras = ExtResource("14_ryo5x")
+modelo_arboles = ExtResource("15_jufh4")
+modelo_metal = ExtResource("16_jdni3")
 colision_arboles = Vector3(1, 1, 1)
 colision_metal = Vector3(1, 1, 1)
 
 [node name="Recurso12" parent="NavigationRegion3D" unique_id=1306141200 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.623974, 0.6455455, -20.649021)
+modelo_arbusto = ExtResource("5_mpbdk")
+modelo_piedras = ExtResource("6_4lfjt")
+modelo_arboles = ExtResource("7_ilaqs")
+modelo_metal = ExtResource("8_dd2uo")
 colision_arboles = Vector3(1, 1, 1)
 colision_metal = Vector3(1, 1, 1)
 
 [node name="Recurso13" parent="NavigationRegion3D" unique_id=1059515664 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.631954, 0.6455455, 12.170856)
+modelo_arbusto = ExtResource("9_01n04")
+modelo_piedras = ExtResource("10_hjac3")
+modelo_arboles = ExtResource("11_k3vby")
+modelo_metal = ExtResource("12_p7cdx")
 colision_arboles = Vector3(1, 1, 1)
 colision_metal = Vector3(1, 1, 1)
 
 [node name="Recurso14" parent="NavigationRegion3D" unique_id=2123605761 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.398758, 0.6455455, 18.934074)
+modelo_arbusto = ExtResource("13_busva")
+modelo_piedras = ExtResource("14_ryo5x")
+modelo_arboles = ExtResource("15_jufh4")
+modelo_metal = ExtResource("16_jdni3")
 colision_arboles = Vector3(1, 1, 1)
 colision_metal = Vector3(1, 1, 1)
 
 [node name="Recurso15" parent="NavigationRegion3D" unique_id=1004382247 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.192444, 0.6455455, 20.022568)
+modelo_arbusto = ExtResource("5_mpbdk")
+modelo_piedras = ExtResource("6_4lfjt")
+modelo_arboles = ExtResource("7_ilaqs")
+modelo_metal = ExtResource("8_dd2uo")
 colision_arboles = Vector3(1, 1, 1)
 colision_metal = Vector3(1, 1, 1)
 
 [node name="Recurso16" parent="NavigationRegion3D" unique_id=1206088689 instance=ExtResource("3_e8t1n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.589218, 0.6455455, 11.064461)
+modelo_arbusto = ExtResource("9_01n04")
+modelo_piedras = ExtResource("10_hjac3")
+modelo_arboles = ExtResource("11_k3vby")
+modelo_metal = ExtResource("12_p7cdx")
 colision_arboles = Vector3(1, 1, 1)
 colision_metal = Vector3(1, 1, 1)
 
 [node name="RecursoUnidad4" parent="NavigationRegion3D" unique_id=1995057946 instance=ExtResource("12_6tp1g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.075455, 0.7046747, -20.042248)
+modelo_arbusto = ExtResource("18_ryo5x")
+modelo_piedras = ExtResource("19_jdni3")
+modelo_arboles = ExtResource("20_ojcmg")
+modelo_metal = ExtResource("21_ojcmg")
 
 [node name="RecursoUnidad5" parent="NavigationRegion3D" unique_id=525202217 instance=ExtResource("12_6tp1g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.295696, 0.7046747, -9.139926)
+modelo_arbusto = ExtResource("18_ryo5x")
+modelo_piedras = ExtResource("19_jdni3")
+modelo_arboles = ExtResource("20_ojcmg")
+modelo_metal = ExtResource("21_ojcmg")
 
 [node name="RecursoUnidad6" parent="NavigationRegion3D" unique_id=1605634004 instance=ExtResource("12_6tp1g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.281822, 0.7046747, -17.558033)
+modelo_arbusto = ExtResource("18_ryo5x")
+modelo_piedras = ExtResource("19_jdni3")
+modelo_arboles = ExtResource("20_ojcmg")
+modelo_metal = ExtResource("21_ojcmg")
 
 [node name="RecursoUnidad7" parent="NavigationRegion3D" unique_id=615425094 instance=ExtResource("12_6tp1g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.813269, 0.7046747, 24.502724)
+modelo_arbusto = ExtResource("18_ryo5x")
+modelo_piedras = ExtResource("19_jdni3")
+modelo_arboles = ExtResource("20_ojcmg")
+modelo_metal = ExtResource("21_ojcmg")
 
 [node name="RecursoUnidad8" parent="NavigationRegion3D" unique_id=81628882 instance=ExtResource("12_6tp1g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.257122, 0.7046747, 30.93763)
+modelo_arbusto = ExtResource("18_ryo5x")
+modelo_piedras = ExtResource("19_jdni3")
+modelo_arboles = ExtResource("20_ojcmg")
+modelo_metal = ExtResource("21_ojcmg")
 
 [node name="RecursoUnidad9" parent="NavigationRegion3D" unique_id=1092105285 instance=ExtResource("12_6tp1g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.324707, 0.7046747, -37.16713)
+modelo_arbusto = ExtResource("18_ryo5x")
+modelo_piedras = ExtResource("19_jdni3")
+modelo_arboles = ExtResource("20_ojcmg")
+modelo_metal = ExtResource("21_ojcmg")
 
 [node name="Castillo" type="MeshInstance3D" parent="." unique_id=1468586569]
 transform = Transform3D(-9.330196, 0, 2.9656002e-07, 0, 0.078317486, 0, -8.1567174e-07, 0, -3.3922515, 0, 0, 50.25)

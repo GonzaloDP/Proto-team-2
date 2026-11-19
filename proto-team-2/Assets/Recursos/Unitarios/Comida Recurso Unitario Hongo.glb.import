@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://wl4tm76fben8"
-path="res://.godot/imported/Comida Recurso.glb-0d017f5842b1442e160fde8b5229107b.scn"
+uid="uid://7ldoqd5cqe7q"
+path="res://.godot/imported/Comida Recurso Unitario Hongo.glb-98709bc71a61594b72a02ddd13bd799b.scn"
 
 [deps]
 
-source_file="res://Assets/Recursos/Comida Recurso.glb"
-dest_files=["res://.godot/imported/Comida Recurso.glb-0d017f5842b1442e160fde8b5229107b.scn"]
+source_file="res://Assets/Recursos/Unitarios/Comida Recurso Unitario Hongo.glb"
+dest_files=["res://.godot/imported/Comida Recurso Unitario Hongo.glb-98709bc71a61594b72a02ddd13bd799b.scn"]
 
 [params]
 
