@@ -363,7 +363,6 @@ shape = SubResource("BoxShape3D_x43xs")
 
 [node name="Modelo_Terminado" type="MeshInstance3D" parent="." unique_id=1986485731]
 transform = Transform3D(0.7231312, 0, -0.4175, 0, 0.835, 0, 0.4175, 0, 0.7231312, 0, 0, 0)
-visible = false
 mesh = SubResource("ArrayMesh_t8svk")
 
 [node name="Modelo_Rojo" type="MeshInstance3D" parent="." unique_id=1788444009]
