@@ -27,7 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://dk81vxhjsjwl" path="res://Assets/Gráficos 2D/UI/Marco-progressBar.png" id="15_s8v6j"]
 [ext_resource type="Script" uid="uid://c4auf7cjj024c" path="res://Scripts/menu_construccion.gd" id="15_tid47"]
 [ext_resource type="Texture2D" uid="uid://c50ni4wq0d0da" path="res://Assets/Gráficos 2D/UI/Relleno-progressBar.png" id="16_vksv8"]
-[ext_resource type="Texture2D" uid="uid://vcd2o650o6df" path="res://Assets/Gráficos 2D/UI/modal cuota impaga.png" id="18_0xhyv"]
+[ext_resource type="Texture2D" uid="uid://dtg7pr3mkmnkj" path="res://Assets/Gráficos 2D/UI/modal cuota impaga.png" id="18_0xhyv"]
 [ext_resource type="Script" uid="uid://bm0vvop2w0grr" path="res://Scripts/penalties_manager.gd" id="18_xytri"]
 [ext_resource type="Texture2D" uid="uid://bnc6nqxkpykp6" path="res://Assets/Gráficos 2D/Botones/Boton continuar.png" id="19_b01mn"]
 [ext_resource type="Texture2D" uid="uid://doihx7veka6t6" path="res://Assets/Gráficos 2D/UI/Rayos divinos dorados con destellos.png" id="19_cc26a"]
@@ -51,6 +51,9 @@ polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Arr
 
 [sub_resource type="SystemFont" id="SystemFont_x7iek"]
 font_names = PackedStringArray("Californian FB")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mmnwr"]
+texture = ExtResource("18_0xhyv")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nps2w"]
 texture = ExtResource("19_b01mn")
@@ -462,14 +465,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="UI/Panel" unique_id=800553234]
-layout_mode = 0
-offset_right = 400.0
-offset_bottom = 400.0
-offset_transform_enabled = true
-offset_transform_position = Vector2(-16.36, 0)
-texture = ExtResource("18_0xhyv")
+theme_override_styles/panel = SubResource("StyleBoxTexture_mmnwr")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/Panel" unique_id=89809868]
 layout_mode = 1
@@ -506,9 +502,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Button" type="Button" parent="UI/Panel/VBoxContainer" unique_id=144321561]
+custom_minimum_size = Vector2(150, 50)
 custom_maximum_size = Vector2(150, 50)
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_horizontal = 4
+size_flags_vertical = 6
 theme_override_styles/normal = SubResource("StyleBoxTexture_nps2w")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_85p78")
 theme_override_styles/hover = SubResource("StyleBoxTexture_0bhb4")

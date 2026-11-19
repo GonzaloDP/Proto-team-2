@@ -10,7 +10,7 @@ extends Control
 @onready var comida_label = $VBoxContainer/Comida
 @onready var notificacion: Label = $"cuota pago"
 @onready var penalties_manager: PenaltiesManager = get_tree().current_scene.get_node("PenaltiesManager")
-@onready var notificacion_penalizacion: Label = $"../Panel/VBoxContainer/MarginContainer/cuota impago"
+@onready var notificacion_penalizacion: RichTextLabel = $"../Panel/VBoxContainer/RichTextLabel"
 @onready var boton_continuar: Button = $"../Panel/VBoxContainer/Button"
 @onready var panel_penalizacion: Panel = $"../Panel"
 
