@@ -29,7 +29,7 @@ enum Tipo_Recurso{ MADERA, PIEDRA, COMIDA, METAL}
 @onready var level : Level = get_tree().current_scene
 @onready var contenedor_modelo: Node3D = $Modelo
 @onready var colision_fisica: CollisionShape3D = $CollisionShape3D
-@onready var particulas = $ParticulasGPU		#Esta variable determina que utilizamos para las partículas. Para cambiar a modo CPU, cambiar "ParticulasGPU" por "ParticulasCPU"
+@onready var particulas = $ParticulasCPU		#Esta variable determina que utilizamos para las partículas. Para cambiar a modo CPU, cambiar "ParticulasGPU" por "ParticulasCPU"
 
 var modelo_actual: Node3D
 var tipo: Tipo_Recurso#Variable del tipo de lo que contenga la lista

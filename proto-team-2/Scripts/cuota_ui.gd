@@ -10,15 +10,29 @@ extends Control
 @onready var comida_label = $VBoxContainer/Comida
 @onready var notificacion: Label = $"cuota pago"
 @onready var penalties_manager: PenaltiesManager = get_tree().current_scene.get_node("PenaltiesManager")
-@onready var notificacion_penalizacion: Label =$"cuota impago"
+@onready var notificacion_penalizacion: RichTextLabel = get_node_or_null("../Panel/VBoxContainer/RichTextLabel")
+@onready var boton_continuar: Button = get_node_or_null("../Panel/VBoxContainer/Button")
+@onready var panel_penalizacion: Panel = get_node_or_null("../Panel")
+
 var tween_penalizacion: Tween
+var mostrando_penalizacion := false 
 
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	
+	if panel_penalizacion != null:
+		panel_penalizacion.process_mode = Node.PROCESS_MODE_ALWAYS
+		panel_penalizacion.hide()
+		boton_continuar.hide()
+		
+		boton_continuar.pressed.connect(continuar_juego)
+	
 	cuota.cuota_actualizada.connect(actualizar_recursos)
 	penalties_manager.penalty_apllied.connect(mostrar_penalizacion)
 	cuota.cuota_incumplida.connect(mostrar_penalizacion)
 	day_manager.dia_cambio.connect(actualizar_dias)
 	day_manager.actualizar_ui.connect(actualizar_dias)
+	
 	actualizar_recursos()
 	actualizar_dias(1)
 
@@ -47,18 +61,48 @@ func mostrar_cuota_pagada():
 	tween.tween_property(notificacion,"modulate:a",0.0,0.4)
 	tween.tween_callback(func(): notificacion.visible = false)
 
-func mostrar_penalizacion(penalty: Dictionary):    
-	var tipo = penalty["tipo"]    
-	var valor = penalty["valor"]    
-	match tipo:        
-		PenaltiesManager.PenaltyType.TAX:            
-			notificacion_penalizacion.text = "¡La mitad de tu inventario fue cobrado!"        
-		PenaltiesManager.PenaltyType.UNIT_KILL:            
-			notificacion_penalizacion.text = "¡Has perdido unidades!"
+func mostrar_penalizacion(penalty: Dictionary):
+	if mostrando_penalizacion:
+		return
+	
+	mostrando_penalizacion = true
+	
+	var tipo = penalty["tipo"]
+	
+	match tipo:
+		PenaltiesManager.PenaltyType.TAX:
+			notificacion_penalizacion.text = "¡La mitad de tu inventario fue cobrado!"
+		PenaltiesManager.PenaltyType.UNIT_KILL:
+			notificacion_penalizacion.text = "¡Haz perdido una unidad!"
 		PenaltiesManager.PenaltyType.DEFEAT:
 			notificacion_penalizacion.text = "¡Derrota!"
-	animar_penalizacion()
-
+	
+	panel_penalizacion.show()
+	notificacion_penalizacion.modulate = Color("#B94B45")
+	notificacion_penalizacion.modulate.a = 1.0
+	notificacion_penalizacion.scale = Vector2.ONE
+	
+	boton_continuar.hide()
+	
+	get_tree().paused = true
+	
+	var tween = create_tween()
+	tween.tween_property(
+		notificacion_penalizacion,
+		"scale",
+		Vector2(1.2, 1.2),
+		0.15
+	)
+	tween.tween_property(
+		notificacion_penalizacion,
+		"scale",
+		Vector2.ONE,
+		0.15
+	)
+	
+	await get_tree().create_timer(3.0, true).timeout
+	
+	boton_continuar.show()
 
 func animar_penalizacion():
 	
@@ -73,3 +117,11 @@ func animar_penalizacion():
 	tween_penalizacion.tween_interval(2.0)
 	tween_penalizacion.tween_property(notificacion_penalizacion, "modulate:a", 0.0, 0.4)
 	tween_penalizacion.tween_callback(func(): notificacion_penalizacion.visible = false)
+
+func continuar_juego():
+	panel_penalizacion.hide()
+	boton_continuar.hide()
+	
+	mostrando_penalizacion = false
+	
+	get_tree().paused = false
