@@ -99,7 +99,6 @@ func cambiar_modelo() -> void: #con esta función elegimos un modelo segun el ti
 			posicion_colision = posicion_metal
 			escala_hitbox = Vector3(5,1.5,5)
 			
-	print (escala_hitbox)
 	if escena_elegida == null:
 		return
 	if modelo_actual != null:
