@@ -608,6 +608,7 @@ script = ExtResource("6_o7ik0")
 [node name="Tooltip" parent="UI" unique_id=329360181 instance=ExtResource("6_418oe")]
 
 [node name="InventarioUI" parent="UI" unique_id=410876157 instance=ExtResource("11_uyafw")]
+mouse_filter = 2
 
 [node name="DayUI" type="Control" parent="UI" unique_id=463724722]
 layout_mode = 3
@@ -622,6 +623,7 @@ grow_horizontal = 0
 scale = Vector2(1.225, 1.225)
 size_flags_horizontal = 0
 size_flags_vertical = 0
+mouse_filter = 2
 script = ExtResource("9_iqjgs")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="UI/DayUI" unique_id=2073285405]
@@ -645,6 +647,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Dias" type="Label" parent="UI/DayUI/VBoxContainer" unique_id=1788123509]
 layout_mode = 2
@@ -660,6 +663,7 @@ size_flags_vertical = 4
 offset_transform_enabled = true
 offset_transform_position = Vector2(0, 20.64)
 offset_transform_scale = Vector2(0.28, 0.28)
+mouse_filter = 2
 texture_under = ExtResource("14_kour3")
 texture_over = ExtResource("15_s8v6j")
 texture_progress = ExtResource("16_vksv8")
@@ -676,6 +680,7 @@ offset_right = -76.93872
 offset_bottom = 260.99173
 grow_horizontal = 0
 scale = Vector2(1.225, 1.225)
+mouse_filter = 2
 script = ExtResource("10_pke20")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/CuotaUI" unique_id=1041738528]
@@ -685,6 +690,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Cuota" type="Label" parent="UI/CuotaUI/VBoxContainer" unique_id=101136191]
 layout_mode = 2
@@ -745,6 +751,7 @@ autowrap_mode = 2
 visible = false
 offset_right = 8.0
 offset_bottom = 8.0
+mouse_filter = 2
 text = "Alimentar esbirros"
 
 [node name="PauseMenu" type="Control" parent="UI" unique_id=311185493]
@@ -1084,6 +1091,7 @@ script = ExtResource("18_xytri")
 [node name="HUDDemolicion" parent="." unique_id=1196322522 instance=ExtResource("23_u2sv0")]
 
 [node name="HUD_Unidad" parent="." unique_id=1556987955 instance=ExtResource("24_6b4jh")]
+mouse_filter = 2
 
 [node name="Musica UI" type="CanvasLayer" parent="." unique_id=2002191925]
 
