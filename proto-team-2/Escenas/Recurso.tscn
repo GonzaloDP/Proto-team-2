@@ -68,8 +68,6 @@ visible = false
 mesh = SubResource("BoxMesh_1icel")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=357680996]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.029907227, 0.053600073, 0.0052490234)
-visible = false
 shape = SubResource("BoxShape3D_austa")
 
 [node name="Modelo" type="Node3D" parent="." unique_id=1427247101]
@@ -79,8 +77,6 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1047957423]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-visible = false
 shape = SubResource("BoxShape3D_nps2w")
 
 [node name="ParticulasCPU" type="CPUParticles3D" parent="." unique_id=109393812]

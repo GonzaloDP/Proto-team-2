@@ -40,6 +40,8 @@ func _ready() -> void:
 	if is_instance_valid(level):
 		level.mapa_actualizado.connect(actualizar_navegacion)
 	gestor_penalizaciones.units_killed.connect(deseleccionar_todas)
+	await get_tree().create_timer(0.4).timeout	#Colocamos un mini-timer para darle tiempo a los recursos de cambiar su tamaño. De este modo, el primer navigation region evita imprecisiones.
+	actualizar_navegacion()
 	
 func _process(delta: float) -> void:
 	if estado_actual == EstadoCamara.CONSTRUYENDO and is_instance_valid(edificio_fantasma):
