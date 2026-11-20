@@ -85,7 +85,7 @@ func cambiar_modelo() -> void: #con esta función elegimos un modelo segun el ti
 			escala_elegida = escala_piedras
 			tamano_colision = colision_piedras
 			posicion_colision = posicion_piedras
-			escala_hitbox = Vector3(5.5,1.5,5.5)
+			escala_hitbox = Vector3(5,1.5,5)
 		Tipo_Recurso.MADERA:
 			escena_elegida = modelo_arboles
 			escala_elegida = escala_arboles

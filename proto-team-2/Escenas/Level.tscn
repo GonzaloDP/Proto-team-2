@@ -1106,6 +1106,7 @@ texture_normal = ExtResource("32_mmnwr")
 ignore_texture_size = true
 stretch_mode = 5
 script = ExtResource("42_x7iek")
+metadata/_edit_use_anchors_ = true
 
 [node name="SFX" type="Node" parent="." unique_id=1522562790]
 
