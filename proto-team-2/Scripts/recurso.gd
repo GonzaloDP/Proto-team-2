@@ -25,6 +25,7 @@ enum Tipo_Recurso{ MADERA, PIEDRA, COMIDA, METAL}
 @export var posicion_piedras: Vector3 = Vector3.ZERO
 @export var posicion_arboles: Vector3 = Vector3.ZERO
 @export var posicion_metal: Vector3 = Vector3.ZERO
+var escala_hitbox : Vector3
 
 @onready var level : Level = get_tree().current_scene
 @onready var contenedor_modelo: Node3D = $Modelo
@@ -78,22 +79,27 @@ func cambiar_modelo() -> void: #con esta función elegimos un modelo segun el ti
 			escala_elegida = escala_arbusto
 			tamano_colision = colision_arbusto
 			posicion_colision = posicion_arbusto
+			escala_hitbox = Vector3(1.5,1.5,1.5)
 		Tipo_Recurso.PIEDRA:
 			escena_elegida = modelo_piedras
 			escala_elegida = escala_piedras
 			tamano_colision = colision_piedras
 			posicion_colision = posicion_piedras
+			escala_hitbox = Vector3(5.5,1.5,5.5)
 		Tipo_Recurso.MADERA:
 			escena_elegida = modelo_arboles
 			escala_elegida = escala_arboles
 			tamano_colision = colision_arboles
 			posicion_colision = posicion_arboles
+			escala_hitbox = Vector3(1,10,1)
 		Tipo_Recurso.METAL:
 			escena_elegida = modelo_metal
 			escala_elegida = escala_metal
 			tamano_colision = colision_metal
 			posicion_colision = posicion_metal
+			escala_hitbox = Vector3(5,1.5,5)
 			
+	print (escala_hitbox)
 	if escena_elegida == null:
 		return
 	if modelo_actual != null:
@@ -107,6 +113,8 @@ func cambiar_modelo() -> void: #con esta función elegimos un modelo segun el ti
 	colision_fisica.shape = forma
 	colision_fisica.position = posicion_colision
 	modelo_actual.scale = escala_elegida
+	$CollisionShape3D.scale = escala_hitbox
+	$Area3D/CollisionShape3D.scale = escala_hitbox
 
 func cambiar_color_particulas():
 	match tipo:
