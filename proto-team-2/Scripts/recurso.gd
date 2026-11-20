@@ -25,9 +25,12 @@ enum Tipo_Recurso{ MADERA, PIEDRA, COMIDA, METAL}
 @export var posicion_piedras: Vector3 = Vector3.ZERO
 @export var posicion_arboles: Vector3 = Vector3.ZERO
 @export var posicion_metal: Vector3 = Vector3.ZERO
+var escala_hitbox : Vector3
 
+@onready var level : Level = get_tree().current_scene
 @onready var contenedor_modelo: Node3D = $Modelo
 @onready var colision_fisica: CollisionShape3D = $CollisionShape3D
+@onready var particulas = $ParticulasCPU		#Esta variable determina que utilizamos para las partículas. Para cambiar a modo CPU, cambiar "ParticulasGPU" por "ParticulasCPU"
 
 var modelo_actual: Node3D
 var tipo: Tipo_Recurso#Variable del tipo de lo que contenga la lista
@@ -36,6 +39,8 @@ var cantidad_variable : int#Cantidad de recurso que va a mostrar cuando nos diga
 func _ready() -> void:
 	tipo = Tipo_Recurso.values().pick_random()
 	cantidad_variable = cantidad_inicial
+	particulas.emitting = false
+	particulas.global_position = self.global_position
 	cambiar_modelo()
 
 func _process(delta: float) -> void:
@@ -59,8 +64,8 @@ func obtener_tipo_recurso() -> Recurso.Tipo_Recurso:
 
 func reduceQuantity(quantity: int):	#Recibe un int, y reduce la cantidad de recursos restantes por ese número. Si la cantidad de recursos restantes tras la operación fuese menor a 0, se redondea a 0.
 	cantidad_variable -= quantity
-	if(cantidad_variable < 0):
-		cantidad_inicial = 0 
+	if(cantidad_variable <= 0):
+		desespawnear()
 
 func cambiar_modelo() -> void: #con esta función elegimos un modelo segun el tipo de recurso que da
 	var escena_elegida: PackedScene
@@ -74,22 +79,26 @@ func cambiar_modelo() -> void: #con esta función elegimos un modelo segun el ti
 			escala_elegida = escala_arbusto
 			tamano_colision = colision_arbusto
 			posicion_colision = posicion_arbusto
-			
+			escala_hitbox = Vector3(1.5,1.5,1.5)
 		Tipo_Recurso.PIEDRA:
 			escena_elegida = modelo_piedras
 			escala_elegida = escala_piedras
 			tamano_colision = colision_piedras
 			posicion_colision = posicion_piedras
+			escala_hitbox = Vector3(5,1.5,5)
 		Tipo_Recurso.MADERA:
 			escena_elegida = modelo_arboles
 			escala_elegida = escala_arboles
 			tamano_colision = colision_arboles
 			posicion_colision = posicion_arboles
+			escala_hitbox = Vector3(1,10,1)
 		Tipo_Recurso.METAL:
 			escena_elegida = modelo_metal
 			escala_elegida = escala_metal
 			tamano_colision = colision_metal
 			posicion_colision = posicion_metal
+			escala_hitbox = Vector3(5,1.5,5)
+			
 	if escena_elegida == null:
 		return
 	if modelo_actual != null:
@@ -103,3 +112,27 @@ func cambiar_modelo() -> void: #con esta función elegimos un modelo segun el ti
 	colision_fisica.shape = forma
 	colision_fisica.position = posicion_colision
 	modelo_actual.scale = escala_elegida
+	$CollisionShape3D.scale = escala_hitbox
+	$Area3D/CollisionShape3D.scale = escala_hitbox
+
+func cambiar_color_particulas():
+	match tipo:
+		Tipo_Recurso.COMIDA:
+			self.particulas.material_override.albedo_color = Color(0.463, 0.761, 0.039)
+		Tipo_Recurso.PIEDRA:
+			self.particulas.material_override.albedo_color = Color(0.4, 0.4, 0.4)
+		Tipo_Recurso.MADERA:
+			self.particulas.material_override.albedo_color = Color(0.596, 0.408, 0.102)
+		Tipo_Recurso.METAL:
+			self.particulas.material_override.albedo_color = Color(0.749, 0.757, 0.757)
+	
+func desespawnear():	#Este método controla la animación y efecto con el que los edificios desaparecen
+	particulas.emitting = true	#Activamos el emisor de partículas.
+	cambiar_color_particulas()
+	var tweenTamaño = create_tween()
+	var escalaModelo = modelo_actual.scale
+	tweenTamaño.tween_property(modelo_actual,"scale",escalaModelo*1.4,0.15)
+	tweenTamaño.tween_property(modelo_actual,"scale",Vector3(0,0,0),0.2)
+	await get_tree().create_timer(0.65).timeout
+	level._actualizar_mapa(0.5)
+	queue_free()

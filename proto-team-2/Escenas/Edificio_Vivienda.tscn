@@ -1082,7 +1082,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.74860334, 0)
 
 [node name="Modelo_Terminado" type="MeshInstance3D" parent="Variante 1" unique_id=1726302150]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 1.7348676, 0)
-visible = false
 mesh = SubResource("ArrayMesh_xi5la")
 
 [node name="Modelo_Rojo" type="MeshInstance3D" parent="Variante 1" unique_id=1450349383]
@@ -1094,12 +1093,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.74860334, 0)
 
 [node name="Modelo_Terminado" type="MeshInstance3D" parent="Variante 2" unique_id=280730821]
 transform = Transform3D(0.147, 0, 0, 0, 0.147, 0, 0, 0, 0.147, 0, 1.61, 0)
-visible = false
 mesh = SubResource("ArrayMesh_807cr")
 
 [node name="Modelo_Rojo" type="MeshInstance3D" parent="Variante 2" unique_id=1028481380]
 transform = Transform3D(0.147, 0, 0, 0, 0.147, 0, 0, 0, 0.147, 0, 1.61, 0)
-visible = false
 mesh = SubResource("ArrayMesh_8x6qg")
 
 [node name="Variante 3" type="Node3D" parent="." unique_id=1829317759]
@@ -1107,12 +1104,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.74860334, 0)
 
 [node name="Modelo_Terminado" type="MeshInstance3D" parent="Variante 3" unique_id=670037242]
 transform = Transform3D(0.93, 0, 0, 0, 0.141, 0, 0, 0, 0.93, 0, 1.6755195, 0)
-visible = false
 mesh = SubResource("ArrayMesh_sfpx2")
 
 [node name="Modelo_Rojo" type="MeshInstance3D" parent="Variante 3" unique_id=1778678323]
 transform = Transform3D(0.93, 0, 0, 0, 0.143, 0, 0, 0, 0.93, 0, 1.676, 0)
-visible = false
 mesh = SubResource("ArrayMesh_imgk1")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1421302568]

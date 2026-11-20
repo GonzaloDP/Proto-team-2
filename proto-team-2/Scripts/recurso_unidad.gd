@@ -18,6 +18,7 @@ func _ready() -> void:
 	tipo_respawn = tipo_recurso.values().pick_random()
 	tipo = obtener_tipo_recurso()
 	cantidad_variable = cantidad
+	particulas.emitting = false
 	cambiar_modelo()
 
 func _process(delta: float) -> void:
@@ -54,7 +55,7 @@ func reduceQuantity(quantity: int):
 	if cantidad_variable <= 0:
 		cantidad_variable = 0
 		agotado = true
-		respawn()
+		desespawnear()
 
 func respawn():
 	await get_tree().create_timer(timer).timeout

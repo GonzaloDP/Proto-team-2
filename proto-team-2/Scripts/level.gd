@@ -2,8 +2,10 @@ extends Node3D
 #Este script es solo para hacer unas validaciones, luego se puede borrar
 
 signal poblacion_actualizada
+signal mapa_actualizado
 
 @onready var day_manager = get_node_or_null("DayManager")
+@onready var camara = get_node_or_null("CameraPosition/CameraRotationX/CameraZoomPivot/Camera3D2")
 
 const METRICS_DEFINITION = preload("res://local_metrics/metricas_level1.tres")
 
@@ -58,7 +60,8 @@ func _on_alimentar_debug_pressed():		#Este método (Y el grupo que utiliza) son 
 
 func restart_level():
 	unidades_actuales = 0
-	
+	limite_unidades = 5
+
 func checkVoucher(comedor: EdificioComedor):	#Este método es llamado cuando se construye un nuevo comedor en una ubicación válida. Chequea si el voucher está activo, si lo está, el comedor se construye inmediatamente y el voucher se consume.
 	if(voucherComedor):
 		comedor.instaBuild()
@@ -66,3 +69,28 @@ func checkVoucher(comedor: EdificioComedor):	#Este método es llamado cuando se 
 
 func registrar_metricas_unidades(_nuevo_dia: int):
 	Metrics.record_add("unidades_diarias", Level.unidades_actuales)
+	
+func _actualizar_mapa(delay: float):
+	await get_tree().create_timer(delay).timeout
+	mapa_actualizado.emit()
+
+func _matar_unidades(): 	#Esta función es llamada por el penalties manager. Le dice al level que mate unidades como resultado de la cuota.
+	var unidadesVisibles : Array[Unidad] = []
+	for each in (get_tree().get_nodes_in_group("unidades")):	#Primero, creamos un array con las unidades elegibles para morir. Solo seleccionamos las que actualmente estén visibles.
+		if each.visible:
+			unidadesVisibles.append(each)
+	var target = 0	#Creamos una variable target, esta indica la cantidad de unidades que tienen que morir. Se determina su valor según la cantidad de unidades que el jugador posea, si son menos de 5, solo mataremos 1. De a 5 a 10, matamos 2. 10 o más, matamos 4.
+	var killCount = 0
+	if(unidades_actuales > 10):
+		target = 4
+	elif(unidades_actuales >= 5):
+		target = 2
+	else:
+		target = 1
+	while(killCount < target):	# Y acá es donde empezamos a eliminarlas. Tomamos un número aleatorio del array, eliminamos esa unidad, y lo repetimos hasta alcanzar el target.
+		var chosenNumber = randi_range(0,unidadesVisibles.size() -1)
+		var chosenUnit = unidadesVisibles.pop_at(chosenNumber)
+		chosenUnit.queue_free()
+		unidades_actuales -=1
+		killCount += 1
+	poblacion_actualizada.emit()

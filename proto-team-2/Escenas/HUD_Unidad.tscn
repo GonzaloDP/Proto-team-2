@@ -17,6 +17,7 @@ anchor_bottom = 1.0
 offset_top = -264.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 2
 script = ExtResource("1_22wvu")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1803512157]
@@ -32,6 +33,7 @@ offset_right = 346.0
 offset_bottom = 133.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 texture = ExtResource("2_nfvn5")
 region_rect = Rect2(0, 0, 197.89996, 164.34998)
 patch_margin_left = 30
@@ -51,6 +53,7 @@ offset_top = -264.0
 offset_right = 331.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 1
 
 [node name="Margen" type="MarginContainer" parent="Panel" unique_id=14315378]
 layout_mode = 1
@@ -71,18 +74,23 @@ layout_mode = 2
 
 [node name="NombreUnidad" type="Label" parent="Panel/Margen/Contenido" unique_id=289769084]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="EstadoUnidad" type="Label" parent="Panel/Margen/Contenido" unique_id=18086454]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="TituloRasgo" type="Label" parent="Panel/Margen/Contenido" unique_id=86913290]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="ListaRasgo" type="Label" parent="Panel/Margen/Contenido" unique_id=273614422]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="TituloAtributo" type="Label" parent="Panel/Margen/Contenido" unique_id=2005232571]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="Atributos" type="GridContainer" parent="Panel/Margen/Contenido" unique_id=503893148]
 layout_mode = 2
@@ -96,6 +104,7 @@ expand_mode = 2
 
 [node name="ValorRecoleccion" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=459318186]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="IconoReproduccion" type="TextureRect" parent="Panel/Margen/Contenido/Atributos" unique_id=429206556]
 layout_mode = 2
@@ -104,6 +113,7 @@ expand_mode = 2
 
 [node name="ValorReproduccion" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=511207368]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="IconoMovimiento" type="TextureRect" parent="Panel/Margen/Contenido/Atributos" unique_id=1612504070]
 layout_mode = 2
@@ -112,6 +122,7 @@ expand_mode = 2
 
 [node name="ValorMovimiento" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=1582661789]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="IconoConstruccion" type="TextureRect" parent="Panel/Margen/Contenido/Atributos" unique_id=63744130]
 layout_mode = 2
@@ -120,6 +131,7 @@ expand_mode = 2
 
 [node name="ValorConstruccion" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=2016882252]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="IconoSaciedad" type="TextureRect" parent="Panel/Margen/Contenido/Atributos" unique_id=1619911611]
 layout_mode = 2
@@ -128,3 +140,4 @@ expand_mode = 2
 
 [node name="ValorSaciedad" type="Label" parent="Panel/Margen/Contenido/Atributos" unique_id=1671871530]
 layout_mode = 2
+mouse_filter = 1

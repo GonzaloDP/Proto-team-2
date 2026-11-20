@@ -12,6 +12,40 @@ material = SubResource("StandardMaterial3D_mvknu")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_wlkfn"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iw5u2"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_p35jk"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kerbr"]
+
+[sub_resource type="Curve" id="Curve_2krmw"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_kerbr"]
+curve = SubResource("Curve_2krmw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yijag"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+angle_min = -247.79999
+angle_max = 232.10002
+use_rotation_3d = true
+rotation_3d_min = Vector3(0, 0, 0)
+rotation_3d_max = Vector3(360, 360, 360)
+direction = Vector3(1, 360, 0)
+spread = 36.529
+initial_velocity_min = 3.0
+initial_velocity_max = 7.0
+scale_curve = SubResource("CurveTexture_kerbr")
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_tasc7"]
+size = Vector3(0.5, 0.5, 0.5)
+
 [node name="RecursoUnidad" type="StaticBody3D" unique_id=1902933503]
 collision_layer = 4
 script = ExtResource("1_imde8")
@@ -31,3 +65,31 @@ shape = SubResource("SphereShape3D_wlkfn")
 
 [node name="Modelo" type="Node3D" parent="." unique_id=1945842940]
 transform = Transform3D(5.005, 0, 0, 0, 5.005, 0, 0, 0, 5.005, 0, 0, 0)
+
+[node name="ParticulasCPU" type="CPUParticles3D" parent="." unique_id=1854621632]
+material_override = SubResource("StandardMaterial3D_iw5u2")
+emitting = false
+amount = 10
+one_shot = true
+speed_scale = 1.5
+explosiveness = 1.0
+mesh = SubResource("BoxMesh_p35jk")
+emission_shape = 1
+emission_sphere_radius = 1.0
+particle_flag_rotate_y = true
+direction = Vector3(0, 2, 20)
+spread = 180.0
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+angle_min = -359.0
+angle_max = 359.0
+
+[node name="ParticulasGPU" type="GPUParticles3D" parent="." unique_id=915929147]
+material_override = SubResource("StandardMaterial3D_kerbr")
+emitting = false
+amount = 10
+one_shot = true
+speed_scale = 1.5
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_yijag")
+draw_pass_1 = SubResource("BoxMesh_tasc7")

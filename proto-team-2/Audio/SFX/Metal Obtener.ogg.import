@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://d37wjwyne15nf"
+path="res://.godot/imported/Metal Obtener.ogg-792c80b3592908c1d4989d8a705f3308.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/SFX/Metal Obtener.ogg"
+dest_files=["res://.godot/imported/Metal Obtener.ogg-792c80b3592908c1d4989d8a705f3308.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

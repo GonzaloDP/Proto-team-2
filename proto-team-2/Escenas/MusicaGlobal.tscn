@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bnlfv8qwhmp3w"]
+
+[ext_resource type="AudioStream" uid="uid://1uppdci35nm2" path="res://Audio/RTS Music.ogg" id="1_xdots"]
+
+[node name="MusicaGlobal" type="AudioStreamPlayer" unique_id=1799433008]
+stream = ExtResource("1_xdots")
+autoplay = true
+bus = &"Musica"
