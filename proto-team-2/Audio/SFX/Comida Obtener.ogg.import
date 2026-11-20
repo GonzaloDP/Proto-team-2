@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cpvd35vw6hrwk"
+path="res://.godot/imported/Comida Obtener.ogg-8f91d3d853c42db64cd007f2a0852707.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/SFX/Comida Obtener.ogg"
+dest_files=["res://.godot/imported/Comida Obtener.ogg-8f91d3d853c42db64cd007f2a0852707.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
