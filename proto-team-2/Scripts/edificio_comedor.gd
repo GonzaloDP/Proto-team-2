@@ -3,7 +3,7 @@ class_name EdificioComedor
 
 @export var tiempo_comida: float = 5.0
 @export var distancia_para_comer: float = 3.0
-@export var costo_alimentacion: int = 5
+@export var costo_alimentacion: int = 10
 
 @onready var inventario: Inventario = get_tree().current_scene.get_node("Inventario")
 

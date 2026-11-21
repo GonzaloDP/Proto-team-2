@@ -48,8 +48,8 @@
 [ext_resource type="Texture2D" uid="uid://c8ewfwsq1rohd" path="res://Assets/Gráficos 2D/Botones/boton-reanudar.png" id="19_tc4e0"]
 [ext_resource type="Texture2D" uid="uid://c07jegt4hlham" path="res://Assets/Gráficos 2D/Botones/Boton continuar pressed.png" id="20_mpbdk"]
 [ext_resource type="Texture2D" uid="uid://bcs1hpbfeggw4" path="res://Assets/Gráficos 2D/Botones/boton-reanudar-pressed.png" id="20_mvjhb"]
-[ext_resource type="Texture2D" uid="uid://bl0pv71cqy8jn" path="res://Assets/Gráficos 2D/Botones/Boton continuar hover.png" id="21_4lfjt"]
 [ext_resource type="PackedScene" uid="uid://c1syrkfy1u0n4" path="res://Assets/Recursos/Unitarios/Arbol Recurso Tronco.glb" id="20_ojcmg"]
+[ext_resource type="Texture2D" uid="uid://bl0pv71cqy8jn" path="res://Assets/Gráficos 2D/Botones/Boton continuar hover.png" id="21_4lfjt"]
 [ext_resource type="Texture2D" uid="uid://jlpe5s7jfjop" path="res://Assets/Gráficos 2D/Botones/boton-reanudar-hover.png" id="21_5yclt"]
 [ext_resource type="PackedScene" uid="uid://dkocyca8tqecn" path="res://Assets/Recursos/Unitarios/Hierro Recurso Unitario.glb" id="21_ojcmg"]
 [ext_resource type="Texture2D" uid="uid://crgymt4d8knni" path="res://Assets/Gráficos 2D/Botones/boton-reiniciar.png" id="23_72bp2"]
@@ -1147,7 +1147,6 @@ script = ExtResource("18_xytri")
 [node name="HUDDemolicion" parent="." unique_id=1196322522 instance=ExtResource("23_u2sv0")]
 
 [node name="HUD_Unidad" parent="." unique_id=1556987955 instance=ExtResource("24_6b4jh")]
-mouse_filter = 2
 
 [node name="Musica UI" type="CanvasLayer" parent="." unique_id=2002191925]
 

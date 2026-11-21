@@ -18,7 +18,7 @@ signal recurso_recolectado
 
 @export var moveSpeed: float = 6.0	#Esta variable controla la velocidad de desplazamiento de la unidad.
 @export var constructionSpeed : int = 5	#La cantidad de puntos de construcción que la unidad aporta mientras construye. Mientras más, más rápido se crea el edificio.
-@export var collectionSpeed: float = 10 #Igual que la constructionSpeed, pero afecta la recolección.
+@export var collectionSpeed: float = 2 #Igual que la constructionSpeed, pero afecta la recolección.
 @export var breedingSpeed: int = 5 #Mientras más alta sea esta variable, menos tiempo tardará la unidad en salir del edificio de reproducción.
 @export var initialSatiety: int = 10 #El valor inicial de saciedad de la unidad. Disminuye con el tiempo (debería), y al quedarse sin, la unidad no podrá trabajar.
 @export var nombre: String

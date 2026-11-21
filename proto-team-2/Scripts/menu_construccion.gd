@@ -15,7 +15,7 @@ signal iniciar_construccion(nombre_edificio, datos_edificio)
 var lista_edificios = {
 	"Edificio de Reproducción": {
 		"tipo_id": "reproduccion",
-		"costo": {Recurso.Tipo_Recurso.COMIDA: 15, Recurso.Tipo_Recurso.MADERA: 25},
+		"costo": {Recurso.Tipo_Recurso.COMIDA: 30, Recurso.Tipo_Recurso.MADERA: 40},
 		"icono": "res://Assets/3D/Edificios/Reproduccion_Miniatura.png",
 		"puntos_construccion_requeridos": 100
 	},
@@ -36,7 +36,7 @@ var lista_edificios = {
 		"es_pasivo": true,
 		"recurso_generado": [Recurso.Tipo_Recurso.MADERA],
 		"cantidad_generada": 10,
-		"costo": {Recurso.Tipo_Recurso.MADERA: 30, Recurso.Tipo_Recurso.PIEDRA: 15},
+		"costo": {Recurso.Tipo_Recurso.MADERA: 50, Recurso.Tipo_Recurso.PIEDRA: 25},
 		"icono": "res://Assets/3D/Edificios/Aserradero_Miniatura.png",
 		"puntos_construccion_requeridos": 120
 	},
@@ -45,7 +45,7 @@ var lista_edificios = {
 		"es_pasivo": true,
 		"recurso_generado": [Recurso.Tipo_Recurso.PIEDRA, Recurso.Tipo_Recurso.METAL],
 		"cantidad_generada": 10,
-		"costo": {Recurso.Tipo_Recurso.MADERA: 35, Recurso.Tipo_Recurso.PIEDRA: 20},
+		"costo": {Recurso.Tipo_Recurso.MADERA: 65, Recurso.Tipo_Recurso.PIEDRA: 35},
 		"icono": "res://Assets/3D/Edificios/Mina_Miniatura.png",
 		"puntos_construccion_requeridos": 130
 	},
@@ -54,7 +54,7 @@ var lista_edificios = {
 		"es_pasivo": true,
 		"recurso_generado": [Recurso.Tipo_Recurso.COMIDA],
 		"cantidad_generada": 10,
-		"costo": {Recurso.Tipo_Recurso.MADERA: 25, Recurso.Tipo_Recurso.COMIDA: 20},
+		"costo": {Recurso.Tipo_Recurso.MADERA: 45, Recurso.Tipo_Recurso.COMIDA: 35},
 		"icono": "res://Assets/3D/Edificios/Granja_Miniatura.png",
 		"puntos_construccion_requeridos": 120
 	}
