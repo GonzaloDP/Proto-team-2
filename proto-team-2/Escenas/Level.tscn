@@ -812,6 +812,42 @@ modelo_metal = ExtResource("8_dd2uo")
 colision_arboles = Vector3(1, 1, 1)
 colision_metal = Vector3(1, 1, 1)
 
+[node name="Recurso42" parent="NavigationRegion3D" unique_id=818285495 instance=ExtResource("3_e8t1n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.642395, 0.6455455, 7.1088905)
+modelo_arbusto = ExtResource("13_busva")
+modelo_piedras = ExtResource("14_ryo5x")
+modelo_arboles = ExtResource("15_jufh4")
+modelo_metal = ExtResource("16_jdni3")
+colision_arboles = Vector3(1, 1, 1)
+colision_metal = Vector3(1, 1, 1)
+
+[node name="Recurso43" parent="NavigationRegion3D" unique_id=451752894 instance=ExtResource("3_e8t1n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.013367, 0.6455455, 4.6340485)
+modelo_arbusto = ExtResource("13_busva")
+modelo_piedras = ExtResource("14_ryo5x")
+modelo_arboles = ExtResource("15_jufh4")
+modelo_metal = ExtResource("16_jdni3")
+colision_arboles = Vector3(1, 1, 1)
+colision_metal = Vector3(1, 1, 1)
+
+[node name="Recurso44" parent="NavigationRegion3D" unique_id=1134902750 instance=ExtResource("3_e8t1n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.642395, 0.6455455, -1.5129356)
+modelo_arbusto = ExtResource("13_busva")
+modelo_piedras = ExtResource("14_ryo5x")
+modelo_arboles = ExtResource("15_jufh4")
+modelo_metal = ExtResource("16_jdni3")
+colision_arboles = Vector3(1, 1, 1)
+colision_metal = Vector3(1, 1, 1)
+
+[node name="Recurso45" parent="NavigationRegion3D" unique_id=87071328 instance=ExtResource("3_e8t1n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.069103, 0.6455455, 9.680653)
+modelo_arbusto = ExtResource("13_busva")
+modelo_piedras = ExtResource("14_ryo5x")
+modelo_arboles = ExtResource("15_jufh4")
+modelo_metal = ExtResource("16_jdni3")
+colision_arboles = Vector3(1, 1, 1)
+colision_metal = Vector3(1, 1, 1)
+
 [node name="Castillo" type="MeshInstance3D" parent="." unique_id=1468586569]
 transform = Transform3D(-9.330196, 0, 2.9656002e-07, 0, 0.078317486, 0, -8.1567174e-07, 0, -3.3922515, 0, 0, 50.25)
 mesh = SubResource("ArrayMesh_cc26a")
