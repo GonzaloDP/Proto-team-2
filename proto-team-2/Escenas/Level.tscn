@@ -60,6 +60,7 @@
 [ext_resource type="Texture2D" uid="uid://dqt7tjl7ytodj" path="res://Assets/Gráficos 2D/Botones/boton-abandonar.png" id="26_x7iek"]
 [ext_resource type="Texture2D" uid="uid://b63tnfuf81ufc" path="res://Assets/Gráficos 2D/Botones/boton-abandonar-pressed.png" id="27_mmnwr"]
 [ext_resource type="Texture2D" uid="uid://besgiia05q068" path="res://Assets/Gráficos 2D/Botones/boton-abandonar-hover.png" id="28_0xhyv"]
+[ext_resource type="PackedScene" uid="uid://dfffc83js76ws" path="res://Escenas/camera_manager.tscn" id="33_72bp2"]
 [ext_resource type="Texture2D" uid="uid://dokx73yqtbyll" path="res://Assets/Gráficos 2D/Botones/Musica/Musica ON.png" id="32_mmnwr"]
 [ext_resource type="Script" uid="uid://dl5h62toknkc7" path="res://Scripts/boton_musica.gd" id="42_x7iek"]
 [ext_resource type="AudioStream" uid="uid://cpvd35vw6hrwk" path="res://Audio/SFX/Comida Obtener.ogg" id="59_q5fx3"]
@@ -1061,19 +1062,12 @@ script = ExtResource("13_6b4jh")
 [node name="MouseInteraction" type="Node" parent="." unique_id=1411286151]
 script = ExtResource("7_418oe")
 
-[node name="CameraPosition" type="Node3D" parent="." unique_id=1062928163]
+[node name="CameraPosition" parent="." unique_id=1687866384 instance=ExtResource("33_72bp2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
-script = ExtResource("8_hc14g")
-
-[node name="CameraRotationX" type="Node3D" parent="CameraPosition" unique_id=1610048915]
-
-[node name="CameraZoomPivot" type="Node3D" parent="CameraPosition/CameraRotationX" unique_id=2091394290]
-transform = Transform3D(1, 0, 0, 0, 0.76604444, 0.6427876, 0, -0.6427876, 0.76604444, 0, 6.809006, 6.0984364)
-
-[node name="Camera3D2" type="Camera3D" parent="CameraPosition/CameraRotationX/CameraZoomPivot" unique_id=1951622980]
-transform = Transform3D(1.0000001, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
-fov = 60.0
-script = ExtResource("4_s3uta")
+limite_z_min = -40
+limite_z_max = 40
+limite_x_min = -40
+limite_x_max = 40
 
 [node name="DayManager" type="Node" parent="." unique_id=687561421]
 script = ExtResource("13_ohlfa")
