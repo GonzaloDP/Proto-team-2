@@ -36,7 +36,7 @@ var lista_edificios = {
 		"es_pasivo": true,
 		"recurso_generado": [Recurso.Tipo_Recurso.MADERA],
 		"cantidad_generada": 10,
-		"costo": {Recurso.Tipo_Recurso.MADERA: 50, Recurso.Tipo_Recurso.PIEDRA: 25},
+		"costo": {Recurso.Tipo_Recurso.MADERA: 90, Recurso.Tipo_Recurso.PIEDRA: 65},
 		"icono": "res://Assets/3D/Edificios/Aserradero_Miniatura.png",
 		"puntos_construccion_requeridos": 120
 	},
@@ -45,7 +45,7 @@ var lista_edificios = {
 		"es_pasivo": true,
 		"recurso_generado": [Recurso.Tipo_Recurso.PIEDRA, Recurso.Tipo_Recurso.METAL],
 		"cantidad_generada": 10,
-		"costo": {Recurso.Tipo_Recurso.MADERA: 65, Recurso.Tipo_Recurso.PIEDRA: 35},
+		"costo": {Recurso.Tipo_Recurso.MADERA: 95, Recurso.Tipo_Recurso.PIEDRA: 55},
 		"icono": "res://Assets/3D/Edificios/Mina_Miniatura.png",
 		"puntos_construccion_requeridos": 130
 	},
@@ -54,7 +54,7 @@ var lista_edificios = {
 		"es_pasivo": true,
 		"recurso_generado": [Recurso.Tipo_Recurso.COMIDA],
 		"cantidad_generada": 10,
-		"costo": {Recurso.Tipo_Recurso.MADERA: 45, Recurso.Tipo_Recurso.COMIDA: 35},
+		"costo": {Recurso.Tipo_Recurso.MADERA: 85, Recurso.Tipo_Recurso.COMIDA: 65},
 		"icono": "res://Assets/3D/Edificios/Granja_Miniatura.png",
 		"puntos_construccion_requeridos": 120
 	}
