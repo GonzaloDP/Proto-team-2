@@ -2,6 +2,12 @@ extends Node3D
 
 signal camara_desplazada
 
+@export_group("Limites del mapa")
+@export var limite_z_min = -100
+@export var limite_z_max = 100
+@export var limite_x_min = -100
+@export var limite_x_max = 100
+
 @onready var rotation_x = $CameraRotationX
 @onready var zoom_pivot = $CameraRotationX/CameraZoomPivot
 @onready var camara = $CameraRotationX/CameraZoomPivot/Camera3D2
@@ -12,8 +18,8 @@ var edge_size = 5.0
 var scroll_speed = 20
 var zoom_speed = 3.0
 var zoom_target : float
-var min_zoom = -5
-var max_zoom = 20
+var min_zoom = 5
+var max_zoom = 50
 var mouse_sensitivity = 0.2
 var rotate_target : float
 
@@ -34,6 +40,10 @@ func _process(delta: float) -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	if Input.is_action_just_released("rotar"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+	if Input.is_action_pressed("RotarIzq"):
+		rotate_target += 60.0 * delta
+	if Input.is_action_pressed("RotarDer"):
+		rotate_target -= 60.0 * delta
 	
 	var input_direction = Input.get_vector("CamIzq","CamDer","CamArriba","CamAbajo")
 	var move_direction = (transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
@@ -55,6 +65,10 @@ func _process(delta: float) -> void:
 	elif mouse_pos.y > viewport_size.y - edge_size:
 		scroll_direction.z = 1
 	move_target += transform.basis * scroll_direction * scroll_speed * delta
+	
+	#Limites del mapa
+	move_target.x = clamp(move_target.x, limite_x_min,limite_x_max)
+	move_target.z = clamp(move_target.z, limite_z_min, limite_z_max)
 	
 	zoom_target += zoom_dir * zoom_speed
 	zoom_target = clamp(zoom_target,min_zoom,max_zoom)
